@@ -358,53 +358,63 @@ function DraggableSpiderMan() {
   const y = useMotionValue(0);
   const [isDragging, setIsDragging] = useState(false);
   const spiderRef = useRef(null);
-  const rafRef = useRef(null);
-  const anchorXRef = useRef(null);
-  const [webCoords, setWebCoords] = useState({ x1: 0, y1: 0, x2: 0, y2: 0 });
+  const pathRef = useRef(null);   // direct SVG path DOM node — no setState!
+  const rafRef  = useRef(null);
+  const anchorX = useRef(null);   // fixed horizontal anchor, set once on mount
 
   useEffect(() => {
     const tick = () => {
-      if (spiderRef.current) {
+      if (spiderRef.current && pathRef.current) {
         const rect = spiderRef.current.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const topY = rect.top + 8;
-        // Anchor is set once: the top of the viewport, directly above initial position
-        if (anchorXRef.current === null) anchorXRef.current = cx;
-        setWebCoords({ x1: anchorXRef.current, y1: 0, x2: cx, y2: topY });
+        const cx   = rect.left + rect.width  / 2;
+        const topY = rect.top  + 8;
+
+        // Lock anchor to Spider-Man's initial center-x
+        if (anchorX.current === null) anchorX.current = cx;
+
+        const ax = anchorX.current;
+        const qx = (ax + cx) / 2;
+        const qy = topY * 0.4;
+
+        // Write directly to DOM — zero React re-renders
+        pathRef.current.setAttribute(
+          'd', `M ${ax} 0 Q ${qx} ${qy} ${cx} ${topY}`
+        );
       }
       rafRef.current = requestAnimationFrame(tick);
     };
+
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
   }, []);
 
   return (
     <>
-      {/* Fixed SVG web strand — always connects anchor to Spider-Man's top */}
+      {/* Fixed SVG overlay — web strand with catenary sag */}
       <svg
         style={{
           position: 'fixed', top: 0, left: 0,
           width: '100vw', height: '100vh',
-          pointerEvents: 'none', zIndex: 9998, overflow: 'visible',
+          pointerEvents: 'none', zIndex: 9998,
+          overflow: 'visible',
         }}
       >
-        {/* Slight sag catenary effect via quadratic bezier */}
         <path
-          d={`M ${webCoords.x1} ${webCoords.y1} Q ${(webCoords.x1 + webCoords.x2) / 2} ${(webCoords.y2 * 0.35)} ${webCoords.x2} ${webCoords.y2}`}
-          stroke="rgba(190,190,190,0.92)"
+          ref={pathRef}
+          d="M 0 0 L 0 0"
+          stroke="rgba(195,195,195,0.9)"
           strokeWidth="2.5"
           fill="none"
           strokeLinecap="round"
-          style={{ filter: 'drop-shadow(0 0 3px rgba(200,200,200,0.5))' }}
+          style={{ filter: 'drop-shadow(0 0 4px rgba(210,210,210,0.55))' }}
         />
       </svg>
 
-      {/* The draggable Spider-Man figure */}
+      {/* Draggable Spider-Man — position: fixed so he floats over everything */}
       <motion.div
         ref={spiderRef}
         drag
-        dragMomentum
-        dragElastic={0.06}
+        dragMomentum={false}
         style={{
           x, y,
           position: 'fixed',
@@ -416,55 +426,57 @@ function DraggableSpiderMan() {
           userSelect: 'none',
         }}
         onDragStart={() => setIsDragging(true)}
-        onDragEnd={() => setIsDragging(false)}
-        whileDrag={{ scale: 1.12 }}
+        onDragEnd={()  => setIsDragging(false)}
+        whileDrag={{ scale: 1.1 }}
         animate={!isDragging ? { rotate: [-5, 5, -5] } : { rotate: 0 }}
-        transition={{
-          rotate: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
-        }}
+        transition={{ rotate: { duration: 4, repeat: Infinity, ease: 'easeInOut' } }}
       >
-        {/* Crimson ambient glow */}
-        <div
-          style={{
-            position: 'absolute', inset: 0,
-            background: 'radial-gradient(ellipse at 50% 20%, rgba(239,68,68,0.45), transparent 70%)',
-            filter: 'blur(28px)', zIndex: 0, pointerEvents: 'none',
-          }}
-        />
+        {/* Crimson glow behind figure */}
+        <div style={{
+          position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
+          background: 'radial-gradient(ellipse at 50% 20%, rgba(239,68,68,0.4), transparent 70%)',
+          filter: 'blur(26px)',
+        }} />
+
         <img
           src="/images/spiderman_hanging.png"
-          alt="Spider-Man – drag me anywhere!"
+          alt="Spider-Man – drag me!"
           draggable={false}
           style={{
-            width: 'clamp(140px, 16vw, 280px)',
+            width: 'clamp(130px, 15vw, 260px)',
             mixBlendMode: 'multiply',
-            filter: 'drop-shadow(0 6px 24px rgba(239,68,68,0.65)) drop-shadow(0 0 12px rgba(59,130,246,0.3))',
+            filter: 'drop-shadow(0 6px 22px rgba(239,68,68,0.65)) drop-shadow(0 0 10px rgba(59,130,246,0.3))',
             position: 'relative', zIndex: 1, display: 'block',
           }}
         />
-        {/* Pulsing DRAG ME label */}
+
+        {/* "DRAG ME" hint — fades in after 2s, repeats */}
         {!isDragging && (
-          <motion.div
+          <motion.span
             animate={{ opacity: [0, 1, 1, 0] }}
-            transition={{ duration: 2.5, delay: 2, repeat: Infinity, repeatDelay: 5 }}
+            transition={{ duration: 2.2, delay: 2, repeat: Infinity, repeatDelay: 6 }}
             style={{
-              position: 'absolute', bottom: -26, left: '50%',
+              position: 'absolute', bottom: -24, left: '50%',
               transform: 'translateX(-50%)',
               fontSize: 10, fontWeight: 700,
               fontFamily: 'JetBrains Mono, monospace',
               color: 'rgba(239,68,68,0.9)',
               whiteSpace: 'nowrap', letterSpacing: '0.12em',
               textTransform: 'uppercase',
-              textShadow: '0 0 8px rgba(239,68,68,0.6)',
+              textShadow: '0 0 8px rgba(239,68,68,0.55)',
+              pointerEvents: 'none',
             }}
           >
             ↔ DRAG ME
-          </motion.div>
+          </motion.span>
         )}
       </motion.div>
     </>
   );
 }
+
+
+
 
 /* ------------------------------------------------------------------ *
  * Hero Section — With Intricate Corner Spiderweb Overlays
