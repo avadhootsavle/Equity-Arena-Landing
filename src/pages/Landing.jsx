@@ -491,6 +491,13 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
               filter: 'drop-shadow(0 4px 28px rgba(239,68,68,0.6)) drop-shadow(0 0 12px rgba(59,130,246,0.3))',
             }}
           />
+          {/* Comic pop stamp next to Spider-man */}
+          <div
+            id="gsap-hero-spiderman-stamp"
+            className="absolute -left-12 top-[40%] opacity-0 scale-0 z-30 bg-[#ffd200] border-3 border-slate-950 text-slate-950 font-black uppercase px-3.5 py-1.5 rounded-lg text-xs rotate-[-12deg] shadow-[3px_3px_0px_#05070e] font-mono select-none"
+          >
+            *THWIP!*
+          </div>
         </div>
       </div>
 

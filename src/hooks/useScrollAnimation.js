@@ -66,6 +66,7 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
           const spidermanWrapper = homeRef.current.querySelector('#gsap-hero-spiderman-wrapper');
           const spidermanLine = homeRef.current.querySelector('#gsap-hero-spiderman-line');
           const spidermanBody = homeRef.current.querySelector('#gsap-hero-spiderman-body');
+          const spidermanStamp = homeRef.current.querySelector('#gsap-hero-spiderman-stamp');
           const heroHeader = homeRef.current.querySelector('h1');
           const gridFloor = homeRef.current.querySelector('.grid-floor');
 
@@ -87,6 +88,7 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
             // Initial state: starts high off-screen with rotation skew
             gsap.set(spidermanWrapper, { y: -450, rotate: -20 });
             gsap.set(spidermanLine, { scaleY: 0, transformOrigin: 'top center' });
+            if (spidermanStamp) gsap.set(spidermanStamp, { opacity: 0, scale: 0 });
 
             // Swing drop-down animation timeline
             gsap.timeline({ delay: 0.1 })
@@ -100,7 +102,24 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
                 scaleY: 1,
                 duration: 1.4,
                 ease: 'power2.out'
-              }, '<');
+              }, '<')
+              .to(spidermanStamp, {
+                opacity: 1,
+                scale: 1.25,
+                rotate: -12,
+                duration: 0.4,
+                ease: 'back.out(1.8)'
+              }, '-=0.55')
+              // Infinite idle swing rotation on body
+              .call(() => {
+                gsap.to(spidermanBody, {
+                  rotate: 4,
+                  duration: 2.5,
+                  ease: 'sine.inOut',
+                  yoyo: true,
+                  repeat: -1
+                });
+              });
           }
 
           if (spiderwebLine) {
