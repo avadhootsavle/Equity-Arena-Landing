@@ -465,9 +465,9 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
         {/* ---------- Left column (GSAP Hero Page-Load Entrance) ---------- */}
         <div data-gsap="hero" className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
           <h1 className="font-display mt-6 sm:mt-7 text-[clamp(2.25rem,6vw,4.6rem)] font-bold leading-[1.0] tracking-[-0.03em] text-white">
-            With great strategy
+            With great capital
             <br />
-            comes <span className="text-gradient-spidey">market dominance.</span>
+            comes <span className="text-gradient-spidey">great responsibility.</span>
           </h1>
 
           <p className="mt-5 sm:mt-6 max-w-[460px] text-[15px] sm:text-[16px] leading-relaxed text-slate-300">
