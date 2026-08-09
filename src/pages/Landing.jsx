@@ -45,7 +45,7 @@ function Reveal({ children, className = '', delay = 0 }) {
 /** Small eyebrow label above section headings. */
 function SectionTag({ icon: Icon, children }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300 backdrop-blur">
+    <span className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-red-400 backdrop-blur shadow-lg shadow-red-500/10">
       <Icon className="h-3.5 w-3.5 text-blue-400" />
       {children}
     </span>
@@ -57,10 +57,10 @@ function SectionTag({ icon: Icon, children }) {
  * ------------------------------------------------------------------ */
 const NAV_LINKS = [
   { label: 'Home', href: '#home' },
-  { label: 'Markets', href: '#markets' },
-  { label: 'News', href: '#news' },
-  { label: 'Features', href: '#features' },
-  { label: 'About', href: '#about' }
+  { label: 'Spider Board', href: '#markets' },
+  { label: 'Daily Bugle', href: '#news' },
+  { label: 'Web Features', href: '#features' },
+  { label: 'Spider-Verse', href: '#about' }
 ];
 
 function Navbar() {
@@ -74,7 +74,6 @@ function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Highlight the section currently in view
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -98,17 +97,17 @@ function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: easeOut }}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'border-b border-white/8 bg-[#070b14]/85 backdrop-blur-xl' : 'bg-transparent'
+        scrolled ? 'border-b border-red-500/20 bg-[#060812]/90 backdrop-blur-xl shadow-xl shadow-red-900/10' : 'bg-transparent'
       }`}
     >
       <nav className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-5 sm:px-8">
         {/* Brand */}
-        <a href="#home" className="group flex items-center gap-2.5">
-          <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg shadow-blue-500/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
-            <Activity className="h-5 w-5 text-white" strokeWidth={2.5} />
+        <a href="#home" className="group flex items-center gap-3">
+          <div className="relative flex h-10 w-10 overflow-hidden items-center justify-center rounded-xl bg-gradient-to-br from-red-600 via-red-500 to-blue-600 p-0.5 shadow-lg shadow-red-500/40 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+            <img src="/images/spider_emblem_hero.jpg" alt="Spider Emblem" className="h-full w-full object-cover rounded-[10px]" />
           </div>
           <span className="font-display text-[17px] font-bold tracking-[0.14em] text-white">
-            EQUITY<span className="text-blue-400">ARENA</span>
+            SPIDEY <span className="text-red-500">EQUITY</span> <span className="text-blue-400">ARENA</span>
           </span>
         </a>
 
@@ -120,11 +119,11 @@ function Navbar() {
               href={link.href}
               className="relative py-2 text-[14px] font-medium text-slate-400 transition-colors hover:text-white"
             >
-              <span className={active === link.href ? 'text-white' : ''}>{link.label}</span>
+              <span className={active === link.href ? 'text-red-400 font-semibold' : ''}>{link.label}</span>
               {active === link.href && (
                 <motion.span
                   layoutId="nav-underline"
-                  className="absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full bg-blue-500"
+                  className="absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full bg-gradient-to-r from-red-500 to-blue-500 shadow-md shadow-red-500/50"
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}
@@ -136,14 +135,14 @@ function Navbar() {
         <div className="flex items-center gap-3">
           <a
             href={REGISTER_URL}
-            className="glow-ring group flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-[14px] font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:bg-blue-500 hover:shadow-blue-500/40 sm:px-5"
+            className="glow-ring group flex items-center gap-2 rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-blue-600 px-5 py-2.5 text-[14px] font-semibold text-white shadow-lg shadow-red-600/30 transition-all hover:brightness-110 hover:shadow-red-500/50"
           >
-            Register
+            <span>Register</span>
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
           <button
             onClick={() => setMenuOpen((v) => !v)}
-            className="rounded-lg border border-white/10 p-2 text-slate-300 lg:hidden"
+            className="rounded-lg border border-red-500/20 p-2 text-slate-300 lg:hidden"
             aria-label="Toggle menu"
           >
             {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -158,7 +157,7 @@ function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t border-white/8 bg-[#070b14]/95 backdrop-blur-xl lg:hidden"
+            className="overflow-hidden border-t border-red-500/20 bg-[#060812]/95 backdrop-blur-xl lg:hidden"
           >
             <div className="flex flex-col px-6 py-4">
               {NAV_LINKS.map((link) => (
@@ -174,7 +173,7 @@ function Navbar() {
               <a
                 href={REGISTER_URL}
                 onClick={() => setMenuOpen(false)}
-                className="mt-3 block rounded-xl bg-blue-600 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-blue-600/25"
+                className="mt-3 block rounded-xl bg-gradient-to-r from-red-600 to-blue-600 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-red-600/30"
               >
                 Register Now
               </a>
@@ -190,9 +189,9 @@ function Navbar() {
  * Hero
  * ------------------------------------------------------------------ */
 const HERO_FEATURES = [
-  { icon: Zap, title: 'Tick-by-Tick Stream', sub: 'Sub-second WebSockets' },
-  { icon: Shield, title: 'Institutional Engine', sub: 'Instant order execution' },
-  { icon: BarChart3, title: 'Live Orderbook & Depth', sub: 'Real-time index updates' }
+  { icon: Zap, title: 'Spidey-Sense Ticker', sub: 'Sub-second WebSocket web' },
+  { icon: Shield, title: 'Stark Nanotech Fills', sub: 'Instant order execution' },
+  { icon: BarChart3, title: 'Spider-Verse Depth', sub: 'Real-time index matrix' }
 ];
 
 function Hero({ stocks, index, isLive }) {
@@ -201,13 +200,13 @@ function Hero({ stocks, index, isLive }) {
   const fade = useTransform(scrollY, [0, 500], [1, 0]);
 
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden pt-[72px]">
-      {/* Backdrop: radial glows + receding grid floor */}
+    <section id="home" className="relative min-h-screen overflow-hidden pt-[72px] spider-web-bg">
+      {/* Backdrop: Spider-man radial glows + receding grid floor */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -left-40 top-10 h-[520px] w-[520px] rounded-full bg-blue-600/18 blur-[120px]" />
-        <div className="absolute right-0 top-1/3 h-[460px] w-[460px] rounded-full bg-cyan-500/12 blur-[130px]" />
-        <div className="absolute bottom-0 left-1/2 h-[360px] w-[900px] -translate-x-1/2 rounded-full bg-blue-700/10 blur-[110px]" />
-        <div className="absolute inset-x-0 bottom-0 h-[45vh] grid-floor opacity-60" />
+        <div className="absolute -left-40 top-10 h-[550px] w-[550px] rounded-full bg-red-600/22 blur-[130px]" />
+        <div className="absolute right-0 top-1/3 h-[500px] w-[500px] rounded-full bg-blue-600/18 blur-[140px]" />
+        <div className="absolute bottom-0 left-1/2 h-[380px] w-[950px] -translate-x-1/2 rounded-full bg-red-700/15 blur-[120px]" />
+        <div className="absolute inset-x-0 bottom-0 h-[45vh] grid-floor opacity-70" />
       </div>
 
       <div className="mx-auto grid max-w-[1280px] items-center gap-14 px-5 pb-24 pt-14 sm:px-8 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pb-12 lg:pt-20">
@@ -215,9 +214,9 @@ function Hero({ stocks, index, isLive }) {
         <motion.div variants={stagger} initial="hidden" animate="show" className="relative z-10">
           {/* Badge */}
           <motion.div variants={fadeUp}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[12px] font-medium text-slate-300 backdrop-blur">
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-live" />
-              LIVE SIMULATED EXCHANGE • ZERO RISK • 15 SECTORS
+            <span className="inline-flex items-center gap-2 rounded-full border border-red-500/40 bg-red-500/10 px-4 py-2 text-[12px] font-semibold text-red-300 backdrop-blur shadow-lg shadow-red-500/20">
+              <span className="h-2 w-2 rounded-full bg-red-500 animate-live" />
+              🕷️ SPIDEY TRADING NETWORK • WEB-SHOOTER SPEED • ZERO RISK
             </span>
           </motion.div>
 
@@ -226,34 +225,33 @@ function Hero({ stocks, index, isLive }) {
             variants={fadeUp}
             className="font-display mt-7 text-[clamp(2.75rem,7vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.03em] text-white"
           >
-            Master the market
+            With great capital
             <br />
-            <span className="text-gradient-blue">before</span> risking a rupee.
+            comes <span className="text-gradient-spidey">great responsibility.</span>
           </motion.h1>
 
-          <motion.p variants={fadeUp} className="mt-6 max-w-[460px] text-[16px] leading-relaxed text-slate-400">
-            Experience a real-time simulated trading floor powered by live price action, breaking
-            market feeds, and institutional-grade analytics. Start with 20,000 Ignite Coins in
-            virtual capital and test your strategies risk-free.
+          <motion.p variants={fadeUp} className="mt-6 max-w-[460px] text-[16px] leading-relaxed text-slate-300">
+            Step into the Spider-Verse of trading. Monitor 15 high-volatility sector stocks,
+            sense price swings with your Spidey-Sense ticker, and sling orders across the live market web with 20,000 Ignite Coins.
           </motion.p>
 
           {/* CTAs */}
           <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center gap-5">
             <a
               href={REGISTER_URL}
-              className="glow-ring group flex items-center gap-2.5 rounded-2xl bg-blue-600 px-7 py-4 text-[15px] font-semibold text-white shadow-xl shadow-blue-600/30 transition-all hover:bg-blue-500 hover:shadow-blue-500/50"
+              className="glow-ring group flex items-center gap-2.5 rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-blue-600 px-7 py-4 text-[15px] font-bold text-white shadow-xl shadow-red-600/35 transition-all hover:scale-[1.02] hover:shadow-red-500/60"
             >
               Register Now
               <ArrowRight className="h-4.5 w-4.5 transition-transform group-hover:translate-x-1.5" />
             </a>
 
             <a href="#features" className="group flex items-center gap-3.5">
-              <span className="relative flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/5 transition-all group-hover:border-blue-400/50 group-hover:bg-blue-500/10">
+              <span className="relative flex h-12 w-12 items-center justify-center rounded-full border border-red-500/30 bg-red-500/10 transition-all group-hover:border-red-400 group-hover:bg-red-500/20">
                 <Play className="h-4 w-4 fill-white text-white translate-x-[1px]" />
-                <span className="absolute inset-0 rounded-full border border-blue-400/30 opacity-0 transition-all duration-500 group-hover:scale-[1.35] group-hover:opacity-100" />
+                <span className="absolute inset-0 rounded-full border border-blue-400/40 opacity-0 transition-all duration-500 group-hover:scale-[1.35] group-hover:opacity-100" />
               </span>
               <span className="text-[15px] font-medium text-slate-300 transition group-hover:text-white">
-                See terminal features
+                Explore Web Terminal
               </span>
             </a>
           </motion.div>
@@ -261,28 +259,34 @@ function Hero({ stocks, index, isLive }) {
           {/* Feature strip */}
           <motion.div
             variants={fadeUp}
-            className="mt-12 grid grid-cols-1 gap-1 rounded-2xl border border-white/8 bg-white/[0.025] p-2 backdrop-blur-sm sm:grid-cols-3"
+            className="mt-12 grid grid-cols-1 gap-1 rounded-2xl border border-red-500/20 bg-slate-900/60 p-2 backdrop-blur-md sm:grid-cols-3 shadow-xl"
           >
             {HERO_FEATURES.map(({ icon: Icon, title, sub }) => (
               <div
                 key={title}
-                className="group flex items-center gap-3 rounded-xl px-3.5 py-3 transition-colors hover:bg-white/[0.04]"
+                className="group flex items-center gap-3 rounded-xl px-3.5 py-3 transition-colors hover:bg-red-500/10"
               >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-500/12 ring-1 ring-blue-400/20 transition-transform group-hover:scale-110">
-                  <Icon className="h-4 w-4 text-blue-400" />
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-500/20 ring-1 ring-red-400/30 transition-transform group-hover:scale-110">
+                  <Icon className="h-4 w-4 text-red-400" />
                 </span>
                 <span className="min-w-0">
-                  <span className="block truncate text-[12.5px] font-semibold text-slate-100">{title}</span>
-                  <span className="block truncate text-[11px] text-slate-500">{sub}</span>
+                  <span className="block truncate text-[12.5px] font-bold text-slate-100">{title}</span>
+                  <span className="block truncate text-[11px] text-slate-400">{sub}</span>
                 </span>
               </div>
             ))}
           </motion.div>
         </motion.div>
 
-        {/* ---------- Right column: 3D deck ---------- */}
+        {/* ---------- Right column: 3D deck + Spider Banner preview ---------- */}
         <motion.div style={{ y }} className="relative lg:pr-14">
-          <HeroDeck stocks={stocks} index={index} isLive={isLive} />
+          <div className="relative rounded-3xl p-2 border border-red-500/30 bg-gradient-to-b from-red-600/10 via-slate-950 to-blue-600/10 shadow-2xl shadow-red-950/80 backdrop-blur-xl">
+            {/* Embedded High-Tech Spider Cyber Image */}
+            <div className="mb-4 overflow-hidden rounded-2xl border border-red-500/20 shadow-lg">
+              <img src="/images/spider_cyber_hero.jpg" alt="Spider-Man Trading Terminal" className="h-44 w-full object-cover brightness-110 hover:scale-105 transition-transform duration-700" />
+            </div>
+            <HeroDeck stocks={stocks} index={index} isLive={isLive} />
+          </div>
         </motion.div>
       </div>
 
@@ -291,18 +295,18 @@ function Hero({ stocks, index, isLive }) {
         style={{ opacity: fade }}
         className="absolute inset-x-0 bottom-7 z-10 mx-auto flex max-w-[1280px] items-center justify-between px-5 sm:px-8"
       >
-        <span className="flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.16em] text-slate-500">
-          <span className="flex h-5 w-3.5 items-start justify-center rounded-full border border-slate-600 pt-1">
+        <span className="flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.16em] text-red-400/80">
+          <span className="flex h-5 w-3.5 items-start justify-center rounded-full border border-red-500/40 pt-1">
             <motion.span
-              className="h-1 w-1 rounded-full bg-slate-400"
+              className="h-1 w-1 rounded-full bg-red-400"
               animate={{ y: [0, 5, 0] }}
               transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
             />
           </span>
-          Scroll to explore
+          Scroll across the spider web
         </span>
         <motion.div animate={{ y: [0, 7, 0] }} transition={{ duration: 1.8, repeat: Infinity }}>
-          <ChevronDown className="h-5 w-5 text-slate-500" />
+          <ChevronDown className="h-5 w-5 text-red-400" />
         </motion.div>
       </motion.div>
     </section>
@@ -316,23 +320,23 @@ function TickerTape({ stocks }) {
   const doubled = [...stocks, ...stocks];
 
   return (
-    <div className="marquee-track relative overflow-hidden border-y border-white/8 bg-[#0a0f1c]/80 py-3.5 backdrop-blur">
+    <div className="marquee-track relative overflow-hidden border-y border-red-500/20 bg-[#060814]/90 py-3.5 backdrop-blur">
       {/* Edge fades */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-[#070b14] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-[#070b14] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-[#060814] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-[#060814] to-transparent" />
 
       <div className="flex w-max animate-marquee gap-8">
         {doubled.map((stock, i) => {
           const positive = (stock.percentChange || 0) >= 0;
           return (
             <div key={`${stock.symbol}-${i}`} className="flex shrink-0 items-center gap-2.5 text-[13px]">
-              <span className="font-display font-bold text-slate-200">{stock.symbol}</span>
+              <span className="font-display font-bold text-slate-100">{stock.symbol}</span>
               <span className="font-mono text-slate-400 tabular-nums">{(stock.currentPrice || 0).toFixed(2)}</span>
-              <span className={`flex items-center gap-1 font-mono text-[12px] ${positive ? 'text-emerald-400' : 'text-rose-400'}`}>
-                <TrendingUp className={`h-3 w-3 ${positive ? '' : 'rotate-180'}`} />
+              <span className={`flex items-center gap-1 font-mono text-[12px] ${positive ? 'text-emerald-400' : 'text-red-400'}`}>
+                <TrendingUp className={`h-3 w-3 ${positive ? '' : 'rotate-180 text-red-400'}`} />
                 {positive ? '+' : ''}{(stock.percentChange || 0).toFixed(2)}%
               </span>
-              <span className="text-slate-700">|</span>
+              <span className="text-red-500/40">🕸️</span>
             </div>
           );
         })}
@@ -345,9 +349,9 @@ function TickerTape({ stocks }) {
  * Stats band
  * ------------------------------------------------------------------ */
 const STATS = [
-  { value: 15, suffix: '', label: 'Core Sector Listings' },
-  { value: 20000, suffix: ' IC', label: 'Starting Virtual Capital' },
-  { value: 100, suffix: '%', label: 'Simulated & Risk-Free' }
+  { value: 15, suffix: '', label: 'Spider-Sense Listings' },
+  { value: 20000, suffix: ' IC', label: 'Web Capital Balance' },
+  { value: 100, suffix: '%', label: 'Risk-Free Simulation' }
 ];
 
 /** Counts up to a target when scrolled into view. */
@@ -363,7 +367,6 @@ function CountUp({ to, suffix = '' }) {
 
     const tick = (now) => {
       const progress = Math.min((now - start) / duration, 1);
-      // easeOutExpo
       const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
       setValue(Math.round(to * eased));
       if (progress < 1) frame = requestAnimationFrame(tick);
@@ -386,12 +389,12 @@ function CountUp({ to, suffix = '' }) {
 
 function StatsBand() {
   return (
-    <section className="relative border-b border-white/8 py-16">
+    <section className="relative border-b border-red-500/15 py-16 bg-slate-950/80">
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-8 px-5 sm:grid-cols-3 sm:px-8">
         {STATS.map((stat, i) => (
           <Reveal key={stat.label} delay={i * 0.08} className="text-center lg:text-left">
             <CountUp to={stat.value} suffix={stat.suffix} />
-            <p className="mt-2 text-[13px] text-slate-500">{stat.label}</p>
+            <p className="mt-2 text-[13px] text-red-400/80 font-medium">{stat.label}</p>
           </Reveal>
         ))}
       </div>
@@ -402,7 +405,6 @@ function StatsBand() {
 /* ------------------------------------------------------------------ *
  * Markets — the full 15-stock board
  * ------------------------------------------------------------------ */
-// forwardRef so AnimatePresence's popLayout mode can measure the card on exit
 const StockCard = forwardRef(function StockCard({ stock, i }, ref) {
   const theme = sectorTheme(stock.sector);
   const positive = (stock.percentChange || 0) >= 0;
@@ -415,10 +417,9 @@ const StockCard = forwardRef(function StockCard({ stock, i }, ref) {
       exit={{ opacity: 0, scale: 0.94 }}
       transition={{ duration: 0.45, delay: Math.min(i, 8) * 0.05, ease: easeOut }}
       whileHover={{ y: -6, rotateX: 4, rotateY: -4, transition: { duration: 0.25 } }}
-      className="layer-3d group relative overflow-hidden rounded-2xl border border-white/8 bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-4 backdrop-blur-sm transition-colors hover:border-blue-400/25"
+      className="layer-3d group relative overflow-hidden rounded-2xl border border-red-500/20 bg-gradient-to-b from-slate-900/80 to-slate-950/90 p-4 backdrop-blur-md transition-all hover:border-red-500/50 hover:shadow-xl hover:shadow-red-950/50"
     >
-      {/* Hover glow wash */}
-      <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-blue-500/0 blur-2xl transition-all duration-500 group-hover:bg-blue-500/20" />
+      <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-red-500/0 blur-2xl transition-all duration-500 group-hover:bg-red-500/25" />
 
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
@@ -429,13 +430,13 @@ const StockCard = forwardRef(function StockCard({ stock, i }, ref) {
           </div>
           <div className="min-w-0">
             <p className="font-display text-[15px] font-bold tracking-wide text-white">{stock.symbol}</p>
-            <p className="truncate text-[11.5px] text-slate-500">{stock.name}</p>
+            <p className="truncate text-[11.5px] text-slate-400">{stock.name}</p>
           </div>
         </div>
 
         <span
           className={`shrink-0 rounded-lg px-2 py-1 font-mono text-[11.5px] font-semibold ${
-            positive ? 'bg-emerald-500/12 text-emerald-400' : 'bg-rose-500/12 text-rose-400'
+            positive ? 'bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-500/30' : 'bg-red-500/15 text-red-400 ring-1 ring-red-500/30'
           }`}
         >
           {positive ? '+' : ''}{(stock.percentChange || 0).toFixed(2)}%
@@ -446,19 +447,17 @@ const StockCard = forwardRef(function StockCard({ stock, i }, ref) {
         <div>
           <p className="font-mono text-[20px] font-semibold text-slate-100 tabular-nums">
             {(stock.currentPrice || 0).toFixed(2)}
-            <span className="ml-1 text-[11px] font-normal text-slate-500">IC</span>
+            <span className="ml-1 text-[11px] font-normal text-red-400/70">IC</span>
           </p>
-          <p className="mt-1 text-[10.5px] uppercase tracking-wider text-slate-600">{stock.sector}</p>
+          <p className="mt-1 text-[10.5px] uppercase tracking-wider text-slate-500">{stock.sector}</p>
         </div>
 
-        {/* Micro sparkline */}
         <MiniSpark history={stock.priceHistories} positive={positive} seed={i} />
       </div>
     </motion.div>
   );
 });
 
-/** Compact sparkline; synthesises a plausible curve when history is absent. */
 function MiniSpark({ history, positive, seed = 0 }) {
   const points = useMemo(() => {
     const prices =
@@ -480,7 +479,7 @@ function MiniSpark({ history, positive, seed = 0 }) {
       <polyline
         points={points}
         fill="none"
-        stroke={positive ? '#10b981' : '#f43f5e'}
+        stroke={positive ? '#10b981' : '#ef4444'}
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -499,31 +498,29 @@ function Markets({ stocks, isLive }) {
 
   const TABS = [
     { id: 'ALL', label: 'All listings', count: stocks.length },
-    { id: 'GAINERS', label: 'Gainers', count: gainers.length },
-    { id: 'LOSERS', label: 'Losers', count: losers.length }
+    { id: 'GAINERS', label: 'Top Gainers', count: gainers.length },
+    { id: 'LOSERS', label: 'Top Losers', count: losers.length }
   ];
 
   return (
     <section id="markets" className="relative overflow-hidden py-24 sm:py-28">
-      <div className="pointer-events-none absolute left-1/2 top-20 h-[400px] w-[700px] -translate-x-1/2 rounded-full bg-blue-600/8 blur-[120px]" />
+      <div className="pointer-events-none absolute left-1/2 top-20 h-[400px] w-[700px] -translate-x-1/2 rounded-full bg-red-600/10 blur-[140px]" />
 
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <Reveal className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
           <div>
-            <SectionTag icon={Radio}>Live Market Board</SectionTag>
+            <SectionTag icon={Radio}>Spider Market Board</SectionTag>
             <h2 className="font-display mt-5 text-[clamp(2rem,4.5vw,3.1rem)] font-bold leading-[1.05] tracking-[-0.025em] text-white">
               15 Sector Listings,
               <br />
-              <span className="text-gradient-blue">priced in real time.</span>
+              <span className="text-gradient-spidey">priced across the web.</span>
             </h2>
-            <p className="mt-4 max-w-[480px] text-[15px] leading-relaxed text-slate-400">
-              Track live prices across India's primary market sectors — from Aviation and Defense
-              to Renewable Energy and Technology. Asset prices move continuously based on market dynamics.
+            <p className="mt-4 max-w-[480px] text-[15px] leading-relaxed text-slate-300">
+              Track live prices across India's primary sectors. Asset prices swing continuously in real-time as market sentiment moves through the web network.
             </p>
           </div>
 
-          {/* Filter tabs */}
-          <div className="flex max-w-full gap-1.5 overflow-x-auto rounded-2xl border border-white/8 bg-white/[0.03] p-1.5 backdrop-blur">
+          <div className="flex max-w-full gap-1.5 overflow-x-auto rounded-2xl border border-red-500/20 bg-slate-900/60 p-1.5 backdrop-blur-md">
             {TABS.map((tab) => (
               <button
                 key={tab.id}
@@ -535,13 +532,13 @@ function Markets({ stocks, isLive }) {
                 {filter === tab.id && (
                   <motion.span
                     layoutId="market-tab"
-                    className="absolute inset-0 rounded-xl bg-blue-600 shadow-lg shadow-blue-600/25"
+                    className="absolute inset-0 rounded-xl bg-gradient-to-r from-red-600 to-blue-600 shadow-lg shadow-red-600/30"
                     transition={{ type: 'spring', stiffness: 380, damping: 32 }}
                   />
                 )}
                 <span className="relative">
                   {tab.label}
-                  <span className={`ml-1.5 text-[11px] ${filter === tab.id ? 'text-blue-100' : 'text-slate-600'}`}>
+                  <span className={`ml-1.5 text-[11px] ${filter === tab.id ? 'text-red-100' : 'text-slate-500'}`}>
                     {tab.count}
                   </span>
                 </span>
@@ -550,7 +547,6 @@ function Markets({ stocks, isLive }) {
           </div>
         </Reveal>
 
-        {/* Grid */}
         <div className="stage-3d mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {visible.map((stock, i) => (
@@ -559,18 +555,18 @@ function Markets({ stocks, isLive }) {
           </AnimatePresence>
         </div>
 
-        <Reveal className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/8 bg-white/[0.025] px-6 py-5">
-          <p className="flex items-center gap-2.5 text-[13.5px] text-slate-400">
-            <span className={`h-2 w-2 rounded-full ${isLive ? 'bg-emerald-400 animate-live' : 'bg-amber-400'}`} />
+        <Reveal className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-red-500/20 bg-slate-900/40 px-6 py-5">
+          <p className="flex items-center gap-2.5 text-[13.5px] text-slate-300">
+            <span className={`h-2 w-2 rounded-full ${isLive ? 'bg-red-500 animate-live' : 'bg-amber-400'}`} />
             {isLive
-              ? 'Streaming live prices from the Equity Arena exchange engine'
-              : 'Showing reference market seeds — register for the live orderbook feed'}
+              ? 'Streaming live price ticks across the Spider-Man trading web'
+              : 'Showing reference market seeds — register to enter the live Spider-Verse'}
           </p>
           <a
             href={REGISTER_URL}
-            className="group flex items-center gap-2 text-[14px] font-semibold text-blue-400 transition hover:text-blue-300"
+            className="group flex items-center gap-2 text-[14px] font-semibold text-red-400 transition hover:text-red-300"
           >
-            Register to Trade These Stocks
+            Register to Sling Trades
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
         </Reveal>
@@ -584,58 +580,58 @@ function Markets({ stocks, isLive }) {
  * ------------------------------------------------------------------ */
 const FEATURES = [
   {
-    icon: Activity,
-    title: 'Tick-by-tick streaming',
-    body: 'Sub-second WebSocket feeds push live price ticks across all 15 sector listings directly to your terminal with zero refresh latency.',
+    icon: Zap,
+    title: 'Spidey-Sense WebSocket Ticker',
+    body: 'Sub-second price feeds push continuous ticks across all 15 sector listings straight to your terminal with zero lag.',
     span: 'lg:col-span-2'
   },
   {
     icon: Newspaper,
-    title: 'Breaking market feeds',
-    body: 'Real-time administrative news broadcasts shift asset valuations dynamically. Analyze headlines instantly and position your trades.',
+    title: 'Daily Bugle Market Feeds',
+    body: 'Breaking market news broadcast directly from the Daily Bugle desk moves asset valuations instantly. Read fast, trade faster.',
     span: ''
   },
   {
     icon: Wallet,
-    title: '20,000 Ignite Coins',
-    body: 'Begin trading immediately with 20,000 virtual capital. Build, rebalance, and optimize your portfolio without financial risk.',
+    title: '20,000 Web Capital (IC)',
+    body: 'Begin trading immediately with 20,000 Ignite Coins. Build, rebalance, and optimize your portfolio without financial risk.',
     span: ''
   },
   {
     icon: LineChart,
-    title: 'Technical analysis & depth',
+    title: 'Web Matrix Technical Charts',
     body: 'Evaluate price trends with smooth candlestick curves, 10-period moving averages, and multi-timeframe chart history (1M to 1H).',
     span: 'lg:col-span-2'
   },
   {
     icon: Trophy,
-    title: 'Live trader rankings',
-    body: 'Compete on the global leaderboard. Trader portfolio valuations recalculate dynamically with every market tick.',
+    title: 'Spider-Verse Leaderboard',
+    body: 'Compete against traders across the multiverse. Leaderboard portfolio valuations recalculate dynamically on every price tick.',
     span: ''
   },
   {
     icon: Lock,
-    title: 'Session security',
+    title: 'Nanotech Security',
     body: 'Protected with JWT-authenticated sessions, hashed credentials, and role-scoped trader permissions.',
     span: ''
   },
   {
     icon: Gauge,
-    title: 'Zero slippage fills',
-    body: 'Buy and market sell orders execute immediately against your virtual wallet — no settlement delays or pending states.',
+    title: 'Zero Latency Fills',
+    body: 'Buy and market sell orders execute immediately against your virtual web wallet — no settlement delays or pending states.',
     span: ''
   }
 ];
 
 function Features() {
   return (
-    <section id="features" className="relative border-t border-white/8 py-24 sm:py-28">
+    <section id="features" className="relative border-t border-red-500/20 py-24 sm:py-28 bg-slate-950/60">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <Reveal className="max-w-[620px]">
-          <SectionTag icon={Sparkles}>Terminal Capabilities</SectionTag>
+          <SectionTag icon={Sparkles}>Web Capabilities</SectionTag>
           <h2 className="font-display mt-5 text-[clamp(2rem,4.5vw,3.1rem)] font-bold leading-[1.05] tracking-[-0.025em] text-white">
-            Institutional trading engine.
-            <span className="text-gradient-emerald"> Zero capital risk.</span>
+            High-tech trading suite.
+            <span className="text-gradient-spidey"> Zero capital risk.</span>
           </h2>
         </Reveal>
 
@@ -651,16 +647,16 @@ function Features() {
               key={title}
               variants={fadeUp}
               whileHover={{ y: -5, transition: { duration: 0.25 } }}
-              className={`glow-ring layer-3d group relative overflow-hidden rounded-2xl border border-white/8 bg-gradient-to-b from-white/[0.045] to-white/[0.01] p-6 backdrop-blur-sm ${span}`}
+              className={`glow-ring layer-3d group relative overflow-hidden rounded-2xl border border-red-500/20 bg-gradient-to-b from-slate-900/80 to-slate-950/90 p-6 backdrop-blur-md ${span}`}
             >
-              <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-blue-500/0 blur-3xl transition-all duration-500 group-hover:bg-blue-500/15" />
+              <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-red-500/0 blur-3xl transition-all duration-500 group-hover:bg-red-500/20" />
 
-              <span className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/25 to-cyan-400/10 ring-1 ring-blue-400/20 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
-                <Icon className="h-5.5 w-5.5 text-blue-300" strokeWidth={1.9} />
+              <span className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-red-600/30 to-blue-500/20 ring-1 ring-red-400/30 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
+                <Icon className="h-5.5 w-5.5 text-red-400" strokeWidth={1.9} />
               </span>
 
               <h3 className="font-display relative mt-5 text-[18px] font-bold tracking-tight text-white">{title}</h3>
-              <p className="relative mt-2.5 text-[14px] leading-relaxed text-slate-400">{body}</p>
+              <p className="relative mt-2.5 text-[14px] leading-relaxed text-slate-300">{body}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -670,7 +666,7 @@ function Features() {
 }
 
 /* ------------------------------------------------------------------ *
- * News
+ * News — Daily Bugle Feed
  * ------------------------------------------------------------------ */
 const NEWS_FEED = [
   {
@@ -704,37 +700,36 @@ const NEWS_FEED = [
 ];
 
 const TONES = {
-  emerald: 'bg-emerald-500/12 text-emerald-300 ring-emerald-400/25',
-  blue: 'bg-blue-500/12 text-blue-300 ring-blue-400/25',
-  violet: 'bg-violet-500/12 text-violet-300 ring-violet-400/25',
-  rose: 'bg-rose-500/12 text-rose-300 ring-rose-400/25'
+  emerald: 'bg-emerald-500/15 text-emerald-300 ring-emerald-500/30',
+  blue: 'bg-blue-500/15 text-blue-300 ring-blue-500/30',
+  violet: 'bg-violet-500/15 text-violet-300 ring-violet-500/30',
+  rose: 'bg-red-500/15 text-red-300 ring-red-500/30'
 };
 
 function News() {
   return (
-    <section id="news" className="relative overflow-hidden border-t border-white/8 py-24 sm:py-28">
-      <div className="pointer-events-none absolute right-0 top-1/4 h-[380px] w-[520px] rounded-full bg-cyan-500/8 blur-[130px]" />
+    <section id="news" className="relative overflow-hidden border-t border-red-500/20 py-24 sm:py-28">
+      <div className="pointer-events-none absolute right-0 top-1/4 h-[380px] w-[520px] rounded-full bg-blue-600/10 blur-[140px]" />
 
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <Reveal className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
           <div className="max-w-[560px]">
-            <SectionTag icon={Newspaper}>Market Intelligence</SectionTag>
+            <SectionTag icon={Newspaper}>Daily Bugle Feed 📰</SectionTag>
             <h2 className="font-display mt-5 text-[clamp(2rem,4.5vw,3.1rem)] font-bold leading-[1.05] tracking-[-0.025em] text-white">
-              Breaking catalysts.
+              Daily Bugle Headlines.
               <br />
-              <span className="text-gradient-blue">Immediate price action.</span>
+              <span className="text-gradient-crimson">Web Fills React.</span>
             </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-slate-400">
-              Market-moving announcements broadcast directly to the trading floor. Position your
-              portfolio ahead of macro shifts and corporate catalysts.
+            <p className="mt-4 text-[15px] leading-relaxed text-slate-300">
+              Market-moving announcements broadcast directly to the trading floor. Position your portfolio ahead of macro shifts and corporate catalysts.
             </p>
           </div>
 
           <a
             href={REGISTER_URL}
-            className="group flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-[14px] font-medium text-slate-200 transition hover:border-blue-400/30 hover:bg-blue-500/10"
+            className="group flex items-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-5 py-3 text-[14px] font-medium text-slate-200 transition hover:border-red-400 hover:bg-red-500/20"
           >
-            Register for News Feed
+            Register for Bugle Feed
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
         </Reveal>
@@ -751,21 +746,21 @@ function News() {
               key={item.title}
               variants={fadeUp}
               whileHover={{ x: 6, transition: { duration: 0.25 } }}
-              className="group relative overflow-hidden rounded-2xl border border-white/8 bg-white/[0.025] p-6 backdrop-blur-sm transition-colors hover:border-white/15"
+              className="group relative overflow-hidden rounded-2xl border border-red-500/20 bg-slate-900/60 p-6 backdrop-blur-md transition-colors hover:border-red-500/40"
             >
               <div className="flex items-center gap-3">
                 <span className={`rounded-full px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-wider ring-1 ${TONES[item.tone]}`}>
                   {item.tag}
                 </span>
-                <span className="text-[11.5px] text-slate-500">{item.time}</span>
+                <span className="text-[11.5px] text-slate-400">{item.time}</span>
               </div>
 
-              <h3 className="font-display mt-4 text-[17px] font-bold leading-snug tracking-tight text-white transition-colors group-hover:text-blue-300">
+              <h3 className="font-display mt-4 text-[17px] font-bold leading-snug tracking-tight text-white transition-colors group-hover:text-red-400">
                 {item.title}
               </h3>
-              <p className="mt-2 text-[13.5px] leading-relaxed text-slate-400">{item.body}</p>
+              <p className="mt-2 text-[13.5px] leading-relaxed text-slate-300">{item.body}</p>
 
-              <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-500 group-hover:w-full" />
+              <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-red-600 to-blue-600 transition-all duration-500 group-hover:w-full" />
             </motion.article>
           ))}
         </motion.div>
@@ -781,38 +776,38 @@ const STEPS = [
   {
     n: '01',
     icon: Users,
-    title: 'Claim Your Trading Desk',
-    body: 'Register in seconds to receive 20,000 Ignite Coins credited to your virtual wallet.'
+    title: 'Claim Your Spider Desk',
+    body: 'Register in seconds to receive 20,000 Ignite Coins credited to your web wallet.'
   },
   {
     n: '02',
     icon: LineChart,
-    title: 'Analyze Market Structure',
+    title: 'Sense Market Moves',
     body: 'Monitor the 15 sector benchmarks, chart patterns, and live WebSocket price movements.'
   },
   {
     n: '03',
     icon: Coins,
-    title: 'Execute Fills',
+    title: 'Sling Your Fills',
     body: 'Submit instant market orders to enter or exit positions with zero slippage.'
   },
   {
     n: '04',
     icon: Trophy,
-    title: 'Dominate the Leaderboard',
+    title: 'Conquer the Spider-Verse',
     body: 'Track real-time P&L changes and climb the global trader rankings as markets move.'
   }
 ];
 
 function About() {
   return (
-    <section id="about" className="relative border-t border-white/8 py-24 sm:py-28">
+    <section id="about" className="relative border-t border-red-500/20 py-24 sm:py-28 bg-slate-950/70">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <Reveal className="mx-auto max-w-[620px] text-center">
           <SectionTag icon={Gauge}>Execution Workflow</SectionTag>
           <h2 className="font-display mt-5 text-[clamp(2rem,4.5vw,3.1rem)] font-bold leading-[1.05] tracking-[-0.025em] text-white">
             From setup to
-            <span className="text-gradient-blue"> first fill</span> in seconds.
+            <span className="text-gradient-spidey"> first fill</span> in seconds.
           </h2>
         </Reveal>
 
@@ -823,25 +818,24 @@ function About() {
           viewport={{ once: true, margin: '-60px' }}
           className="stage-3d relative mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4"
         >
-          {/* Connector rail */}
-          <div className="pointer-events-none absolute left-0 right-0 top-[52px] hidden h-px bg-gradient-to-r from-transparent via-blue-500/25 to-transparent lg:block" />
+          <div className="pointer-events-none absolute left-0 right-0 top-[52px] hidden h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent lg:block" />
 
           {STEPS.map(({ n, icon: Icon, title, body }) => (
             <motion.div
               key={n}
               variants={fadeUp}
               whileHover={{ y: -7, rotateY: 5, transition: { duration: 0.25 } }}
-              className="layer-3d group relative rounded-2xl border border-white/8 bg-gradient-to-b from-white/[0.045] to-transparent p-6 text-center backdrop-blur-sm transition-colors hover:border-blue-400/25"
+              className="layer-3d group relative rounded-2xl border border-red-500/20 bg-slate-900/60 p-6 text-center backdrop-blur-md transition-colors hover:border-red-500/50"
             >
-              <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-[#0d1424] shadow-lg shadow-black/40 transition-transform duration-300 group-hover:scale-110">
-                <Icon className="h-6 w-6 text-blue-400" strokeWidth={1.8} />
-                <span className="absolute -right-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 font-mono text-[10px] font-bold text-white shadow-md shadow-blue-600/40">
+              <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-red-500/30 bg-[#0c0f1d] shadow-lg shadow-red-950/50 transition-transform duration-300 group-hover:scale-110">
+                <Icon className="h-6 w-6 text-red-400" strokeWidth={1.8} />
+                <span className="absolute -right-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-red-600 to-blue-600 font-mono text-[10px] font-bold text-white shadow-md shadow-red-600/40">
                   {n}
                 </span>
               </span>
 
               <h3 className="font-display mt-5 text-[17px] font-bold tracking-tight text-white">{title}</h3>
-              <p className="mt-2.5 text-[13.5px] leading-relaxed text-slate-400">{body}</p>
+              <p className="mt-2.5 text-[13.5px] leading-relaxed text-slate-300">{body}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -851,57 +845,56 @@ function About() {
 }
 
 /* ------------------------------------------------------------------ *
- * Closing CTA
+ * Closing CTA — Spider-Man Web Skyline Banner
  * ------------------------------------------------------------------ */
 function FinalCTA() {
   return (
     <section className="relative py-24 sm:py-28">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <Reveal>
-          <div className="stage-3d relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-blue-600/18 via-[#0c1322] to-cyan-500/10 px-6 py-16 text-center sm:px-16 sm:py-20">
-            {/* Ambient light + grid */}
-            <div className="pointer-events-none absolute inset-0 opacity-50">
-              <div className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-blue-500/25 blur-[100px]" />
-              <div className="absolute -bottom-24 -right-16 h-72 w-72 rounded-full bg-cyan-400/20 blur-[100px]" />
+          <div className="stage-3d relative overflow-hidden rounded-[32px] border border-red-500/30 bg-slate-950 px-6 py-16 text-center sm:px-16 sm:py-20 shadow-2xl shadow-red-950/80">
+            {/* Background Image: Futuristic Spider Web City Skyline */}
+            <div className="absolute inset-0 -z-10 opacity-35">
+              <img src="/images/spider_web_banner.jpg" alt="Spider Web Skyline" className="h-full w-full object-cover" />
             </div>
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 grid-floor opacity-40" />
+
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
 
             <motion.div
-              className="layer-3d relative"
+              className="layer-3d relative z-10"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: easeOut }}
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-2 text-[12px] font-medium text-slate-200 backdrop-blur">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-live" />
-                The trading floor is open
+              <span className="inline-flex items-center gap-2 rounded-full border border-red-500/40 bg-red-500/10 px-4 py-2 text-[12px] font-semibold text-red-300 backdrop-blur shadow-lg shadow-red-500/20">
+                <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-live" />
+                🕷️ The Spider Trading Web is Open
               </span>
 
               <h2 className="font-display mx-auto mt-7 max-w-[720px] text-[clamp(2.1rem,5vw,3.6rem)] font-bold leading-[1.03] tracking-[-0.03em] text-white">
-                Ready to test your
+                Ready to sling your
                 <br />
-                market <span className="text-gradient-blue">edge?</span>
+                first <span className="text-gradient-spidey">trade?</span>
               </h2>
 
-              <p className="mx-auto mt-5 max-w-[480px] text-[15.5px] leading-relaxed text-slate-400">
-                Claim your 20,000 Ignite Coins, analyze live sector trends, and execute orders on the
-                arena trading floor today.
+              <p className="mx-auto mt-5 max-w-[480px] text-[15.5px] leading-relaxed text-slate-300">
+                Claim your 20,000 Ignite Coins, analyze live sector trends, and dominate the Spider-Verse leaderboard today.
               </p>
 
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
                 <a
                   href={REGISTER_URL}
-                  className="glow-ring group flex items-center gap-2.5 rounded-2xl bg-blue-600 px-8 py-4 text-[15px] font-semibold text-white shadow-xl shadow-blue-600/35 transition-all hover:bg-blue-500 hover:shadow-blue-500/50"
+                  className="glow-ring group flex items-center gap-2.5 rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-blue-600 px-8 py-4 text-[15px] font-bold text-white shadow-xl shadow-red-600/40 transition-all hover:scale-[1.03] hover:shadow-red-500/60"
                 >
                   Register Now
                   <ArrowRight className="h-4.5 w-4.5 transition-transform group-hover:translate-x-1.5" />
                 </a>
                 <a
                   href="#markets"
-                  className="rounded-2xl border border-white/12 bg-white/5 px-7 py-4 text-[15px] font-medium text-slate-200 backdrop-blur transition hover:border-white/25 hover:bg-white/10"
+                  className="rounded-2xl border border-red-500/30 bg-slate-900/60 px-7 py-4 text-[15px] font-medium text-slate-200 backdrop-blur transition hover:border-red-400 hover:bg-red-500/10"
                 >
-                  View Live Listings
+                  Explore Spider Board
                 </a>
               </div>
             </motion.div>
@@ -917,27 +910,26 @@ function FinalCTA() {
  * ------------------------------------------------------------------ */
 function Footer({ stocks }) {
   return (
-    <footer className="border-t border-white/8 bg-[#060911]/60 py-14">
+    <footer className="border-t border-red-500/20 bg-[#04060d] py-14">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400">
-                <Activity className="h-5 w-5 text-white" strokeWidth={2.5} />
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 overflow-hidden items-center justify-center rounded-xl bg-gradient-to-br from-red-600 to-blue-600">
+                <img src="/images/spider_emblem_hero.jpg" alt="Spider Emblem" className="h-full w-full object-cover" />
               </div>
               <span className="font-display text-[17px] font-bold tracking-[0.14em] text-white">
-                EQUITY<span className="text-blue-400">ARENA</span>
+                SPIDEY <span className="text-red-500">EQUITY</span> <span className="text-blue-400">ARENA</span>
               </span>
             </div>
-            <p className="mt-4 max-w-[300px] text-[13.5px] leading-relaxed text-slate-500">
-              A real-time simulated stock exchange for learning how markets actually move. Built for
-              traders, run on Ignite Coins.
+            <p className="mt-4 max-w-[300px] text-[13.5px] leading-relaxed text-slate-400">
+              A real-time simulated Spider-Verse stock exchange for learning market dynamics. Built for traders, run on Ignite Coins.
             </p>
           </div>
 
           <div>
-            <h4 className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate-300">Platform</h4>
-            <ul className="mt-4 space-y-2.5 text-[13.5px] text-slate-500">
+            <h4 className="text-[12px] font-semibold uppercase tracking-[0.16em] text-red-400">Spider Web</h4>
+            <ul className="mt-4 space-y-2.5 text-[13.5px] text-slate-400">
               {['Markets', 'News', 'Features'].map((l) => (
                 <li key={l}>
                   <a href={`#${l.toLowerCase()}`} className="transition hover:text-slate-200">{l}</a>
@@ -947,33 +939,33 @@ function Footer({ stocks }) {
           </div>
 
           <div>
-            <h4 className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate-300">Top listings</h4>
-            <ul className="mt-4 space-y-2.5 font-mono text-[13px] text-slate-500">
+            <h4 className="text-[12px] font-semibold uppercase tracking-[0.16em] text-red-400">Top listings</h4>
+            <ul className="mt-4 space-y-2.5 font-mono text-[13px] text-slate-400">
               {stocks.slice(0, 4).map((s) => (
                 <li key={s.symbol} className="flex items-center justify-between gap-4">
                   <span>{s.symbol}</span>
-                  <span className="tabular-nums text-slate-600">{(s.currentPrice || 0).toFixed(2)} IC</span>
+                  <span className="tabular-nums text-slate-500">{(s.currentPrice || 0).toFixed(2)} IC</span>
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate-300">Account</h4>
-            <ul className="mt-4 space-y-2.5 text-[13.5px] text-slate-500">
+            <h4 className="text-[12px] font-semibold uppercase tracking-[0.16em] text-red-400">Account</h4>
+            <ul className="mt-4 space-y-2.5 text-[13.5px] text-slate-400">
               <li><a href={REGISTER_URL} className="transition hover:text-slate-200">Register</a></li>
-              <li><a href={REGISTER_URL} className="transition hover:text-slate-200">Trading floor</a></li>
+              <li><a href={REGISTER_URL} className="transition hover:text-slate-200">Trading Floor</a></li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/8 pt-7 sm:flex-row">
-          <p className="text-[12.5px] text-slate-600">
-            © {new Date().getFullYear()} Equity Arena. Simulated exchange — no real money is traded.
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-red-500/20 pt-7 sm:flex-row">
+          <p className="text-[12.5px] text-slate-500">
+            © {new Date().getFullYear()} Spidey Equity Arena. Simulated exchange — no real money is traded.
           </p>
-          <p className="flex items-center gap-2 text-[12.5px] text-slate-600">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-live" />
-            Market engine online
+          <p className="flex items-center gap-2 text-[12.5px] text-slate-400">
+            <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-live" />
+            Spider Web Engine Online
           </p>
         </div>
       </div>
@@ -988,15 +980,14 @@ export function Landing() {
   const { stocks, isLive } = useLiveStocks(3000);
   const index = useArenaIndex(stocks);
 
-  // Thin progress bar tracking scroll through the page
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
 
   return (
-    <div className="relative min-h-screen bg-[#070b14] text-slate-100 antialiased">
+    <div className="relative min-h-screen bg-[#05070e] text-slate-100 antialiased">
       <motion.div
         style={{ scaleX: progress }}
-        className="fixed inset-x-0 top-0 z-[60] h-[2px] origin-left bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400"
+        className="fixed inset-x-0 top-0 z-[60] h-[2.5px] origin-left bg-gradient-to-r from-red-600 via-red-500 to-blue-600 shadow-md shadow-red-500"
       />
 
       <Navbar />
