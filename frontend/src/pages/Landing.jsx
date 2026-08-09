@@ -131,7 +131,7 @@ function SpiderWebCorner({ className = "top-0 left-0", rotate = 0 }) {
       className={`pointer-events-none absolute z-10 opacity-35 transition-opacity hover:opacity-75 ${className}`}
       style={{ transform: `rotate(${rotate}deg)` }}
     >
-      <svg width="180" height="180" viewBox="0 0 180 180" fill="none" className="drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">
+      <svg data-gsap="corner-web" width="180" height="180" viewBox="0 0 180 180" fill="none" className="drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">
         <path d="M0 0 L180 0 M0 0 L0 180" stroke="#ef4444" strokeWidth="1.5" />
         <path d="M0 0 L140 140" stroke="#ef4444" strokeWidth="1.2" strokeDasharray="3 3" />
         <path d="M30 0 Q 30 30 0 30" stroke="#ef4444" strokeWidth="1.2" fill="none" />

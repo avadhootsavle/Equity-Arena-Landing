@@ -5,24 +5,25 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Reusable custom hook for React-safe GSAP + ScrollTrigger animations.
- * Configured specifically for Equity Arena section hierarchy & class markup:
- * - #home (Hero entrance + terminal slide-in + spiderweb line reveal + background parallax)
- * - #features, #news, #about (Section intros + batch card grid reveals)
- * - Automatic image/font load ScrollTrigger.refresh()
- * - prefers-reduced-motion fallback (opacity-only fade, y: 0)
- * - Complete unmount cleanup via gsap.context().revert()
+ * Spider-Man Web-Sling Scroll Animation Hook (GSAP + ScrollTrigger)
+ * 
+ * Mechanics:
+ * 1. HERO SWING-IN: Hero heading & terminal swing in on web lines with elastic/back overshoot
+ * 2. CORNER WEB DRAW-IN: SVG corner web paths draw themselves strand-by-strand on section entry
+ * 3. WEB-SHOT CARD REVEAL: Cards in grid yank in diagonally from web-shot points with back.out(1.4) snap
+ * 4. PARALLAX CORNER WEBS: Corner webs drift slightly opposite to scroll direction
+ * 5. STAT IMPACT PUNCH: Number counters punch scale (1 -> 1.12 -> 1) on web impact completion
+ * 6. ACCESSIBILITY & MOBILE: Respects prefers-reduced-motion & caps overshoot easing on mobile screens
  */
 export function useScrollAnimation() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    // Check user preference for reduced motion
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
+    const isMobile = window.innerWidth < 768;
 
-    // Handle image/font load refresh for position calculations
     const handleLoadRefresh = () => {
       ScrollTrigger.refresh();
     };
@@ -30,52 +31,54 @@ export function useScrollAnimation() {
 
     const ctx = gsap.context(() => {
       // ----------------------------------------------------------------
-      // REDUCED MOTION FALLBACK: Fade opacity only, no Y translation
+      // ACCESSIBILITY: Reduced Motion Fallback
       // ----------------------------------------------------------------
       if (prefersReducedMotion) {
         gsap.set(
-          '[data-gsap="hero"], #gsap-hero-terminal, [data-gsap="section"], [data-gsap="heading"], .gsap-trigger-card, .layer-3d, [data-gsap="stat-count"]',
-          { opacity: 1, y: 0, scale: 1 }
+          '[data-gsap="hero"], #gsap-hero-terminal, [data-gsap="section"], [data-gsap="heading"], .gsap-trigger-card, .layer-3d, [data-gsap="stat-count"], [data-gsap="corner-web"]',
+          { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }
         );
         return;
       }
 
+      const snapEase = isMobile ? 'power2.out' : 'back.out(1.4)';
+
       // ----------------------------------------------------------------
-      // 1. HERO (#home): Page-Load Entrance (Not Scroll-Triggered)
+      // 1. HERO SECTION (#home): Web-Swing Entrance (Page Load)
       // ----------------------------------------------------------------
-      const heroText = containerRef.current?.querySelectorAll('[data-gsap="hero"]');
-      if (heroText && heroText.length > 0) {
+      const heroHeading = containerRef.current?.querySelector('[data-gsap="hero"]');
+      if (heroHeading) {
         gsap.fromTo(
-          heroText,
-          { opacity: 0, y: 30 },
+          heroHeading,
+          { opacity: 0, x: -60, rotate: -6, transformOrigin: 'top left' },
           {
             opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power2.out',
-            stagger: 0.15,
+            x: 0,
+            rotate: 0,
+            duration: 0.9,
+            ease: isMobile ? 'power2.out' : 'back.out(1.5)',
           }
         );
       }
 
-      // Hero Trading Terminal Card (#gsap-hero-terminal) — slight delay after heading
       const heroTerminal = containerRef.current?.querySelector('#gsap-hero-terminal');
       if (heroTerminal) {
         gsap.fromTo(
           heroTerminal,
-          { opacity: 0, y: 30, scale: 0.96 },
+          { opacity: 0, x: 60, scale: 0.9, rotate: 5, transformOrigin: 'top right' },
           {
             opacity: 1,
-            y: 0,
+            x: 0,
             scale: 1,
-            duration: 0.85,
-            delay: 0.35,
-            ease: 'power2.out',
+            rotate: 0,
+            duration: 0.95,
+            delay: 0.2,
+            ease: snapEase,
           }
         );
       }
 
-      // Hero Side Spiderweb Line (#gsap-spiderweb-line) — stroke/height draw reveal
+      // Hero Spiderweb Line (#gsap-spiderweb-line)
       const spiderwebLine = containerRef.current?.querySelector('#gsap-spiderweb-line');
       if (spiderwebLine) {
         gsap.fromTo(
@@ -83,18 +86,18 @@ export function useScrollAnimation() {
           { height: '0%' },
           {
             height: '100%',
-            duration: 1.2,
-            delay: 0.5,
+            duration: 1.0,
+            delay: 0.35,
             ease: 'power2.out',
           }
         );
       }
 
-      // Hero Background Ambient Parallax
+      // Hero Ambient Parallax
       const parallaxEls = containerRef.current?.querySelectorAll('[data-gsap="parallax"]');
       parallaxEls?.forEach((el) => {
         gsap.to(el, {
-          yPercent: 18,
+          yPercent: 15,
           ease: 'none',
           scrollTrigger: {
             trigger: el.parentElement || el,
@@ -106,22 +109,82 @@ export function useScrollAnimation() {
       });
 
       // ----------------------------------------------------------------
-      // 2. SECTION INTRO BLOCKS (Badge + Heading Wrappers)
+      // 2. CORNER WEB SVGs: Strand Draw-In Effect & Parallax
       // ----------------------------------------------------------------
-      const sectionIntros = containerRef.current?.querySelectorAll(
-        '[data-gsap="heading"], section > div > div:first-child'
-      );
-      sectionIntros?.forEach((intro) => {
+      const sections = containerRef.current?.querySelectorAll('section, #home, #about, #features, #news');
+      sections?.forEach((section) => {
+        const cornerWebSvg = section.querySelector('[data-gsap="corner-web"]');
+        if (cornerWebSvg) {
+          const paths = cornerWebSvg.querySelectorAll('path');
+          paths.forEach((path) => {
+            try {
+              const length = path.getTotalLength() || 200;
+              gsap.set(path, {
+                strokeDasharray: length,
+                strokeDashoffset: length,
+              });
+
+              gsap.to(path, {
+                strokeDashoffset: 0,
+                duration: 0.8,
+                stagger: 0.05,
+                ease: 'power2.out',
+                scrollTrigger: {
+                  trigger: section,
+                  start: 'top 75%',
+                  toggleActions: 'play none none none',
+                  once: true,
+                },
+              });
+            } catch (_) {
+              // Fallback for non-scalable elements
+              gsap.fromTo(
+                path,
+                { opacity: 0 },
+                {
+                  opacity: 1,
+                  duration: 0.5,
+                  scrollTrigger: {
+                    trigger: section,
+                    start: 'top 75%',
+                    once: true,
+                  },
+                }
+              );
+            }
+          });
+
+          // Scroll-linked Subtle Parallax on Corner Webs
+          gsap.to(cornerWebSvg, {
+            y: -12,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          });
+        }
+      });
+
+      // ----------------------------------------------------------------
+      // 3. SECTION INTRO HEADINGS: Web-Shot Entrance
+      // ----------------------------------------------------------------
+      const headings = containerRef.current?.querySelectorAll('[data-gsap="heading"]');
+      headings?.forEach((heading) => {
         gsap.fromTo(
-          intro,
-          { opacity: 0, y: 30 },
+          heading,
+          { opacity: 0, scale: 0.88, y: 35, rotate: -2 },
           {
             opacity: 1,
+            scale: 1,
             y: 0,
-            duration: 0.7,
-            ease: 'power2.out',
+            rotate: 0,
+            duration: 0.75,
+            ease: snapEase,
             scrollTrigger: {
-              trigger: intro,
+              trigger: heading,
               start: 'top 85%',
               toggleActions: 'play none none none',
               once: true,
@@ -131,34 +194,46 @@ export function useScrollAnimation() {
       });
 
       // ----------------------------------------------------------------
-      // 3. CARD GRIDS (.stage-3d .layer-3d & .gsap-trigger-card)
+      // 4. CARD GRIDS: "Web-Shot" Alternating Diagonal Pull (ScrollTrigger.batch)
       // ----------------------------------------------------------------
-      const gridCards = containerRef.current?.querySelectorAll(
+      const cards = containerRef.current?.querySelectorAll(
         '.gsap-trigger-card, .stage-3d .layer-3d, [data-gsap="card"]'
       );
-      if (gridCards && gridCards.length > 0) {
-        ScrollTrigger.batch(gridCards, {
-          start: 'top 85%',
+      if (cards && cards.length > 0) {
+        ScrollTrigger.batch(cards, {
+          start: 'top 82%',
           once: true,
           onEnter: (batch) => {
-            gsap.fromTo(
-              batch,
-              { opacity: 0, y: 28 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 0.7,
-                ease: 'power2.out',
-                stagger: 0.12,
-                overwrite: 'auto',
-              }
-            );
+            batch.forEach((card, idx) => {
+              const fromLeft = idx % 2 === 0;
+              gsap.fromTo(
+                card,
+                {
+                  opacity: 0,
+                  scale: 0.85,
+                  x: fromLeft ? -40 : 40,
+                  y: 40,
+                  rotate: fromLeft ? -3 : 3,
+                },
+                {
+                  opacity: 1,
+                  scale: 1,
+                  x: 0,
+                  y: 0,
+                  rotate: 0,
+                  duration: 0.7,
+                  delay: idx * 0.1,
+                  ease: snapEase,
+                  overwrite: 'auto',
+                }
+              );
+            });
           },
         });
       }
 
       // ----------------------------------------------------------------
-      // 4. STATS COUNT-UP NUMBERS
+      // 5. STATS COUNTERS: Count-Up + Web Impact Scale-Punch
       // ----------------------------------------------------------------
       const statEls = containerRef.current?.querySelectorAll('[data-gsap="stat-count"]');
       statEls?.forEach((statEl) => {
@@ -170,7 +245,7 @@ export function useScrollAnimation() {
 
         gsap.to(obj, {
           val: targetVal,
-          duration: 1.6,
+          duration: 1.5,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: statEl,
@@ -182,6 +257,18 @@ export function useScrollAnimation() {
               ? Math.floor(obj.val).toLocaleString('en-IN')
               : obj.val.toFixed(2);
             statEl.textContent = `${prefix}${formatted}${suffix}`;
+          },
+          onComplete: () => {
+            // Web impact scale-punch (1 -> 1.12 -> 1)
+            if (!prefersReducedMotion) {
+              gsap.to(statEl, {
+                scale: 1.12,
+                duration: 0.15,
+                yoyo: true,
+                repeat: 1,
+                ease: 'power2.out',
+              });
+            }
           },
         });
       });
