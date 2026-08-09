@@ -188,9 +188,9 @@ function Navbar() {
  * Hero
  * ------------------------------------------------------------------ */
 const HERO_FEATURES = [
-  { icon: Zap, title: 'Real-time Data', sub: 'Live market updates' },
-  { icon: Shield, title: 'Secure & Reliable', sub: 'Your data is safe' },
-  { icon: BarChart3, title: 'Smart Insights', sub: 'Make better decisions' }
+  { icon: Zap, title: 'Tick-by-Tick Stream', sub: 'Sub-second WebSockets' },
+  { icon: Shield, title: 'Institutional Engine', sub: 'Instant order execution' },
+  { icon: BarChart3, title: 'Live Orderbook & Depth', sub: 'Real-time index updates' }
 ];
 
 function Hero({ stocks, index, isLive }) {
@@ -215,7 +215,7 @@ function Hero({ stocks, index, isLive }) {
           <motion.div variants={fadeUp}>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[12px] font-medium text-slate-300 backdrop-blur">
               <span className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-live" />
-              Real-time Markets • Smart Insights • Latest News
+              LIVE SIMULATED EXCHANGE • ZERO RISK • 15 SECTORS
             </span>
           </motion.div>
 
@@ -224,15 +224,15 @@ function Hero({ stocks, index, isLive }) {
             variants={fadeUp}
             className="font-display mt-7 text-[clamp(2.75rem,7vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.03em] text-white"
           >
-            Smart moves
+            Master the market
             <br />
-            <span className="text-gradient-blue">start</span> here.
+            <span className="text-gradient-blue">before</span> risking a rupee.
           </motion.h1>
 
-          <motion.p variants={fadeUp} className="mt-6 max-w-[440px] text-[16px] leading-relaxed text-slate-400">
-            Trade 15 live Indian sector stocks in a real-time simulated exchange. Track prices
-            tick-by-tick, react to breaking market news, and build a portfolio with 20,000 Ignite
-            Coins — zero real-money risk.
+          <motion.p variants={fadeUp} className="mt-6 max-w-[460px] text-[16px] leading-relaxed text-slate-400">
+            Experience a real-time simulated trading floor powered by live price action, breaking
+            market feeds, and institutional-grade analytics. Start with 20,000 Ignite Coins in
+            virtual capital and test your strategies risk-free.
           </motion.p>
 
           {/* CTAs */}
@@ -241,7 +241,7 @@ function Hero({ stocks, index, isLive }) {
               to="/login"
               className="glow-ring group flex items-center gap-2.5 rounded-2xl bg-blue-600 px-7 py-4 text-[15px] font-semibold text-white shadow-xl shadow-blue-600/30 transition-all hover:bg-blue-500 hover:shadow-blue-500/50"
             >
-              Explore Markets
+              Launch Terminal
               <ArrowRight className="h-4.5 w-4.5 transition-transform group-hover:translate-x-1.5" />
             </Link>
 
@@ -251,7 +251,7 @@ function Hero({ stocks, index, isLive }) {
                 <span className="absolute inset-0 rounded-full border border-blue-400/30 opacity-0 transition-all duration-500 group-hover:scale-[1.35] group-hover:opacity-100" />
               </span>
               <span className="text-[15px] font-medium text-slate-300 transition group-hover:text-white">
-                Watch how it works
+                See terminal features
               </span>
             </a>
           </motion.div>
@@ -343,9 +343,9 @@ function TickerTape({ stocks }) {
  * Stats band
  * ------------------------------------------------------------------ */
 const STATS = [
-  { value: 15, suffix: '', label: 'Listed companies' },
-  { value: 20000, suffix: ' IC', label: 'Starting balance' },
-  { value: 100, suffix: '%', label: 'Risk-free trading' }
+  { value: 15, suffix: '', label: 'Core Sector Listings' },
+  { value: 20000, suffix: ' IC', label: 'Starting Virtual Capital' },
+  { value: 100, suffix: '%', label: 'Simulated & Risk-Free' }
 ];
 
 /** Counts up to a target when scrolled into view. */
@@ -508,19 +508,19 @@ function Markets({ stocks, isLive }) {
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <Reveal className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
           <div>
-            <SectionTag icon={Radio}>Live market board</SectionTag>
+            <SectionTag icon={Radio}>Live Market Board</SectionTag>
             <h2 className="font-display mt-5 text-[clamp(2rem,4.5vw,3.1rem)] font-bold leading-[1.05] tracking-[-0.025em] text-white">
-              All 15 listings,
+              15 Sector Listings,
               <br />
               <span className="text-gradient-blue">priced in real time.</span>
             </h2>
             <p className="mt-4 max-w-[480px] text-[15px] leading-relaxed text-slate-400">
-              Every company on the Equity Arena exchange, across 15 Indian sectors. Prices drift
-              continuously and react to news the moment the admin desk publishes it.
+              Track live prices across India's primary market sectors — from Aviation and Defense
+              to Renewable Energy and Technology. Asset prices move continuously based on market dynamics.
             </p>
           </div>
 
-          {/* Filter tabs — scroll within their own track on narrow screens */}
+          {/* Filter tabs */}
           <div className="flex max-w-full gap-1.5 overflow-x-auto rounded-2xl border border-white/8 bg-white/[0.03] p-1.5 backdrop-blur">
             {TABS.map((tab) => (
               <button
@@ -548,8 +548,7 @@ function Markets({ stocks, isLive }) {
           </div>
         </Reveal>
 
-        {/* Grid — each card animates itself on mount, so switching tabs
-            always reveals the newly filtered listings. */}
+        {/* Grid */}
         <div className="stage-3d mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {visible.map((stock, i) => (
@@ -562,14 +561,14 @@ function Markets({ stocks, isLive }) {
           <p className="flex items-center gap-2.5 text-[13.5px] text-slate-400">
             <span className={`h-2 w-2 rounded-full ${isLive ? 'bg-emerald-400 animate-live' : 'bg-amber-400'}`} />
             {isLive
-              ? 'Streaming live prices from the Equity Arena exchange'
-              : 'Showing reference prices — sign in for the live feed'}
+              ? 'Streaming live prices from the Equity Arena exchange engine'
+              : 'Showing reference market seeds — log in for the live orderbook feed'}
           </p>
           <Link
             to="/login"
             className="group flex items-center gap-2 text-[14px] font-semibold text-blue-400 transition hover:text-blue-300"
           >
-            Start trading these stocks
+            Open Trading Floor
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </Reveal>
@@ -584,44 +583,44 @@ function Markets({ stocks, isLive }) {
 const FEATURES = [
   {
     icon: Activity,
-    title: 'Tick-by-tick pricing',
-    body: 'A background market engine drifts all 15 stocks continuously and pushes every move to your screen over WebSockets — no refresh, no lag.',
+    title: 'Tick-by-tick streaming',
+    body: 'Sub-second WebSocket feeds push live price ticks across all 15 sector listings directly to your terminal with zero refresh latency.',
     span: 'lg:col-span-2'
   },
   {
     icon: Newspaper,
-    title: 'News that moves markets',
-    body: 'The admin desk broadcasts breaking headlines that shift real prices. Read fast, trade faster.',
+    title: 'Breaking market feeds',
+    body: 'Real-time administrative news broadcasts shift asset valuations dynamically. Analyze headlines instantly and position your trades.',
     span: ''
   },
   {
     icon: Wallet,
     title: '20,000 Ignite Coins',
-    body: 'Every trader starts with the same balance. Pure skill, zero real-money risk.',
+    body: 'Begin trading immediately with 20,000 virtual capital. Build, rebalance, and optimize your portfolio without financial risk.',
     span: ''
   },
   {
     icon: LineChart,
-    title: 'Charts with real depth',
-    body: 'Sparklines, SMA-10 overlays, volume bars and 1D / 1W / 1M history on every listing — the same tooling a real desk expects.',
+    title: 'Technical analysis & depth',
+    body: 'Evaluate price trends with smooth candlestick curves, 10-period moving averages, and multi-timeframe chart history (1M to 1H).',
     span: 'lg:col-span-2'
   },
   {
     icon: Trophy,
-    title: 'Live leaderboard',
-    body: 'Portfolio values recompute on every tick. Watch your rank move in real time.',
+    title: 'Live trader rankings',
+    body: 'Compete on the global leaderboard. Trader portfolio valuations recalculate dynamically with every market tick.',
     span: ''
   },
   {
     icon: Lock,
-    title: 'Secure by default',
-    body: 'JWT-authenticated sessions, hashed credentials and role-scoped access for traders and admins.',
+    title: 'Session security',
+    body: 'Protected with JWT-authenticated sessions, hashed credentials, and role-scoped trader permissions.',
     span: ''
   },
   {
     icon: Gauge,
-    title: 'Instant settlement',
-    body: 'Buy and sell orders clear immediately against your wallet and holdings — no pending states.',
+    title: 'Zero slippage fills',
+    body: 'Buy and market sell orders execute immediately against your virtual wallet — no settlement delays or pending states.',
     span: ''
   }
 ];
@@ -631,10 +630,10 @@ function Features() {
     <section id="features" className="relative border-t border-white/8 py-24 sm:py-28">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <Reveal className="max-w-[620px]">
-          <SectionTag icon={Sparkles}>Why Equity Arena</SectionTag>
+          <SectionTag icon={Sparkles}>Terminal Capabilities</SectionTag>
           <h2 className="font-display mt-5 text-[clamp(2rem,4.5vw,3.1rem)] font-bold leading-[1.05] tracking-[-0.025em] text-white">
-            Everything a real exchange has.
-            <span className="text-gradient-emerald"> None of the risk.</span>
+            Institutional trading engine.
+            <span className="text-gradient-emerald"> Zero capital risk.</span>
           </h2>
         </Reveal>
 
@@ -682,21 +681,21 @@ const NEWS_FEED = [
   {
     tag: 'Banking',
     title: 'Rashtriya Trust Bank holds rates steady',
-    body: 'A neutral stance from the desk keeps RTB range-bound while credit growth stays firm.',
+    body: 'Neutral rate stance maintains stable credit spreads while loan growth stays robust.',
     time: '48m ago',
     tone: 'blue'
   },
   {
     tag: 'Technology',
     title: 'Nimbus InfoTech lands multi-year cloud deal',
-    body: 'NITI leads the technology pack as global cues turn decisively positive.',
+    body: 'NITI leads technology sector gains as enterprise cloud demand accelerates.',
     time: '2h ago',
     tone: 'violet'
   },
   {
     tag: 'Aviation',
     title: 'AirBharat trims capacity on fuel costs',
-    body: 'Rising crude weighs on ABAL margins; the sector opens under mild pressure.',
+    body: 'Rising jet fuel prices weigh on operating margins; aviation stocks open under mild pressure.',
     time: '3h ago',
     tone: 'rose'
   }
@@ -717,15 +716,15 @@ function News() {
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <Reveal className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
           <div className="max-w-[560px]">
-            <SectionTag icon={Newspaper}>Market desk</SectionTag>
+            <SectionTag icon={Newspaper}>Market Intelligence</SectionTag>
             <h2 className="font-display mt-5 text-[clamp(2rem,4.5vw,3.1rem)] font-bold leading-[1.05] tracking-[-0.025em] text-white">
-              Headlines hit.
+              Breaking catalysts.
               <br />
-              <span className="text-gradient-blue">Prices react.</span>
+              <span className="text-gradient-blue">Immediate price action.</span>
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-slate-400">
-              Every broadcast from the admin desk lands as a live toast on the trading floor and
-              moves the affected stock instantly. The edge belongs to whoever reads it first.
+              Market-moving announcements broadcast directly to the trading floor. Position your
+              portfolio ahead of macro shifts and corporate catalysts.
             </p>
           </div>
 
@@ -733,7 +732,7 @@ function News() {
             to="/login"
             className="group flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-[14px] font-medium text-slate-200 transition hover:border-blue-400/30 hover:bg-blue-500/10"
           >
-            Open the news feed
+            Open News Feed
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </Reveal>
@@ -780,26 +779,26 @@ const STEPS = [
   {
     n: '01',
     icon: Users,
-    title: 'Claim your desk',
-    body: 'Register in seconds and receive 20,000 Ignite Coins credited to your wallet instantly.'
+    title: 'Claim Your Trading Desk',
+    body: 'Register in seconds to receive 20,000 Ignite Coins credited to your virtual wallet.'
   },
   {
     n: '02',
     icon: LineChart,
-    title: 'Read the tape',
-    body: 'Study all 15 listings with live sparklines, SMA overlays and sector-level context.'
+    title: 'Analyze Market Structure',
+    body: 'Monitor the 15 sector benchmarks, chart patterns, and live WebSocket price movements.'
   },
   {
     n: '03',
     icon: Coins,
-    title: 'Execute your trade',
-    body: 'Buy and sell at the live tick. Orders settle instantly against your holdings.'
+    title: 'Execute Fills',
+    body: 'Submit instant market orders to enter or exit positions with zero slippage.'
   },
   {
     n: '04',
     icon: Trophy,
-    title: 'Climb the board',
-    body: 'Your portfolio revalues on every tick. Outperform the arena and take the top rank.'
+    title: 'Dominate the Leaderboard',
+    body: 'Track real-time P&L changes and climb the global trader rankings as markets move.'
   }
 ];
 
@@ -808,10 +807,10 @@ function About() {
     <section id="about" className="relative border-t border-white/8 py-24 sm:py-28">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <Reveal className="mx-auto max-w-[620px] text-center">
-          <SectionTag icon={Gauge}>How it works</SectionTag>
+          <SectionTag icon={Gauge}>Execution Workflow</SectionTag>
           <h2 className="font-display mt-5 text-[clamp(2rem,4.5vw,3.1rem)] font-bold leading-[1.05] tracking-[-0.025em] text-white">
-            From signup to
-            <span className="text-gradient-blue"> first fill</span> in under a minute.
+            From setup to
+            <span className="text-gradient-blue"> first fill</span> in seconds.
           </h2>
         </Reveal>
 
@@ -874,18 +873,18 @@ function FinalCTA() {
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-2 text-[12px] font-medium text-slate-200 backdrop-blur">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-live" />
-                The arena is open
+                The trading floor is open
               </span>
 
               <h2 className="font-display mx-auto mt-7 max-w-[720px] text-[clamp(2.1rem,5vw,3.6rem)] font-bold leading-[1.03] tracking-[-0.03em] text-white">
-                Your first 20,000 coins
+                Ready to test your
                 <br />
-                are <span className="text-gradient-blue">waiting.</span>
+                market <span className="text-gradient-blue">edge?</span>
               </h2>
 
               <p className="mx-auto mt-5 max-w-[480px] text-[15.5px] leading-relaxed text-slate-400">
-                Join the exchange, take a position on all 15 listings, and find out where you land
-                on the leaderboard.
+                Claim your 20,000 Ignite Coins, analyze live sector trends, and execute orders on the
+                arena trading floor today.
               </p>
 
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -893,14 +892,14 @@ function FinalCTA() {
                   to="/login"
                   className="glow-ring group flex items-center gap-2.5 rounded-2xl bg-blue-600 px-8 py-4 text-[15px] font-semibold text-white shadow-xl shadow-blue-600/35 transition-all hover:bg-blue-500 hover:shadow-blue-500/50"
                 >
-                  Get Started — it's free
+                  Enter Trading Floor
                   <ArrowRight className="h-4.5 w-4.5 transition-transform group-hover:translate-x-1.5" />
                 </Link>
                 <a
                   href="#markets"
                   className="rounded-2xl border border-white/12 bg-white/5 px-7 py-4 text-[15px] font-medium text-slate-200 backdrop-blur transition hover:border-white/25 hover:bg-white/10"
                 >
-                  Browse the board
+                  View Live Listings
                 </a>
               </div>
             </motion.div>
