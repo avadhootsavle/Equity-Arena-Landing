@@ -358,114 +358,66 @@ function DraggableSpiderMan() {
   const y = useMotionValue(0);
   const [isDragging, setIsDragging] = useState(false);
   const spiderRef = useRef(null);
-  const pathRef = useRef(null);   // direct SVG path DOM node — no setState!
-  const rafRef  = useRef(null);
-  const anchorX = useRef(null);   // fixed horizontal anchor, set once on mount
+  const pathRef   = useRef(null);
+  const rafRef    = useRef(null);
+  const anchorX   = useRef(null);
 
   useEffect(() => {
     const tick = () => {
-      if (spiderRef.current && pathRef.current) {
-        const rect = spiderRef.current.getBoundingClientRect();
-        const cx   = rect.left + rect.width  / 2;
-        const topY = rect.top  + 8;
-
-        // Lock anchor to Spider-Man's initial center-x
-        if (anchorX.current === null) anchorX.current = cx;
-
-        const ax = anchorX.current;
-        const qx = (ax + cx) / 2;
-        const qy = topY * 0.4;
-
-        // Write directly to DOM — zero React re-renders
-        pathRef.current.setAttribute(
-          'd', `M ${ax} 0 Q ${qx} ${qy} ${cx} ${topY}`
-        );
-      }
+      try {
+        if (spiderRef.current && pathRef.current) {
+          const rect = spiderRef.current.getBoundingClientRect();
+          const cx   = Math.round(rect.left + rect.width  / 2);
+          const topY = Math.round(rect.top  + 6);
+          if (anchorX.current === null) anchorX.current = cx;
+          const ax = anchorX.current;
+          const qx = Math.round((ax + cx) / 2);
+          const qy = Math.round(topY * 0.38);
+          pathRef.current.setAttribute('d', `M${ax} 0 Q${qx} ${qy} ${cx} ${topY}`);
+        }
+      } catch (_) {/* ignore */}
       rafRef.current = requestAnimationFrame(tick);
     };
-
     rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
   }, []);
 
   return (
     <>
-      {/* Fixed SVG overlay — web strand with catenary sag */}
-      <svg
-        style={{
-          position: 'fixed', top: 0, left: 0,
-          width: '100vw', height: '100vh',
-          pointerEvents: 'none', zIndex: 9998,
-          overflow: 'visible',
-        }}
-      >
+      <svg style={{ position:'fixed', top:0, left:0, width:'100vw', height:'100vh', pointerEvents:'none', zIndex:9997, overflow:'visible' }}>
         <path
           ref={pathRef}
-          d="M 0 0 L 0 0"
-          stroke="rgba(195,195,195,0.9)"
+          d="M0 0 L0 0"
+          stroke="rgba(190,190,190,0.85)"
           strokeWidth="2.5"
           fill="none"
           strokeLinecap="round"
-          style={{ filter: 'drop-shadow(0 0 4px rgba(210,210,210,0.55))' }}
         />
       </svg>
 
-      {/* Draggable Spider-Man — position: fixed so he floats over everything */}
       <motion.div
         ref={spiderRef}
         drag
         dragMomentum={false}
-        style={{
-          x, y,
-          position: 'fixed',
-          top: 72,
-          right: '8%',
-          zIndex: 9999,
-          cursor: isDragging ? 'grabbing' : 'grab',
-          touchAction: 'none',
-          userSelect: 'none',
-        }}
+        style={{ x, y, position:'fixed', top:80, left:'75%', zIndex:9999, cursor: isDragging ? 'grabbing':'grab', touchAction:'none', userSelect:'none' }}
         onDragStart={() => setIsDragging(true)}
-        onDragEnd={()  => setIsDragging(false)}
-        whileDrag={{ scale: 1.1 }}
-        animate={!isDragging ? { rotate: [-5, 5, -5] } : { rotate: 0 }}
-        transition={{ rotate: { duration: 4, repeat: Infinity, ease: 'easeInOut' } }}
+        onDragEnd={()   => setIsDragging(false)}
+        whileDrag={{ scale:1.08 }}
+        animate={!isDragging ? { rotate:[-4,4,-4] } : { rotate:0 }}
+        transition={{ rotate:{ duration:4, repeat:Infinity, ease:'easeInOut' } }}
       >
-        {/* Crimson glow behind figure */}
-        <div style={{
-          position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
-          background: 'radial-gradient(ellipse at 50% 20%, rgba(239,68,68,0.4), transparent 70%)',
-          filter: 'blur(26px)',
-        }} />
-
+        <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 10%, rgba(239,68,68,0.38), transparent 70%)', filter:'blur(24px)', zIndex:0, pointerEvents:'none' }} />
         <img
           src="/images/spiderman_hanging.png"
-          alt="Spider-Man – drag me!"
+          alt="Drag Spider-Man!"
           draggable={false}
-          style={{
-            width: 'clamp(130px, 15vw, 260px)',
-            mixBlendMode: 'multiply',
-            filter: 'drop-shadow(0 6px 22px rgba(239,68,68,0.65)) drop-shadow(0 0 10px rgba(59,130,246,0.3))',
-            position: 'relative', zIndex: 1, display: 'block',
-          }}
+          style={{ width:'clamp(120px,13vw,240px)', mixBlendMode:'multiply', filter:'drop-shadow(0 4px 20px rgba(239,68,68,0.6))', position:'relative', zIndex:1, display:'block' }}
         />
-
-        {/* "DRAG ME" hint — fades in after 2s, repeats */}
         {!isDragging && (
           <motion.span
-            animate={{ opacity: [0, 1, 1, 0] }}
-            transition={{ duration: 2.2, delay: 2, repeat: Infinity, repeatDelay: 6 }}
-            style={{
-              position: 'absolute', bottom: -24, left: '50%',
-              transform: 'translateX(-50%)',
-              fontSize: 10, fontWeight: 700,
-              fontFamily: 'JetBrains Mono, monospace',
-              color: 'rgba(239,68,68,0.9)',
-              whiteSpace: 'nowrap', letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              textShadow: '0 0 8px rgba(239,68,68,0.55)',
-              pointerEvents: 'none',
-            }}
+            animate={{ opacity:[0,1,1,0] }}
+            transition={{ duration:2, delay:2.5, repeat:Infinity, repeatDelay:7 }}
+            style={{ position:'absolute', bottom:-22, left:'50%', transform:'translateX(-50%)', fontSize:10, fontWeight:700, fontFamily:'monospace', color:'rgba(239,68,68,0.9)', whiteSpace:'nowrap', letterSpacing:'0.1em', textTransform:'uppercase', pointerEvents:'none' }}
           >
             ↔ DRAG ME
           </motion.span>
