@@ -193,7 +193,7 @@ function Reveal({ children, className = '', delay = 0 }) {
       className={className}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={{ once: false, margin: '-80px' }}
       variants={{
         hidden: { opacity: 0, y: 30 },
         show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: easeOut, delay } }
@@ -603,7 +603,7 @@ function CountUp({ to, suffix = '' }) {
   return (
     <motion.span
       onViewportEnter={() => setStarted(true)}
-      viewport={{ once: true }}
+      viewport={{ once: false }}
       className="font-display text-[clamp(1.9rem,4vw,2.6rem)] font-bold tracking-tight text-white tabular-nums"
     >
       {value.toLocaleString('en-IN')}{suffix}
@@ -637,7 +637,8 @@ const StockCard = forwardRef(function StockCard({ stock, i }, ref) {
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, margin: '-40px' }}
       exit={{ opacity: 0, scale: 0.94 }}
       transition={{ duration: 0.45, delay: Math.min(i, 8) * 0.05, ease: easeOut }}
       whileHover={{ y: -6, rotateX: 4, rotateY: -4, transition: { duration: 0.25 } }}
@@ -875,7 +876,7 @@ function Features() {
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={{ once: false, margin: '-60px' }}
           className="stage-3d mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3"
         >
           {FEATURES.map(({ icon: Icon, title, body, span }) => (
@@ -977,7 +978,7 @@ function News({ onRegisterClick }) {
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={{ once: false, margin: '-60px' }}
           className="mt-12 grid gap-4 md:grid-cols-2"
         >
           {NEWS_FEED.map((item) => (
@@ -1054,7 +1055,7 @@ function About() {
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={{ once: false, margin: '-60px' }}
           className="stage-3d relative mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4"
         >
           <div className="pointer-events-none absolute left-0 right-0 top-[52px] hidden h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent lg:block" />
