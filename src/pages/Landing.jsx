@@ -10,8 +10,96 @@ import { useLiveStocks, useArenaIndex, sectorTheme } from '../hooks/useLiveStock
 const REGISTER_URL = 'https://ignite-8.vercel.app/register-stock';
 
 /* ------------------------------------------------------------------ *
- * SVG Spiderweb Decorative Components (Responsive Vector Scaling)
+ * SVG Spiderweb Decorative & Transition Components
  * ------------------------------------------------------------------ */
+
+/** Full-screen Spiderweb Sling Transition Overlay on Register Click */
+function SpiderWebTransitionModal({ isOpen }) {
+  if (!isOpen) return null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-[#04060e]/96 backdrop-blur-2xl overflow-hidden"
+      >
+        {/* Fullscreen expanding SVG web-shooter net */}
+        <motion.div
+          initial={{ scale: 0.1, rotate: -45, opacity: 0 }}
+          animate={{ scale: 2.5, rotate: 0, opacity: 1 }}
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        >
+          <svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="webSlingGrad" x1="0" y1="0" x2="600" y2="600" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#ef4444" />
+                <stop offset="0.5" stopColor="#ff1e42" />
+                <stop offset="1" stopColor="#3b82f6" />
+              </linearGradient>
+              <filter id="webSlingGlow">
+                <feGaussianBlur stdDeviation="4" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+            </defs>
+
+            {/* Spiderweb spokes shooting out */}
+            {Array.from({ length: 16 }).map((_, i) => {
+              const angle = (i * 22.5 * Math.PI) / 180;
+              const x2 = 300 + Math.cos(angle) * 300;
+              const y2 = 300 + Math.sin(angle) * 300;
+              return (
+                <line
+                  key={i}
+                  x1="300"
+                  y1="300"
+                  x2={x2}
+                  y2={y2}
+                  stroke="url(#webSlingGrad)"
+                  strokeWidth="2.5"
+                  filter="url(#webSlingGlow)"
+                />
+              );
+            })}
+
+            {/* Concentric expanding web rings */}
+            {[35, 75, 115, 155, 195, 235, 275].map((r, i) => (
+              <circle
+                key={r}
+                cx="300"
+                cy="300"
+                r={r}
+                stroke="url(#webSlingGrad)"
+                strokeWidth="1.8"
+                fill="none"
+                filter="url(#webSlingGlow)"
+                opacity={0.95 - i * 0.08}
+              />
+            ))}
+          </svg>
+        </motion.div>
+
+        {/* Center Spidey Status Message */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, duration: 0.45 }}
+          className="relative z-10 text-center px-6"
+        >
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-red-600 to-blue-600 border border-red-500/40 shadow-2xl shadow-red-500/60 animate-pulse">
+            <span className="text-3xl">🕷️</span>
+          </div>
+          <h3 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-white">
+            SLINGING TO <span className="text-gradient-spidey">REGISTRATION</span> DESK...
+          </h3>
+          <p className="mt-2 text-sm text-red-400 font-bold tracking-wide uppercase">Connecting Spidey-Sense Orderbook</p>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
 
 /** Intricate 2D SVG Spiderweb Corner Overlay */
 function SpiderWebCorner({ className = "top-0 left-0", rotate = 0 }) {
@@ -127,7 +215,7 @@ const NAV_LINKS = [
   { label: 'Spider-Verse', href: '#about' }
 ];
 
-function Navbar() {
+function Navbar({ onRegisterClick }) {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('#home');
   const [menuOpen, setMenuOpen] = useState(false);
@@ -199,6 +287,7 @@ function Navbar() {
         <div className="flex items-center gap-3">
           <a
             href={REGISTER_URL}
+            onClick={onRegisterClick}
             className="glow-ring group flex items-center gap-2 rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-blue-600 px-4 py-2 sm:px-5 sm:py-2.5 text-[13px] sm:text-[14px] font-bold text-white shadow-lg shadow-red-600/35 transition-all hover:brightness-110 hover:shadow-red-500/60"
           >
             <span>Register</span>
@@ -236,7 +325,10 @@ function Navbar() {
               ))}
               <a
                 href={REGISTER_URL}
-                onClick={() => setMenuOpen(false)}
+                onClick={(e) => {
+                  setMenuOpen(false);
+                  onRegisterClick(e);
+                }}
                 className="mt-3 block rounded-xl bg-gradient-to-r from-red-600 to-blue-600 py-3 text-center text-sm font-bold text-white shadow-lg shadow-red-600/30"
               >
                 Register Now
@@ -258,7 +350,7 @@ const HERO_FEATURES = [
   { icon: BarChart3, title: 'Spider-Verse Depth', sub: 'Real-time index matrix' }
 ];
 
-function Hero({ stocks, index, isLive }) {
+function Hero({ stocks, index, isLive, onRegisterClick }) {
   const { scrollY } = useScroll();
   const y = useSpring(useTransform(scrollY, [0, 700], [0, 110]), { stiffness: 90, damping: 22 });
   const fade = useTransform(scrollY, [0, 500], [1, 0]);
@@ -308,6 +400,7 @@ function Hero({ stocks, index, isLive }) {
           <motion.div variants={fadeUp} className="mt-8 sm:mt-9 flex flex-wrap items-center gap-4 sm:gap-5">
             <a
               href={REGISTER_URL}
+              onClick={onRegisterClick}
               className="glow-ring group flex items-center gap-2.5 rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-blue-600 px-6 py-3.5 sm:px-7 sm:py-4 text-[14px] sm:text-[15px] font-bold text-white shadow-xl shadow-red-600/40 transition-all hover:scale-[1.03] hover:shadow-red-500/70"
             >
               Register Now
@@ -562,7 +655,7 @@ function MiniSpark({ history, positive, seed = 0 }) {
   );
 }
 
-function Markets({ stocks, isLive }) {
+function Markets({ stocks, isLive, onRegisterClick }) {
   const [filter, setFilter] = useState('ALL');
 
   const gainers = useMemo(() => stocks.filter((s) => (s.percentChange || 0) >= 0), [stocks]);
@@ -640,6 +733,7 @@ function Markets({ stocks, isLive }) {
           </p>
           <a
             href={REGISTER_URL}
+            onClick={onRegisterClick}
             className="group flex items-center gap-2 text-[14px] font-bold text-red-400 transition hover:text-red-300"
           >
             Register to Sling Trades
@@ -784,7 +878,7 @@ const TONES = {
   rose: 'bg-red-500/15 text-red-300 ring-red-500/30'
 };
 
-function News() {
+function News({ onRegisterClick }) {
   return (
     <section id="news" className="relative overflow-hidden border-t border-red-500/20 py-24 sm:py-28">
       <SpiderWebCorner className="top-0 left-0" rotate={0} />
@@ -807,6 +901,7 @@ function News() {
 
           <a
             href={REGISTER_URL}
+            onClick={onRegisterClick}
             className="group flex items-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-5 py-3 text-[14px] font-bold text-slate-200 transition hover:border-red-400 hover:bg-red-500/20"
           >
             Register for Bugle Feed
@@ -927,7 +1022,7 @@ function About() {
 /* ------------------------------------------------------------------ *
  * Closing CTA — Spider-Man Web Skyline Banner with 4 Corner Webs
  * ------------------------------------------------------------------ */
-function FinalCTA() {
+function FinalCTA({ onRegisterClick }) {
   return (
     <section className="relative py-24 sm:py-28">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
@@ -971,6 +1066,7 @@ function FinalCTA() {
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
                 <a
                   href={REGISTER_URL}
+                  onClick={onRegisterClick}
                   className="glow-ring group flex items-center gap-2.5 rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-blue-600 px-8 py-4 text-[15px] font-bold text-white shadow-xl shadow-red-600/40 transition-all hover:scale-[1.03] hover:shadow-red-500/70"
                 >
                   Register Now
@@ -994,7 +1090,7 @@ function FinalCTA() {
 /* ------------------------------------------------------------------ *
  * Footer
  * ------------------------------------------------------------------ */
-function Footer({ stocks }) {
+function Footer({ stocks, onRegisterClick }) {
   return (
     <footer className="border-t border-red-500/25 bg-[#030409] py-14">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
@@ -1039,8 +1135,8 @@ function Footer({ stocks }) {
           <div>
             <h4 className="text-[12px] font-bold uppercase tracking-[0.16em] text-red-400">Account</h4>
             <ul className="mt-4 space-y-2.5 text-[13.5px] text-slate-400">
-              <li><a href={REGISTER_URL} className="transition hover:text-slate-200">Register</a></li>
-              <li><a href={REGISTER_URL} className="transition hover:text-slate-200">Trading Floor</a></li>
+              <li><a href={REGISTER_URL} onClick={onRegisterClick} className="transition hover:text-slate-200">Register</a></li>
+              <li><a href={REGISTER_URL} onClick={onRegisterClick} className="transition hover:text-slate-200">Trading Floor</a></li>
             </ul>
           </div>
         </div>
@@ -1060,34 +1156,46 @@ function Footer({ stocks }) {
 }
 
 /* ------------------------------------------------------------------ *
- * Page
+ * Main Landing Page Component
  * ------------------------------------------------------------------ */
 export function Landing() {
   const { stocks, isLive } = useLiveStocks(3000);
   const index = useArenaIndex(stocks);
+  const [isSlingingWeb, setIsSlingingWeb] = useState(false);
 
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
 
+  const handleRegisterClick = (e) => {
+    if (e) e.preventDefault();
+    setIsSlingingWeb(true);
+    setTimeout(() => {
+      window.location.href = REGISTER_URL;
+    }, 1200);
+  };
+
   return (
     <div className="relative min-h-screen bg-[#05070e] text-slate-100 antialiased">
+      {/* Spiderweb Slinging Transition Overlay */}
+      <SpiderWebTransitionModal isOpen={isSlingingWeb} />
+
       <motion.div
         style={{ scaleX: progress }}
         className="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-red-600 via-red-500 to-blue-600 shadow-md shadow-red-500"
       />
 
-      <Navbar />
+      <Navbar onRegisterClick={handleRegisterClick} />
       <main>
-        <Hero stocks={stocks} index={index} isLive={isLive} />
+        <Hero stocks={stocks} index={index} isLive={isLive} onRegisterClick={handleRegisterClick} />
         <TickerTape stocks={stocks} />
         <StatsBand />
-        <Markets stocks={stocks} isLive={isLive} />
+        <Markets stocks={stocks} isLive={isLive} onRegisterClick={handleRegisterClick} />
         <Features />
-        <News />
+        <News onRegisterClick={handleRegisterClick} />
         <About />
-        <FinalCTA />
+        <FinalCTA onRegisterClick={handleRegisterClick} />
       </main>
-      <Footer stocks={stocks} />
+      <Footer stocks={stocks} onRegisterClick={handleRegisterClick} />
     </div>
   );
 }
