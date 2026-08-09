@@ -802,19 +802,6 @@ function FinalCTA({ onRegisterClick }) {
             {/* Glowing Spidey Emblem Watermark */}
             <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600/15 blur-[100px]" />
 
-            {/* Crouching Spider-Man at the bottom left of the CTA card */}
-            <div className="pointer-events-none absolute bottom-[-15px] left-[-35px] z-10 select-none hidden md:block">
-              <img
-                src="/images/spiderman_side.png"
-                alt="Spider-Man crouching"
-                className="w-[185px] drop-shadow-[0_0_15px_rgba(255,0,85,0.45)]"
-                style={{
-                  filter: 'drop-shadow(4px 4px 0px #05070e)',
-                  transform: 'scaleX(-1) rotate(-15deg)'
-                }}
-              />
-            </div>
-
             <div className="relative z-10 mx-auto max-w-[620px]">
               <span className="badge-neo bg-[#ff0055] text-white px-3.5 py-1.5 text-xs font-black shadow-[2px_2px_0px_#05070e]">
                 JOIN THE SPIDER TRADING NETWORK TODAY
