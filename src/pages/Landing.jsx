@@ -100,148 +100,138 @@ function SpiderWebTransitionModal() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#04060e]/97 backdrop-blur-2xl overflow-hidden pointer-events-auto"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#04060e]/98 backdrop-blur-2xl overflow-hidden pointer-events-auto"
     >
-      {/* Animated Background Pulse Radial Glows */}
-      <div className="absolute inset-0 bg-gradient-to-r from-red-600/30 via-transparent to-blue-600/30 blur-3xl animate-pulse" />
-
-      {/* Laser warning scanline flash */}
+      {/* Background Strobe Shockwave */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 0.85, 0.2, 0] }}
-        transition={{ duration: 1.2, times: [0, 0.15, 0.45, 1], ease: "easeInOut" }}
-        className="absolute inset-0 bg-[#ff0055]/15 pointer-events-none mix-blend-color-dodge"
+        animate={{ 
+          backgroundColor: ["#04060e", "#ff0055", "#00f3ff", "#04060e"],
+          opacity: [0.97, 0.4, 0.4, 0.97]
+        }}
+        transition={{ duration: 0.45, ease: "easeInOut" }}
+        className="absolute inset-0 z-0 pointer-events-none"
       />
+
+      {/* Volcanic Portal Radial Glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,0,85,0.4)_0%,_rgba(0,243,255,0.25)_40%,_transparent_75%)] blur-3xl animate-pulse" />
+
+      {/* WARP TUNNEL CORRIDOR: 6 expanding concentric web rings */}
+      {Array.from({ length: 6 }).map((_, idx) => (
+        <motion.div
+          key={`ring-${idx}`}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: [0, 4.5], opacity: [0, 0.95, 0] }}
+          transition={{
+            duration: 1.6,
+            repeat: Infinity,
+            delay: idx * 0.25,
+            ease: "easeOut"
+          }}
+          className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
+        >
+          <svg width="450" height="450" viewBox="0 0 300 300" fill="none">
+            <circle cx="150" cy="150" r="120" stroke="url(#webSlingGrad)" strokeWidth="1.5" strokeDasharray="6 8" />
+            <circle cx="150" cy="150" r="80" stroke="url(#webSlingGrad)" strokeWidth="1" strokeDasharray="3 4" opacity="0.7" />
+            <circle cx="150" cy="150" r="40" stroke="url(#webSlingGrad)" strokeWidth="1" opacity="0.4" />
+          </svg>
+        </motion.div>
+      ))}
 
       {/* Layer 1: Clockwise crazy web shoot using Framer Motion keyframes */}
       <motion.div
         initial={{ scale: 0.04, rotate: -360, opacity: 0 }}
         animate={{
-          scale: [0.04, 1.9, 0.95, 4.8],
-          rotate: [-360, 180, 360, 1080],
+          scale: [0.04, 2.2, 0.85, 6.0],
+          rotate: [-360, 270, 720, 1440],
           opacity: [0, 1, 0.95, 0]
         }}
-        transition={{ duration: 1.4, times: [0, 0.22, 0.5, 1], ease: "easeInOut" }}
-        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        transition={{ duration: 1.5, times: [0, 0.25, 0.55, 1], ease: "easeInOut" }}
+        className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
       >
-        <svg width="700" height="700" viewBox="0 0 600 600" fill="none" className="animate-web-glow">
+        <svg width="850" height="850" viewBox="0 0 600 600" fill="none" className="animate-web-glow">
           <defs>
             <linearGradient id="webSlingGrad" x1="0" y1="0" x2="600" y2="600" gradientUnits="userSpaceOnUse">
               <stop stopColor="#ff0055" />
-              <stop offset="0.4" stopColor="#ffd200" />
-              <stop offset="0.8" stopColor="#00f3ff" />
+              <stop offset="0.3" stopColor="#ffd200" />
+              <stop offset="0.7" stopColor="#00f3ff" />
               <stop offset="1" stopColor="#ff0055" />
             </linearGradient>
           </defs>
 
-          {/* 16 Radial Web Strands shooting out from center */}
-          {Array.from({ length: 16 }).map((_, i) => {
-            const angle = (i * 22.5 * Math.PI) / 180;
-            const x2 = 300 + Math.cos(angle) * 320;
-            const y2 = 300 + Math.sin(angle) * 320;
+          {/* Radial Strands */}
+          {Array.from({ length: 24 }).map((_, i) => {
+            const angle = (i * 15 * Math.PI) / 180;
+            const x2 = 300 + Math.cos(angle) * 350;
+            const y2 = 300 + Math.sin(angle) * 350;
             return (
-              <line
-                key={i}
-                x1="300"
-                y1="300"
-                x2={x2}
-                y2={y2}
-                stroke="url(#webSlingGrad)"
-                strokeWidth="2.5"
-                opacity="0.95"
-              />
+              <line key={i} x1="300" y1="300" x2={x2} y2={y2} stroke="url(#webSlingGrad)" strokeWidth="2.8" opacity="0.95" />
             );
           })}
 
-          {/* Concentric Web Arcs */}
-          {[40, 80, 120, 160, 200, 240, 280].map((r, i) => (
-            <circle
-              key={r}
-              cx="300"
-              cy="300"
-              r={r}
-              stroke="url(#webSlingGrad)"
-              strokeWidth="1.8"
-              fill="none"
-              opacity={0.95 - i * 0.12}
-            />
+          {/* Arcs */}
+          {[30, 60, 90, 120, 150, 180, 210, 240, 270, 300].map((r, i) => (
+            <circle key={r} cx="300" cy="300" r={r} stroke="url(#webSlingGrad)" strokeWidth="2" fill="none" opacity={0.95 - i * 0.08} />
           ))}
-
-          {/* Glowing Web Nodes */}
-          {[80, 160, 240].map((r) =>
-            Array.from({ length: 8 }).map((_, i) => {
-              const angle = (i * 45 * Math.PI) / 180;
-              const cx = 300 + Math.cos(angle) * r;
-              const cy = 300 + Math.sin(angle) * r;
-              return <circle key={`${r}-${i}`} cx={cx} cy={cy} r="4" fill="#ffd200" style={{ filter: 'drop-shadow(0 0 4px #ffd200)' }} />;
-            })
-          )}
         </svg>
       </motion.div>
 
-      {/* Layer 2: Counter-Clockwise crazy web shoot using Framer Motion keyframes */}
+      {/* Layer 2: Counter-Clockwise crazy web shoot with delay */}
       <motion.div
         initial={{ scale: 0.04, rotate: 360, opacity: 0 }}
         animate={{
-          scale: [0.04, 1.6, 0.85, 4.2],
-          rotate: [360, -180, -360, -1080],
-          opacity: [0, 0.7, 0.6, 0]
+          scale: [0.04, 1.8, 0.75, 5.0],
+          rotate: [360, -270, -720, -1440],
+          opacity: [0, 0.85, 0.7, 0]
         }}
-        transition={{ duration: 1.4, delay: 0.15, times: [0, 0.22, 0.5, 1], ease: "easeInOut" }}
-        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        transition={{ duration: 1.5, delay: 0.12, times: [0, 0.25, 0.55, 1], ease: "easeInOut" }}
+        className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
       >
-        <svg width="700" height="700" viewBox="0 0 600 600" fill="none" className="opacity-70">
-          {/* 16 Radial Web Strands shooting out from center */}
-          {Array.from({ length: 16 }).map((_, i) => {
-            const angle = (i * 22.5 * Math.PI) / 180;
-            const x2 = 300 + Math.cos(angle) * 320;
-            const y2 = 300 + Math.sin(angle) * 320;
+        <svg width="850" height="850" viewBox="0 0 600 600" fill="none" className="opacity-80">
+          {Array.from({ length: 20 }).map((_, i) => {
+            const angle = (i * 18 * Math.PI) / 180;
+            const x2 = 300 + Math.cos(angle) * 350;
+            const y2 = 300 + Math.sin(angle) * 350;
             return (
-              <line
-                key={i}
-                x1="300"
-                y1="300"
-                x2={x2}
-                y2={y2}
-                stroke="url(#webSlingGrad)"
-                strokeWidth="1.5"
-                opacity="0.6"
-              />
+              <line key={i} x1="300" y1="300" x2={x2} y2={y2} stroke="url(#webSlingGrad)" strokeWidth="1.8" opacity="0.75" />
             );
           })}
-
-          {/* Concentric Web Arcs */}
-          {[60, 100, 140, 180, 220, 260].map((r, i) => (
-            <circle
-              key={r}
-              cx="300"
-              cy="300"
-              r={r}
-              stroke="url(#webSlingGrad)"
-              strokeWidth="1.2"
-              fill="none"
-              opacity={0.7 - i * 0.1}
-            />
-          ))}
         </svg>
       </motion.div>
 
-      {/* Giant Elastic THWIP Pop */}
+      {/* MULTIPLE COMIC SHOCKWAVE POPS: THWIP!, BAM!, CRASH! */}
       <motion.div
         initial={{ scale: 0, rotate: -45, opacity: 0 }}
         animate={{ scale: [0, 2.5, 0], rotate: [-45, 12, 28], opacity: [0, 1, 0] }}
-        transition={{ duration: 0.95, times: [0, 0.35, 1], ease: "backOut" }}
-        className="absolute z-50 pointer-events-none select-none font-display font-black text-6xl sm:text-8.5xl text-slate-950 bg-[#ffd200] border-4 border-slate-950 px-8 py-4 shadow-[6px_6px_0px_#ff0055] rounded-lg tracking-tighter"
+        transition={{ duration: 0.9, times: [0, 0.35, 1], ease: "backOut" }}
+        className="absolute z-30 pointer-events-none select-none font-display font-black text-6xl sm:text-8.5xl text-slate-950 bg-[#ffd200] border-4 border-slate-950 px-8 py-4 shadow-[6px_6px_0px_#ff0055] rounded-lg tracking-tighter"
       >
         THWIP!
       </motion.div>
 
+      <motion.div
+        initial={{ scale: 0, rotate: 30, opacity: 0 }}
+        animate={{ scale: [0, 1.8, 0], rotate: [30, -8, -22], opacity: [0, 0.95, 0] }}
+        transition={{ duration: 0.75, delay: 0.2, times: [0, 0.35, 1], ease: "backOut" }}
+        className="absolute z-30 top-1/4 left-1/4 pointer-events-none select-none font-display font-black text-4xl sm:text-6xl text-white bg-[#ff0055] border-3 border-slate-950 px-6 py-2.5 shadow-[4px_4px_0px_#00f3ff] rounded-lg -rotate-12"
+      >
+        ZIP!
+      </motion.div>
+
+      <motion.div
+        initial={{ scale: 0, rotate: -20, opacity: 0 }}
+        animate={{ scale: [0, 2.0, 0], rotate: [-20, 15, 35], opacity: [0, 0.95, 0] }}
+        transition={{ duration: 0.8, delay: 0.35, times: [0, 0.35, 1], ease: "backOut" }}
+        className="absolute z-30 bottom-1/4 right-1/4 pointer-events-none select-none font-display font-black text-4xl sm:text-6xl text-slate-950 bg-[#00f3ff] border-3 border-slate-950 px-6 py-2.5 shadow-[4px_4px_0px_#ffd200] rounded-lg rotate-12"
+      >
+        SHWIIP!
+      </motion.div>
+
       {/* Center Spidey Status Glass Card */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.7, y: 20 }}
+        initial={{ opacity: 0, scale: 0.5, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-        className="card-neo relative z-10 mx-4 max-w-[420px] bg-[#070b16] p-8 text-center"
+        transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="card-neo relative z-20 mx-4 max-w-[420px] bg-[#070b16] p-8 text-center shadow-[0_0_50px_rgba(255,0,85,0.3)]"
       >
         {/* Stylized Neo-Brutalist Spidey Badge */}
         <div className="relative mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl border-3 border-slate-950 bg-[#ff0055] shadow-[4px_4px_0px_#05070e] font-display text-4xl text-white select-none">
