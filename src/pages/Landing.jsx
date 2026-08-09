@@ -13,7 +13,7 @@ const REGISTER_URL = 'https://ignite-8.vercel.app/register-stock';
  * SVG Spiderweb Decorative & Transition Components
  * ------------------------------------------------------------------ */
 
-/** Full-screen Spiderweb Sling Transition Overlay on Register Click */
+/** High-Impact Full-Screen Spiderweb Sling Transition Overlay */
 function SpiderWebTransitionModal({ isOpen }) {
   if (!isOpen) return null;
 
@@ -23,33 +23,28 @@ function SpiderWebTransitionModal({ isOpen }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] flex items-center justify-center bg-[#04060e]/96 backdrop-blur-2xl overflow-hidden"
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-[#04060e]/96 backdrop-blur-2xl overflow-hidden pointer-events-auto"
       >
-        {/* Fullscreen expanding SVG web-shooter net */}
-        <motion.div
-          initial={{ scale: 0.1, rotate: -45, opacity: 0 }}
-          animate={{ scale: 2.5, rotate: 0, opacity: 1 }}
-          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
-        >
-          <svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Animated Background Pulse Radial Glows */}
+        <div className="absolute inset-0 bg-gradient-to-r from-red-600/30 via-transparent to-blue-600/30 blur-3xl animate-pulse" />
+
+        {/* 🕸️ Fullscreen expanding SVG web-shooter net */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none animate-web-shoot">
+          <svg width="700" height="700" viewBox="0 0 600 600" fill="none" className="animate-web-glow">
             <defs>
               <linearGradient id="webSlingGrad" x1="0" y1="0" x2="600" y2="600" gradientUnits="userSpaceOnUse">
                 <stop stopColor="#ef4444" />
-                <stop offset="0.5" stopColor="#ff1e42" />
-                <stop offset="1" stopColor="#3b82f6" />
+                <stop offset="0.4" stopColor="#ff1e42" />
+                <stop offset="0.8" stopColor="#3b82f6" />
+                <stop offset="1" stopColor="#00d2ff" />
               </linearGradient>
-              <filter id="webSlingGlow">
-                <feGaussianBlur stdDeviation="4" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-              </filter>
             </defs>
 
-            {/* Spiderweb spokes shooting out */}
+            {/* 16 Radial Web Strands shooting out from center */}
             {Array.from({ length: 16 }).map((_, i) => {
               const angle = (i * 22.5 * Math.PI) / 180;
-              const x2 = 300 + Math.cos(angle) * 300;
-              const y2 = 300 + Math.sin(angle) * 300;
+              const x2 = 300 + Math.cos(angle) * 320;
+              const y2 = 300 + Math.sin(angle) * 320;
               return (
                 <line
                   key={i}
@@ -58,43 +53,58 @@ function SpiderWebTransitionModal({ isOpen }) {
                   x2={x2}
                   y2={y2}
                   stroke="url(#webSlingGrad)"
-                  strokeWidth="2.5"
-                  filter="url(#webSlingGlow)"
+                  strokeWidth="2"
+                  opacity="0.9"
                 />
               );
             })}
 
-            {/* Concentric expanding web rings */}
-            {[35, 75, 115, 155, 195, 235, 275].map((r, i) => (
+            {/* Concentric Web Arcs */}
+            {[40, 80, 120, 160, 200, 240, 280].map((r, i) => (
               <circle
                 key={r}
                 cx="300"
                 cy="300"
                 r={r}
                 stroke="url(#webSlingGrad)"
-                strokeWidth="1.8"
+                strokeWidth="1.6"
                 fill="none"
-                filter="url(#webSlingGlow)"
-                opacity={0.95 - i * 0.08}
+                opacity={0.9 - i * 0.1}
               />
             ))}
-          </svg>
-        </motion.div>
 
-        {/* Center Spidey Status Message */}
+            {/* Glowing Web Nodes */}
+            {[80, 160, 240].map((r) =>
+              Array.from({ length: 8 }).map((_, i) => {
+                const angle = (i * 45 * Math.PI) / 180;
+                const cx = 300 + Math.cos(angle) * r;
+                const cy = 300 + Math.sin(angle) * r;
+                return <circle key={`${r}-${i}`} cx={cx} cy={cy} r="3" fill="#ff1e42" />;
+              })
+            )}
+          </svg>
+        </div>
+
+        {/* Center Spidey Status Glass Card */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, duration: 0.45 }}
-          className="relative z-10 text-center px-6"
+          initial={{ opacity: 0, scale: 0.7, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-10 mx-4 max-w-[420px] rounded-3xl border border-red-500/40 bg-slate-950/90 p-8 text-center backdrop-blur-xl shadow-2xl shadow-red-950/80"
         >
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-red-600 to-blue-600 border border-red-500/40 shadow-2xl shadow-red-500/60 animate-pulse">
-            <span className="text-3xl">🕷️</span>
+          {/* Glowing Spider Emblem Badge */}
+          <div className="relative mx-auto mb-5 flex h-20 w-20 overflow-hidden items-center justify-center rounded-2xl bg-gradient-to-br from-red-600 via-red-500 to-blue-600 p-0.5 shadow-2xl shadow-red-600/60 ring-2 ring-red-400/50">
+            <img src="/images/spider_emblem_hero.jpg" alt="Spider Emblem" className="h-full w-full object-cover rounded-[14px]" />
           </div>
+
           <h3 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-white">
             SLINGING TO <span className="text-gradient-spidey">REGISTRATION</span> DESK...
           </h3>
-          <p className="mt-2 text-sm text-red-400 font-bold tracking-wide uppercase">Connecting Spidey-Sense Orderbook</p>
+
+          <div className="mt-4 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider text-red-400">
+            <span className="h-2 w-2 rounded-full bg-red-500 animate-ping" />
+            Spidey-Sense Orderbook Connecting
+          </div>
         </motion.div>
       </motion.div>
     </AnimatePresence>
@@ -1171,7 +1181,7 @@ export function Landing() {
     setIsSlingingWeb(true);
     setTimeout(() => {
       window.location.href = REGISTER_URL;
-    }, 1200);
+    }, 1100);
   };
 
   return (
