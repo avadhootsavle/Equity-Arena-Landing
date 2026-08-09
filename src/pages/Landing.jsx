@@ -338,10 +338,10 @@ function Navbar({ onRegisterClick }) {
             Home
           </a>
           <a href="#features" className="text-[13px] font-medium text-slate-300 transition-colors hover:text-white">
-            Capabilities
+            Highlights
           </a>
           <a href="#about" className="text-[13px] font-medium text-slate-300 transition-colors hover:text-white">
-            Workflow
+            Rules & Onboarding
           </a>
         </nav>
 
@@ -387,14 +387,14 @@ function Navbar({ onRegisterClick }) {
                 onClick={() => setMobileOpen(false)}
                 className="block text-center border-2 border-slate-950 bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-100 transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e]"
               >
-                Capabilities
+                Highlights
               </a>
               <a
                 href="#about"
                 onClick={() => setMobileOpen(false)}
                 className="block text-center border-2 border-slate-950 bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-100 transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e]"
               >
-                Workflow
+                Rules & Onboarding
               </a>
               <a
                 href={REGISTER_URL}
@@ -937,13 +937,13 @@ function Footer({ stocks, onRegisterClick }) {
               <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-200">Platform</h4>
               <ul className="mt-3 space-y-2 text-[13px]">
                 <li><a href="#home" className="hover:text-white transition-colors">Home</a></li>
-                <li><a href="#features" className="hover:text-white transition-colors">Capabilities</a></li>
+                <li><a href="#features" className="hover:text-white transition-colors">Highlights</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-200">Resources</h4>
               <ul className="mt-3 space-y-2 text-[13px]">
-                <li><a href="#about" className="hover:text-white transition-colors">Execution Workflow</a></li>
+                <li><a href="#about" className="hover:text-white transition-colors">Rules & Onboarding</a></li>
                 <li><a href={REGISTER_URL} onClick={onRegisterClick} className="hover:text-white transition-colors">Register Account</a></li>
               </ul>
             </div>
