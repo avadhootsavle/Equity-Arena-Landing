@@ -105,8 +105,25 @@ function SpiderWebTransitionModal() {
       {/* Animated Background Pulse Radial Glows */}
       <div className="absolute inset-0 bg-gradient-to-r from-red-600/30 via-transparent to-blue-600/30 blur-3xl animate-pulse" />
 
-      {/* Layer 1: Clockwise crazy web shoot */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none animate-web-shoot-crazy">
+      {/* Laser warning scanline flash */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0.85, 0.2, 0] }}
+        transition={{ duration: 1.2, times: [0, 0.15, 0.45, 1], ease: "easeInOut" }}
+        className="absolute inset-0 bg-[#ff0055]/15 pointer-events-none mix-blend-color-dodge"
+      />
+
+      {/* Layer 1: Clockwise crazy web shoot using Framer Motion keyframes */}
+      <motion.div
+        initial={{ scale: 0.04, rotate: -360, opacity: 0 }}
+        animate={{
+          scale: [0.04, 1.9, 0.95, 4.8],
+          rotate: [-360, 180, 360, 1080],
+          opacity: [0, 1, 0.95, 0]
+        }}
+        transition={{ duration: 1.4, times: [0, 0.22, 0.5, 1], ease: "easeInOut" }}
+        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+      >
         <svg width="700" height="700" viewBox="0 0 600 600" fill="none" className="animate-web-glow">
           <defs>
             <linearGradient id="webSlingGrad" x1="0" y1="0" x2="600" y2="600" gradientUnits="userSpaceOnUse">
@@ -160,10 +177,19 @@ function SpiderWebTransitionModal() {
             })
           )}
         </svg>
-      </div>
+      </motion.div>
 
-      {/* Layer 2: Counter-Clockwise crazy web shoot with delay */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none animate-web-shoot-crazy" style={{ animationDelay: '0.15s', animationDirection: 'reverse' }}>
+      {/* Layer 2: Counter-Clockwise crazy web shoot using Framer Motion keyframes */}
+      <motion.div
+        initial={{ scale: 0.04, rotate: 360, opacity: 0 }}
+        animate={{
+          scale: [0.04, 1.6, 0.85, 4.2],
+          rotate: [360, -180, -360, -1080],
+          opacity: [0, 0.7, 0.6, 0]
+        }}
+        transition={{ duration: 1.4, delay: 0.15, times: [0, 0.22, 0.5, 1], ease: "easeInOut" }}
+        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+      >
         <svg width="700" height="700" viewBox="0 0 600 600" fill="none" className="opacity-70">
           {/* 16 Radial Web Strands shooting out from center */}
           {Array.from({ length: 16 }).map((_, i) => {
@@ -198,13 +224,13 @@ function SpiderWebTransitionModal() {
             />
           ))}
         </svg>
-      </div>
+      </motion.div>
 
       {/* Giant Elastic THWIP Pop */}
       <motion.div
         initial={{ scale: 0, rotate: -45, opacity: 0 }}
         animate={{ scale: [0, 2.5, 0], rotate: [-45, 12, 28], opacity: [0, 1, 0] }}
-        transition={{ duration: 0.95, times: [0, 0.35, 1], ease: "back.out(1.8)" }}
+        transition={{ duration: 0.95, times: [0, 0.35, 1], ease: "backOut" }}
         className="absolute z-50 pointer-events-none select-none font-display font-black text-6xl sm:text-8.5xl text-slate-950 bg-[#ffd200] border-4 border-slate-950 px-8 py-4 shadow-[6px_6px_0px_#ff0055] rounded-lg tracking-tighter"
       >
         THWIP!
