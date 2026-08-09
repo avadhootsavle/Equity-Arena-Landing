@@ -442,6 +442,30 @@ const HERO_FEATURES = [
 ];
 
 const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    const targetDate = new Date('2026-09-04T00:00:00+05:30').getTime();
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference <= 0) {
+        clearInterval(interval);
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      } else {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+        setTimeLeft({ days, hours, minutes, seconds });
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section ref={ref} id="home" className="relative min-h-screen overflow-hidden pt-[72px] spider-web-bg">
       {/* Corner Spiderwebs */}
@@ -514,6 +538,36 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
             >
               Sling Into Trading <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
+          </div>
+
+          {/* Telemetry Launch Countdown to Sept 4 */}
+          <div className="mt-8 border-3 border-slate-950 bg-[#070b16] p-4.5 rounded-xl shadow-[4px_4px_0px_#05070e] text-left max-w-[420px] w-full relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-red-600/5 via-transparent to-blue-600/5 pointer-events-none" />
+            <div className="flex items-center justify-between mb-3 border-b border-slate-850 pb-2.5">
+              <span className="badge-neo bg-[#ffd200] text-slate-950 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider shadow-[1.5px_1.5px_0px_#05070e]">
+                LAUNCH TELEMETRY // SEPT 4
+              </span>
+              <span className="text-[9px] font-mono text-slate-500 animate-pulse select-none">STATE: ACTIVE</span>
+            </div>
+            
+            <div className="grid grid-cols-4 gap-2.5 text-center">
+              <div className="bg-slate-950/60 p-2.5 rounded border border-slate-800 shadow-[inset_0_0_12px_rgba(255,0,85,0.06)]">
+                <span className="block font-display text-2xl font-black text-[#ff0055] tabular-nums">{timeLeft.days}</span>
+                <span className="text-[9px] font-mono uppercase text-slate-500 font-bold tracking-wider">Days</span>
+              </div>
+              <div className="bg-slate-950/60 p-2.5 rounded border border-slate-800 shadow-[inset_0_0_12px_rgba(0,243,255,0.06)]">
+                <span className="block font-display text-2xl font-black text-[#00f3ff] tabular-nums">{timeLeft.hours}</span>
+                <span className="text-[9px] font-mono uppercase text-slate-500 font-bold tracking-wider">Hours</span>
+              </div>
+              <div className="bg-slate-950/60 p-2.5 rounded border border-slate-800 shadow-[inset_0_0_12px_rgba(255,210,0,0.06)]">
+                <span className="block font-display text-2xl font-black text-[#ffd200] tabular-nums">{timeLeft.minutes}</span>
+                <span className="text-[9px] font-mono uppercase text-slate-500 font-bold tracking-wider">Mins</span>
+              </div>
+              <div className="bg-slate-950/60 p-2.5 rounded border border-slate-800 shadow-[inset_0_0_12px_rgba(255,255,255,0.06)]">
+                <span className="block font-display text-2xl font-black text-white tabular-nums">{timeLeft.seconds}</span>
+                <span className="text-[9px] font-mono uppercase text-slate-500 font-bold tracking-wider">Secs</span>
+              </div>
+            </div>
           </div>
 
           <div className="mt-10 sm:mt-12 grid grid-cols-3 gap-3 border-t border-red-500/20 pt-6 sm:pt-7 w-full">
