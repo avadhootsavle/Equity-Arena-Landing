@@ -395,14 +395,32 @@ function Navbar({ onRegisterClick }) {
             exit={{ opacity: 0, height: 0 }}
             className="border-b border-red-500/30 bg-[#05070e]/95 px-5 py-6 backdrop-blur-2xl md:hidden"
           >
-            <nav className="flex flex-col gap-4">
-              <a href="#home" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-slate-300">Home</a>
-              <a href="#features" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-slate-300">Capabilities</a>
-              <a href="#about" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-slate-300">Workflow</a>
+            <nav className="flex flex-col gap-3">
+              <a
+                href="#home"
+                onClick={() => setMobileOpen(false)}
+                className="block text-center border-2 border-slate-950 bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-100 transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e]"
+              >
+                Home
+              </a>
+              <a
+                href="#features"
+                onClick={() => setMobileOpen(false)}
+                className="block text-center border-2 border-slate-950 bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-100 transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e]"
+              >
+                Capabilities
+              </a>
+              <a
+                href="#about"
+                onClick={() => setMobileOpen(false)}
+                className="block text-center border-2 border-slate-950 bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-100 transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e]"
+              >
+                Workflow
+              </a>
               <a
                 href={REGISTER_URL}
                 onClick={(e) => { setMobileOpen(false); onRegisterClick(e); }}
-                className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-blue-600 py-3 text-center text-sm font-bold text-white"
+                className="btn-neo mt-2 justify-center py-3.5 text-sm font-black"
               >
                 Sling Into Trading <ArrowRight className="h-4 w-4" />
               </a>
@@ -476,9 +494,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
       {/* Layout grid */}
       <div className="mx-auto grid max-w-[1280px] items-center gap-10 sm:gap-14 px-4 sm:px-8 pb-20 pt-10 sm:pb-24 sm:pt-14 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pb-12 lg:pt-20">
         {/* ---------- Left column (GSAP Hero Page-Load Entrance) ---------- */}
-        <div data-gsap="hero" className="relative z-10">
-
-
+        <div data-gsap="hero" className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
           <h1 className="font-display mt-6 sm:mt-7 text-[clamp(2.25rem,6vw,4.6rem)] font-bold leading-[1.0] tracking-[-0.03em] text-white">
             With great capital
             <br />
@@ -500,10 +516,10 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
             </a>
           </div>
 
-          <div className="mt-10 sm:mt-12 grid grid-cols-3 gap-3 border-t border-red-500/20 pt-6 sm:pt-7">
+          <div className="mt-10 sm:mt-12 grid grid-cols-3 gap-3 border-t border-red-500/20 pt-6 sm:pt-7 w-full">
             {HERO_FEATURES.map(({ icon: Icon, title, sub }) => (
-              <div key={title} className="flex flex-col gap-1">
-                <Icon className="h-4 w-4 text-red-400" />
+              <div key={title} className="flex flex-col items-center lg:items-start gap-1">
+                <Icon className="h-4 w-4 text-red-400 mx-auto lg:mx-0" />
                 <span className="font-display text-[12px] sm:text-[13px] font-bold text-slate-100">{title}</span>
                 <span className="text-[11px] text-slate-400">{sub}</span>
               </div>
