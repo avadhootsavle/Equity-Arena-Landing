@@ -706,36 +706,6 @@ const About = forwardRef((props, ref) => {
           </div>
         </div>
 
-        {/* Styled Premium Neo-Brutalist Disclaimer Card */}
-        <div className="card-neo mt-12 p-6 bg-[#070b16]/90 border-t-4 border-t-[#ffd200] relative overflow-hidden text-left">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="badge-neo bg-[#ffd200] text-slate-950 px-2.5 py-1 text-[11px] font-black">
-              DISCLAIMER // READ CAREFULLY
-            </span>
-            <span className="text-slate-500 font-mono text-[11px] select-none">ID: EA-TELEMETRY-SEC-88</span>
-          </div>
-          <h4 className="font-display text-white text-md font-black tracking-tight mb-2">EQUITY ARENA — LEGAL DISCLAIMER</h4>
-          <div className="space-y-3 font-mono text-[12px] text-slate-400 leading-relaxed">
-            <p>
-              <strong>Equity Arena</strong> is an educational stock-market simulation game created for learning and entertainment purposes only.
-            </p>
-            <p>
-              All funds, stocks, prices, portfolios, profits, losses, orders, and transactions shown in the game are <strong>virtual and simulated</strong>. No real money is deposited, invested, transferred, or withdrawn through Equity Arena, and no real financial transactions take place.
-            </p>
-            <p>
-              The market prices, price movements, company data, and news presented in the game are simulated for gameplay and educational purposes and do not represent actual market prices, real investment opportunities, or real-world trading conditions. Any profits or losses displayed in the game have no real monetary value.
-            </p>
-            <p>
-              Equity Arena does not provide financial, investment, trading, or legal advice. Information shown in the game should not be used as a basis for making real-world investment or trading decisions. Past simulated performance does not guarantee or indicate future results.
-            </p>
-            <p>
-              All virtual currency used within the game, including <strong>IC (In-Game Currency)</strong>, has no cash value and cannot be exchanged for real money or other financial assets.
-            </p>
-            <p className="text-[#ffd200] font-bold">
-              By using Equity Arena, you acknowledge and agree that you are participating in a simulated trading environment and that all market activity, assets, currency, profits, and losses are virtual and have no real-world monetary value.
-            </p>
-          </div>
-        </div>
 
       </div>
     </section>
@@ -835,6 +805,37 @@ function Footer({ stocks, onRegisterClick }) {
                 <li className="font-mono text-[11px] text-slate-500">Ignite-8 Engine v2.4</li>
               </ul>
             </div>
+          </div>
+        </div>
+
+        {/* Styled Premium Neo-Brutalist Disclaimer Card */}
+        <div className="card-neo mt-12 p-6 bg-[#070b16]/90 border-t-4 border-t-[#ffd200] relative overflow-hidden text-left">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="badge-neo bg-[#ffd200] text-slate-950 px-2.5 py-1 text-[11px] font-black shadow-[2px_2px_0px_#05070e]">
+              DISCLAIMER // READ CAREFULLY
+            </span>
+            <span className="text-slate-500 font-mono text-[11px] select-none">ID: EA-TELEMETRY-SEC-88</span>
+          </div>
+          <h4 className="font-display text-white text-md font-black tracking-tight mb-2">EQUITY ARENA — LEGAL DISCLAIMER</h4>
+          <div className="space-y-3 font-mono text-[12px] text-slate-400 leading-relaxed">
+            <p>
+              <strong>Equity Arena</strong> is an educational stock-market simulation game created for learning and entertainment purposes only.
+            </p>
+            <p>
+              All funds, stocks, prices, portfolios, profits, losses, orders, and transactions shown in the game are <strong>virtual and simulated</strong>. No real money is deposited, invested, transferred, or withdrawn through Equity Arena, and no real financial transactions take place.
+            </p>
+            <p>
+              The market prices, price movements, company data, and news presented in the game are simulated for gameplay and educational purposes and do not represent actual market prices, real investment opportunities, or real-world trading conditions. Any profits or losses displayed in the game have no real monetary value.
+            </p>
+            <p>
+              Equity Arena does not provide financial, investment, trading, or legal advice. Information shown in the game should not be used as a basis for making real-world investment or trading decisions. Past simulated performance does not guarantee or indicate future results.
+            </p>
+            <p>
+              All virtual currency used within the game, including <strong>IC (In-Game Currency)</strong>, has no cash value and cannot be exchanged for real money or other financial assets.
+            </p>
+            <p className="text-[#ffd200] font-bold">
+              By using Equity Arena, you acknowledge and agree that you are participating in a simulated trading environment and that all market activity, assets, currency, profits, and losses are virtual and have no real-world monetary value.
+            </p>
           </div>
         </div>
 
