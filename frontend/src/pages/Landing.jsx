@@ -847,7 +847,7 @@ export function Landing() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#05070e] text-slate-100 antialiased overflow-x-hidden">
+    <div ref={containerRef} className="relative min-h-screen bg-[#05070e] text-slate-100 antialiased overflow-x-hidden">
       {/* Spiderweb Slinging Transition Overlay */}
       <SpiderWebTransitionModal isOpen={isSlingingWeb} />
 

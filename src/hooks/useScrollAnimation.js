@@ -6,40 +6,47 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Reusable custom hook for React-safe GSAP + ScrollTrigger animations.
- * Features:
- * - Automatic cleanup via gsap.context() on unmount (no memory leaks)
- * - Accessibility support for prefers-reduced-motion
- * - Page-load entrance for Hero
- * - ScrollTrigger.batch() for card grids
- * - Section reveals at 80% viewport height (play once)
- * - Section heading scale-in (0.9 -> 1)
- * - Stats number count-up animations
- * - Parallax background scrubbing
+ * Configured specifically for Equity Arena section hierarchy & class markup:
+ * - #home (Hero entrance + terminal slide-in + spiderweb line reveal + background parallax)
+ * - #features, #news, #about (Section intros + batch card grid reveals)
+ * - Automatic image/font load ScrollTrigger.refresh()
+ * - prefers-reduced-motion fallback (opacity-only fade, y: 0)
+ * - Complete unmount cleanup via gsap.context().revert()
  */
 export function useScrollAnimation() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    // Respect user's motion preferences
+    // Check user preference for reduced motion
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
 
+    // Handle image/font load refresh for position calculations
+    const handleLoadRefresh = () => {
+      ScrollTrigger.refresh();
+    };
+    window.addEventListener('load', handleLoadRefresh);
+
     const ctx = gsap.context(() => {
+      // ----------------------------------------------------------------
+      // REDUCED MOTION FALLBACK: Fade opacity only, no Y translation
+      // ----------------------------------------------------------------
       if (prefersReducedMotion) {
-        // If reduced motion is preferred, force opacity to 1 immediately with no movement
         gsap.set(
-          '[data-gsap="hero"], [data-gsap="section"], [data-gsap="heading"], [data-gsap="card"], [data-gsap="stat-count"]',
+          '[data-gsap="hero"], #gsap-hero-terminal, [data-gsap="section"], [data-gsap="heading"], .gsap-trigger-card, .layer-3d, [data-gsap="stat-count"]',
           { opacity: 1, y: 0, scale: 1 }
         );
         return;
       }
 
-      // 1. HERO SECTION: Page-load entrance (fade + upward slide)
-      const heroEls = containerRef.current?.querySelectorAll('[data-gsap="hero"]');
-      if (heroEls && heroEls.length > 0) {
+      // ----------------------------------------------------------------
+      // 1. HERO (#home): Page-Load Entrance (Not Scroll-Triggered)
+      // ----------------------------------------------------------------
+      const heroText = containerRef.current?.querySelectorAll('[data-gsap="hero"]');
+      if (heroText && heroText.length > 0) {
         gsap.fromTo(
-          heroEls,
+          heroText,
           { opacity: 0, y: 30 },
           {
             opacity: 1,
@@ -51,11 +58,43 @@ export function useScrollAnimation() {
         );
       }
 
-      // 2. HERO PARALLAX BACKGROUND: Subtle scrub parallax
+      // Hero Trading Terminal Card (#gsap-hero-terminal) — slight delay after heading
+      const heroTerminal = containerRef.current?.querySelector('#gsap-hero-terminal');
+      if (heroTerminal) {
+        gsap.fromTo(
+          heroTerminal,
+          { opacity: 0, y: 30, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.85,
+            delay: 0.35,
+            ease: 'power2.out',
+          }
+        );
+      }
+
+      // Hero Side Spiderweb Line (#gsap-spiderweb-line) — stroke/height draw reveal
+      const spiderwebLine = containerRef.current?.querySelector('#gsap-spiderweb-line');
+      if (spiderwebLine) {
+        gsap.fromTo(
+          spiderwebLine,
+          { height: '0%' },
+          {
+            height: '100%',
+            duration: 1.2,
+            delay: 0.5,
+            ease: 'power2.out',
+          }
+        );
+      }
+
+      // Hero Background Ambient Parallax
       const parallaxEls = containerRef.current?.querySelectorAll('[data-gsap="parallax"]');
       parallaxEls?.forEach((el) => {
         gsap.to(el, {
-          yPercent: 20,
+          yPercent: 18,
           ease: 'none',
           scrollTrigger: {
             trigger: el.parentElement || el,
@@ -66,20 +105,24 @@ export function useScrollAnimation() {
         });
       });
 
-      // 3. SUBSEQUENT SECTIONS: Fade in + translateY(40px -> 0), start: "top 80%", play once
-      const sectionEls = containerRef.current?.querySelectorAll('[data-gsap="section"]');
-      sectionEls?.forEach((sec) => {
+      // ----------------------------------------------------------------
+      // 2. SECTION INTRO BLOCKS (Badge + Heading Wrappers)
+      // ----------------------------------------------------------------
+      const sectionIntros = containerRef.current?.querySelectorAll(
+        '[data-gsap="heading"], section > div > div:first-child'
+      );
+      sectionIntros?.forEach((intro) => {
         gsap.fromTo(
-          sec,
-          { opacity: 0, y: 40 },
+          intro,
+          { opacity: 0, y: 30 },
           {
             opacity: 1,
             y: 0,
             duration: 0.7,
             ease: 'power2.out',
             scrollTrigger: {
-              trigger: sec,
-              start: 'top 80%',
+              trigger: intro,
+              start: 'top 85%',
               toggleActions: 'play none none none',
               once: true,
             },
@@ -87,42 +130,24 @@ export function useScrollAnimation() {
         );
       });
 
-      // 4. SECTION HEADINGS: Scale-in (0.9 -> 1) + fade
-      const headingEls = containerRef.current?.querySelectorAll('[data-gsap="heading"]');
-      headingEls?.forEach((heading) => {
-        gsap.fromTo(
-          heading,
-          { opacity: 0, scale: 0.9, y: 20 },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            duration: 0.7,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: heading,
-              start: 'top 82%',
-              toggleActions: 'play none none none',
-              once: true,
-            },
-          }
-        );
-      });
-
-      // 5. CARD/GRID ELEMENTS: ScrollTrigger.batch() with 0.12s stagger
-      const cardEls = containerRef.current?.querySelectorAll('[data-gsap="card"]');
-      if (cardEls && cardEls.length > 0) {
-        ScrollTrigger.batch(cardEls, {
+      // ----------------------------------------------------------------
+      // 3. CARD GRIDS (.stage-3d .layer-3d & .gsap-trigger-card)
+      // ----------------------------------------------------------------
+      const gridCards = containerRef.current?.querySelectorAll(
+        '.gsap-trigger-card, .stage-3d .layer-3d, [data-gsap="card"]'
+      );
+      if (gridCards && gridCards.length > 0) {
+        ScrollTrigger.batch(gridCards, {
           start: 'top 85%',
           once: true,
           onEnter: (batch) => {
             gsap.fromTo(
               batch,
-              { opacity: 0, y: 40 },
+              { opacity: 0, y: 28 },
               {
                 opacity: 1,
                 y: 0,
-                duration: 0.65,
+                duration: 0.7,
                 ease: 'power2.out',
                 stagger: 0.12,
                 overwrite: 'auto',
@@ -132,14 +157,15 @@ export function useScrollAnimation() {
         });
       }
 
-      // 6. STATS / NUMBERS: Animate counting up from 0 when scrolled into view
+      // ----------------------------------------------------------------
+      // 4. STATS COUNT-UP NUMBERS
+      // ----------------------------------------------------------------
       const statEls = containerRef.current?.querySelectorAll('[data-gsap="stat-count"]');
       statEls?.forEach((statEl) => {
         const targetVal = parseFloat(statEl.getAttribute('data-target') || '0');
         const prefix = statEl.getAttribute('data-prefix') || '';
         const suffix = statEl.getAttribute('data-suffix') || '';
         const isInt = Number.isInteger(targetVal);
-
         const obj = { val: 0 };
 
         gsap.to(obj, {
@@ -161,13 +187,12 @@ export function useScrollAnimation() {
       });
     }, containerRef);
 
-    // Clean up all GSAP animations and ScrollTrigger instances on unmount
     return () => {
+      window.removeEventListener('load', handleLoadRefresh);
       ctx.revert();
     };
   }, []);
 
-  // Helper to trigger ScrollTrigger.refresh() manually when dynamic content or images finish loading
   const refreshScrollTrigger = () => {
     ScrollTrigger.refresh();
   };
