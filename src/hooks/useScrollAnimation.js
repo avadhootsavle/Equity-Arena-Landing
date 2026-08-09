@@ -88,24 +88,26 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef, newsRef) {
             );
           }
 
-          // Color-shift scrub: desaturated -> saturated as user scrolls to #about
+          // Color-shift scrub: Only desaturate the background parallax glows/grids, leaving text/buttons fully colorful
           if (aboutRef.current) {
-            gsap.fromTo(
-              homeRef.current,
-              { filter: 'saturate(0.15)', opacity: 0.85 },
-              {
-                filter: 'saturate(1.0)',
-                opacity: 1,
-                ease: 'none',
-                scrollTrigger: {
-                  trigger: homeRef.current,
-                  endTrigger: aboutRef.current,
-                  start: 'bottom bottom',
-                  end: 'top top',
-                  scrub: 1,
-                },
-              }
-            );
+            const homeParallax = homeRef.current.querySelector('[data-gsap="parallax"]');
+            if (homeParallax) {
+              gsap.fromTo(
+                homeParallax,
+                { filter: 'saturate(0.15)', opacity: 0.6 },
+                {
+                  filter: 'saturate(1.25)',
+                  opacity: 1,
+                  ease: 'none',
+                  scrollTrigger: {
+                    trigger: homeRef.current,
+                    start: 'top top',
+                    end: 'bottom center', // Fully saturated by the time user scrolls halfway down the hero
+                    scrub: 0.5,
+                  },
+                }
+              );
+            }
           }
         }
 
