@@ -982,59 +982,72 @@ function SpideyCursor() {
     <>
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 pointer-events-none z-[999999] -translate-x-1/2 -translate-y-1/2 hidden lg:block drop-shadow-[0_0_8px_rgba(255,0,85,0.7)]"
+        className="fixed top-0 left-0 pointer-events-none z-[999999] -translate-x-1/2 -translate-y-1/2 hidden lg:block"
         style={{ transform: 'translate3d(-100px, -100px, 0)', willChange: 'transform' }}
       >
-        {/* Spidey-Sense Wavy Tingle Lines (radiating above the mask) */}
-        <AnimatePresence>
-          {isHoveringInteractive && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: 5 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: 5 }}
-              className="absolute top-[-26px] left-1/2 -translate-x-1/2 flex flex-col items-center select-none"
-            >
-              <svg width="46" height="24" viewBox="0 0 46 24" className="stroke-[#ffd200] stroke-2 fill-none overflow-visible">
-                {/* Wavy Spidey-Sense Arcs vibrating rapidly */}
-                <path d="M 3 6 Q 23 -6 43 6" className="animate-spidey-sense-tingle" style={{ animationDelay: '0s' }} />
-                <path d="M 8 13 Q 23 3 38 13" stroke="#ff0055" className="animate-spidey-sense-tingle" style={{ animationDelay: '0.08s' }} />
-                <path d="M 14 20 Q 23 11 32 20" opacity="0.65" className="animate-spidey-sense-tingle" style={{ animationDelay: '0.16s' }} />
-              </svg>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <div className="relative w-[110px] h-[110px] flex items-center justify-center">
+          {/* Spidey mask & radiating squiggles in one single 110x110 canvas */}
+          <svg width="110" height="110" viewBox="0 0 100 100" fill="none" className="overflow-visible select-none">
+            {/* RADIATING SPIDEY-SENSE COMIC SQUIGGLES (Only render when hovering interactive elements) */}
+            <AnimatePresence>
+              {isHoveringInteractive && (
+                <motion.g
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.15 }}
+                  className="stroke-[#ffd200] stroke-[2.5] stroke-linecap-round filter drop-shadow-[0_0_4px_#ff0055] animate-spidey-sense-tingle"
+                >
+                  {/* Radials */}
+                  <path d="M 50 28 Q 47 22 52 16 T 50 8" />
+                  <path d="M 57 29 Q 62 23 59 17 T 64 10" />
+                  <path d="M 43 29 Q 38 23 41 17 T 36 10" />
+                  <path d="M 64 33 Q 71 28 66 22 T 74 15" stroke="#ff0055" />
+                  <path d="M 36 33 Q 29 28 34 22 T 26 15" stroke="#ff0055" />
+                  <path d="M 69 39 Q 78 36 74 30 T 83 23" />
+                  <path d="M 31 39 Q 22 36 26 30 T 17 23" />
+                  <path d="M 72 47 Q 82 46 79 40 T 89 35" stroke="#ff0055" />
+                  <path d="M 28 47 Q 18 46 21 40 T 11 35" stroke="#ff0055" />
+                  <path d="M 73 54 Q 83 55 81 49 T 91 46" />
+                  <path d="M 27 54 Q 17 55 19 49 T 9 46" />
+                </motion.g>
+              )}
+            </AnimatePresence>
 
-        <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
-          {/* Spidey Mask Red Outer Base */}
-          <path
-            d="M17 2C24.5 2 29 7.5 29 15C29 22.5 22.5 29.5 17 32C11.5 29.5 5 22.5 5 15C5 7.5 9.5 2 17 2Z"
-            fill="#ff0055"
-            stroke="#05070e"
-            strokeWidth="2.5"
-          />
-          {/* Web Lines on Mask */}
-          <path d="M17 2V32" stroke="#05070e" strokeWidth="1" opacity="0.6" />
-          <path d="M5 15H29" stroke="#05070e" strokeWidth="1" opacity="0.6" />
-          <path d="M8 8C12 11 22 11 26 8" stroke="#05070e" strokeWidth="1" opacity="0.6" />
-          <path d="M8 22C12 19 22 19 26 22" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+            {/* Spidey Mask centered at (50, 50) */}
+            <g transform="translate(33, 33)">
+              {/* Spidey Mask Red Outer Base */}
+              <path
+                d="M17 2C24.5 2 29 7.5 29 15C29 22.5 22.5 29.5 17 32C11.5 29.5 5 22.5 5 15C5 7.5 9.5 2 17 2Z"
+                fill="#ff0055"
+                stroke="#05070e"
+                strokeWidth="2.5"
+              />
+              {/* Web Lines on Mask */}
+              <path d="M17 2V32" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+              <path d="M5 15H29" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+              <path d="M8 8C12 11 22 11 26 8" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+              <path d="M8 22C12 19 22 19 26 22" stroke="#05070e" strokeWidth="1" opacity="0.6" />
 
-          {/* Left Spidey Eye */}
-          <path
-            d="M7 14C8.5 10.5 12.5 9.5 14.5 12.5C15 13.5 14 17 11 18.5C8 20 7.5 17.5 7 14Z"
-            fill="white"
-            stroke="#05070e"
-            strokeWidth="2.5"
-            strokeLinejoin="round"
-          />
-          {/* Right Spidey Eye */}
-          <path
-            d="M27 14C25.5 10.5 21.5 9.5 19.5 12.5C19 13.5 20 17 23 18.5C26 20 26.5 17.5 27 14Z"
-            fill="white"
-            stroke="#05070e"
-            strokeWidth="2.5"
-            strokeLinejoin="round"
-          />
-        </svg>
+              {/* Left Spidey Eye */}
+              <path
+                d="M7 14C8.5 10.5 12.5 9.5 14.5 12.5C15 13.5 14 17 11 18.5C8 20 7.5 17.5 7 14Z"
+                fill="white"
+                stroke="#05070e"
+                strokeWidth="2.5"
+                strokeLinejoin="round"
+              />
+              {/* Right Spidey Eye */}
+              <path
+                d="M27 14C25.5 10.5 21.5 9.5 19.5 12.5C19 13.5 20 17 23 18.5C26 20 26.5 17.5 27 14Z"
+                fill="white"
+                stroke="#05070e"
+                strokeWidth="2.5"
+                strokeLinejoin="round"
+              />
+            </g>
+          </svg>
+        </div>
       </div>
       <div
         ref={trailingRef}
