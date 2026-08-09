@@ -689,7 +689,13 @@ const STEPS = [
 
 const About = forwardRef((props, ref) => {
   return (
-    <section ref={ref} id="about" data-gsap="section" className="relative border-t border-red-500/20 py-24 sm:py-28 bg-slate-950/80">
+    <section ref={ref} id="about" data-gsap="section" className="relative border-t border-red-500/20 py-24 sm:py-28 bg-slate-950/80 overflow-hidden">
+      {/* Comic Book popups scoped to About section */}
+      <div id="gsap-comic-thwip" className="pointer-events-none absolute left-[12%] top-[42%] opacity-0 scale-0 z-30 bg-[#ff1e42] border-4 border-white text-white font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg -rotate-12 shadow-[4px_4px_0px_#000] font-mono">THWIP!</div>
+      <div id="gsap-comic-bzzzt" className="pointer-events-none absolute left-[38%] top-[38%] opacity-0 scale-0 z-30 bg-amber-400 border-4 border-black text-black font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg rotate-6 shadow-[4px_4px_0px_#000] font-mono">BZZZT!</div>
+      <div id="gsap-comic-swing" className="pointer-events-none absolute left-[62%] top-[42%] opacity-0 scale-0 z-30 bg-blue-600 border-4 border-white text-white font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg -rotate-6 shadow-[4px_4px_0px_#000] font-mono">SWING!</div>
+      <div id="gsap-comic-boom" className="pointer-events-none absolute left-[82%] top-[32%] opacity-0 scale-0 z-30 bg-red-600 border-4 border-white text-white font-extrabold uppercase px-7 py-2 rounded-lg text-2xl rotate-12 shadow-[6px_6px_0px_#000] font-mono">BOOM!</div>
+
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div data-gsap="heading" className="mx-auto max-w-[620px] text-center">
           <SectionTag icon={Gauge}>Execution Workflow</SectionTag>
@@ -720,6 +726,17 @@ const About = forwardRef((props, ref) => {
             </div>
           ))}
         </div>
+
+        {/* Narrative Peter Parker Story Progression Caption */}
+        <div className="mt-16 text-center max-w-xl mx-auto">
+          <div className="relative rounded-2xl border border-red-500/30 bg-[#070b19]/80 px-6 py-4 shadow-xl backdrop-blur-md overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-red-600/5 via-transparent to-blue-600/5" />
+            <p id="gsap-about-story" className="font-mono text-[13px] font-bold text-red-400 tracking-wide transition-all duration-300">
+              STORY CAPTION: Scroll to unlock Peter Parker's trading origin...
+            </p>
+          </div>
+        </div>
+
       </div>
     </section>
   );
@@ -871,6 +888,22 @@ export function Landing() {
     <div className="relative min-h-screen bg-[#05070e] text-slate-100 antialiased overflow-x-hidden">
       {/* "The Bite" Full-Bleed Radial Impact Overlay */}
       <div id="gsap-bite-overlay" className="pointer-events-none fixed inset-0 z-[90] opacity-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-600/40 via-blue-600/20 to-transparent" />
+
+      {/* Spidey-Sense Comic Alert Indicators (Left/Right margins) */}
+      <div id="gsap-spidey-sense-left" className="pointer-events-none fixed left-4 top-1/3 z-[80] opacity-0 transition-opacity duration-300 select-none">
+        <svg width="80" height="160" viewBox="0 0 80 160" className="stroke-red-500 stroke-[3] fill-none overflow-visible drop-shadow-[0_0_8px_#ef4444]">
+          <path d="M 20 10 Q 70 80 20 150" />
+          <path d="M 35 25 Q 75 80 35 135" opacity="0.75" stroke="#f59e0b" />
+          <path d="M 50 40 Q 80 80 50 120" opacity="0.4" stroke="#ef4444" />
+        </svg>
+      </div>
+      <div id="gsap-spidey-sense-right" className="pointer-events-none fixed right-4 top-1/3 z-[80] opacity-0 transition-opacity duration-300 select-none">
+        <svg width="80" height="160" viewBox="0 0 80 160" className="stroke-red-500 stroke-[3] fill-none overflow-visible drop-shadow-[0_0_8px_#ef4444]">
+          <path d="M 60 10 Q 10 80 60 150" />
+          <path d="M 45 25 Q 5 80 45 135" opacity="0.75" stroke="#f59e0b" />
+          <path d="M 30 40 Q 0 80 30 120" opacity="0.4" stroke="#ef4444" />
+        </svg>
+      </div>
 
       {/* Spiderweb Slinging Transition Overlay */}
       <SpiderWebTransitionModal isOpen={isSlingingWeb} />
