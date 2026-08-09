@@ -8,6 +8,8 @@ import {
 import { HeroDeck } from '../components/landing/HeroDeck';
 import { useLiveStocks, useArenaIndex, sectorTheme } from '../hooks/useLiveStocks';
 
+const REGISTER_URL = 'https://ignite-8.vercel.app/register-stock';
+
 /* ------------------------------------------------------------------ *
  * Shared motion presets
  * ------------------------------------------------------------------ */
@@ -133,19 +135,19 @@ function Navbar() {
 
         {/* Actions */}
         <div className="flex items-center gap-3">
-          <Link
-            to="/login"
+          <a
+            href={REGISTER_URL}
             className="hidden text-[14px] font-medium text-slate-300 transition hover:text-white sm:block"
           >
             Log in
-          </Link>
-          <Link
-            to="/login"
+          </a>
+          <a
+            href={REGISTER_URL}
             className="glow-ring group flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-[14px] font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:bg-blue-500 hover:shadow-blue-500/40 sm:px-5"
           >
-            Get Started
+            Register
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
+          </a>
           <button
             onClick={() => setMenuOpen((v) => !v)}
             className="rounded-lg border border-white/10 p-2 text-slate-300 lg:hidden"
@@ -176,6 +178,13 @@ function Navbar() {
                   {link.label}
                 </a>
               ))}
+              <a
+                href={REGISTER_URL}
+                onClick={() => setMenuOpen(false)}
+                className="mt-3 block rounded-xl bg-blue-600 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-blue-600/25"
+              >
+                Register Now
+              </a>
             </div>
           </motion.div>
         )}
@@ -237,13 +246,13 @@ function Hero({ stocks, index, isLive }) {
 
           {/* CTAs */}
           <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center gap-5">
-            <Link
-              to="/login"
+            <a
+              href={REGISTER_URL}
               className="glow-ring group flex items-center gap-2.5 rounded-2xl bg-blue-600 px-7 py-4 text-[15px] font-semibold text-white shadow-xl shadow-blue-600/30 transition-all hover:bg-blue-500 hover:shadow-blue-500/50"
             >
-              Launch Terminal
+              Register Now
               <ArrowRight className="h-4.5 w-4.5 transition-transform group-hover:translate-x-1.5" />
-            </Link>
+            </a>
 
             <a href="#features" className="group flex items-center gap-3.5">
               <span className="relative flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/5 transition-all group-hover:border-blue-400/50 group-hover:bg-blue-500/10">
@@ -564,13 +573,13 @@ function Markets({ stocks, isLive }) {
               ? 'Streaming live prices from the Equity Arena exchange engine'
               : 'Showing reference market seeds — log in for the live orderbook feed'}
           </p>
-          <Link
-            to="/login"
+          <a
+            href={REGISTER_URL}
             className="group flex items-center gap-2 text-[14px] font-semibold text-blue-400 transition hover:text-blue-300"
           >
-            Open Trading Floor
+            Register to Trade These Stocks
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
+          </a>
         </Reveal>
       </div>
     </section>
@@ -728,13 +737,13 @@ function News() {
             </p>
           </div>
 
-          <Link
-            to="/login"
+          <a
+            href={REGISTER_URL}
             className="group flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-[14px] font-medium text-slate-200 transition hover:border-blue-400/30 hover:bg-blue-500/10"
           >
-            Open News Feed
+            Register for News Feed
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
+          </a>
         </Reveal>
 
         <motion.div
@@ -888,13 +897,13 @@ function FinalCTA() {
               </p>
 
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-                <Link
-                  to="/login"
+                <a
+                  href={REGISTER_URL}
                   className="glow-ring group flex items-center gap-2.5 rounded-2xl bg-blue-600 px-8 py-4 text-[15px] font-semibold text-white shadow-xl shadow-blue-600/35 transition-all hover:bg-blue-500 hover:shadow-blue-500/50"
                 >
-                  Enter Trading Floor
+                  Register Now
                   <ArrowRight className="h-4.5 w-4.5 transition-transform group-hover:translate-x-1.5" />
-                </Link>
+                </a>
                 <a
                   href="#markets"
                   className="rounded-2xl border border-white/12 bg-white/5 px-7 py-4 text-[15px] font-medium text-slate-200 backdrop-blur transition hover:border-white/25 hover:bg-white/10"
@@ -959,9 +968,9 @@ function Footer({ stocks }) {
           <div>
             <h4 className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate-300">Account</h4>
             <ul className="mt-4 space-y-2.5 text-[13.5px] text-slate-500">
-              <li><Link to="/login" className="transition hover:text-slate-200">Log in</Link></li>
-              <li><Link to="/login" className="transition hover:text-slate-200">Create account</Link></li>
-              <li><Link to="/trader" className="transition hover:text-slate-200">Trading floor</Link></li>
+              <li><a href={REGISTER_URL} className="transition hover:text-slate-200">Log in</a></li>
+              <li><a href={REGISTER_URL} className="transition hover:text-slate-200">Register</a></li>
+              <li><a href={REGISTER_URL} className="transition hover:text-slate-200">Trading floor</a></li>
             </ul>
           </div>
         </div>
