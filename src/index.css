@@ -128,9 +128,11 @@ body::before {
   z-index: 10;
 }
 .card-neo:hover {
-  transform: translate(-4px, -4px) scale(1.01) !important;
+  transform: translate(-5px, -5px) scale(1.015) !important;
   border-color: #00f3ff !important;
-  box-shadow: 9px 9px 0px #05070e, 13px 13px 0px rgba(0, 243, 255, 0.25) !important;
+  box-shadow: 9px 9px 0px #05070e, 13px 13px 0px rgba(0, 243, 255, 0.35) !important;
+  background: radial-gradient(circle, rgba(0, 243, 255, 0.08) 1.5px, transparent 1.5px), #111522 !important;
+  background-size: 8px 8px !important;
 }
 
 /* Badge Neo */
@@ -140,12 +142,17 @@ body::before {
   gap: 6px;
   background: #ffd200;
   color: #05070e;
-  border: 2px.5px solid #05070e;
+  border: 2.5px solid #05070e;
   box-shadow: 3px 3px 0px #05070e;
   border-radius: 3px;
   font-weight: 900;
   text-transform: uppercase;
   font-size: 11px;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.badge-neo:hover {
+  transform: scale(1.06) rotate(1.5deg);
+  box-shadow: 5px 5px 0px #05070e, 7px 7px 0px rgba(0, 243, 255, 0.2);
 }
 
 /* Dynamic Custom Web Cursor Dot */
