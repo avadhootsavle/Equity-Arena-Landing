@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Landing page — display type, 3D stage & ambient effects
+   ============================================================ */
+
+.font-display {
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* 3D perspective stage. Children opt in with .layer-3d */
+.stage-3d {
+  perspective: 1600px;
+  perspective-origin: 50% 45%;
+}
+
+.layer-3d {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Frosted glass surface used by the floating hero panels */
+.panel-3d {
+  background: linear-gradient(155deg, rgba(30, 41, 59, 0.9) 0%, rgba(12, 18, 32, 0.92) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(16px);
+  box-shadow:
+    0 40px 80px -20px rgba(2, 6, 23, 0.9),
+    0 0 0 1px rgba(59, 130, 246, 0.06) inset,
+    0 1px 0 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+/* Specular sheen that sweeps across glass panels */
+.sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.07) 48%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Text gradient for accent words in headlines */
+.text-gradient-blue {
+  background: linear-gradient(120deg, #60a5fa 0%, #3b82f6 45%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-emerald {
+  background: linear-gradient(120deg, #34d399 0%, #10b981 50%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animated conic border used on the primary CTA and feature cards */
+.glow-ring {
+  position: relative;
+}
+.glow-ring::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--ring-angle, 0deg), transparent 0deg, #3b82f6 90deg, #22d3ee 140deg, transparent 220deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: ring-spin 4s linear infinite;
+}
+.glow-ring:hover::before {
+  opacity: 1;
+}
+
+@property --ring-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes ring-spin {
+  to {
+    --ring-angle: 360deg;
+  }
+}
+
+/* Grid floor that recedes into the horizon behind the hero */
+.grid-floor {
+  background-image:
+    linear-gradient(to right, rgba(59, 130, 246, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(59, 130, 246, 0.14) 1px, transparent 1px);
+  background-size: 60px 60px;
+  transform: perspective(420px) rotateX(62deg);
+  transform-origin: center bottom;
+  mask-image: linear-gradient(to bottom, transparent, #000 45%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 45%, transparent);
+}
+
+/* Continuous horizontal scroll for the market ticker tape */
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+/* Slow ambient float for orbiting badges */
+@keyframes float-slow {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -14px, 0); }
+}
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+/* Pulse used by the "LIVE" indicators */
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+  50% { opacity: 0.65; box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+}
+.animate-live {
+  animation: live-pulse 2s ease-in-out infinite;
+}
+
+/* Reduced-motion users get a static, fully legible page */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-float-slow,
+  .animate-live,
+  .glow-ring::before {
+    animation: none !important;
+  }
+}
