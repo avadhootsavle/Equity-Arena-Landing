@@ -617,39 +617,39 @@ function TickerTape({ stocks }) {
  * ------------------------------------------------------------------ */
 const FEATURES = [
   {
-    icon: Sparkles,
-    title: 'Stark Nanotech Simulator',
-    body: 'Trade simulated Indian market equities with live WebSockets. Test strategies without touching your bank account.',
+    icon: LineChart,
+    title: 'Realistic Virtual Stock Market',
+    body: 'Experience a fully simulated market with live, dynamic price movement.',
     span: 'md:col-span-2 lg:col-span-1'
   },
   {
+    icon: Wallet,
+    title: 'Trade With Virtual Funds',
+    body: 'Every participant starts with the same predefined virtual capital, no real money involved.',
+    span: ''
+  },
+  {
+    icon: TrendingUp,
+    title: 'Simulated Price Movements',
+    body: 'Buy and sell stocks as prices shift throughout the event, driven by market dynamics and breaking news.',
+    span: ''
+  },
+  {
     icon: Activity,
-    title: 'Live Spidey Index (SPIDEY-50)',
-    body: 'Real-time weighted sector index calculating market momentum across Tech, Energy, Auto, and Finance.',
+    title: 'Sharpen Strategic Thinking',
+    body: 'Develop analytical and decision-making skills in a genuine trading environment.',
     span: ''
   },
   {
     icon: Zap,
-    title: 'Spider-Sense Ticker',
-    body: 'Sub-second price updates with visual web-glow alerts when stocks cross major momentum thresholds.',
-    span: ''
-  },
-  {
-    icon: Wallet,
-    title: '20,000 IC Starter Web',
-    body: 'Every new trader receives 20,000 virtual Ignite Coins to build and balance their portfolio.',
+    title: 'Fast-Paced Competition',
+    body: 'Compete against other traders in a live, time-limited event.',
     span: ''
   },
   {
     icon: Trophy,
-    title: 'Leaderboard Competitions',
-    body: 'Compete against other traders across the Spider-Verse for top portfolio return rankings.',
-    span: ''
-  },
-  {
-    icon: Gauge,
-    title: 'Zero Latency Fills',
-    body: 'Buy and market sell orders execute immediately against your virtual web wallet — no settlement delays or pending states.',
+    title: 'Highest Portfolio Wins',
+    body: 'The participant with the greatest final portfolio value at market close is declared the winner.',
     span: ''
   }
 ];
@@ -660,12 +660,31 @@ const Features = forwardRef((props, ref) => {
       <SpiderWebCorner className="top-0 right-0" rotate={90} />
 
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
-        <div data-gsap="heading" className="max-w-[620px]">
-          <SectionTag icon={Sparkles}>Web Capabilities</SectionTag>
-          <h2 className="font-display mt-5 text-[clamp(2rem,4.5vw,3.1rem)] font-bold leading-[1.05] tracking-[-0.025em] text-white">
-            High-tech trading suite.
-            <span className="text-gradient-spidey"> Zero capital risk.</span>
+        <div data-gsap="heading" className="max-w-[800px]">
+          <SectionTag icon={Sparkles}>IGNITE 8.0</SectionTag>
+          <h2 className="font-display mt-5 text-[clamp(2.2rem,5vw,3.6rem)] font-black leading-[1.05] tracking-[-0.03em] text-white uppercase">
+            EQUITY <span className="text-red-500">ARENA</span>
           </h2>
+          
+          {/* Highlight Badge */}
+          <div className="mt-4 flex flex-wrap">
+            <span className="badge-neo bg-[#ffd200] text-slate-950 px-3 py-1.5 text-xs font-black shadow-[2px_2px_0px_#05070e]">
+              3-Hour Live Trading Event — Open for Registration to All Trading Enthusiasts
+            </span>
+          </div>
+
+          {/* Intro Paragraphs */}
+          <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-slate-300">
+            <p>
+              Equity Arena is an exciting finance-inspired simulation designed to test your analytical thinking, decision-making, and investment strategy in a risk-free environment. Inspired by modern trading platforms, this event provides participants with virtual capital to build and manage their own investment portfolio using simulated stock prices.
+            </p>
+            <p>
+              Throughout the competition, participants will analyze market trends, strategically buy and sell stocks, and adapt to changing market conditions. Every decision matters, as your objective is to maximize portfolio value and outperform other participants before the market closes.
+            </p>
+            <p>
+              Unlike real-world investing, Equity Arena offers the thrill of stock trading without any financial risk, making it an engaging and educational experience for beginners and enthusiasts alike.
+            </p>
+          </div>
         </div>
 
         <div className="stage-3d mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -685,6 +704,73 @@ const Features = forwardRef((props, ref) => {
               <p className="relative mt-2.5 text-[14px] leading-relaxed text-slate-300">{body}</p>
             </div>
           ))}
+        </div>
+
+        {/* Two new sections below the feature cards */}
+        <div className="mt-16 grid gap-8 lg:grid-cols-2">
+          {/* What to Expect */}
+          <div data-gsap="card" className="card-neo relative overflow-hidden p-8 bg-[#070b16]/40 border-t-4 border-t-[#00f3ff]">
+            <h3 className="font-display text-white text-xl font-black tracking-tight mb-6 uppercase flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-[#00f3ff]" />
+              What to Expect
+            </h3>
+            <ul className="space-y-4 font-mono text-[13px] text-slate-300">
+              <li className="flex items-start gap-3">
+                <Activity className="h-4.5 w-4.5 text-[#00f3ff] shrink-0 mt-0.5" />
+                <span>Realistic trading interface inspired by modern investment platforms</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <TrendingUp className="h-4.5 w-4.5 text-[#00f3ff] shrink-0 mt-0.5" />
+                <span>Dynamic market simulation with changing stock prices</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Zap className="h-4.5 w-4.5 text-[#00f3ff] shrink-0 mt-0.5" />
+                <span>Strategic buying and selling decisions</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Trophy className="h-4.5 w-4.5 text-[#00f3ff] shrink-0 mt-0.5" />
+                <span>Live leaderboard to track performance</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Shield className="h-4.5 w-4.5 text-[#00f3ff] shrink-0 mt-0.5" />
+                <span>Fair and transparent evaluation</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Sparkles className="h-4.5 w-4.5 text-[#00f3ff] shrink-0 mt-0.5" />
+                <span>Exciting prizes and certificates for top performers</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Rules at a Glance */}
+          <div data-gsap="card" className="card-neo relative overflow-hidden p-8 bg-[#070b16]/40 border-t-4 border-t-[#ff0055]">
+            <h3 className="font-display text-white text-xl font-black tracking-tight mb-6 uppercase flex items-center gap-2">
+              <Shield className="h-5 w-5 text-[#ff0055]" />
+              Rules at a Glance
+            </h3>
+            <ul className="space-y-4 font-mono text-[13px] text-slate-300">
+              <li className="flex items-start gap-3">
+                <Wallet className="h-4.5 w-4.5 text-[#ff0055] shrink-0 mt-0.5" />
+                <span>Each participant starts with the same predefined virtual capital</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Activity className="h-4.5 w-4.5 text-[#ff0055] shrink-0 mt-0.5" />
+                <span>Stock prices are simulated and updated throughout the event</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Zap className="h-4.5 w-4.5 text-[#ff0055] shrink-0 mt-0.5" />
+                <span>Participants may buy or sell stocks at any time during the competition</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Trophy className="h-4.5 w-4.5 text-[#ff0055] shrink-0 mt-0.5" />
+                <span>The participant with the highest final portfolio value will be declared the winner</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Lock className="h-4.5 w-4.5 text-[#ff0055] shrink-0 mt-0.5" />
+                <span>No real money or financial transactions are involved</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
