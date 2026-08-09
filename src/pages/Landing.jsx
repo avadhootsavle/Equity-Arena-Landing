@@ -328,14 +328,9 @@ function Navbar({ onRegisterClick }) {
       <div className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-5 sm:px-8">
         {/* Brand */}
         <a href="#home" className="group flex items-center gap-3">
-          <div className="flex flex-col">
-            <span className="font-display text-[16px] font-extrabold tracking-tight text-white group-hover:text-red-400 transition-colors">
-              EQUITY <span className="text-red-500">ARENA</span>
-            </span>
-            <span className="font-mono text-[9px] font-medium tracking-widest text-slate-400 uppercase">
-              Simulated Exchange
-            </span>
-          </div>
+          <span className="font-display text-[16px] font-extrabold tracking-tight text-white group-hover:text-red-400 transition-colors">
+            EQUITY <span className="text-red-500">ARENA</span>
+          </span>
         </a>
 
         <nav className="hidden items-center gap-8 md:flex">
