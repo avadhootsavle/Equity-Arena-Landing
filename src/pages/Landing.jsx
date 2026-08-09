@@ -333,7 +333,7 @@ function Navbar({ onRegisterClick }) {
               EQUITY <span className="text-red-500">ARENA</span>
             </span>
             <span className="font-mono text-[9px] font-medium tracking-widest text-slate-400 uppercase">
-              Spidey Exchange
+              Simulated Exchange
             </span>
           </div>
         </a>
@@ -357,7 +357,7 @@ function Navbar({ onRegisterClick }) {
             onClick={onRegisterClick}
             className="btn-neo px-5 py-2.5 text-[13px] font-extrabold group"
           >
-            Sling Into Trading <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            Register Now <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
         </div>
 
@@ -406,7 +406,7 @@ function Navbar({ onRegisterClick }) {
                 onClick={(e) => { setMobileOpen(false); onRegisterClick(e); }}
                 className="btn-neo mt-2 justify-center py-3.5 text-sm font-black"
               >
-                Sling Into Trading <ArrowRight className="h-4 w-4" />
+                Register Now <ArrowRight className="h-4 w-4" />
               </a>
             </nav>
           </motion.div>
