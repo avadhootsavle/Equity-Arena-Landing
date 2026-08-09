@@ -6,9 +6,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Enhanced Peter Parker Origin Scrollytelling Hook (GSAP ScrollTrigger Pin + Scrub)
- * Integrates visual comic POP elements, Spidey-Sense alert waves, narrative text evolution, and 3D card tilt physics.
+ * Scoped refs for homeRef, aboutRef, and featuresRef (News section completely removed).
  */
-export function useScrollAnimation(homeRef, aboutRef, featuresRef, newsRef) {
+export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
   // 1. Refresh ScrollTrigger once fonts and images are fully loaded
   useEffect(() => {
     const handleLoadRefresh = () => {
@@ -48,9 +48,6 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef, newsRef) {
         if (featuresRef.current) {
           gsap.set(featuresRef.current.querySelectorAll('[data-gsap="card"]'), { opacity: 1, scale: 1, x: 0, y: 0, rotate: 0 });
         }
-        if (newsRef.current) {
-          gsap.set(newsRef.current.querySelectorAll('[data-gsap="card"]'), { opacity: 1, y: 0 });
-        }
         return;
       }
 
@@ -60,11 +57,17 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef, newsRef) {
       // DESKTOP ANIMATIONS (Width >= 768px)
       // ====================================================
       mm.add("(min-width: 768px)", () => {
-        // --- 1. Hero Section (#home) Ordinary Guy ---
+        // --- 1. Hero Section (#home) Pinned & Swing Physics ---
         if (homeRef.current) {
           const heroText = homeRef.current.querySelectorAll('[data-gsap="hero"]');
           const heroTerminal = homeRef.current.querySelector('#gsap-hero-terminal');
           const spiderwebLine = homeRef.current.querySelector('#gsap-spiderweb-line');
+          
+          const spidermanWrapper = homeRef.current.querySelector('#gsap-hero-spiderman-wrapper');
+          const spidermanLine = homeRef.current.querySelector('#gsap-hero-spiderman-line');
+          const spidermanBody = homeRef.current.querySelector('#gsap-hero-spiderman-body');
+          const heroHeader = homeRef.current.querySelector('h1');
+          const gridFloor = homeRef.current.querySelector('.grid-floor');
 
           gsap.fromTo(
             heroText,
@@ -86,6 +89,54 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef, newsRef) {
               { height: '0%' },
               { height: '100%', duration: 1.0, delay: 0.4, ease: 'power2.out' }
             );
+          }
+
+          // Spider-Man Dynamic Web Swing scroll scrub
+          if (spidermanWrapper && spidermanLine) {
+            gsap.timeline({
+              scrollTrigger: {
+                trigger: homeRef.current,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 0.5,
+              }
+            })
+            .to(spidermanWrapper, { y: 240, rotate: 14, scale: 1.15, ease: 'none' })
+            .to(spidermanLine, { height: '320px', ease: 'none' }, '<')
+            .to(spidermanBody, { rotate: 8, ease: 'none' }, '<');
+          }
+
+          // Stereoscopic Text Aberration spacing glitch scroll scrub
+          if (heroHeader) {
+            gsap.fromTo(
+              heroHeader,
+              { letterSpacing: '-0.035em' },
+              {
+                letterSpacing: '0.04em',
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: homeRef.current,
+                  start: 'top top',
+                  end: 'bottom top',
+                  scrub: 0.5,
+                }
+              }
+            );
+          }
+
+          // 3D Moving ground perspective grid floor scroll scrub
+          if (gridFloor) {
+            gsap.to(gridFloor, {
+              backgroundPositionY: '80px',
+              rotateX: '55deg',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: homeRef.current,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 0.5,
+              }
+            });
           }
 
           // Color-shift scrub: Only desaturate the background parallax glows/grids, leaving text/buttons fully colorful
@@ -306,44 +357,6 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef, newsRef) {
             });
           });
         }
-
-        // --- 4. News Section (#news) Mastery ---
-        if (newsRef.current) {
-          const newsCards = newsRef.current.querySelectorAll('[data-gsap="card"]');
-          const newsTicker = newsRef.current.querySelector('[data-gsap="news-ticker"]');
-
-          gsap.fromTo(
-            newsCards,
-            { opacity: 0, y: 25 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.75,
-              stagger: 0.15,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: newsRef.current,
-                start: 'top 80%',
-                once: true,
-              },
-            }
-          );
-
-          // Subtle horizontal drift and glow on the news ticker tape
-          if (newsTicker) {
-            gsap.to(newsTicker, {
-              x: 15,
-              filter: 'drop-shadow(0 0 10px rgba(59,130,246,0.45))',
-              ease: 'none',
-              scrollTrigger: {
-                trigger: newsRef.current,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: 1,
-              },
-            });
-          }
-        }
       });
 
       // ====================================================
@@ -401,32 +414,11 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef, newsRef) {
             }
           );
         }
-
-        // News Section Mobile
-        if (newsRef.current) {
-          const newsCards = newsRef.current.querySelectorAll('[data-gsap="card"]');
-          gsap.fromTo(
-            newsCards,
-            { opacity: 0, y: 20 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.6,
-              stagger: 0.1,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: newsRef.current,
-                start: 'top 85%',
-                once: true,
-              },
-            }
-          );
-        }
       });
     });
 
     return () => {
       ctx.revert();
     };
-  }, [homeRef, aboutRef, featuresRef, newsRef]);
+  }, [homeRef, aboutRef, featuresRef]);
 }

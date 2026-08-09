@@ -13,6 +13,20 @@
   text-transform: uppercase;
 }
 
+/* Stark HUD Scanline Terminal Overlay */
+body::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 85, 0.05), rgba(0, 243, 255, 0.03), rgba(255, 210, 0, 0.04));
+  z-index: 999;
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.22;
+}
+
 /* 3D perspective stage */
 .stage-3d {
   perspective: 1600px;
@@ -24,85 +38,92 @@
   will-change: transform;
 }
 
-/* Neo-Brutalist Layouts */
-.panel-spidey {
-  background: #0f172a;
-  border: 3px solid #05070e;
-  box-shadow: 6px 6px 0px #05070e;
-  border-radius: 4px;
-}
-
 /* Spider-Man Text Gradients with Neo-Brutalist Stroke */
 .text-gradient-spidey {
-  background: linear-gradient(120deg, #ef4444 0%, #ff1e42 40%, #3b82f6 80%, #00d2ff 100%);
+  background: linear-gradient(120deg, #ff0055 0%, #ff1e42 40%, #00f3ff 80%, #ffd200 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(2px 2px 0px #05070e);
+  filter: drop-shadow(3px 3px 0px #05070e);
 }
 
 .text-gradient-crimson {
-  background: linear-gradient(120deg, #f87171 0%, #ef4444 50%, #b91c1c 100%);
+  background: linear-gradient(120deg, #ff5e97 0%, #ff0055 50%, #990022 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(2px 2px 0px #05070e);
+  filter: drop-shadow(3px 3px 0px #05070e);
 }
 
 .text-gradient-blue {
-  background: linear-gradient(120deg, #60a5fa 0%, #2563eb 50%, #00d2ff 100%);
+  background: linear-gradient(120deg, #82f3ff 0%, #00c3ff 50%, #0055aa 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(2px 2px 0px #05070e);
+  filter: drop-shadow(3px 3px 0px #05070e);
 }
 
-/* Neo-Brutalist Buttons */
+/* Neo-Brutalist Buttons - High Tactility */
 .btn-neo {
   position: relative;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border: 3px solid #05070e;
-  background: #ef4444;
+  border: 3.5px solid #05070e;
+  background: #ff0055;
   color: #ffffff;
-  font-weight: 800;
+  font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  box-shadow: 4px 4px 0px #05070e;
-  transition: all 0.15s ease-in-out;
-  border-radius: 6px;
+  box-shadow: 4px 4px 0px #05070e, 6px 6px 0px rgba(0, 243, 255, 0.3);
+  transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-radius: 4px;
 }
 .btn-neo:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px #05070e;
-  background: #ff1e42;
+  transform: translate(-3px, -3px);
+  box-shadow: 7px 7px 0px #05070e, 9px 9px 0px rgba(255, 210, 0, 0.4);
+  background: #ff226e;
 }
 .btn-neo:active {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px #05070e;
+  box-shadow: 2px 2px 0px #05070e, 3px 3px 0px rgba(0, 243, 255, 0.15);
 }
 
 .btn-neo-blue {
-  background: #3b82f6;
-  box-shadow: 4px 4px 0px #05070e;
+  background: #00c3ff;
+  color: #05070e;
 }
 .btn-neo-blue:hover {
-  background: #2563eb;
-  box-shadow: 6px 6px 0px #05070e;
+  background: #00f3ff;
+  color: #05070e;
 }
 
-/* Neo-Brutalist Cards */
+/* Custom Halftone-Inspired Premium Neo-Brutalist Cards */
 .card-neo {
+  position: relative;
   border: 3px solid #05070e !important;
-  background: #0f172a !important;
-  border-radius: 8px !important;
-  box-shadow: 5px 5px 0px #05070e !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  background: radial-gradient(circle, rgba(0, 243, 255, 0.04) 1px, transparent 1px), #0e111a !important;
+  background-size: 10px 10px !important;
+  border-radius: 6px !important;
+  box-shadow: 5px 5px 0px #05070e, 8px 8px 0px rgba(255, 0, 85, 0.15) !important;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+}
+/* Hazard strip pattern top-accent for each card */
+.card-neo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, #ff0055 0%, #ffd200 50%, #00f3ff 100%);
+  z-index: 10;
 }
 .card-neo:hover {
-  border-color: #ef4444 !important;
-  box-shadow: 8px 8px 0px #05070e !important;
+  transform: translate(-4px, -4px) scale(1.01) !important;
+  border-color: #00f3ff !important;
+  box-shadow: 9px 9px 0px #05070e, 13px 13px 0px rgba(0, 243, 255, 0.25) !important;
 }
 
 /* Badge Neo */
@@ -110,22 +131,38 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #ef4444;
-  color: #ffffff;
-  border: 2px solid #05070e;
-  box-shadow: 2px 2px 0px #05070e;
-  border-radius: 4px;
-  font-weight: 800;
+  background: #ffd200;
+  color: #05070e;
+  border: 2px.5px solid #05070e;
+  box-shadow: 3px 3px 0px #05070e;
+  border-radius: 3px;
+  font-weight: 900;
   text-transform: uppercase;
   font-size: 11px;
+}
+
+/* Dynamic Custom Web Cursor Dot */
+.cursor-web-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background: #ff0055;
+  border: 2px solid #05070e;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px #ff0055;
 }
 
 /* Spiderweb Grid pattern floor */
 .grid-floor {
   background-image:
-    radial-gradient(circle at 50% 50%, rgba(239, 68, 68, 0.15) 0%, transparent 60%),
-    linear-gradient(to right, rgba(239, 68, 68, 0.15) 1.5px, transparent 1.5px),
-    linear-gradient(to bottom, rgba(37, 99, 235, 0.15) 1.5px, transparent 1.5px);
+    radial-gradient(circle at 50% 50%, rgba(255, 0, 85, 0.15) 0%, transparent 60%),
+    linear-gradient(to right, rgba(255, 0, 85, 0.18) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(0, 243, 255, 0.18) 1.5px, transparent 1.5px);
   background-size: 100% 100%, 40px 40px, 40px 40px;
   transform: perspective(420px) rotateX(62deg);
   transform-origin: center bottom;
@@ -135,8 +172,8 @@
 
 /* Spiderweb overlay texture */
 .spider-web-bg {
-  background-image: radial-gradient(circle at 50% 0%, rgba(239, 68, 68, 0.15) 0%, transparent 50%),
-                    radial-gradient(circle at 100% 100%, rgba(37, 99, 235, 0.15) 0%, transparent 50%);
+  background-image: radial-gradient(circle at 50% 0%, rgba(255, 0, 85, 0.18) 0%, transparent 50%),
+                    radial-gradient(circle at 100% 100%, rgba(0, 243, 255, 0.18) 0%, transparent 50%);
 }
 
 /* Continuous marquee for ticker tape */
@@ -145,28 +182,19 @@
   to { transform: translate3d(-50%, 0, 0); }
 }
 .animate-marquee {
-  animation: marquee 40s linear infinite;
+  animation: marquee 30s linear infinite;
 }
 
-/* Slow ambient float */
-@keyframes float-slow {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -14px, 0); }
-}
-.animate-float-slow {
-  animation: float-slow 6s ease-in-out infinite;
-}
-
-/* Spider pulse */
+/* Live indicators */
 @keyframes live-pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-  50% { opacity: 0.65; box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255, 0, 85, 0.7); }
+  50% { opacity: 0.65; box-shadow: 0 0 0 8px rgba(255, 0, 85, 0); }
 }
 .animate-live {
   animation: live-pulse 2s ease-in-out infinite;
 }
 
-/* Spiderweb Shooter Transition Animations */
+/* Web shooter modal expansion */
 @keyframes web-shoot-expand {
   0% {
     transform: scale(0.08) rotate(-35deg);
@@ -187,25 +215,46 @@
 }
 
 @keyframes web-pulse-glow {
-  0%, 100% { filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.8)); }
-  50% { filter: drop-shadow(0 0 35px rgba(59, 130, 246, 0.9)); }
-}
-
-@keyframes spideySwing {
-  0%, 100% { transform: rotate(-5deg); }
-  50%       { transform: rotate(5deg); }
+  0%, 100% { filter: drop-shadow(0 0 15px rgba(255, 0, 85, 0.8)); }
+  50% { filter: drop-shadow(0 0 35px rgba(0, 243, 255, 0.9)); }
 }
 
 .animate-web-glow {
   animation: web-pulse-glow 1.5s ease-in-out infinite;
 }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .animate-marquee,
-  .animate-float-slow,
-  .animate-live,
-  .animate-web-shoot {
-    animation: none !important;
-  }
+/* Custom 3D holographic panel style used in HeroDeck widgets */
+.panel-3d {
+  position: relative;
+  background: radial-gradient(circle, rgba(0, 243, 255, 0.04) 1px, transparent 1px), #0e111a !important;
+  background-size: 10px 10px !important;
+  border: 3px solid #05070e !important;
+  border-radius: 16px !important;
+  box-shadow: 6px 6px 0px #05070e, 10px 10px 0px rgba(0, 243, 255, 0.22) !important;
+  backdrop-filter: blur(16px);
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+.panel-3d::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, #ff0055 0%, #ffd200 50%, #00f3ff 100%);
+  z-index: 10;
+}
+.panel-3d:hover {
+  transform: translate(-3px, -3px) scale(1.005);
+  box-shadow: 9px 9px 0px #05070e, 14px 14px 0px rgba(0, 243, 255, 0.32) !important;
+}
+
+.sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(115deg, transparent 35%, rgba(0, 243, 255, 0.08) 48%, transparent 60%);
+  pointer-events: none;
+}
+

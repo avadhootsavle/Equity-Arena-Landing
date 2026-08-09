@@ -203,9 +203,6 @@ function Navbar({ onRegisterClick }) {
       <div className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-5 sm:px-8">
         {/* Brand */}
         <a href="#home" className="group flex items-center gap-3">
-          <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-red-500/40 bg-gradient-to-br from-red-600 via-slate-900 to-blue-600 p-0.5 shadow-lg shadow-red-600/30 transition-transform group-hover:scale-105">
-            <img src="/images/spider_emblem_hero.jpg" alt="Logo" className="h-full w-full object-cover rounded-[10px]" />
-          </div>
           <div className="flex flex-col">
             <span className="font-display text-[16px] font-extrabold tracking-tight text-white group-hover:text-red-400 transition-colors">
               EQUITY <span className="text-red-500">ARENA</span>
@@ -226,9 +223,6 @@ function Navbar({ onRegisterClick }) {
           </a>
           <a href="#features" className="text-[13px] font-medium text-slate-300 transition-colors hover:text-white">
             Capabilities
-          </a>
-          <a href="#news" className="text-[13px] font-medium text-slate-300 transition-colors hover:text-white">
-            Bugle Feed
           </a>
           <a href="#about" className="text-[13px] font-medium text-slate-300 transition-colors hover:text-white">
             Workflow
@@ -268,7 +262,6 @@ function Navbar({ onRegisterClick }) {
               <a href="#home" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-slate-300">Home</a>
               <a href="#markets" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-slate-300">Spider Board</a>
               <a href="#features" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-slate-300">Capabilities</a>
-              <a href="#news" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-slate-300">Bugle Feed</a>
               <a href="#about" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-slate-300">Workflow</a>
               <a
                 href={REGISTER_URL}
@@ -311,20 +304,21 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
       </div>
 
       {/* Spider-Man hanging from web */}
-      <div className="absolute top-0 right-[4%] lg:right-[8%] xl:right-[10%] z-10 pointer-events-none hidden sm:flex flex-col items-center">
+      <div id="gsap-hero-spiderman-wrapper" className="absolute top-0 right-[4%] lg:right-[8%] xl:right-[10%] z-10 pointer-events-none hidden sm:flex flex-col items-center">
         <div
+          id="gsap-hero-spiderman-line"
           style={{
             width: '3px',
             height: '90px',
             background: 'linear-gradient(to bottom, rgba(180,180,180,0.9) 0%, #b0b0b0 60%, #888 100%)',
             boxShadow: '0 0 4px 1px rgba(180,180,180,0.35)',
+            transformOrigin: 'top center'
           }}
         />
-        <motion.div
-          animate={{ rotate: [-6, 6, -6] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ transformOrigin: 'top center' }}
+        <div
+          id="gsap-hero-spiderman-body"
           className="relative mt-[-1px]"
+          style={{ transformOrigin: 'top center' }}
         >
           <div
             className="absolute inset-0 blur-3xl opacity-50 z-0"
@@ -340,19 +334,14 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
               filter: 'drop-shadow(0 4px 28px rgba(239,68,68,0.6)) drop-shadow(0 0 12px rgba(59,130,246,0.3))',
             }}
           />
-        </motion.div>
+        </div>
       </div>
 
       {/* Layout grid */}
       <div className="mx-auto grid max-w-[1280px] items-center gap-10 sm:gap-14 px-4 sm:px-8 pb-20 pt-10 sm:pb-24 sm:pt-14 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pb-12 lg:pt-20">
         {/* ---------- Left column (GSAP Hero Page-Load Entrance) ---------- */}
         <div data-gsap="hero" className="relative z-10">
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-red-500/40 bg-red-500/10 px-3.5 py-1.5 sm:px-4 sm:py-2 text-[11px] sm:text-[12px] font-bold text-red-300 backdrop-blur shadow-lg shadow-red-500/20">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-500 animate-live" />
-              🕷️ SPIDER TRADING NETWORK • WEB-SHOOTER SPEED • ZERO RISK
-            </span>
-          </div>
+
 
           <h1 className="font-display mt-6 sm:mt-7 text-[clamp(2.25rem,6vw,4.6rem)] font-bold leading-[1.0] tracking-[-0.03em] text-white">
             With great capital
@@ -394,6 +383,14 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
 
         {/* ---------- Right column: HeroDeck ---------- */}
         <div data-gsap="hero" className="relative flex flex-col items-center lg:pr-4">
+          {/* Rotating Stark HUD ring behind HeroDeck */}
+          <div className="absolute -inset-14 -z-10 flex items-center justify-center pointer-events-none opacity-25 select-none scale-90 sm:scale-100">
+            <svg width="500" height="500" viewBox="0 0 200 200" className="stroke-[#00f3ff] stroke-[0.8] fill-none overflow-visible animate-spin" style={{ animationDuration: '24s' }}>
+              <circle cx="100" cy="100" r="82" strokeDasharray="12 6 2 6" />
+              <circle cx="100" cy="100" r="92" strokeDasharray="50 15" strokeWidth="1.2" />
+              <circle cx="100" cy="100" r="62" strokeDasharray="3 6" />
+            </svg>
+          </div>
           <div className="w-full relative p-4 border-3 border-slate-950 bg-slate-900 shadow-[6px_6px_0px_#000] rounded-lg">
             <HeroDeck stocks={stocks} index={index} isLive={isLive} />
           </div>
@@ -445,19 +442,19 @@ const STATS = [
 
 function StatsBand() {
   return (
-    <section data-gsap="section" className="relative border-b border-red-500/20 py-16 bg-slate-950/90">
+    <section data-gsap="section" className="relative border-y-3 border-slate-950 py-16 bg-slate-900 shadow-[inset_0px_0px_24px_rgba(0,243,255,0.04)]">
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-8 px-5 sm:grid-cols-3 sm:px-8">
         {STATS.map((stat) => (
-          <div key={stat.label} className="text-center lg:text-left">
+          <div key={stat.label} className="text-center lg:text-left border-3 border-slate-950 bg-[#070b16] p-6 rounded-lg shadow-[3px_3px_0px_#05070e] hover:translate-y-[-2px] transition-all duration-200">
             <span
               data-gsap="stat-count"
               data-target={stat.value}
               data-suffix={stat.suffix}
-              className="font-display text-[clamp(1.9rem,4vw,2.6rem)] font-bold tracking-tight text-white tabular-nums"
+              className="font-display text-[clamp(1.9rem,4vw,2.6rem)] font-black tracking-tight text-[#ff0055] tabular-nums"
             >
               0{stat.suffix}
             </span>
-            <p className="mt-2 text-[13px] text-red-400 font-medium">{stat.label}</p>
+            <p className="mt-2 text-[12px] text-slate-200 font-mono font-bold tracking-wider uppercase border-t border-slate-950 pt-2">{stat.label}</p>
           </div>
         ))}
       </div>
@@ -544,116 +541,7 @@ const Features = forwardRef((props, ref) => {
   );
 });
 
-/* ------------------------------------------------------------------ *
- * News — Daily Bugle Feed
- * ------------------------------------------------------------------ */
-const NEWS_FEED = [
-  {
-    tag: 'Energy',
-    title: 'Surya Green Energy wins record solar tender',
-    body: 'Secures 1.2 GW renewable capacity; order book expands by 18%. Stock surging +3.8% in live simulation.',
-    time: '12m ago',
-    tone: 'emerald'
-  },
-  {
-    tag: 'Technology',
-    title: 'Apex Nanotech discloses Q3 margin expansion',
-    body: 'Enterprise cloud adoption drives 24% YoY revenue growth. Spidey-Sense ticker flags heavy buying volume.',
-    time: '45m ago',
-    tone: 'blue'
-  },
-  {
-    tag: 'Automotive',
-    title: 'Veloce Motors rolls out next-gen EV platform',
-    body: 'Pre-orders exceed 50,000 units within first 48 hours; analyst consensus moves to strong buy.',
-    time: '2h ago',
-    tone: 'violet'
-  },
-  {
-    tag: 'Aviation',
-    title: 'AirBharat trims capacity on fuel costs',
-    body: 'Rising jet fuel prices weigh on operating margins; aviation stocks open under mild pressure.',
-    time: '3h ago',
-    tone: 'rose'
-  }
-];
 
-const TONES = {
-  emerald: 'bg-emerald-500/15 text-emerald-300 ring-emerald-500/30',
-  blue: 'bg-blue-500/15 text-blue-300 ring-blue-500/30',
-  violet: 'bg-violet-500/15 text-violet-300 ring-violet-500/30',
-  rose: 'bg-red-500/15 text-red-300 ring-red-500/30'
-};
-
-const News = forwardRef(({ onRegisterClick }, ref) => {
-  return (
-    <section ref={ref} id="news" data-gsap="section" className="relative overflow-hidden border-t border-red-500/20 py-24 sm:py-28">
-      <SpiderWebCorner className="top-0 left-0" rotate={0} />
-
-      <div className="pointer-events-none absolute right-0 top-1/4 h-[380px] w-[520px] rounded-full bg-blue-600/10 blur-[140px]" />
-
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
-        <div data-gsap="heading" className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
-          <div className="max-w-[560px]">
-            <SectionTag icon={Newspaper}>Daily Bugle Feed 📰</SectionTag>
-            <h2 className="font-display mt-5 text-[clamp(2rem,4.5vw,3.1rem)] font-bold leading-[1.05] tracking-[-0.025em] text-white">
-              Daily Bugle Headlines.
-              <br />
-              <span className="text-gradient-crimson">Web Fills React.</span>
-            </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-slate-300">
-              Market-moving announcements broadcast directly to the trading floor. Position your portfolio ahead of macro shifts and corporate catalysts.
-            </p>
-          </div>
-
-          <a
-            href={REGISTER_URL}
-            onClick={onRegisterClick}
-            className="btn-neo px-5 py-3 text-[13px] font-extrabold"
-          >
-            Sling Orders Live <ArrowRight className="h-4 w-4" />
-          </a>
-        </div>
-
-        {/* Ticking live data strip inside News component (Mastery Theme) */}
-        <div data-gsap="news-ticker" className="relative mt-8 overflow-hidden rounded-xl border border-blue-500/20 bg-[#070b19]/60 px-4 py-3 backdrop-blur-md">
-          <div className="flex animate-marquee gap-8 text-[12px] font-mono text-slate-300">
-            <span className="flex items-center gap-1.5 shrink-0"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> LIVE BOARD FEED</span>
-            <span className="shrink-0">APEX: 1,420.25 <span className="text-emerald-400 font-bold">+3.8%</span></span>
-            <span className="shrink-0">SURYA: 425.80 <span className="text-emerald-400 font-bold">+5.2%</span></span>
-            <span className="shrink-0">VELOCE: 890.10 <span className="text-red-400 font-bold">-1.5%</span></span>
-            <span className="shrink-0">AIRBHARAT: 345.50 <span className="text-red-400 font-bold">-0.8%</span></span>
-            <span className="shrink-0">SPIDEY-SENSE SIGNAL: STRONG BUY ON SECTOR A</span>
-          </div>
-        </div>
-        {/* A single glowing line suggesting continuous movement */}
-        <div className="h-[1px] w-full bg-gradient-to-r from-red-500 via-blue-500 to-red-500 opacity-60 shadow-[0_0_8px_rgba(59,130,246,0.5)] mt-4" />
-
-        <div className="mt-12 grid gap-4 md:grid-cols-2">
-          {NEWS_FEED.map((item) => (
-            <div
-              key={item.title}
-              data-gsap="card"
-              className="card-neo group relative overflow-hidden p-6"
-            >
-              <div className="flex items-center justify-between">
-                <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-bold ring-1 ${TONES[item.tone]}`}>
-                  {item.tag}
-                </span>
-                <span className="font-mono text-[11px] text-slate-400">{item.time}</span>
-              </div>
-
-              <h3 className="font-display mt-4 text-[17px] font-bold tracking-tight text-white group-hover:text-red-400 transition-colors">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-[13.5px] leading-relaxed text-slate-300">{item.body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-});
 
 /* ------------------------------------------------------------------ *
  * Execution Workflow — GSAP ScrollTrigger Steps
@@ -735,6 +623,37 @@ const About = forwardRef((props, ref) => {
           </div>
         </div>
 
+        {/* Styled Premium Neo-Brutalist Disclaimer Card */}
+        <div className="card-neo mt-12 p-6 bg-[#070b16]/90 border-t-4 border-t-[#ffd200] relative overflow-hidden text-left">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="badge-neo bg-[#ffd200] text-slate-950 px-2.5 py-1 text-[11px] font-black">
+              DISCLAIMER // READ CAREFULLY
+            </span>
+            <span className="text-slate-500 font-mono text-[11px] select-none">ID: EA-TELEMETRY-SEC-88</span>
+          </div>
+          <h4 className="font-display text-white text-md font-black tracking-tight mb-2">EQUITY ARENA — LEGAL DISCLAIMER</h4>
+          <div className="space-y-3 font-mono text-[12px] text-slate-400 leading-relaxed">
+            <p>
+              <strong>Equity Arena</strong> is an educational stock-market simulation game created for learning and entertainment purposes only.
+            </p>
+            <p>
+              All funds, stocks, prices, portfolios, profits, losses, orders, and transactions shown in the game are <strong>virtual and simulated</strong>. No real money is deposited, invested, transferred, or withdrawn through Equity Arena, and no real financial transactions take place.
+            </p>
+            <p>
+              The market prices, price movements, company data, and news presented in the game are simulated for gameplay and educational purposes and do not represent actual market prices, real investment opportunities, or real-world trading conditions. Any profits or losses displayed in the game have no real monetary value.
+            </p>
+            <p>
+              Equity Arena does not provide financial, investment, trading, or legal advice. Information shown in the game should not be used as a basis for making real-world investment or trading decisions. Past simulated performance does not guarantee or indicate future results.
+            </p>
+            <p>
+              All virtual currency used within the game, including <strong>IC (In-Game Currency)</strong>, has no cash value and cannot be exchanged for real money or other financial assets.
+            </p>
+            <p className="text-[#ffd200] font-bold">
+              By using Equity Arena, you acknowledge and agree that you are participating in a simulated trading environment and that all market activity, assets, currency, profits, and losses are virtual and have no real-world monetary value.
+            </p>
+          </div>
+        </div>
+
       </div>
     </section>
   );
@@ -748,7 +667,7 @@ function FinalCTA({ onRegisterClick }) {
     <section data-gsap="section" className="relative py-24 sm:py-28">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div data-gsap="heading">
-          <div className="stage-3d relative overflow-hidden rounded-[32px] border border-red-500/40 bg-slate-950 px-6 py-16 text-center sm:px-16 sm:py-20 shadow-2xl shadow-red-950/90">
+          <div className="card-neo relative overflow-hidden px-6 py-16 text-center sm:px-16 sm:py-20">
             {/* 🕸️ Spiderweb Corner Overlays inside CTA Banner */}
             <SpiderWebCorner className="top-0 left-0" rotate={0} />
             <SpiderWebCorner className="top-0 right-0" rotate={90} />
@@ -759,8 +678,7 @@ function FinalCTA({ onRegisterClick }) {
             <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600/15 blur-[100px]" />
 
             <div className="relative z-10 mx-auto max-w-[620px]">
-              <span className="inline-flex items-center gap-2 rounded-full border border-red-500/40 bg-red-500/10 px-4 py-1.5 text-xs font-bold text-red-300">
-                <span className="h-2 w-2 rounded-full bg-red-500 animate-live" />
+              <span className="badge-neo bg-[#ff0055] text-white px-3.5 py-1.5 text-xs font-black shadow-[2px_2px_0px_#05070e]">
                 JOIN THE SPIDER TRADING NETWORK TODAY
               </span>
 
@@ -776,9 +694,9 @@ function FinalCTA({ onRegisterClick }) {
                 <a
                   href={REGISTER_URL}
                   onClick={onRegisterClick}
-                  className="group inline-flex items-center gap-2.5 rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-blue-600 px-8 py-4 text-[15px] font-bold text-white shadow-xl shadow-red-600/40 transition-all hover:scale-105 active:scale-95"
+                  className="btn-neo px-8 py-4 text-[15px] font-black"
                 >
-                  Register Spider Account <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  Register Spider Account <ArrowRight className="h-5 w-5" />
                 </a>
               </div>
             </div>
@@ -799,9 +717,6 @@ function Footer({ stocks, onRegisterClick }) {
         <div className="grid gap-10 lg:grid-cols-[1.4fr_2fr]">
           <div>
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl border border-red-500/40 bg-gradient-to-br from-red-600 to-blue-600 p-0.5 shadow-md shadow-red-600/30">
-                <img src="/images/spider_emblem_hero.jpg" alt="Logo" className="h-full w-full object-cover rounded-[9px]" />
-              </div>
               <span className="font-display text-[17px] font-extrabold text-white">
                 EQUITY <span className="text-red-500">ARENA</span>
               </span>
@@ -823,7 +738,6 @@ function Footer({ stocks, onRegisterClick }) {
             <div>
               <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-200">Resources</h4>
               <ul className="mt-3 space-y-2 text-[13px]">
-                <li><a href="#news" className="hover:text-white transition-colors">Daily Bugle Feed</a></li>
                 <li><a href="#about" className="hover:text-white transition-colors">Execution Workflow</a></li>
                 <li><a href={REGISTER_URL} onClick={onRegisterClick} className="hover:text-white transition-colors">Register Account</a></li>
               </ul>
@@ -856,6 +770,48 @@ function Footer({ stocks, onRegisterClick }) {
 }
 
 /* ------------------------------------------------------------------ *
+ * Spidey-Sense Custom Interactive Cursor Trail
+ * ------------------------------------------------------------------ */
+function SpideyCursor() {
+  const dotRef = useRef(null);
+  const trailingRef = useRef(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      }
+      if (trailingRef.current) {
+        gsap.to(trailingRef.current, {
+          x: e.clientX,
+          y: e.clientY,
+          duration: 0.15,
+          ease: 'power2.out'
+        });
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <>
+      <div
+        ref={dotRef}
+        className="fixed top-0 left-0 w-2.5 h-2.5 bg-[#ff0055] border border-[#05070e] rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 shadow-[0_0_8px_#ff0055] hidden lg:block"
+        style={{ transform: 'translate3d(-100px, -100px, 0)', willChange: 'transform' }}
+      />
+      <div
+        ref={trailingRef}
+        className="fixed top-0 left-0 w-6 h-6 border-2 border-[#00f3ff] rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 opacity-60 shadow-[0_0_6px_rgba(0,243,255,0.4)] hidden lg:block"
+        style={{ transform: 'translate3d(-100px, -100px, 0)', willChange: 'transform' }}
+      />
+    </>
+  );
+}
+
+/* ------------------------------------------------------------------ *
  * Main Landing Page Component
  * ------------------------------------------------------------------ */
 export function Landing() {
@@ -863,13 +819,12 @@ export function Landing() {
   const index = useArenaIndex(stocks);
   const [isSlingingWeb, setIsSlingingWeb] = useState(false);
 
-  // Target refs for the 4 sections
+  // Target refs for the sections
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
   const featuresRef = useRef(null);
-  const newsRef = useRef(null);
 
-  useScrollAnimation(homeRef, aboutRef, featuresRef, newsRef);
+  useScrollAnimation(homeRef, aboutRef, featuresRef);
 
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
@@ -884,22 +839,23 @@ export function Landing() {
 
   return (
     <div className="relative min-h-screen bg-[#05070e] text-slate-100 antialiased overflow-x-hidden">
+      <SpideyCursor />
       {/* "The Bite" Full-Bleed Radial Impact Overlay */}
       <div id="gsap-bite-overlay" className="pointer-events-none fixed inset-0 z-[90] opacity-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-600/40 via-blue-600/20 to-transparent" />
 
       {/* Spidey-Sense Comic Alert Indicators (Left/Right margins) */}
       <div id="gsap-spidey-sense-left" className="pointer-events-none fixed left-4 top-1/3 z-[80] opacity-0 transition-opacity duration-300 select-none">
-        <svg width="80" height="160" viewBox="0 0 80 160" className="stroke-red-500 stroke-[3] fill-none overflow-visible drop-shadow-[0_0_8px_#ef4444]">
+        <svg width="80" height="160" viewBox="0 0 80 160" className="stroke-[#ff0055] stroke-[3.5] fill-none overflow-visible drop-shadow-[0_0_12px_#ff0055]">
           <path d="M 20 10 Q 70 80 20 150" />
-          <path d="M 35 25 Q 75 80 35 135" opacity="0.75" stroke="#f59e0b" />
-          <path d="M 50 40 Q 80 80 50 120" opacity="0.4" stroke="#ef4444" />
+          <path d="M 35 25 Q 75 80 35 135" opacity="0.75" stroke="#ffd200" />
+          <path d="M 50 40 Q 80 80 50 120" opacity="0.4" stroke="#ff0055" />
         </svg>
       </div>
       <div id="gsap-spidey-sense-right" className="pointer-events-none fixed right-4 top-1/3 z-[80] opacity-0 transition-opacity duration-300 select-none">
-        <svg width="80" height="160" viewBox="0 0 80 160" className="stroke-red-500 stroke-[3] fill-none overflow-visible drop-shadow-[0_0_8px_#ef4444]">
+        <svg width="80" height="160" viewBox="0 0 80 160" className="stroke-[#ff0055] stroke-[3.5] fill-none overflow-visible drop-shadow-[0_0_12px_#ff0055]">
           <path d="M 60 10 Q 10 80 60 150" />
-          <path d="M 45 25 Q 5 80 45 135" opacity="0.75" stroke="#f59e0b" />
-          <path d="M 30 40 Q 0 80 30 120" opacity="0.4" stroke="#ef4444" />
+          <path d="M 45 25 Q 5 80 45 135" opacity="0.75" stroke="#ffd200" />
+          <path d="M 30 40 Q 0 80 30 120" opacity="0.4" stroke="#ff0055" />
         </svg>
       </div>
 
@@ -930,7 +886,6 @@ export function Landing() {
 
         <About ref={aboutRef} />
         <Features ref={featuresRef} />
-        <News ref={newsRef} onRegisterClick={handleRegisterClick} />
         <FinalCTA onRegisterClick={handleRegisterClick} />
       </main>
       <Footer stocks={stocks} onRegisterClick={handleRegisterClick} />

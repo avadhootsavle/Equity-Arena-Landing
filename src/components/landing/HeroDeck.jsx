@@ -120,12 +120,12 @@ function MenuRow({ label, caption, value, change, selected, onSelect }) {
       role="option"
       aria-selected={selected}
       onClick={onSelect}
-      className={`flex w-full items-center justify-between gap-3 rounded-lg px-2.5 py-2 text-left transition ${
-        selected ? 'bg-blue-500/15' : 'hover:bg-white/8'
+      className={`flex w-full items-center justify-between gap-3 rounded px-2.5 py-2 text-left transition-all ${
+        selected ? 'bg-[#ff0055]/15 text-[#ff0055]' : 'hover:bg-white/8'
       }`}
     >
       <span className="min-w-0">
-        <span className={`block text-[12.5px] font-semibold ${selected ? 'text-blue-200' : 'text-slate-100'}`}>
+        <span className={`block text-[12.5px] font-semibold ${selected ? 'text-[#ff5e97]' : 'text-slate-100'}`}>
           {label}
         </span>
         <span className="block truncate text-[10.5px] text-slate-500">{caption}</span>
@@ -281,7 +281,7 @@ export function HeroDeck({ stocks, index, isLive }) {
                 onClick={() => setOpenMenu((m) => (m === 'instrument' ? null : 'instrument'))}
                 aria-haspopup="listbox"
                 aria-expanded={openMenu === 'instrument'}
-                className="flex items-center gap-1.5 rounded-md text-sm font-medium text-slate-200 transition hover:text-white"
+                className="flex items-center gap-1.5 border-2 border-slate-950 bg-slate-900 px-2.5 py-1.5 text-xs font-mono font-bold text-white shadow-[2px_2px_0px_#05070e] transition-all hover:bg-slate-800 hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e] rounded"
               >
                 {display.label}
                 <ChevronDown
@@ -297,7 +297,7 @@ export function HeroDeck({ stocks, index, isLive }) {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -6, scale: 0.97 }}
                     transition={{ duration: 0.16 }}
-                    className="absolute left-0 top-full z-50 mt-2 max-h-[290px] w-[248px] overflow-y-auto rounded-xl border border-white/12 bg-[#0b1120]/98 p-1.5 shadow-2xl backdrop-blur-xl"
+                    className="absolute left-0 top-full z-50 mt-2 max-h-[290px] w-[248px] overflow-y-auto rounded-xl border-2 border-slate-950 bg-[#070b16] p-1.5 shadow-2xl backdrop-blur-xl"
                   >
                     <MenuRow
                       label="ARENA 15"
@@ -343,13 +343,13 @@ export function HeroDeck({ stocks, index, isLive }) {
                 {isLive ? 'Live' : 'Demo'}
               </span>
 
-              <div className="relative">
+               <div className="relative">
                 <button
                   type="button"
                   onClick={() => setOpenMenu((m) => (m === 'timeframe' ? null : 'timeframe'))}
                   aria-haspopup="listbox"
                   aria-expanded={openMenu === 'timeframe'}
-                  className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs text-slate-300 transition hover:bg-white/10"
+                  className="flex items-center gap-1.5 border-2 border-slate-950 bg-slate-900 px-2.5 py-1.5 text-xs font-mono font-bold text-white shadow-[2px_2px_0px_#05070e] transition-all hover:bg-slate-800 hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e] rounded"
                 >
                   {frame.label}
                   <ChevronDown
@@ -365,7 +365,7 @@ export function HeroDeck({ stocks, index, isLive }) {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -6, scale: 0.97 }}
                       transition={{ duration: 0.16 }}
-                      className="absolute right-0 top-full z-50 mt-2 w-[148px] rounded-xl border border-white/12 bg-[#0b1120]/98 p-1.5 shadow-2xl backdrop-blur-xl"
+                      className="absolute right-0 top-full z-50 mt-2 w-[148px] rounded-xl border-2 border-slate-950 bg-[#070b16] p-1.5 shadow-2xl backdrop-blur-xl"
                     >
                       {TIMEFRAMES.map((t) => (
                         <button
@@ -377,8 +377,8 @@ export function HeroDeck({ stocks, index, isLive }) {
                             setTimeframe(t.id);
                             setOpenMenu(null);
                           }}
-                          className={`flex w-full items-center justify-between rounded-lg px-2.5 py-2 text-left text-[12.5px] transition ${
-                            t.id === timeframe ? 'bg-blue-500/15 text-blue-200' : 'text-slate-300 hover:bg-white/8'
+                          className={`flex w-full items-center justify-between rounded px-2.5 py-2 text-left text-[12.5px] transition ${
+                            t.id === timeframe ? 'bg-[#ff0055]/15 text-[#ff5e97]' : 'text-slate-300 hover:bg-white/8'
                           }`}
                         >
                           {t.title}
@@ -397,12 +397,13 @@ export function HeroDeck({ stocks, index, isLive }) {
             <svg viewBox="0 0 380 120" preserveAspectRatio="none" className="h-[120px] w-full overflow-visible">
               <defs>
                 <linearGradient id="deck-fill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.45" />
-                  <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+                  <stop offset="0%" stopColor="#ff0055" stopOpacity="0.3" />
+                  <stop offset="100%" stopColor="#00f3ff" stopOpacity="0" />
                 </linearGradient>
                 <linearGradient id="deck-stroke" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#60a5fa" />
-                  <stop offset="100%" stopColor="#22d3ee" />
+                  <stop offset="0%" stopColor="#ff0055" />
+                  <stop offset="50%" stopColor="#ffd200" />
+                  <stop offset="100%" stopColor="#00f3ff" />
                 </linearGradient>
               </defs>
 
@@ -432,9 +433,10 @@ export function HeroDeck({ stocks, index, isLive }) {
                 <circle
                   cx={chart.coords[chart.coords.length - 1][0]}
                   cy={chart.coords[chart.coords.length - 1][1]}
-                  r="4"
-                  fill="#22d3ee"
+                  r="4.5"
+                  fill="#00f3ff"
                   className="animate-live"
+                  style={{ filter: 'drop-shadow(0 0 6px #00f3ff)' }}
                 />
               )}
             </svg>
