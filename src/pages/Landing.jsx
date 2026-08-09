@@ -982,7 +982,7 @@ function SpideyCursor() {
     <>
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 pointer-events-none z-[999999] -translate-x-1/2 -translate-y-1/2 hidden lg:block"
+        className="fixed top-0 left-0 pointer-events-none z-[999999] ml-[-55px] mt-[-55px] hidden lg:block"
         style={{ transform: 'translate3d(-100px, -100px, 0)', willChange: 'transform' }}
       >
         <div className="relative w-[110px] h-[110px] flex items-center justify-center">
@@ -1047,7 +1047,7 @@ function SpideyCursor() {
       </div>
       <div
         ref={trailingRef}
-        className="fixed top-0 left-0 w-6 h-6 border-2 border-[#00f3ff] rounded-full pointer-events-none z-[999998] -translate-x-1/2 -translate-y-1/2 opacity-60 shadow-[0_0_6px_rgba(0,243,255,0.4)] hidden lg:block"
+        className="fixed top-0 left-0 w-6 h-6 border-2 border-[#00f3ff] rounded-full pointer-events-none z-[999998] ml-[-12px] mt-[-12px] opacity-60 shadow-[0_0_6px_rgba(0,243,255,0.4)] hidden lg:block"
         style={{ transform: 'translate3d(-100px, -100px, 0)', willChange: 'transform' }}
       />
     </>
