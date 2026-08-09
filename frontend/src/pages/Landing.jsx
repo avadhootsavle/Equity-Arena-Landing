@@ -1,5 +1,7 @@
 import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   Activity, ArrowRight, BarChart3, ChevronDown, Coins, Gauge, LineChart, Lock,
   Menu, Newspaper, Play, Radio, Shield, Sparkles, TrendingUp, Trophy, Users, Wallet, X, Zap
@@ -193,7 +195,7 @@ function Reveal({ children, className = '', delay = 0 }) {
       className={className}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={{ once: false, margin: '-80px' }}
       variants={{
         hidden: { opacity: 0, y: 30 },
         show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: easeOut, delay } }
@@ -510,7 +512,7 @@ function Hero({ stocks, index, isLive, onRegisterClick }) {
           </div>
 
           {/* HeroDeck trading terminal card */}
-          <div className="w-full relative rounded-3xl p-2 border border-red-500/40 bg-gradient-to-b from-red-600/15 via-slate-950 to-blue-600/15 shadow-2xl shadow-red-950/90 backdrop-blur-xl">
+          <div id="gsap-hero-terminal" className="w-full relative rounded-3xl p-2 border border-red-500/40 bg-gradient-to-b from-red-600/15 via-slate-950 to-blue-600/15 shadow-2xl shadow-red-950/90 backdrop-blur-xl">
             <HeroDeck stocks={stocks} index={index} isLive={isLive} />
           </div>
         </motion.div>
@@ -603,7 +605,7 @@ function CountUp({ to, suffix = '' }) {
   return (
     <motion.span
       onViewportEnter={() => setStarted(true)}
-      viewport={{ once: true }}
+      viewport={{ once: false }}
       className="font-display text-[clamp(1.9rem,4vw,2.6rem)] font-bold tracking-tight text-white tabular-nums"
     >
       {value.toLocaleString('en-IN')}{suffix}
@@ -637,7 +639,8 @@ const StockCard = forwardRef(function StockCard({ stock, i }, ref) {
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, margin: '-40px' }}
       exit={{ opacity: 0, scale: 0.94 }}
       transition={{ duration: 0.45, delay: Math.min(i, 8) * 0.05, ease: easeOut }}
       whileHover={{ y: -6, rotateX: 4, rotateY: -4, transition: { duration: 0.25 } }}
@@ -875,7 +878,7 @@ function Features() {
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={{ once: false, margin: '-60px' }}
           className="stage-3d mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3"
         >
           {FEATURES.map(({ icon: Icon, title, body, span }) => (
@@ -883,7 +886,7 @@ function Features() {
               key={title}
               variants={fadeUp}
               whileHover={{ y: -5, transition: { duration: 0.25 } }}
-              className={`glow-ring layer-3d group relative overflow-hidden rounded-2xl border border-red-500/25 bg-gradient-to-b from-slate-900/85 to-slate-950/95 p-6 backdrop-blur-md shadow-xl ${span}`}
+              className={`gsap-trigger-card glow-ring layer-3d group relative overflow-hidden rounded-2xl border border-red-500/25 bg-gradient-to-b from-slate-900/85 to-slate-950/95 p-6 backdrop-blur-md shadow-xl ${span}`}
             >
               <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-red-500/0 blur-3xl transition-all duration-500 group-hover:bg-red-500/20" />
 
@@ -977,7 +980,7 @@ function News({ onRegisterClick }) {
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={{ once: false, margin: '-60px' }}
           className="mt-12 grid gap-4 md:grid-cols-2"
         >
           {NEWS_FEED.map((item) => (
@@ -1054,7 +1057,7 @@ function About() {
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={{ once: false, margin: '-60px' }}
           className="stage-3d relative mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4"
         >
           <div className="pointer-events-none absolute left-0 right-0 top-[52px] hidden h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent lg:block" />
@@ -1230,6 +1233,69 @@ export function Landing() {
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
 
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1. GSAP ScrollTrigger Vertical Spider Web Strand Indicator
+    const strand = document.getElementById('gsap-spiderweb-line');
+    if (strand) {
+      gsap.to(strand, {
+        height: '100%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: 'body',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.2,
+        },
+      });
+    }
+
+    // 2. GSAP ScrollTrigger 3D Tilt Scrub for Hero Terminal
+    const heroTerminal = document.getElementById('gsap-hero-terminal');
+    if (heroTerminal) {
+      gsap.to(heroTerminal, {
+        rotateX: 12,
+        scale: 0.94,
+        opacity: 0.8,
+        ease: 'power1.out',
+        scrollTrigger: {
+          trigger: '#home',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 0.5,
+        },
+      });
+    }
+
+    // 3. GSAP ScrollTrigger Reveal for Features & Cards
+    const triggerCards = document.querySelectorAll('.gsap-trigger-card');
+    triggerCards.forEach((card, idx) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 45, rotateY: idx % 2 === 0 ? -5 : 5, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          rotateY: 0,
+          scale: 1,
+          duration: 0.7,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 88%',
+            end: 'top 40%',
+            toggleActions: 'play reverse play reverse',
+          },
+        }
+      );
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
+
   const handleRegisterClick = (e) => {
     if (e) e.preventDefault();
     setIsSlingingWeb(true);
@@ -1239,14 +1305,25 @@ export function Landing() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#05070e] text-slate-100 antialiased">
+    <div className="relative min-h-screen bg-[#05070e] text-slate-100 antialiased overflow-x-hidden">
       {/* Spiderweb Slinging Transition Overlay */}
       <SpiderWebTransitionModal isOpen={isSlingingWeb} />
 
+      {/* GSAP ScrollTrigger Top Progress Bar */}
       <motion.div
         style={{ scaleX: progress }}
         className="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-red-600 via-red-500 to-blue-600 shadow-md shadow-red-500"
       />
+
+      {/* GSAP ScrollTrigger Side Spider-Web Strand */}
+      <div className="fixed left-2 sm:left-4 top-0 bottom-0 z-40 pointer-events-none w-1 hidden sm:block">
+        <div
+          id="gsap-spiderweb-line"
+          className="w-[2px] h-0 bg-gradient-to-b from-red-500 via-red-600 to-blue-500 shadow-[0_0_8px_rgba(239,68,68,0.8)] relative"
+        >
+          <div className="absolute bottom-0 -left-[3px] w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_12px_#ef4444] animate-pulse" />
+        </div>
+      </div>
 
       <Navbar onRegisterClick={handleRegisterClick} />
       <main>
