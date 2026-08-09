@@ -346,6 +346,51 @@ body::before {
   animation: holo-flicker-red 5s infinite;
 }
 
+@keyframes brutalist-glitch {
+  0% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+  8% {
+    transform: translate(-2px, 1px);
+    text-shadow: -2px 0 #00f3ff, 2px 0 #ff0055;
+  }
+  15% {
+    transform: translate(1px, -1px);
+    text-shadow: 2px 0 #ffd200, -2px 0 #00f3ff;
+  }
+  22% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+  60% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+  65% {
+    transform: translate(-1.5px, -1.5px);
+    text-shadow: -2px 0 #ff0055, 2px 0 #ffd200;
+  }
+  70% {
+    transform: translate(1.5px, 1.5px);
+    text-shadow: 2px 0 #00f3ff, -2px 0 #ff0055;
+  }
+  75% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+  100% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+}
+
+.animate-brutalist-glitch {
+  display: inline-block;
+  animation: brutalist-glitch 3.5s infinite linear;
+}
+
+
 
 
 

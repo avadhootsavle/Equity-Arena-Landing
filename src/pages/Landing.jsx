@@ -536,19 +536,19 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
             
             <div className="grid grid-cols-4 gap-3 text-center">
               <div className="bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#ff0055] transition-transform group-hover:translate-y-[-1px]">
-                <span className="block font-display text-2xl font-black text-[#ff0055] tabular-nums">{timeLeft.days}</span>
+                <span className="block font-display text-2xl font-black text-[#ff0055] tabular-nums animate-brutalist-glitch">{timeLeft.days}</span>
                 <span className="text-[9px] font-mono uppercase text-slate-400 font-black tracking-wider">Days</span>
               </div>
               <div className="bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#00f3ff] transition-transform group-hover:translate-y-[-1px]">
-                <span className="block font-display text-2xl font-black text-[#00f3ff] tabular-nums">{timeLeft.hours}</span>
+                <span className="block font-display text-2xl font-black text-[#00f3ff] tabular-nums animate-brutalist-glitch">{timeLeft.hours}</span>
                 <span className="text-[9px] font-mono uppercase text-slate-400 font-black tracking-wider">Hours</span>
               </div>
               <div className="bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#ffd200] transition-transform group-hover:translate-y-[-1px]">
-                <span className="block font-display text-2xl font-black text-[#ffd200] tabular-nums">{timeLeft.minutes}</span>
+                <span className="block font-display text-2xl font-black text-[#ffd200] tabular-nums animate-brutalist-glitch">{timeLeft.minutes}</span>
                 <span className="text-[9px] font-mono uppercase text-slate-400 font-black tracking-wider">Mins</span>
               </div>
               <div className="bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#ffffff] transition-transform group-hover:translate-y-[-1px]">
-                <span className="block font-display text-2xl font-black text-white tabular-nums">{timeLeft.seconds}</span>
+                <span className="block font-display text-2xl font-black text-white tabular-nums animate-brutalist-glitch">{timeLeft.seconds}</span>
                 <span className="text-[9px] font-mono uppercase text-slate-400 font-black tracking-wider">Secs</span>
               </div>
             </div>
