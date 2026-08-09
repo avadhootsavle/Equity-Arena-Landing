@@ -111,8 +111,8 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
             );
           }
 
-          // Spider-Man Dynamic Web Swing scroll scrub
-          if (spidermanWrapper && spidermanLine) {
+          // Spider-Man Dynamic Web Swing scroll scrub (no conflict with parent wrapper)
+          if (spidermanLine && spidermanBody) {
             gsap.timeline({
               scrollTrigger: {
                 trigger: homeRef.current,
@@ -121,9 +121,8 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
                 scrub: 0.5,
               }
             })
-            .to(spidermanWrapper, { y: 240, rotate: 14, scale: 1.15, ease: 'none' })
-            .to(spidermanLine, { height: '320px', ease: 'none' }, '<')
-            .to(spidermanBody, { rotate: 8, ease: 'none' }, '<');
+            .to(spidermanLine, { height: '320px', ease: 'none' })
+            .to(spidermanBody, { rotate: 12, scale: 1.15, ease: 'none' }, '<');
           }
 
           // Stereoscopic Text Aberration spacing glitch scroll scrub
