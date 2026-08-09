@@ -107,20 +107,20 @@ function SpiderWebTransitionModal({ isOpen }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] flex items-center justify-center bg-[#04060e]/96 backdrop-blur-2xl overflow-hidden pointer-events-auto"
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-[#04060e]/97 backdrop-blur-2xl overflow-hidden pointer-events-auto"
       >
         {/* Animated Background Pulse Radial Glows */}
         <div className="absolute inset-0 bg-gradient-to-r from-red-600/30 via-transparent to-blue-600/30 blur-3xl animate-pulse" />
 
-        {/* 🕸️ Fullscreen expanding SVG web-shooter net */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none animate-web-shoot">
+        {/* Layer 1: Clockwise crazy web shoot */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none animate-web-shoot-crazy">
           <svg width="700" height="700" viewBox="0 0 600 600" fill="none" className="animate-web-glow">
             <defs>
               <linearGradient id="webSlingGrad" x1="0" y1="0" x2="600" y2="600" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#ef4444" />
-                <stop offset="0.4" stopColor="#ff1e42" />
-                <stop offset="0.8" stopColor="#3b82f6" />
-                <stop offset="1" stopColor="#00d2ff" />
+                <stop stopColor="#ff0055" />
+                <stop offset="0.4" stopColor="#ffd200" />
+                <stop offset="0.8" stopColor="#00f3ff" />
+                <stop offset="1" stopColor="#ff0055" />
               </linearGradient>
             </defs>
 
@@ -137,8 +137,8 @@ function SpiderWebTransitionModal({ isOpen }) {
                   x2={x2}
                   y2={y2}
                   stroke="url(#webSlingGrad)"
-                  strokeWidth="2"
-                  opacity="0.9"
+                  strokeWidth="2.5"
+                  opacity="0.95"
                 />
               );
             })}
@@ -151,9 +151,9 @@ function SpiderWebTransitionModal({ isOpen }) {
                 cy="300"
                 r={r}
                 stroke="url(#webSlingGrad)"
-                strokeWidth="1.6"
+                strokeWidth="1.8"
                 fill="none"
-                opacity={0.9 - i * 0.1}
+                opacity={0.95 - i * 0.12}
               />
             ))}
 
@@ -163,27 +163,75 @@ function SpiderWebTransitionModal({ isOpen }) {
                 const angle = (i * 45 * Math.PI) / 180;
                 const cx = 300 + Math.cos(angle) * r;
                 const cy = 300 + Math.sin(angle) * r;
-                return <circle key={`${r}-${i}`} cx={cx} cy={cy} r="3" fill="#ff1e42" />;
+                return <circle key={`${r}-${i}`} cx={cx} cy={cy} r="4" fill="#ffd200" style={{ filter: 'drop-shadow(0 0 4px #ffd200)' }} />;
               })
             )}
           </svg>
         </div>
+
+        {/* Layer 2: Counter-Clockwise crazy web shoot with delay */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none animate-web-shoot-crazy" style={{ animationDelay: '0.15s', animationDirection: 'reverse' }}>
+          <svg width="700" height="700" viewBox="0 0 600 600" fill="none" className="opacity-70">
+            {/* 16 Radial Web Strands shooting out from center */}
+            {Array.from({ length: 16 }).map((_, i) => {
+              const angle = (i * 22.5 * Math.PI) / 180;
+              const x2 = 300 + Math.cos(angle) * 320;
+              const y2 = 300 + Math.sin(angle) * 320;
+              return (
+                <line
+                  key={i}
+                  x1="300"
+                  y1="300"
+                  x2={x2}
+                  y2={y2}
+                  stroke="url(#webSlingGrad)"
+                  strokeWidth="1.5"
+                  opacity="0.6"
+                />
+              );
+            })}
+
+            {/* Concentric Web Arcs */}
+            {[60, 100, 140, 180, 220, 260].map((r, i) => (
+              <circle
+                key={r}
+                cx="300"
+                cy="300"
+                r={r}
+                stroke="url(#webSlingGrad)"
+                strokeWidth="1.2"
+                fill="none"
+                opacity={0.7 - i * 0.1}
+              />
+            ))}
+          </svg>
+        </div>
+
+        {/* Giant Elastic THWIP Pop */}
+        <motion.div
+          initial={{ scale: 0, rotate: -45, opacity: 0 }}
+          animate={{ scale: [0, 2.5, 0], rotate: [-45, 12, 28], opacity: [0, 1, 0] }}
+          transition={{ duration: 0.95, times: [0, 0.35, 1], ease: "back.out(1.8)" }}
+          className="absolute z-50 pointer-events-none select-none font-display font-black text-6xl sm:text-8.5xl text-slate-950 bg-[#ffd200] border-4 border-slate-950 px-8 py-4 shadow-[6px_6px_0px_#ff0055] rounded-lg tracking-tighter"
+        >
+          THWIP!
+        </motion.div>
 
         {/* Center Spidey Status Glass Card */}
         <motion.div
           initial={{ opacity: 0, scale: 0.7, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 mx-4 max-w-[420px] rounded-3xl border border-red-500/40 bg-slate-950/90 p-8 text-center backdrop-blur-xl shadow-2xl shadow-red-950/80"
+          className="card-neo relative z-10 mx-4 max-w-[420px] bg-[#070b16] p-8 text-center"
         >
-          {/* Glowing Spider Emblem Badge */}
-          <div className="relative mx-auto mb-5 flex h-20 w-20 overflow-hidden items-center justify-center rounded-2xl bg-gradient-to-br from-red-600 via-red-500 to-blue-600 p-0.5 shadow-2xl shadow-red-600/60 ring-2 ring-red-400/50">
-            <img src="/images/spider_emblem_hero.jpg" alt="Spider Emblem" className="h-full w-full object-cover rounded-[14px]" />
+          {/* Stylized Neo-Brutalist Spidey Badge */}
+          <div className="relative mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl border-3 border-slate-950 bg-[#ff0055] shadow-[4px_4px_0px_#05070e] font-display text-4xl text-white select-none">
+            🕷️
           </div>
 
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-red-500/20 px-3 py-1 text-[11px] font-bold text-red-400 border border-red-500/30">
-            <span className="h-2 w-2 rounded-full bg-red-500 animate-ping" />
-            WEB-SLINGER TELEPORT ACTIVE
+          <span className="badge-neo bg-[#ff0055]/15 text-[#ff0055] px-3 py-1 text-[11px] font-black border border-[#ff0055]/30">
+            <span className="h-2 w-2 rounded-full bg-[#ff0055] animate-ping" />
+            TELEPORT ACTIVE
           </span>
 
           <h3 className="font-display mt-4 text-2xl font-bold tracking-tight text-white">
@@ -193,14 +241,6 @@ function SpiderWebTransitionModal({ isOpen }) {
           <p className="mt-2 text-xs text-slate-300 leading-relaxed font-mono">
             Deploying simulated capital • Spidey WebSocket feeds live
           </p>
-
-          {/* Web Shoot Progress Spinner */}
-          <div className="mt-6 flex items-center justify-center gap-3">
-            <div className="h-5 w-5 animate-spin rounded-full border-2 border-red-500 border-t-transparent" />
-            <span className="text-xs font-semibold text-slate-400 tracking-wider uppercase">
-              Slinging order web...
-            </span>
-          </div>
         </motion.div>
       </motion.div>
     </AnimatePresence>
@@ -514,36 +554,7 @@ function TickerTape({ stocks }) {
   );
 }
 
-/* ------------------------------------------------------------------ *
- * Stats band — GSAP Count-Up ScrollTrigger Section
- * ------------------------------------------------------------------ */
-const STATS = [
-  { value: 15, suffix: '', label: 'Spider-Sense Listings' },
-  { value: 20000, suffix: ' IC', label: 'Web Capital Balance' },
-  { value: 100, suffix: '%', label: 'Risk-Free Simulation' }
-];
 
-function StatsBand() {
-  return (
-    <section data-gsap="section" className="relative border-y-3 border-slate-950 py-16 bg-slate-900 shadow-[inset_0px_0px_24px_rgba(0,243,255,0.04)]">
-      <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-8 px-5 sm:grid-cols-3 sm:px-8">
-        {STATS.map((stat) => (
-          <div key={stat.label} className="text-center lg:text-left border-3 border-slate-950 bg-[#070b16] p-6 rounded-lg shadow-[3px_3px_0px_#05070e] hover:translate-y-[-2px] transition-all duration-200">
-            <span
-              data-gsap="stat-count"
-              data-target={stat.value}
-              data-suffix={stat.suffix}
-              className="font-display text-[clamp(1.9rem,4vw,2.6rem)] font-black tracking-tight text-[#ff0055] tabular-nums"
-            >
-              0{stat.suffix}
-            </span>
-            <p className="mt-2 text-[12px] text-slate-200 font-mono font-bold tracking-wider uppercase border-t border-slate-950 pt-2">{stat.label}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
 
 /* ------------------------------------------------------------------ *
  * Features — GSAP ScrollTrigger Section & Staggered Cards
@@ -984,7 +995,6 @@ export function Landing() {
       <main>
         <Hero ref={homeRef} stocks={stocks} index={index} isLive={isLive} onRegisterClick={handleRegisterClick} />
         <TickerTape stocks={stocks} />
-        <StatsBand />
 
         <About ref={aboutRef} />
         <Features ref={featuresRef} />
