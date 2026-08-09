@@ -1,5 +1,4 @@
 import React, { forwardRef, useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import {
   Activity, ArrowRight, BarChart3, ChevronDown, Coins, Gauge, LineChart, Lock,
@@ -135,12 +134,6 @@ function Navbar() {
 
         {/* Actions */}
         <div className="flex items-center gap-3">
-          <a
-            href={REGISTER_URL}
-            className="hidden text-[14px] font-medium text-slate-300 transition hover:text-white sm:block"
-          >
-            Log in
-          </a>
           <a
             href={REGISTER_URL}
             className="glow-ring group flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-[14px] font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:bg-blue-500 hover:shadow-blue-500/40 sm:px-5"
@@ -571,7 +564,7 @@ function Markets({ stocks, isLive }) {
             <span className={`h-2 w-2 rounded-full ${isLive ? 'bg-emerald-400 animate-live' : 'bg-amber-400'}`} />
             {isLive
               ? 'Streaming live prices from the Equity Arena exchange engine'
-              : 'Showing reference market seeds — log in for the live orderbook feed'}
+              : 'Showing reference market seeds — register for the live orderbook feed'}
           </p>
           <a
             href={REGISTER_URL}
@@ -945,7 +938,7 @@ function Footer({ stocks }) {
           <div>
             <h4 className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate-300">Platform</h4>
             <ul className="mt-4 space-y-2.5 text-[13.5px] text-slate-500">
-              {['Markets', 'News', 'Features', 'Leaderboard'].map((l) => (
+              {['Markets', 'News', 'Features'].map((l) => (
                 <li key={l}>
                   <a href={`#${l.toLowerCase()}`} className="transition hover:text-slate-200">{l}</a>
                 </li>
@@ -968,7 +961,6 @@ function Footer({ stocks }) {
           <div>
             <h4 className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate-300">Account</h4>
             <ul className="mt-4 space-y-2.5 text-[13.5px] text-slate-500">
-              <li><a href={REGISTER_URL} className="transition hover:text-slate-200">Log in</a></li>
               <li><a href={REGISTER_URL} className="transition hover:text-slate-200">Register</a></li>
               <li><a href={REGISTER_URL} className="transition hover:text-slate-200">Trading floor</a></li>
             </ul>
@@ -993,7 +985,7 @@ function Footer({ stocks }) {
  * Page
  * ------------------------------------------------------------------ */
 export function Landing() {
-  const { stocks, isLive } = useLiveStocks(5000);
+  const { stocks, isLive } = useLiveStocks(3000);
   const index = useArenaIndex(stocks);
 
   // Thin progress bar tracking scroll through the page
