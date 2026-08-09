@@ -686,12 +686,12 @@ function About() {
         </div>
 
         <div className="stage-3d relative mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          <div className="pointer-events-none absolute left-0 right-0 top-[52px] hidden h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent lg:block" />
+          <div id="gsap-about-line" className="pointer-events-none absolute left-0 right-0 top-[52px] hidden h-[2px] bg-gradient-to-r from-red-600 via-red-500 to-blue-600 shadow-[0_0_10px_#ef4444] lg:block origin-left scale-x-0" />
 
           {STEPS.map(({ n, icon: Icon, title, body }) => (
             <div
               key={n}
-              data-gsap="card"
+              data-gsap="step-card"
               className="layer-3d group relative rounded-2xl border border-red-500/25 bg-slate-900/70 p-6 text-center backdrop-blur-md transition-colors hover:border-red-500/60 shadow-xl"
             >
               <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-red-500/40 bg-[#0c0f1d] shadow-lg shadow-red-950/60 transition-transform duration-300 group-hover:scale-110">
@@ -848,6 +848,9 @@ export function Landing() {
 
   return (
     <div ref={containerRef} className="relative min-h-screen bg-[#05070e] text-slate-100 antialiased overflow-x-hidden">
+      {/* "The Bite" Full-Bleed Radial Impact Overlay */}
+      <div id="gsap-bite-overlay" className="pointer-events-none fixed inset-0 z-[90] opacity-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-600/40 via-blue-600/20 to-transparent" />
+
       {/* Spiderweb Slinging Transition Overlay */}
       <SpiderWebTransitionModal isOpen={isSlingingWeb} />
 

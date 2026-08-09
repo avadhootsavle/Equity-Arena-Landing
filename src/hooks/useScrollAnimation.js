@@ -5,15 +5,20 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Spider-Man Web-Sling Scroll Animation Hook (GSAP + ScrollTrigger)
+ * Peter Parker Origin Scrollytelling Hook (GSAP ScrollTrigger Pin + Scrub)
  * 
- * Mechanics:
- * 1. HERO SWING-IN: Hero heading & terminal swing in on web lines with elastic/back overshoot
- * 2. CORNER WEB DRAW-IN: SVG corner web paths draw themselves strand-by-strand on section entry
- * 3. WEB-SHOT CARD REVEAL: Cards in grid yank in diagonally from web-shot points with back.out(1.4) snap
- * 4. PARALLAX CORNER WEBS: Corner webs drift slightly opposite to scroll direction
- * 5. STAT IMPACT PUNCH: Number counters punch scale (1 -> 1.12 -> 1) on web impact completion
- * 6. ACCESSIBILITY & MOBILE: Respects prefers-reduced-motion & caps overshoot easing on mobile screens
+ * Story Arc:
+ * ACT 1 — #home (ORDINARY GUY): Muted base, flat entrance, scrubbed color-shift saturation as user scrolls to #about.
+ * ACT 2 — #about (THE BITE / GAINING POWERS): Pinned 4-step sequence (desktop only, +=180% scroll distance).
+ *         Steps awaken one-by-one with line draw & icon pulse. Step 4 triggers full-bleed "Bite" radial impact flash.
+ * ACT 3 — #features (USING POWERS): Energetic diagonal "web-shot" card yanks with back.out(1.4) snap & SVG strand draws.
+ * ACT 4 — #news (FULL HERO / MASTERY): Calm, controlled entrance with velocity scrub drift.
+ * 
+ * Technical Safety:
+ * - Desktop pinning enabled only above 768px width (mobile falls back to standard non-pinned reveals).
+ * - Complete React cleanup via gsap.context().revert() on unmount.
+ * - Automatic ScrollTrigger.refresh() on image/font loads.
+ * - prefers-reduced-motion: opacity-only fade with zero pin/scrub.
  */
 export function useScrollAnimation() {
   const containerRef = useRef(null);
@@ -31,32 +36,31 @@ export function useScrollAnimation() {
 
     const ctx = gsap.context(() => {
       // ----------------------------------------------------------------
-      // ACCESSIBILITY: Reduced Motion Fallback
+      // ACCESSIBILITY FALLBACK: Reduced Motion Mode
       // ----------------------------------------------------------------
       if (prefersReducedMotion) {
         gsap.set(
-          '[data-gsap="hero"], #gsap-hero-terminal, [data-gsap="section"], [data-gsap="heading"], .gsap-trigger-card, .layer-3d, [data-gsap="stat-count"], [data-gsap="corner-web"]',
-          { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }
+          '[data-gsap="hero"], #gsap-hero-terminal, [data-gsap="section"], [data-gsap="heading"], .gsap-trigger-card, .layer-3d, [data-gsap="step-card"], [data-gsap="stat-count"], [data-gsap="corner-web"]',
+          { opacity: 1, x: 0, y: 0, scale: 1, filter: 'none' }
         );
         return;
       }
 
-      const snapEase = isMobile ? 'power2.out' : 'back.out(1.4)';
-
-      // ----------------------------------------------------------------
-      // 1. HERO SECTION (#home): Web-Swing Entrance (Page Load)
-      // ----------------------------------------------------------------
-      const heroHeading = containerRef.current?.querySelector('[data-gsap="hero"]');
-      if (heroHeading) {
+      // ================================================================
+      // ACT 1 — #home (ORDINARY GUY -> THE BUILD)
+      // ================================================================
+      // 1. Initial Page-Load: Deliberately flat, unadorned entrance (Before Powers)
+      const heroText = containerRef.current?.querySelectorAll('[data-gsap="hero"]');
+      if (heroText && heroText.length > 0) {
         gsap.fromTo(
-          heroHeading,
-          { opacity: 0, x: -60, rotate: -6, transformOrigin: 'top left' },
+          heroText,
+          { opacity: 0, y: 20 },
           {
             opacity: 1,
-            x: 0,
-            rotate: 0,
-            duration: 0.9,
-            ease: isMobile ? 'power2.out' : 'back.out(1.5)',
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            stagger: 0.12,
           }
         );
       }
@@ -65,20 +69,17 @@ export function useScrollAnimation() {
       if (heroTerminal) {
         gsap.fromTo(
           heroTerminal,
-          { opacity: 0, x: 60, scale: 0.9, rotate: 5, transformOrigin: 'top right' },
+          { opacity: 0, y: 20 },
           {
             opacity: 1,
-            x: 0,
-            scale: 1,
-            rotate: 0,
-            duration: 0.95,
-            delay: 0.2,
-            ease: snapEase,
+            y: 0,
+            duration: 0.8,
+            delay: 0.25,
+            ease: 'power2.out',
           }
         );
       }
 
-      // Hero Spiderweb Line (#gsap-spiderweb-line)
       const spiderwebLine = containerRef.current?.querySelector('#gsap-spiderweb-line');
       if (spiderwebLine) {
         gsap.fromTo(
@@ -87,120 +88,124 @@ export function useScrollAnimation() {
           {
             height: '100%',
             duration: 1.0,
-            delay: 0.35,
+            delay: 0.4,
             ease: 'power2.out',
           }
         );
       }
 
-      // Hero Ambient Parallax
-      const parallaxEls = containerRef.current?.querySelectorAll('[data-gsap="parallax"]');
-      parallaxEls?.forEach((el) => {
-        gsap.to(el, {
-          yPercent: 15,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: el.parentElement || el,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
-      });
-
-      // ----------------------------------------------------------------
-      // 2. CORNER WEB SVGs: Strand Draw-In Effect & Parallax
-      // ----------------------------------------------------------------
-      const sections = containerRef.current?.querySelectorAll('section, #home, #about, #features, #news');
-      sections?.forEach((section) => {
-        const cornerWebSvg = section.querySelector('[data-gsap="corner-web"]');
-        if (cornerWebSvg) {
-          const paths = cornerWebSvg.querySelectorAll('path');
-          paths.forEach((path) => {
-            try {
-              const length = path.getTotalLength() || 200;
-              gsap.set(path, {
-                strokeDasharray: length,
-                strokeDashoffset: length,
-              });
-
-              gsap.to(path, {
-                strokeDashoffset: 0,
-                duration: 0.8,
-                stagger: 0.05,
-                ease: 'power2.out',
-                scrollTrigger: {
-                  trigger: section,
-                  start: 'top 75%',
-                  toggleActions: 'play none none none',
-                  once: true,
-                },
-              });
-            } catch (_) {
-              // Fallback for non-scalable elements
-              gsap.fromTo(
-                path,
-                { opacity: 0 },
-                {
-                  opacity: 1,
-                  duration: 0.5,
-                  scrollTrigger: {
-                    trigger: section,
-                    start: 'top 75%',
-                    once: true,
-                  },
-                }
-              );
-            }
-          });
-
-          // Scroll-linked Subtle Parallax on Corner Webs
-          gsap.to(cornerWebSvg, {
-            y: -12,
+      // 2. Act 1 -> Act 2 Color-Shift Scrub (Saturating red/blue as user scrolls away from #home)
+      const homeBg = containerRef.current?.querySelector('#home');
+      if (homeBg) {
+        gsap.fromTo(
+          homeBg,
+          { filter: 'saturate(0.25)', opacity: 0.85 },
+          {
+            filter: 'saturate(1.25)',
+            opacity: 1,
             ease: 'none',
             scrollTrigger: {
-              trigger: section,
-              start: 'top bottom',
+              trigger: homeBg,
+              start: 'top top',
               end: 'bottom top',
-              scrub: true,
-            },
-          });
-        }
-      });
-
-      // ----------------------------------------------------------------
-      // 3. SECTION INTRO HEADINGS: Web-Shot Entrance
-      // ----------------------------------------------------------------
-      const headings = containerRef.current?.querySelectorAll('[data-gsap="heading"]');
-      headings?.forEach((heading) => {
-        gsap.fromTo(
-          heading,
-          { opacity: 0, scale: 0.88, y: 35, rotate: -2 },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            rotate: 0,
-            duration: 0.75,
-            ease: snapEase,
-            scrollTrigger: {
-              trigger: heading,
-              start: 'top 85%',
-              toggleActions: 'play none none none',
-              once: true,
+              scrub: 0.5,
             },
           }
         );
-      });
+      }
 
-      // ----------------------------------------------------------------
-      // 4. CARD GRIDS: "Web-Shot" Alternating Diagonal Pull (ScrollTrigger.batch)
-      // ----------------------------------------------------------------
-      const cards = containerRef.current?.querySelectorAll(
-        '.gsap-trigger-card, .stage-3d .layer-3d, [data-gsap="card"]'
+      // ================================================================
+      // ACT 2 — #about (THE BITE / GAINING POWERS) — Pinned Sequence
+      // ================================================================
+      const stepCards = containerRef.current?.querySelectorAll('[data-gsap="step-card"]');
+      const stepLine = containerRef.current?.querySelector('#gsap-about-line');
+      const biteOverlay = containerRef.current?.querySelector('#gsap-bite-overlay');
+
+      if (!isMobile && stepCards && stepCards.length > 0) {
+        // DESKTOP PINNED SCROLLYTELLING TIMELINE (+=180% Scroll Distance)
+        // Scroll distance math: 180% of viewport height gives each of the 4 steps
+        // ~45% of viewport scroll distance to illuminate, pulse, and draw connecting line
+        const aboutTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#about',
+            start: 'top top',
+            end: '+=180%',
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+          },
+        });
+
+        // Initial State: Dim all steps to 0.3 opacity (powers unawakened)
+        gsap.set(stepCards, { opacity: 0.3, scale: 0.96 });
+        if (stepLine) gsap.set(stepLine, { scaleX: 0, transformOrigin: 'left center' });
+
+        // Step 01 Awakening
+        aboutTl
+          .to(stepCards[0], { opacity: 1, scale: 1.04, duration: 0.4, ease: 'power2.out' }, 'step1')
+          .to(stepLine, { scaleX: 0.33, duration: 0.4, ease: 'none' }, 'step1');
+
+        // Step 02 Awakening
+        if (stepCards[1]) {
+          aboutTl
+            .to(stepCards[0], { scale: 1, opacity: 0.5, duration: 0.3 }, 'step2')
+            .to(stepCards[1], { opacity: 1, scale: 1.04, duration: 0.4, ease: 'power2.out' }, 'step2')
+            .to(stepLine, { scaleX: 0.66, duration: 0.4, ease: 'none' }, 'step2');
+        }
+
+        // Step 03 Awakening
+        if (stepCards[2]) {
+          aboutTl
+            .to(stepCards[1], { scale: 1, opacity: 0.5, duration: 0.3 }, 'step3')
+            .to(stepCards[2], { opacity: 1, scale: 1.04, duration: 0.4, ease: 'power2.out' }, 'step3')
+            .to(stepLine, { scaleX: 0.9, duration: 0.4, ease: 'none' }, 'step3');
+        }
+
+        // Step 04 Awakening & "THE BITE" Impact Flash
+        if (stepCards[3]) {
+          aboutTl
+            .to(stepCards[2], { scale: 1, opacity: 0.5, duration: 0.3 }, 'step4')
+            .to(stepCards[3], { opacity: 1, scale: 1.06, duration: 0.4, ease: 'power2.out' }, 'step4')
+            .to(stepLine, { scaleX: 1.0, duration: 0.4, ease: 'none' }, 'step4');
+
+          if (biteOverlay) {
+            aboutTl.to(
+              biteOverlay,
+              { opacity: 0.35, duration: 0.2, yoyo: true, repeat: 1, ease: 'power2.inOut' },
+              'step4+=0.2'
+            );
+          }
+        }
+      } else {
+        // MOBILE FALLBACK: Non-pinned standard reveal under 768px
+        if (stepCards) {
+          gsap.fromTo(
+            stepCards,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              stagger: 0.15,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: '#about',
+                start: 'top 80%',
+                once: true,
+              },
+            }
+          );
+        }
+      }
+
+      // ================================================================
+      // ACT 3 — #features (USING THE POWERS — Web-Shot Cards)
+      // ================================================================
+      const featureCards = containerRef.current?.querySelectorAll(
+        '#features .gsap-trigger-card, #features .layer-3d, #features [data-gsap="card"]'
       );
-      if (cards && cards.length > 0) {
-        ScrollTrigger.batch(cards, {
+      if (featureCards && featureCards.length > 0) {
+        ScrollTrigger.batch(featureCards, {
           start: 'top 82%',
           once: true,
           onEnter: (batch) => {
@@ -223,7 +228,7 @@ export function useScrollAnimation() {
                   rotate: 0,
                   duration: 0.7,
                   delay: idx * 0.1,
-                  ease: snapEase,
+                  ease: isMobile ? 'power2.out' : 'back.out(1.4)',
                   overwrite: 'auto',
                 }
               );
@@ -232,9 +237,89 @@ export function useScrollAnimation() {
         });
       }
 
-      // ----------------------------------------------------------------
-      // 5. STATS COUNTERS: Count-Up + Web Impact Scale-Punch
-      // ----------------------------------------------------------------
+      // Act 3 Corner Web SVGs Strand Draw-In
+      const cornerWebs = containerRef.current?.querySelectorAll('[data-gsap="corner-web"]');
+      cornerWebs?.forEach((cornerWeb) => {
+        const section = cornerWeb.closest('section') || cornerWeb.parentElement;
+        const paths = cornerWeb.querySelectorAll('path');
+        paths.forEach((path) => {
+          try {
+            const length = path.getTotalLength() || 200;
+            gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+            gsap.to(path, {
+              strokeDashoffset: 0,
+              duration: 0.8,
+              stagger: 0.05,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top 75%',
+                once: true,
+              },
+            });
+          } catch (_) {
+            gsap.fromTo(
+              path,
+              { opacity: 0 },
+              {
+                opacity: 1,
+                duration: 0.5,
+                scrollTrigger: { trigger: section, start: 'top 75%', once: true },
+              }
+            );
+          }
+        });
+
+        // Corner web subtle scrub drift
+        gsap.to(cornerWeb, {
+          y: -14,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          },
+        });
+      });
+
+      // ================================================================
+      // ACT 4 — #news (FULL HERO / MASTERY — Controlled Power)
+      // ================================================================
+      const newsSection = containerRef.current?.querySelector('#news');
+      if (newsSection) {
+        const newsCards = newsSection.querySelectorAll('[data-gsap="card"], .glow-ring');
+        gsap.fromTo(
+          newsCards,
+          { opacity: 0, y: 25 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            stagger: 0.15,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: newsSection,
+              start: 'top 80%',
+              once: true,
+            },
+          }
+        );
+
+        // Continuous scrubbed ticker velocity drift on news cards
+        gsap.to(newsCards, {
+          x: 10,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: newsSection,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 0.5,
+          },
+        });
+      }
+
+      // Stat Counters Count-up + Scale-Punch
       const statEls = containerRef.current?.querySelectorAll('[data-gsap="stat-count"]');
       statEls?.forEach((statEl) => {
         const targetVal = parseFloat(statEl.getAttribute('data-target') || '0');
@@ -259,7 +344,6 @@ export function useScrollAnimation() {
             statEl.textContent = `${prefix}${formatted}${suffix}`;
           },
           onComplete: () => {
-            // Web impact scale-punch (1 -> 1.12 -> 1)
             if (!prefersReducedMotion) {
               gsap.to(statEl, {
                 scale: 1.12,
