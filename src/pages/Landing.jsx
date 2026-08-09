@@ -14,6 +14,89 @@ const REGISTER_URL = 'https://ignite-8.vercel.app/register-stock';
  * SVG Spiderweb Decorative & Transition Components
  * ------------------------------------------------------------------ */
 
+/** Regulatory Disclaimer Modal Popup on first visit */
+function DisclaimerModal({ isOpen, onClose }) {
+  const [checked, setChecked] = useState(false);
+
+  if (!isOpen) return null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-[200] flex items-center justify-center bg-[#04060e]/95 backdrop-blur-md overflow-hidden pointer-events-auto p-4"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-blue-600/10 blur-3xl opacity-60 pointer-events-none" />
+
+        <motion.div
+          initial={{ scale: 0.9, y: 15 }}
+          animate={{ scale: 1, y: 0 }}
+          exit={{ scale: 0.9, y: 15 }}
+          transition={{ type: 'spring', damping: 25, stiffness: 220 }}
+          className="card-neo w-full max-w-[620px] bg-[#070b16] max-h-[85vh] overflow-y-auto flex flex-col p-6 sm:p-8 relative"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <span className="badge-neo bg-[#ffd200] text-slate-950 px-2.5 py-1 text-[11px] font-black shadow-[2px_2px_0px_#05070e]">
+              WARNING // REGULATORY DISCLAIMER
+            </span>
+            <span className="text-slate-500 font-mono text-[11px] select-none">ID: EA-SEC-99</span>
+          </div>
+
+          <h3 className="font-display text-white text-xl sm:text-2xl font-black tracking-tight mb-2 text-left">
+            EQUITY ARENA — LEGAL DISCLAIMER
+          </h3>
+
+          <div className="space-y-4 font-mono text-[12px] text-slate-300 leading-relaxed max-h-[40vh] overflow-y-auto pr-3 border-y border-slate-800 py-4 my-4 text-left">
+            <p>
+              <strong>Equity Arena</strong> is an educational stock-market simulation game created for learning and entertainment purposes only.
+            </p>
+            <p>
+              All funds, stocks, prices, portfolios, profits, losses, orders, and transactions shown in the game are <strong>virtual and simulated</strong>. No real money is deposited, invested, transferred, or withdrawn through Equity Arena, and no real financial transactions take place.
+            </p>
+            <p>
+              The market prices, price movements, company data, and news presented in the game are simulated for gameplay and educational purposes and do not represent actual market prices, real investment opportunities, or real-world trading conditions. Any profits or losses displayed in the game have no real monetary value.
+            </p>
+            <p>
+              Equity Arena does not provide financial, investment, trading, or legal advice. Information shown in the game should not be used as a basis for making real-world investment or trading decisions. Past simulated performance does not guarantee or indicate future results.
+            </p>
+            <p>
+              All virtual currency used within the game, including <strong>IC (In-Game Currency)</strong>, has no cash value and cannot be exchanged for real money or other financial assets.
+            </p>
+            <p className="text-[#ffd200] font-bold">
+              By using Equity Arena, you acknowledge and agree that you are participating in a simulated trading environment and that all market activity, assets, currency, profits, and losses are virtual and have no real-world monetary value.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 mt-2">
+            <label className="flex items-start gap-3 cursor-pointer select-none text-left max-w-sm">
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={(e) => setChecked(e.target.checked)}
+                className="mt-1 accent-[#ff0055] h-5 w-5 border-2 border-slate-950 rounded cursor-pointer shrink-0"
+              />
+              <span className="font-mono text-[11px] text-slate-400 leading-tight">
+                I understand and agree that this is a simulated platform and no real money is involved.
+              </span>
+            </label>
+            <button
+              disabled={!checked}
+              onClick={onClose}
+              className={`btn-neo px-6 py-3.5 text-xs font-black whitespace-nowrap self-stretch sm:self-auto justify-center ${
+                !checked ? 'opacity-40 cursor-not-allowed pointer-events-none' : ''
+              }`}
+            >
+              ACCEPT & ENTER <ArrowRight className="h-4 w-4 ml-1" />
+            </button>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 /** High-Impact Full-Screen Spiderweb Sling Transition Overlay */
 function SpiderWebTransitionModal({ isOpen }) {
   if (!isOpen) return null;
@@ -818,6 +901,21 @@ export function Landing() {
   const { stocks, isLive } = useLiveStocks(3000);
   const index = useArenaIndex(stocks);
   const [isSlingingWeb, setIsSlingingWeb] = useState(false);
+  const [showDisclaimer, setShowDisclaimer] = useState(() => {
+    try {
+      const stored = localStorage.getItem('ea_disclaimer_accepted');
+      return stored !== 'true';
+    } catch (_) {
+      return true;
+    }
+  });
+
+  const handleAcceptDisclaimer = () => {
+    try {
+      localStorage.setItem('ea_disclaimer_accepted', 'true');
+    } catch (_) {}
+    setShowDisclaimer(false);
+  };
 
   // Target refs for the sections
   const homeRef = useRef(null);
@@ -861,6 +959,9 @@ export function Landing() {
 
       {/* Spiderweb Slinging Transition Overlay */}
       <SpiderWebTransitionModal isOpen={isSlingingWeb} />
+
+      {/* Regulatory Disclaimer Modal Popup */}
+      <DisclaimerModal isOpen={showDisclaimer} onClose={handleAcceptDisclaimer} />
 
       {/* GSAP ScrollTrigger Top Progress Bar */}
       <motion.div
