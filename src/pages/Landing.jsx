@@ -228,9 +228,9 @@ function SpiderWebTransitionModal() {
           }}
         />
 
-        {/* Stylized Neo-Brutalist Spidey Badge */}
-        <div className="relative mx-auto mb-5 mt-2 flex h-20 w-20 items-center justify-center rounded-2xl border-3 border-slate-950 bg-[#ff0055] shadow-[4px_4px_0px_#05070e] font-display text-4xl text-white select-none">
-          🕷️
+        {/* Stylized Neo-Brutalist Badge */}
+        <div className="relative mx-auto mb-5 mt-2 flex h-20 w-20 items-center justify-center rounded-2xl border-3 border-slate-950 bg-[#ff0055] shadow-[4px_4px_0px_#05070e] text-white select-none">
+          <Radio className="h-10 w-10 animate-pulse" strokeWidth={2} />
         </div>
 
         <span className="badge-neo bg-[#ffd200] text-slate-950 px-3 py-1.5 text-[10px] font-black shadow-[2px_2px_0px_#05070e]">
