@@ -63,6 +63,9 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
           const heroTerminal = homeRef.current.querySelector('#gsap-hero-terminal');
           const spiderwebLine = homeRef.current.querySelector('#gsap-spiderweb-line');
           
+          const spidermanWrapper = homeRef.current.querySelector('#gsap-hero-spiderman-wrapper');
+          const spidermanLine = homeRef.current.querySelector('#gsap-hero-spiderman-line');
+          const spidermanBody = homeRef.current.querySelector('#gsap-hero-spiderman-body');
           const heroHeader = homeRef.current.querySelector('h1');
           const gridFloor = homeRef.current.querySelector('.grid-floor');
 
@@ -86,6 +89,21 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
               { height: '0%' },
               { height: '100%', duration: 1.0, delay: 0.4, ease: 'power2.out' }
             );
+          }
+
+          // Spider-Man Dynamic Web Swing scroll scrub
+          if (spidermanWrapper && spidermanLine) {
+            gsap.timeline({
+              scrollTrigger: {
+                trigger: homeRef.current,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 0.5,
+              }
+            })
+            .to(spidermanWrapper, { y: 240, rotate: 14, scale: 1.15, ease: 'none' })
+            .to(spidermanLine, { height: '320px', ease: 'none' }, '<')
+            .to(spidermanBody, { rotate: 8, ease: 'none' }, '<');
           }
 
           // Stereoscopic Text Aberration spacing glitch scroll scrub
