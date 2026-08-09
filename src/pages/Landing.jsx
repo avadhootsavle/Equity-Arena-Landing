@@ -351,82 +351,69 @@ function Navbar({ onRegisterClick }) {
 }
 
 /* ------------------------------------------------------------------ *
- * Draggable Spider-Man — hangs from web, can be dragged anywhere
+ * Draggable Spider-Man — CSS drag, no complex hooks
  * ------------------------------------------------------------------ */
 function DraggableSpiderMan() {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const spiderRef = useRef(null);
-  const pathRef   = useRef(null);
-  const rafRef    = useRef(null);
-  const anchorX   = useRef(null);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [dragging, setDragging] = useState(false);
+  const startRef = useRef({ mx: 0, my: 0, ox: 0, oy: 0 });
+
+  const onDown = (e) => {
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    startRef.current = { mx: clientX, my: clientY, ox: pos.x, oy: pos.y };
+    setDragging(true);
+  };
 
   useEffect(() => {
-    const tick = () => {
-      try {
-        if (spiderRef.current && pathRef.current) {
-          const rect = spiderRef.current.getBoundingClientRect();
-          const cx   = Math.round(rect.left + rect.width  / 2);
-          const topY = Math.round(rect.top  + 6);
-          if (anchorX.current === null) anchorX.current = cx;
-          const ax = anchorX.current;
-          const qx = Math.round((ax + cx) / 2);
-          const qy = Math.round(topY * 0.38);
-          pathRef.current.setAttribute('d', `M${ax} 0 Q${qx} ${qy} ${cx} ${topY}`);
-        }
-      } catch (_) {/* ignore */}
-      rafRef.current = requestAnimationFrame(tick);
+    if (!dragging) return;
+    const onMove = (e) => {
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      setPos({
+        x: startRef.current.ox + clientX - startRef.current.mx,
+        y: startRef.current.oy + clientY - startRef.current.my,
+      });
     };
-    rafRef.current = requestAnimationFrame(tick);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, []);
+    const onUp = () => setDragging(false);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    window.addEventListener('touchmove', onMove, { passive: true });
+    window.addEventListener('touchend', onUp);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+      window.removeEventListener('touchmove', onMove);
+      window.removeEventListener('touchend', onUp);
+    };
+  }, [dragging]);
 
   return (
-    <>
-      <svg style={{ position:'fixed', top:0, left:0, width:'100vw', height:'100vh', pointerEvents:'none', zIndex:9997, overflow:'visible' }}>
-        <path
-          ref={pathRef}
-          d="M0 0 L0 0"
-          stroke="rgba(190,190,190,0.85)"
-          strokeWidth="2.5"
-          fill="none"
-          strokeLinecap="round"
-        />
-      </svg>
-
-      <motion.div
-        ref={spiderRef}
-        drag
-        dragMomentum={false}
-        style={{ x, y, position:'fixed', top:80, left:'75%', zIndex:9999, cursor: isDragging ? 'grabbing':'grab', touchAction:'none', userSelect:'none' }}
-        onDragStart={() => setIsDragging(true)}
-        onDragEnd={()   => setIsDragging(false)}
-        whileDrag={{ scale:1.08 }}
-        animate={!isDragging ? { rotate:[-4,4,-4] } : { rotate:0 }}
-        transition={{ rotate:{ duration:4, repeat:Infinity, ease:'easeInOut' } }}
-      >
-        <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 10%, rgba(239,68,68,0.38), transparent 70%)', filter:'blur(24px)', zIndex:0, pointerEvents:'none' }} />
-        <img
-          src="/images/spiderman_hanging.png"
-          alt="Drag Spider-Man!"
-          draggable={false}
-          style={{ width:'clamp(120px,13vw,240px)', mixBlendMode:'multiply', filter:'drop-shadow(0 4px 20px rgba(239,68,68,0.6))', position:'relative', zIndex:1, display:'block' }}
-        />
-        {!isDragging && (
-          <motion.span
-            animate={{ opacity:[0,1,1,0] }}
-            transition={{ duration:2, delay:2.5, repeat:Infinity, repeatDelay:7 }}
-            style={{ position:'absolute', bottom:-22, left:'50%', transform:'translateX(-50%)', fontSize:10, fontWeight:700, fontFamily:'monospace', color:'rgba(239,68,68,0.9)', whiteSpace:'nowrap', letterSpacing:'0.1em', textTransform:'uppercase', pointerEvents:'none' }}
-          >
-            ↔ DRAG ME
-          </motion.span>
-        )}
-      </motion.div>
-    </>
+    <div
+      onMouseDown={onDown}
+      onTouchStart={onDown}
+      style={{
+        position: 'fixed',
+        top: 72 + pos.y,
+        left: `calc(75% + ${pos.x}px)`,
+        zIndex: 9999,
+        cursor: dragging ? 'grabbing' : 'grab',
+        userSelect: 'none',
+        touchAction: 'none',
+        animation: dragging ? 'none' : 'spideySwing 4s ease-in-out infinite',
+        transformOrigin: 'top center',
+      }}
+    >
+      <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 10%, rgba(239,68,68,0.35), transparent 70%)', filter:'blur(22px)', pointerEvents:'none' }} />
+      <img
+        src="/images/spiderman_hanging.png"
+        alt="Spider-Man"
+        draggable={false}
+        style={{ width:'clamp(120px,13vw,230px)', mixBlendMode:'multiply', filter:'drop-shadow(0 4px 18px rgba(239,68,68,0.55))', display:'block', position:'relative' }}
+      />
+    </div>
   );
 }
-
 
 
 
@@ -1272,7 +1259,6 @@ export function Landing() {
       />
 
       <Navbar onRegisterClick={handleRegisterClick} />
-      {/* 🕷️ Draggable Spider-Man — fixed overlay, drag anywhere on screen */}
       <DraggableSpiderMan />
       <main>
         <Hero stocks={stocks} index={index} isLive={isLive} onRegisterClick={handleRegisterClick} />

@@ -170,6 +170,12 @@
   50% { filter: drop-shadow(0 0 35px rgba(59, 130, 246, 0.9)); }
 }
 
+@keyframes spideySwing {
+  0%, 100% { transform: rotate(-5deg); }
+  50%       { transform: rotate(5deg); }
+}
+
+
 .animate-web-glow {
   animation: web-pulse-glow 1.5s ease-in-out infinite;
 }
