@@ -100,101 +100,88 @@ function SpiderWebTransitionModal() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#04060e]/98 backdrop-blur-2xl overflow-hidden pointer-events-auto"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#05070e] overflow-hidden pointer-events-auto"
     >
-      {/* Background Strobe Shockwave */}
-      <motion.div
-        animate={{ 
-          backgroundColor: ["#04060e", "#ff0055", "#00f3ff", "#04060e"],
-          opacity: [0.97, 0.4, 0.4, 0.97]
+      {/* Halftone Comic Dot Pattern Overlay */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-15"
+        style={{
+          backgroundImage: 'radial-gradient(#ff0055 2px, transparent 2px)',
+          backgroundSize: '24px 24px'
         }}
-        transition={{ duration: 0.45, ease: "easeInOut" }}
-        className="absolute inset-0 z-0 pointer-events-none"
       />
 
-      {/* Volcanic Portal Radial Glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,0,85,0.4)_0%,_rgba(0,243,255,0.25)_40%,_transparent_75%)] blur-3xl animate-pulse" />
+      {/* Repeating Diagonal Hazard Stripes Background Panel */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        style={{
+          backgroundImage: 'repeating-linear-gradient(45deg, #ffd200, #ffd200 10px, #05070e 10px, #05070e 20px)'
+        }}
+      />
 
-      {/* WARP TUNNEL CORRIDOR: 6 expanding concentric web rings */}
-      {Array.from({ length: 6 }).map((_, idx) => (
+      {/* Giant Expanding Concentric Web Rings (Solid Outlines, no glows) */}
+      {Array.from({ length: 5 }).map((_, idx) => (
         <motion.div
           key={`ring-${idx}`}
           initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: [0, 4.5], opacity: [0, 0.95, 0] }}
+          animate={{ scale: [0, 4.5], opacity: [0, 0.7, 0] }}
           transition={{
-            duration: 1.6,
+            duration: 1.5,
             repeat: Infinity,
-            delay: idx * 0.25,
-            ease: "easeOut"
+            delay: idx * 0.3,
+            ease: "linear"
           }}
           className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
         >
           <svg width="450" height="450" viewBox="0 0 300 300" fill="none">
-            <circle cx="150" cy="150" r="120" stroke="url(#webSlingGrad)" strokeWidth="1.5" strokeDasharray="6 8" />
-            <circle cx="150" cy="150" r="80" stroke="url(#webSlingGrad)" strokeWidth="1" strokeDasharray="3 4" opacity="0.7" />
-            <circle cx="150" cy="150" r="40" stroke="url(#webSlingGrad)" strokeWidth="1" opacity="0.4" />
+            <circle cx="150" cy="150" r="120" stroke="#00f3ff" strokeWidth="2.5" strokeDasharray="8 6" />
+            <circle cx="150" cy="150" r="75" stroke="#ff0055" strokeWidth="2" strokeDasharray="4 4" />
           </svg>
         </motion.div>
       ))}
 
-      {/* Layer 1: Clockwise crazy web shoot using Framer Motion keyframes */}
+      {/* Layer 1: Clockwise Web Shoot (Solid Comic Lines) */}
       <motion.div
         initial={{ scale: 0.04, rotate: -360, opacity: 0 }}
         animate={{
           scale: [0.04, 2.2, 0.85, 6.0],
           rotate: [-360, 270, 720, 1440],
-          opacity: [0, 1, 0.95, 0]
+          opacity: [0, 0.95, 0.9, 0]
         }}
         transition={{ duration: 1.5, times: [0, 0.25, 0.55, 1], ease: "easeInOut" }}
         className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
       >
-        <svg width="850" height="850" viewBox="0 0 600 600" fill="none" className="animate-web-glow">
-          <defs>
-            <linearGradient id="webSlingGrad" x1="0" y1="0" x2="600" y2="600" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#ff0055" />
-              <stop offset="0.3" stopColor="#ffd200" />
-              <stop offset="0.7" stopColor="#00f3ff" />
-              <stop offset="1" stopColor="#ff0055" />
-            </linearGradient>
-          </defs>
-
+        <svg width="850" height="850" viewBox="0 0 600 600" fill="none">
           {/* Radial Strands */}
-          {Array.from({ length: 24 }).map((_, i) => {
-            const angle = (i * 15 * Math.PI) / 180;
-            const x2 = 300 + Math.cos(angle) * 350;
-            const y2 = 300 + Math.sin(angle) * 350;
-            return (
-              <line key={i} x1="300" y1="300" x2={x2} y2={y2} stroke="url(#webSlingGrad)" strokeWidth="2.8" opacity="0.95" />
-            );
-          })}
-
-          {/* Arcs */}
-          {[30, 60, 90, 120, 150, 180, 210, 240, 270, 300].map((r, i) => (
-            <circle key={r} cx="300" cy="300" r={r} stroke="url(#webSlingGrad)" strokeWidth="2" fill="none" opacity={0.95 - i * 0.08} />
-          ))}
-        </svg>
-      </motion.div>
-
-      {/* Layer 2: Counter-Clockwise crazy web shoot with delay */}
-      <motion.div
-        initial={{ scale: 0.04, rotate: 360, opacity: 0 }}
-        animate={{
-          scale: [0.04, 1.8, 0.75, 5.0],
-          rotate: [360, -270, -720, -1440],
-          opacity: [0, 0.85, 0.7, 0]
-        }}
-        transition={{ duration: 1.5, delay: 0.12, times: [0, 0.25, 0.55, 1], ease: "easeInOut" }}
-        className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
-      >
-        <svg width="850" height="850" viewBox="0 0 600 600" fill="none" className="opacity-80">
           {Array.from({ length: 20 }).map((_, i) => {
             const angle = (i * 18 * Math.PI) / 180;
             const x2 = 300 + Math.cos(angle) * 350;
             const y2 = 300 + Math.sin(angle) * 350;
             return (
-              <line key={i} x1="300" y1="300" x2={x2} y2={y2} stroke="url(#webSlingGrad)" strokeWidth="1.8" opacity="0.75" />
+              <line 
+                key={i} 
+                x1="300" 
+                y1="300" 
+                x2={x2} 
+                y2={y2} 
+                stroke="#ff0055" 
+                strokeWidth="3.5" 
+              />
             );
           })}
+
+          {/* Arcs */}
+          {[40, 80, 120, 160, 200, 240, 280].map((r, i) => (
+            <circle 
+              key={r} 
+              cx="300" 
+              cy="300" 
+              r={r} 
+              stroke="#ffd200" 
+              strokeWidth="2.5" 
+              fill="none" 
+            />
+          ))}
         </svg>
       </motion.div>
 
@@ -205,7 +192,7 @@ function SpiderWebTransitionModal() {
         transition={{ duration: 0.9, times: [0, 0.35, 1], ease: "backOut" }}
         className="absolute z-30 pointer-events-none select-none font-display font-black text-6xl sm:text-8.5xl text-slate-950 bg-[#ffd200] border-4 border-slate-950 px-8 py-4 shadow-[6px_6px_0px_#ff0055] rounded-lg tracking-tighter"
       >
-        THWIP!
+        *THWIP!*
       </motion.div>
 
       <motion.div
@@ -214,7 +201,7 @@ function SpiderWebTransitionModal() {
         transition={{ duration: 0.75, delay: 0.2, times: [0, 0.35, 1], ease: "backOut" }}
         className="absolute z-30 top-1/4 left-1/4 pointer-events-none select-none font-display font-black text-4xl sm:text-6xl text-white bg-[#ff0055] border-3 border-slate-950 px-6 py-2.5 shadow-[4px_4px_0px_#00f3ff] rounded-lg -rotate-12"
       >
-        ZIP!
+        *ZIP!*
       </motion.div>
 
       <motion.div
@@ -223,31 +210,38 @@ function SpiderWebTransitionModal() {
         transition={{ duration: 0.8, delay: 0.35, times: [0, 0.35, 1], ease: "backOut" }}
         className="absolute z-30 bottom-1/4 right-1/4 pointer-events-none select-none font-display font-black text-4xl sm:text-6xl text-slate-950 bg-[#00f3ff] border-3 border-slate-950 px-6 py-2.5 shadow-[4px_4px_0px_#ffd200] rounded-lg rotate-12"
       >
-        SHWIIP!
+        *SHWIIP!*
       </motion.div>
 
-      {/* Center Spidey Status Glass Card */}
+      {/* Center Spidey Status Neo-Brutalist Card */}
       <motion.div
         initial={{ opacity: 0, scale: 0.5, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="card-neo relative z-20 mx-4 max-w-[420px] bg-[#070b16] p-8 text-center shadow-[0_0_50px_rgba(255,0,85,0.3)]"
+        className="relative z-20 mx-4 max-w-[420px] bg-[#070b16] border-4 border-slate-950 p-8 text-center rounded-xl shadow-[8px_8px_0px_#ff0055]"
       >
+        {/* Top accent hazard stripes inside card */}
+        <div 
+          className="absolute top-0 left-0 right-0 h-2 pointer-events-none"
+          style={{
+            backgroundImage: 'repeating-linear-gradient(45deg, #ffd200, #ffd200 6px, #05070e 6px, #05070e 12px)'
+          }}
+        />
+
         {/* Stylized Neo-Brutalist Spidey Badge */}
-        <div className="relative mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl border-3 border-slate-950 bg-[#ff0055] shadow-[4px_4px_0px_#05070e] font-display text-4xl text-white select-none">
+        <div className="relative mx-auto mb-5 mt-2 flex h-20 w-20 items-center justify-center rounded-2xl border-3 border-slate-950 bg-[#ff0055] shadow-[4px_4px_0px_#05070e] font-display text-4xl text-white select-none">
           🕷️
         </div>
 
-        <span className="badge-neo bg-[#ff0055]/15 text-[#ff0055] px-3 py-1 text-[11px] font-black border border-[#ff0055]/30">
-          <span className="h-2 w-2 rounded-full bg-[#ff0055] animate-ping" />
-          TELEPORT ACTIVE
+        <span className="badge-neo bg-[#ffd200] text-slate-950 px-3 py-1.5 text-[10px] font-black shadow-[2px_2px_0px_#05070e]">
+          CONNECTION DEPLOYED
         </span>
 
-        <h3 className="font-display mt-4 text-2xl font-bold tracking-tight text-white">
-          Connecting to Equity Arena
+        <h3 className="font-display mt-5 text-2xl font-black tracking-tight text-white uppercase">
+          TELEPORTING TO SYSTEM
         </h3>
 
-        <p className="mt-2 text-xs text-slate-300 leading-relaxed font-mono">
+        <p className="mt-3 text-xs text-slate-300 leading-relaxed font-mono">
           Deploying simulated capital • Spidey WebSocket feeds live
         </p>
       </motion.div>
