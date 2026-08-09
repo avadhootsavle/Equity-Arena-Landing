@@ -360,6 +360,28 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
                 });
               });
             });
+
+            // Staggered list items animation inside the expectations/rules cards
+            const infoLists = featuresRef.current.querySelectorAll('.card-neo ul');
+            infoLists.forEach((list) => {
+              const items = list.querySelectorAll('li');
+              gsap.fromTo(
+                items,
+                { opacity: 0, x: -25 },
+                {
+                  opacity: 1,
+                  x: 0,
+                  duration: 0.6,
+                  stagger: 0.08,
+                  ease: 'power2.out',
+                  scrollTrigger: {
+                    trigger: list,
+                    start: 'top 85%',
+                    once: true
+                  }
+                }
+              );
+            });
           }
 
           // Corner Web SVG strand draw-in
