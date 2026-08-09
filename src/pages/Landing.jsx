@@ -336,13 +336,9 @@ function Navbar({ onRegisterClick }) {
           </div>
         </a>
 
-        {/* Desktop Nav */}
         <nav className="hidden items-center gap-8 md:flex">
           <a href="#home" className="text-[13px] font-medium text-slate-300 transition-colors hover:text-white">
             Home
-          </a>
-          <a href="#markets" className="text-[13px] font-medium text-slate-300 transition-colors hover:text-white">
-            Spider Board
           </a>
           <a href="#features" className="text-[13px] font-medium text-slate-300 transition-colors hover:text-white">
             Capabilities
@@ -383,7 +379,6 @@ function Navbar({ onRegisterClick }) {
           >
             <nav className="flex flex-col gap-4">
               <a href="#home" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-slate-300">Home</a>
-              <a href="#markets" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-slate-300">Spider Board</a>
               <a href="#features" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-slate-300">Capabilities</a>
               <a href="#about" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-slate-300">Workflow</a>
               <a
@@ -484,12 +479,6 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
               className="btn-neo px-6 sm:px-8 py-3.5 sm:py-4 text-[13px] sm:text-[14px] font-extrabold group"
             >
               Sling Into Trading <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </a>
-            <a
-              href="#markets"
-              className="btn-neo btn-neo-blue px-5 sm:px-6 py-3.5 sm:py-4 text-[13px] sm:text-[14px] font-extrabold"
-            >
-              Inspect Spider Board
             </a>
           </div>
 
@@ -795,7 +784,6 @@ function Footer({ stocks, onRegisterClick }) {
               <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-200">Platform</h4>
               <ul className="mt-3 space-y-2 text-[13px]">
                 <li><a href="#home" className="hover:text-white transition-colors">Home</a></li>
-                <li><a href="#markets" className="hover:text-white transition-colors">Spider Board</a></li>
                 <li><a href="#features" className="hover:text-white transition-colors">Capabilities</a></li>
               </ul>
             </div>
