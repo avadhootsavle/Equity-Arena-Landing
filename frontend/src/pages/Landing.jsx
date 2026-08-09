@@ -351,6 +351,122 @@ function Navbar({ onRegisterClick }) {
 }
 
 /* ------------------------------------------------------------------ *
+ * Draggable Spider-Man — hangs from web, can be dragged anywhere
+ * ------------------------------------------------------------------ */
+function DraggableSpiderMan() {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const spiderRef = useRef(null);
+  const rafRef = useRef(null);
+  const anchorXRef = useRef(null);
+  const [webCoords, setWebCoords] = useState({ x1: 0, y1: 0, x2: 0, y2: 0 });
+
+  useEffect(() => {
+    const tick = () => {
+      if (spiderRef.current) {
+        const rect = spiderRef.current.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const topY = rect.top + 8;
+        // Anchor is set once: the top of the viewport, directly above initial position
+        if (anchorXRef.current === null) anchorXRef.current = cx;
+        setWebCoords({ x1: anchorXRef.current, y1: 0, x2: cx, y2: topY });
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  return (
+    <>
+      {/* Fixed SVG web strand — always connects anchor to Spider-Man's top */}
+      <svg
+        style={{
+          position: 'fixed', top: 0, left: 0,
+          width: '100vw', height: '100vh',
+          pointerEvents: 'none', zIndex: 9998, overflow: 'visible',
+        }}
+      >
+        {/* Slight sag catenary effect via quadratic bezier */}
+        <path
+          d={`M ${webCoords.x1} ${webCoords.y1} Q ${(webCoords.x1 + webCoords.x2) / 2} ${(webCoords.y2 * 0.35)} ${webCoords.x2} ${webCoords.y2}`}
+          stroke="rgba(190,190,190,0.92)"
+          strokeWidth="2.5"
+          fill="none"
+          strokeLinecap="round"
+          style={{ filter: 'drop-shadow(0 0 3px rgba(200,200,200,0.5))' }}
+        />
+      </svg>
+
+      {/* The draggable Spider-Man figure */}
+      <motion.div
+        ref={spiderRef}
+        drag
+        dragMomentum
+        dragElastic={0.06}
+        style={{
+          x, y,
+          position: 'fixed',
+          top: 72,
+          right: '8%',
+          zIndex: 9999,
+          cursor: isDragging ? 'grabbing' : 'grab',
+          touchAction: 'none',
+          userSelect: 'none',
+        }}
+        onDragStart={() => setIsDragging(true)}
+        onDragEnd={() => setIsDragging(false)}
+        whileDrag={{ scale: 1.12 }}
+        animate={!isDragging ? { rotate: [-5, 5, -5] } : { rotate: 0 }}
+        transition={{
+          rotate: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
+        }}
+      >
+        {/* Crimson ambient glow */}
+        <div
+          style={{
+            position: 'absolute', inset: 0,
+            background: 'radial-gradient(ellipse at 50% 20%, rgba(239,68,68,0.45), transparent 70%)',
+            filter: 'blur(28px)', zIndex: 0, pointerEvents: 'none',
+          }}
+        />
+        <img
+          src="/images/spiderman_hanging.png"
+          alt="Spider-Man – drag me anywhere!"
+          draggable={false}
+          style={{
+            width: 'clamp(140px, 16vw, 280px)',
+            mixBlendMode: 'multiply',
+            filter: 'drop-shadow(0 6px 24px rgba(239,68,68,0.65)) drop-shadow(0 0 12px rgba(59,130,246,0.3))',
+            position: 'relative', zIndex: 1, display: 'block',
+          }}
+        />
+        {/* Pulsing DRAG ME label */}
+        {!isDragging && (
+          <motion.div
+            animate={{ opacity: [0, 1, 1, 0] }}
+            transition={{ duration: 2.5, delay: 2, repeat: Infinity, repeatDelay: 5 }}
+            style={{
+              position: 'absolute', bottom: -26, left: '50%',
+              transform: 'translateX(-50%)',
+              fontSize: 10, fontWeight: 700,
+              fontFamily: 'JetBrains Mono, monospace',
+              color: 'rgba(239,68,68,0.9)',
+              whiteSpace: 'nowrap', letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              textShadow: '0 0 8px rgba(239,68,68,0.6)',
+            }}
+          >
+            ↔ DRAG ME
+          </motion.div>
+        )}
+      </motion.div>
+    </>
+  );
+}
+
+/* ------------------------------------------------------------------ *
  * Hero Section — With Intricate Corner Spiderweb Overlays
  * ------------------------------------------------------------------ */
 const HERO_FEATURES = [
@@ -379,42 +495,7 @@ function Hero({ stocks, index, isLive, onRegisterClick }) {
         <div className="absolute inset-x-0 bottom-0 h-[45vh] grid-floor opacity-75" />
       </div>
 
-      {/* 🕷️ Spider-Man — absolute, hanging from the very top of the hero */}
-      <div className="absolute top-0 right-[4%] lg:right-[8%] xl:right-[10%] z-10 pointer-events-none hidden sm:flex flex-col items-center">
-        {/* Web strand: goes from absolute top of section down to Spider-Man's feet (top of image) */}
-        <div
-          style={{
-            width: '3px',
-            height: '90px',
-            background: 'linear-gradient(to bottom, rgba(180,180,180,0.9) 0%, #b0b0b0 60%, #888 100%)',
-            boxShadow: '0 0 4px 1px rgba(180,180,180,0.35)',
-          }}
-        />
-        {/* Pendulum swing — origin is top center = the web anchor point */}
-        <motion.div
-          animate={{ rotate: [-6, 6, -6] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ transformOrigin: 'top center' }}
-          className="relative mt-[-1px]"
-        >
-          {/* Ambient glow */}
-          <div
-            className="absolute inset-0 blur-3xl opacity-50 z-0"
-            style={{ background: 'radial-gradient(ellipse at 50% 20%, rgba(239,68,68,0.55) 0%, rgba(59,130,246,0.15) 65%, transparent 100%)' }}
-          />
-          <img
-            src="/images/spiderman_hanging.png"
-            alt="Spider-Man hanging from web"
-            draggable={false}
-            className="relative z-10 select-none w-[180px] md:w-[220px] lg:w-[260px] xl:w-[300px]"
-            style={{
-              mixBlendMode: 'multiply',
-              filter: 'drop-shadow(0 4px 28px rgba(239,68,68,0.6)) drop-shadow(0 0 12px rgba(59,130,246,0.3))',
-            }}
-          />
-        </motion.div>
-      </div>
-
+      {/* Layout grid — Spider-Man is now a fixed draggable element outside Hero */}
       <div className="mx-auto grid max-w-[1280px] items-center gap-10 sm:gap-14 px-4 sm:px-8 pb-20 pt-10 sm:pb-24 sm:pt-14 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pb-12 lg:pt-20">
         {/* ---------- Left column ---------- */}
         <motion.div variants={stagger} initial="hidden" animate="show" className="relative z-10">
@@ -485,28 +566,8 @@ function Hero({ stocks, index, isLive, onRegisterClick }) {
           </motion.div>
         </motion.div>
 
-        {/* ---------- Right column: HeroDeck (Spider-Man is absolute above) ---------- */}
+        {/* ---------- Right column: HeroDeck ---------- */}
         <motion.div style={{ y }} className="relative flex flex-col items-center lg:pr-4">
-
-          {/* Mobile-only: Spider-Man in flow (since absolute is hidden on mobile) */}
-          <div className="flex sm:hidden flex-col items-center w-full mb-4">
-            <div style={{ width: '3px', height: '50px', background: 'linear-gradient(to bottom, rgba(180,180,180,0.9), #888)', boxShadow: '0 0 4px 1px rgba(180,180,180,0.3)' }} />
-            <motion.div
-              animate={{ rotate: [-5, 5, -5] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              style={{ transformOrigin: 'top center' }}
-              className="mt-[-1px]"
-            >
-              <img
-                src="/images/spiderman_hanging.png"
-                alt="Spider-Man hanging from web"
-                draggable={false}
-                className="w-[140px] select-none"
-                style={{ mixBlendMode: 'multiply', filter: 'drop-shadow(0 4px 20px rgba(239,68,68,0.55))' }}
-              />
-            </motion.div>
-          </div>
-
           {/* HeroDeck trading terminal card */}
           <div className="w-full relative rounded-3xl p-2 border border-red-500/40 bg-gradient-to-b from-red-600/15 via-slate-950 to-blue-600/15 shadow-2xl shadow-red-950/90 backdrop-blur-xl">
             <HeroDeck stocks={stocks} index={index} isLive={isLive} />
@@ -1247,6 +1308,8 @@ export function Landing() {
       />
 
       <Navbar onRegisterClick={handleRegisterClick} />
+      {/* 🕷️ Draggable Spider-Man — fixed overlay, drag anywhere on screen */}
+      <DraggableSpiderMan />
       <main>
         <Hero stocks={stocks} index={index} isLive={isLive} onRegisterClick={handleRegisterClick} />
         <TickerTape stocks={stocks} />
