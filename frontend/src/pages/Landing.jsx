@@ -392,6 +392,7 @@ function DraggableSpiderMan() {
     <div
       onMouseDown={onDown}
       onTouchStart={onDown}
+      className="group"
       style={{
         position: 'fixed',
         top: 72 + pos.y,
@@ -403,13 +404,44 @@ function DraggableSpiderMan() {
         animation: dragging ? 'none' : 'float-slow 4s ease-in-out infinite',
       }}
     >
-      <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 50%, rgba(239,68,68,0.25), transparent 70%)', filter:'blur(22px)', pointerEvents:'none' }} />
+      {/* Dynamic Glowing Aura */}
+      <div 
+        className="absolute inset-0 rounded-full transition-all duration-300"
+        style={{ 
+          background: dragging 
+            ? 'radial-gradient(ellipse at 50% 50%, rgba(239,68,68,0.5), transparent 70%)'
+            : 'radial-gradient(ellipse at 50% 50%, rgba(239,68,68,0.25), transparent 70%)', 
+          filter: dragging ? 'blur(30px)' : 'blur(22px)',
+          transform: dragging ? 'scale(1.2)' : 'scale(1)',
+          pointerEvents: 'none' 
+        }} 
+      />
+      
+      {/* Spider-Man Image with Hover & Drag Effects */}
       <img
         src="/images/spiderman_side.png"
         alt="Spider-Man"
         draggable={false}
-        style={{ width:'clamp(140px,16vw,260px)', display:'block', position:'relative', filter:'drop-shadow(0 4px 18px rgba(239,68,68,0.4))' }}
+        className="transition-all duration-300 group-hover:drop-shadow-[0_8px_24px_rgba(239,68,68,0.6)]"
+        style={{ 
+          width: 'clamp(140px,16vw,260px)', 
+          display: 'block', 
+          position: 'relative', 
+          filter: dragging 
+            ? 'drop-shadow(0 15px 30px rgba(239,68,68,0.8)) brightness(1.15)' 
+            : 'drop-shadow(0 4px 18px rgba(239,68,68,0.4))',
+          transform: dragging ? 'scale(1.1) rotate(-4deg)' : 'scale(1) rotate(0deg)'
+        }}
       />
+
+      {/* Sleek Tooltip */}
+      {!dragging && (
+        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+          <span className="bg-red-950/90 text-red-300 text-[10px] font-bold px-2.5 py-1 rounded-full border border-red-500/40 whitespace-nowrap uppercase tracking-widest shadow-[0_0_12px_rgba(239,68,68,0.4)] backdrop-blur-sm">
+            Drag Me
+          </span>
+        </div>
+      )}
     </div>
   );
 }
