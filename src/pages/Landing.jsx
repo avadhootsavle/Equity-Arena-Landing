@@ -133,7 +133,7 @@ function SpiderWebTransitionModal() {
           }}
           className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
         >
-          <svg width="450" height="450" viewBox="0 0 300 300" fill="none">
+          <svg viewBox="0 0 300 300" fill="none" className="w-[85vw] h-[85vw] max-w-[450px] max-h-[450px]">
             <circle cx="150" cy="150" r="120" stroke="#00f3ff" strokeWidth="2.5" strokeDasharray="8 6" />
             <circle cx="150" cy="150" r="75" stroke="#ff0055" strokeWidth="2" strokeDasharray="4 4" />
           </svg>
@@ -151,7 +151,7 @@ function SpiderWebTransitionModal() {
         transition={{ duration: 1.5, times: [0, 0.25, 0.55, 1], ease: "easeInOut" }}
         className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
       >
-        <svg width="850" height="850" viewBox="0 0 600 600" fill="none">
+        <svg viewBox="0 0 600 600" fill="none" className="w-[90vw] h-[90vw] max-w-[850px] max-h-[850px]">
           {/* Radial Strands */}
           {Array.from({ length: 20 }).map((_, i) => {
             const angle = (i * 18 * Math.PI) / 180;
