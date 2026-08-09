@@ -253,7 +253,6 @@ body::before {
 
 /* Custom 3D holographic panel style used in HeroDeck widgets */
 .panel-3d {
-  position: relative;
   background: radial-gradient(circle, rgba(0, 243, 255, 0.04) 1px, transparent 1px), #0e111a !important;
   background-size: 10px 10px !important;
   border: 3px solid #05070e !important;
