@@ -269,7 +269,7 @@ export function HeroDeck({ stocks, index, isLive }) {
         {/* ---------------- Main terminal panel ---------------- */}
         <motion.div
           className="panel-3d sheen relative z-20 rounded-3xl p-5 pb-9 sm:p-6 sm:pb-9"
-          style={{ transform: 'translateZ(60px)' }}
+          style={{ z: 60 }}
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
         >
@@ -504,7 +504,7 @@ export function HeroDeck({ stocks, index, isLive }) {
         {/* ---------------- Floating: market news (front left) ---------------- */}
         <motion.div
           className="panel-3d absolute z-30 -left-8 lg:-left-12 -bottom-24 w-[172px] rounded-2xl p-3.5 hidden sm:block"
-          style={{ x: driftX, y: driftY, transform: 'translateZ(120px)', rotate: '-6deg' }}
+          style={{ x: driftX, y: driftY, z: 120, rotate: -6 }}
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
@@ -525,7 +525,7 @@ export function HeroDeck({ stocks, index, isLive }) {
         {/* ---------------- Floating: sector rally (right) ---------------- */}
         <motion.div
           className="panel-3d absolute z-30 -right-14 lg:-right-20 top-[22%] w-[152px] rounded-2xl p-3.5 hidden sm:block"
-          style={{ x: counterDriftX, y: driftY, transform: 'translateZ(100px)', rotate: '5deg' }}
+          style={{ x: counterDriftX, y: driftY, z: 100, rotate: 5 }}
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
@@ -542,7 +542,7 @@ export function HeroDeck({ stocks, index, isLive }) {
         {/* ---------------- Orbiting coin badges ---------------- */}
         <motion.div
           className="absolute z-40 -right-4 sm:-right-12 top-16 flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-gradient-to-br from-blue-500/30 to-slate-900/80 backdrop-blur-md animate-float-slow"
-          style={{ transform: 'translateZ(150px)' }}
+          style={{ z: 150 }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1.2, type: 'spring', stiffness: 180 }}
@@ -552,7 +552,7 @@ export function HeroDeck({ stocks, index, isLive }) {
 
         <motion.div
           className="absolute z-40 -right-7 bottom-14 flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-gradient-to-br from-emerald-500/25 to-slate-900/80 backdrop-blur-md animate-float-slow"
-          style={{ transform: 'translateZ(140px)', animationDelay: '1.5s' }}
+          style={{ z: 140, animationDelay: '1.5s' }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1.4, type: 'spring', stiffness: 180 }}
@@ -563,7 +563,7 @@ export function HeroDeck({ stocks, index, isLive }) {
         {/* ---------------- Podium ---------------- */}
         <motion.div
           className="relative z-10 mx-auto -mt-3 h-16 w-[72%]"
-          style={{ transform: 'translateZ(-40px)' }}
+          style={{ z: -40 }}
           initial={{ opacity: 0, scaleX: 0.6 }}
           animate={{ opacity: 1, scaleX: 1 }}
           transition={{ delay: 0.6, duration: 0.8 }}
