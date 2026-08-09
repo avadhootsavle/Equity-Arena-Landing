@@ -930,6 +930,7 @@ function Footer({ stocks, onRegisterClick }) {
 function SpideyCursor() {
   const dotRef = useRef(null);
   const trailingRef = useRef(null);
+  const [isHoveringInteractive, setIsHoveringInteractive] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -946,8 +947,35 @@ function SpideyCursor() {
       }
     };
 
+    const handleMouseEnterInteractive = () => setIsHoveringInteractive(true);
+    const handleMouseLeaveInteractive = () => setIsHoveringInteractive(false);
+
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+
+    // Attach listeners to all interactive elements in the viewport
+    const attachListeners = () => {
+      const elements = document.querySelectorAll('a, button, [role="button"], .btn-neo, .card-neo');
+      elements.forEach(el => {
+        el.addEventListener('mouseenter', handleMouseEnterInteractive);
+        el.addEventListener('mouseleave', handleMouseLeaveInteractive);
+      });
+    };
+
+    attachListeners();
+
+    // Observe changes to the DOM to cover dynamically loaded elements
+    const observer = new MutationObserver(attachListeners);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      observer.disconnect();
+      const elements = document.querySelectorAll('a, button, [role="button"], .btn-neo, .card-neo');
+      elements.forEach(el => {
+        el.removeEventListener('mouseenter', handleMouseEnterInteractive);
+        el.removeEventListener('mouseleave', handleMouseLeaveInteractive);
+      });
+    };
   }, []);
 
   return (
@@ -957,6 +985,25 @@ function SpideyCursor() {
         className="fixed top-0 left-0 pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 hidden lg:block drop-shadow-[0_0_8px_rgba(255,0,85,0.7)]"
         style={{ transform: 'translate3d(-100px, -100px, 0)', willChange: 'transform' }}
       >
+        {/* Spidey-Sense Wavy Tingle Lines (radiating above the mask) */}
+        <AnimatePresence>
+          {isHoveringInteractive && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 5 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: 5 }}
+              className="absolute top-[-26px] left-1/2 -translate-x-1/2 flex flex-col items-center select-none"
+            >
+              <svg width="46" height="24" viewBox="0 0 46 24" className="stroke-[#ffd200] stroke-2 fill-none overflow-visible">
+                {/* Wavy Spidey-Sense Arcs vibrating rapidly */}
+                <path d="M 3 6 Q 23 -6 43 6" className="animate-spidey-sense-tingle" style={{ animationDelay: '0s' }} />
+                <path d="M 8 13 Q 23 3 38 13" stroke="#ff0055" className="animate-spidey-sense-tingle" style={{ animationDelay: '0.08s' }} />
+                <path d="M 14 20 Q 23 11 32 20" opacity="0.65" className="animate-spidey-sense-tingle" style={{ animationDelay: '0.16s' }} />
+              </svg>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
           {/* Spidey Mask Red Outer Base */}
           <path

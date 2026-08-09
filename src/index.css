@@ -390,6 +390,19 @@ body::before {
   animation: brutalist-glitch 3.5s infinite linear;
 }
 
+@keyframes spidey-sense-vibrate {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  20% { transform: translate(-1.5px, 0.5px) scale(1.05); }
+  40% { transform: translate(1px, -1px) scale(0.95); }
+  60% { transform: translate(-0.5px, -1px) scale(1.02); }
+  80% { transform: translate(1.5px, 1px) scale(0.98); }
+}
+
+.animate-spidey-sense-tingle {
+  animation: spidey-sense-vibrate 0.12s infinite linear;
+}
+
+
 
 
 
