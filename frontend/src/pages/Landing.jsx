@@ -296,9 +296,9 @@ const HERO_FEATURES = [
   { icon: BarChart3, title: 'Spider-Verse Depth', sub: 'Real-time index matrix' }
 ];
 
-function Hero({ stocks, index, isLive, onRegisterClick }) {
+const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden pt-[72px] spider-web-bg">
+    <section ref={ref} id="home" className="relative min-h-screen overflow-hidden pt-[72px] spider-web-bg">
       {/* Corner Spiderwebs */}
       <SpiderWebCorner className="top-0 left-0" rotate={0} />
       <SpiderWebCorner className="top-0 right-0" rotate={90} />
@@ -403,7 +403,7 @@ function Hero({ stocks, index, isLive, onRegisterClick }) {
       </div>
     </section>
   );
-}
+});
 
 /* ------------------------------------------------------------------ *
  * Ticker tape
@@ -509,9 +509,9 @@ const FEATURES = [
   }
 ];
 
-function Features() {
+const Features = forwardRef((props, ref) => {
   return (
-    <section id="features" data-gsap="section" className="relative border-t border-red-500/20 py-24 sm:py-28 bg-slate-950/70">
+    <section ref={ref} id="features" data-gsap="section" className="relative border-t border-red-500/20 py-24 sm:py-28 bg-slate-950/70">
       <SpiderWebCorner className="top-0 right-0" rotate={90} />
 
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
@@ -544,7 +544,7 @@ function Features() {
       </div>
     </section>
   );
-}
+});
 
 /* ------------------------------------------------------------------ *
  * News — Daily Bugle Feed
@@ -587,9 +587,9 @@ const TONES = {
   rose: 'bg-red-500/15 text-red-300 ring-red-500/30'
 };
 
-function News({ onRegisterClick }) {
+const News = forwardRef(({ onRegisterClick }, ref) => {
   return (
-    <section id="news" data-gsap="section" className="relative overflow-hidden border-t border-red-500/20 py-24 sm:py-28">
+    <section ref={ref} id="news" data-gsap="section" className="relative overflow-hidden border-t border-red-500/20 py-24 sm:py-28">
       <SpiderWebCorner className="top-0 left-0" rotate={0} />
 
       <div className="pointer-events-none absolute right-0 top-1/4 h-[380px] w-[520px] rounded-full bg-blue-600/10 blur-[140px]" />
@@ -617,6 +617,20 @@ function News({ onRegisterClick }) {
           </a>
         </div>
 
+        {/* Ticking live data strip inside News component (Mastery Theme) */}
+        <div data-gsap="news-ticker" className="relative mt-8 overflow-hidden rounded-xl border border-blue-500/20 bg-[#070b19]/60 px-4 py-3 backdrop-blur-md">
+          <div className="flex animate-marquee gap-8 text-[12px] font-mono text-slate-300">
+            <span className="flex items-center gap-1.5 shrink-0"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> LIVE BOARD FEED</span>
+            <span className="shrink-0">APEX: 1,420.25 <span className="text-emerald-400 font-bold">+3.8%</span></span>
+            <span className="shrink-0">SURYA: 425.80 <span className="text-emerald-400 font-bold">+5.2%</span></span>
+            <span className="shrink-0">VELOCE: 890.10 <span className="text-red-400 font-bold">-1.5%</span></span>
+            <span className="shrink-0">AIRBHARAT: 345.50 <span className="text-red-400 font-bold">-0.8%</span></span>
+            <span className="shrink-0">SPIDEY-SENSE SIGNAL: STRONG BUY ON SECTOR A</span>
+          </div>
+        </div>
+        {/* A single glowing line suggesting continuous movement */}
+        <div className="h-[1px] w-full bg-gradient-to-r from-red-500 via-blue-500 to-red-500 opacity-60 shadow-[0_0_8px_rgba(59,130,246,0.5)] mt-4" />
+
         <div className="mt-12 grid gap-4 md:grid-cols-2">
           {NEWS_FEED.map((item) => (
             <div
@@ -641,7 +655,7 @@ function News({ onRegisterClick }) {
       </div>
     </section>
   );
-}
+});
 
 /* ------------------------------------------------------------------ *
  * Execution Workflow — GSAP ScrollTrigger Steps
@@ -673,9 +687,9 @@ const STEPS = [
   }
 ];
 
-function About() {
+const About = forwardRef((props, ref) => {
   return (
-    <section id="about" data-gsap="section" className="relative border-t border-red-500/20 py-24 sm:py-28 bg-slate-950/80">
+    <section ref={ref} id="about" data-gsap="section" className="relative border-t border-red-500/20 py-24 sm:py-28 bg-slate-950/80">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div data-gsap="heading" className="mx-auto max-w-[620px] text-center">
           <SectionTag icon={Gauge}>Execution Workflow</SectionTag>
@@ -709,7 +723,7 @@ function About() {
       </div>
     </section>
   );
-}
+});
 
 /* ------------------------------------------------------------------ *
  * Closing CTA — Spider-Man Web Skyline Banner with 4 Corner Webs
@@ -833,7 +847,14 @@ export function Landing() {
   const { stocks, isLive } = useLiveStocks(3000);
   const index = useArenaIndex(stocks);
   const [isSlingingWeb, setIsSlingingWeb] = useState(false);
-  const { containerRef } = useScrollAnimation();
+
+  // Target refs for the 4 sections
+  const homeRef = useRef(null);
+  const aboutRef = useRef(null);
+  const featuresRef = useRef(null);
+  const newsRef = useRef(null);
+
+  useScrollAnimation(homeRef, aboutRef, featuresRef, newsRef);
 
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
@@ -847,7 +868,7 @@ export function Landing() {
   };
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-[#05070e] text-slate-100 antialiased overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#05070e] text-slate-100 antialiased overflow-x-hidden">
       {/* "The Bite" Full-Bleed Radial Impact Overlay */}
       <div id="gsap-bite-overlay" className="pointer-events-none fixed inset-0 z-[90] opacity-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-600/40 via-blue-600/20 to-transparent" />
 
@@ -872,13 +893,13 @@ export function Landing() {
 
       <Navbar onRegisterClick={handleRegisterClick} />
       <main>
-        <Hero stocks={stocks} index={index} isLive={isLive} onRegisterClick={handleRegisterClick} />
+        <Hero ref={homeRef} stocks={stocks} index={index} isLive={isLive} onRegisterClick={handleRegisterClick} />
         <TickerTape stocks={stocks} />
         <StatsBand />
 
-        <Features />
-        <News onRegisterClick={handleRegisterClick} />
-        <About />
+        <About ref={aboutRef} />
+        <Features ref={featuresRef} />
+        <News ref={newsRef} onRegisterClick={handleRegisterClick} />
         <FinalCTA onRegisterClick={handleRegisterClick} />
       </main>
       <Footer stocks={stocks} onRegisterClick={handleRegisterClick} />
