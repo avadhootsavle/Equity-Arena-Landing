@@ -395,8 +395,8 @@ function DraggableSpiderMan() {
       className="group"
       style={{
         position: 'fixed',
-        top: 72 + pos.y,
-        left: `calc(5% + ${pos.x}px)`,
+        top: `calc(50vh - 120px + ${pos.y}px)`, // Centered vertically
+        left: `calc(0% + ${pos.x}px)`,         // Flush to the left edge
         zIndex: 9999,
         cursor: dragging ? 'grabbing' : 'grab',
         userSelect: 'none',
