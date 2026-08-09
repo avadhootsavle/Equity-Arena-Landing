@@ -882,9 +882,41 @@ function SpideyCursor() {
     <>
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 w-2.5 h-2.5 bg-[#ff0055] border border-[#05070e] rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 shadow-[0_0_8px_#ff0055] hidden lg:block"
+        className="fixed top-0 left-0 pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 hidden lg:block drop-shadow-[0_0_8px_rgba(255,0,85,0.7)]"
         style={{ transform: 'translate3d(-100px, -100px, 0)', willChange: 'transform' }}
-      />
+      >
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+          {/* Spidey Mask Red Outer Base */}
+          <path
+            d="M17 2C24.5 2 29 7.5 29 15C29 22.5 22.5 29.5 17 32C11.5 29.5 5 22.5 5 15C5 7.5 9.5 2 17 2Z"
+            fill="#ff0055"
+            stroke="#05070e"
+            strokeWidth="2.5"
+          />
+          {/* Web Lines on Mask */}
+          <path d="M17 2V32" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+          <path d="M5 15H29" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+          <path d="M8 8C12 11 22 11 26 8" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+          <path d="M8 22C12 19 22 19 26 22" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+
+          {/* Left Spidey Eye */}
+          <path
+            d="M7 14C8.5 10.5 12.5 9.5 14.5 12.5C15 13.5 14 17 11 18.5C8 20 7.5 17.5 7 14Z"
+            fill="white"
+            stroke="#05070e"
+            strokeWidth="2.5"
+            strokeLinejoin="round"
+          />
+          {/* Right Spidey Eye */}
+          <path
+            d="M27 14C25.5 10.5 21.5 9.5 19.5 12.5C19 13.5 20 17 23 18.5C26 20 26.5 17.5 27 14Z"
+            fill="white"
+            stroke="#05070e"
+            strokeWidth="2.5"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
       <div
         ref={trailingRef}
         className="fixed top-0 left-0 w-6 h-6 border-2 border-[#00f3ff] rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 opacity-60 shadow-[0_0_6px_rgba(0,243,255,0.4)] hidden lg:block"
@@ -932,7 +964,7 @@ export function Landing() {
     setIsSlingingWeb(true);
     setTimeout(() => {
       window.location.href = REGISTER_URL;
-    }, 1100);
+    }, 1800);
   };
 
   return (
