@@ -450,14 +450,51 @@ function Hero({ stocks, index, isLive, onRegisterClick }) {
           </motion.div>
         </motion.div>
 
-        {/* ---------- Right column: 3D deck + Spider Banner preview ---------- */}
-        <motion.div style={{ y }} className="relative lg:pr-14">
-          <div className="relative rounded-3xl p-2 border border-red-500/40 bg-gradient-to-b from-red-600/15 via-slate-950 to-blue-600/15 shadow-2xl shadow-red-950/90 backdrop-blur-xl">
-            {/* Embedded High-Tech Spider Cyber Image with Equity Arena Exchange */}
-            <div className="mb-4 overflow-hidden rounded-2xl border border-red-500/30 shadow-xl">
-              <img src="/images/spider_cyber_hero.jpg" alt="Equity Arena Exchange Terminal" className="h-44 sm:h-52 w-full object-cover brightness-110 hover:scale-105 transition-transform duration-700" />
+        {/* ---------- Right column: Spider-Man Hanging + HeroDeck ---------- */}
+        <motion.div style={{ y }} className="relative lg:pr-4">
+          {/* 🕷️ Spider-Man Hanging from Web — Stitch AI Generated */}
+          <div className="relative flex flex-col items-center">
+            {/* Glowing Neon Red Web Strand from top */}
+            <div className="relative flex flex-col items-center">
+              {/* Web strand line */}
+              <div
+                className="w-[2.5px] rounded-full"
+                style={{
+                  height: '80px',
+                  background: 'linear-gradient(to bottom, rgba(239,68,68,0), #ef4444 40%, #ff1e42 100%)',
+                  boxShadow: '0 0 12px 3px rgba(239,68,68,0.7), 0 0 30px 6px rgba(239,68,68,0.3)',
+                }}
+              />
+              {/* Web anchor knot */}
+              <div className="h-3 w-3 rounded-full bg-red-500 shadow-lg shadow-red-500/80 ring-2 ring-red-400/60" />
             </div>
-            <HeroDeck stocks={stocks} index={index} isLive={isLive} />
+
+            {/* Spider-Man figure — hanging with gentle swing animation */}
+            <motion.div
+              animate={{ rotate: [-4, 4, -4], y: [0, -8, 0] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="relative mt-[-4px] z-10"
+              style={{ transformOrigin: 'top center' }}
+            >
+              {/* Glow behind the figure */}
+              <div className="absolute inset-0 z-0 rounded-full blur-3xl opacity-60"
+                style={{ background: 'radial-gradient(ellipse at center, rgba(239,68,68,0.5) 0%, rgba(59,130,246,0.2) 60%, transparent 100%)' }}
+              />
+              <img
+                src="/images/spider_hero_hanging.jpg"
+                alt="Spider-Man hanging from web"
+                className="relative z-10 w-[220px] sm:w-[270px] lg:w-[320px] drop-shadow-2xl"
+                style={{ filter: 'drop-shadow(0 0 24px rgba(239,68,68,0.7)) drop-shadow(0 0 50px rgba(59,130,246,0.3))' }}
+              />
+            </motion.div>
+
+            {/* HeroDeck trading terminal below the hero */}
+            <div className="mt-6 w-full relative rounded-3xl p-2 border border-red-500/40 bg-gradient-to-b from-red-600/15 via-slate-950 to-blue-600/15 shadow-2xl shadow-red-950/90 backdrop-blur-xl">
+              <div className="mb-3 overflow-hidden rounded-xl border border-red-500/25 shadow-lg">
+                <img src="/images/spider_cyber_hero.jpg" alt="Equity Arena Exchange Terminal" className="h-28 sm:h-36 w-full object-cover brightness-110" />
+              </div>
+              <HeroDeck stocks={stocks} index={index} isLive={isLive} />
+            </div>
           </div>
         </motion.div>
       </div>
