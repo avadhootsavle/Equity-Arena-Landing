@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useMemo, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import {
   Activity, ArrowRight, BarChart3, ChevronDown, Coins, Gauge, LineChart, Lock,
