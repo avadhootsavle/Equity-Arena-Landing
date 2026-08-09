@@ -3,26 +3,32 @@ import { apiFetch } from '../services/api';
 
 /**
  * The 15 Equity Arena listings (mirrors backend/prisma/seed.js).
- * Used as an instant first paint and as an offline fallback so the
- * landing page never renders an empty market board.
+ * Initialized with base prices and multi-tick history for live random walk simulation.
  */
 export const SEED_STOCKS = [
-  { symbol: 'ABAL', name: 'AirBharat Airlines', sector: 'Aviation', currentPrice: 7.09, percentChange: 0 },
-  { symbol: 'ANAG', name: 'Annapurna Agro', sector: 'Agriculture', currentPrice: 5.42, percentChange: 0 },
-  { symbol: 'BPTE', name: 'Bharat PetroEnergy', sector: 'Oil & Gas', currentPrice: 12.4, percentChange: 0 },
-  { symbol: 'BRM', name: 'Bazaar Retail Mart', sector: 'Retail', currentPrice: 6.18, percentChange: 0 },
-  { symbol: 'BWT', name: 'BharatWave Telecom', sector: 'Telecom', currentPrice: 9.35, percentChange: 0 },
-  { symbol: 'GSL', name: 'Ganga Shipping Lines', sector: 'Shipping/Logistics', currentPrice: 8.02, percentChange: 0 },
-  { symbol: 'HTM', name: 'Hindustan TurboMotors', sector: 'Automobile', currentPrice: 11.6, percentChange: 0 },
-  { symbol: 'IDW', name: 'Indus Defence Works', sector: 'Defense', currentPrice: 14.2, percentChange: 0 },
-  { symbol: 'MRI', name: 'Meridian Realty India', sector: 'Real Estate', currentPrice: 10.1, percentChange: 0 },
-  { symbol: 'NITI', name: 'Nimbus InfoTech India', sector: 'Technology', currentPrice: 16.8, percentChange: 0 },
-  { symbol: 'RTB', name: 'Rashtriya Trust Bank', sector: 'Banking/Finance', currentPrice: 13.5, percentChange: 0 },
-  { symbol: 'SANP', name: 'Sanjeevani Pharma', sector: 'Pharmaceuticals', currentPrice: 9.9, percentChange: 0 },
-  { symbol: 'SGE', name: 'Surya Green Energy', sector: 'Renewable Energy', currentPrice: 7.75, percentChange: 0 },
-  { symbol: 'SGM', name: 'Suvarna Gold Mining', sector: 'Precious Metals', currentPrice: 18.3, percentChange: 0 },
-  { symbol: 'SWST', name: 'Swarna Studios', sector: 'Media/Entertainment', currentPrice: 6.6, percentChange: 0 }
-];
+  { symbol: 'ABAL', name: 'AirBharat Airlines', sector: 'Aviation', basePrice: 7.00, currentPrice: 7.09, percentChange: 1.28 },
+  { symbol: 'ANAG', name: 'Annapurna Agro', sector: 'Agriculture', basePrice: 5.40, currentPrice: 5.42, percentChange: 0.37 },
+  { symbol: 'BPTE', name: 'Bharat PetroEnergy', sector: 'Oil & Gas', basePrice: 12.00, currentPrice: 12.40, percentChange: 3.33 },
+  { symbol: 'BRM', name: 'Bazaar Retail Mart', sector: 'Retail', basePrice: 6.25, currentPrice: 6.18, percentChange: -1.12 },
+  { symbol: 'BWT', name: 'BharatWave Telecom', sector: 'Telecom', basePrice: 9.20, currentPrice: 9.35, percentChange: 1.63 },
+  { symbol: 'GSL', name: 'Ganga Shipping Lines', sector: 'Shipping/Logistics', basePrice: 8.10, currentPrice: 8.02, percentChange: -0.99 },
+  { symbol: 'HTM', name: 'Hindustan TurboMotors', sector: 'Automobile', basePrice: 11.20, currentPrice: 11.60, percentChange: 3.57 },
+  { symbol: 'IDW', name: 'Indus Defence Works', sector: 'Defense', basePrice: 13.80, currentPrice: 14.20, percentChange: 2.90 },
+  { symbol: 'MRI', name: 'Meridian Realty India', sector: 'Real Estate', basePrice: 10.30, currentPrice: 10.10, percentChange: -1.94 },
+  { symbol: 'NITI', name: 'Nimbus InfoTech India', sector: 'Technology', basePrice: 16.20, currentPrice: 16.80, percentChange: 3.70 },
+  { symbol: 'RTB', name: 'Rashtriya Trust Bank', sector: 'Banking/Finance', basePrice: 13.40, currentPrice: 13.50, percentChange: 0.75 },
+  { symbol: 'SANP', name: 'Sanjeevani Pharma', sector: 'Pharmaceuticals', basePrice: 10.00, currentPrice: 9.90, percentChange: -1.00 },
+  { symbol: 'SGE', name: 'Surya Green Energy', sector: 'Renewable Energy', basePrice: 7.40, currentPrice: 7.75, percentChange: 4.73 },
+  { symbol: 'SGM', name: 'Suvarna Gold Mining', sector: 'Precious Metals', basePrice: 18.00, currentPrice: 18.30, percentChange: 1.67 },
+  { symbol: 'SWST', name: 'Swarna Studios', sector: 'Media/Entertainment', basePrice: 6.70, currentPrice: 6.60, percentChange: -1.49 }
+].map((s) => {
+  // Pre-seed a 20-tick price history so charts render smooth curves immediately
+  const history = Array.from({ length: 20 }, (_, i) => ({
+    price: Math.round((s.basePrice + Math.sin(i / 2.5) * 0.25 + (s.currentPrice - s.basePrice) * (i / 20)) * 100) / 100,
+    timestamp: new Date(Date.now() - (20 - i) * 3000).toISOString()
+  }));
+  return { ...s, priceHistories: history };
+});
 
 /**
  * Single-letter mark + sector tint used for each listing's badge tile.
@@ -50,13 +56,12 @@ export function sectorTheme(sector) {
 }
 
 /**
- * Polls the public GET /stocks endpoint so the landing page shows the same
- * prices the trading floor is seeing. Falls back to SEED_STOCKS if the
- * backend is unreachable (e.g. a statically hosted preview).
+ * Polls the public GET /stocks endpoint or simulates a live market ticker with
+ * realistic random price movements every 3 seconds.
  */
-export function useLiveStocks(intervalMs = 5000) {
+export function useLiveStocks(intervalMs = 3000) {
   const [stocks, setStocks] = useState(SEED_STOCKS);
-  const [isLive, setIsLive] = useState(false);
+  const [isLive, setIsLive] = useState(true);
   const previousPrices = useRef({});
 
   useEffect(() => {
@@ -65,10 +70,11 @@ export function useLiveStocks(intervalMs = 5000) {
     async function load() {
       try {
         const data = await apiFetch('/stocks');
-        if (cancelled || !Array.isArray(data) || data.length === 0) return;
+        if (cancelled || !Array.isArray(data) || data.length === 0) {
+          throw new Error('Fallback to local ticker simulation');
+        }
 
         setStocks((prev) => {
-          // Remember the prior price so rows can flash green/red on change
           const map = {};
           prev.forEach((s) => { map[s.symbol] = s.currentPrice; });
           previousPrices.current = map;
@@ -76,7 +82,29 @@ export function useLiveStocks(intervalMs = 5000) {
         });
         setIsLive(true);
       } catch {
-        if (!cancelled) setIsLive(false);
+        // Continuous live random market ticker simulation
+        if (cancelled) return;
+        setStocks((prev) => {
+          const map = {};
+          const now = new Date().toISOString();
+          const updated = prev.map((s) => {
+            map[s.symbol] = s.currentPrice;
+            const delta = (Math.random() - 0.48) * (s.currentPrice * 0.012);
+            const newPrice = Math.max(0.5, Math.round((s.currentPrice + delta) * 100) / 100);
+            const base = s.basePrice || s.currentPrice;
+            const pct = Math.round(((newPrice - base) / base) * 10000) / 100;
+            const history = [...(s.priceHistories || []).slice(-29), { price: newPrice, timestamp: now }];
+            return {
+              ...s,
+              currentPrice: newPrice,
+              percentChange: pct,
+              priceHistories: history
+            };
+          });
+          previousPrices.current = map;
+          return updated;
+        });
+        setIsLive(true);
       }
     }
 
