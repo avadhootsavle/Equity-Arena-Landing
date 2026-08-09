@@ -786,25 +786,25 @@ const STEPS = [
   {
     n: '01',
     icon: Users,
-    title: 'Register Spider Account',
-    body: 'Create your trader profile on Ignite-8 in seconds. No KYC or banking details required.'
+    title: 'Register Your Account',
+    body: 'Create your trader profile on Equity Arena in seconds. No KYC or banking details required.'
   },
   {
     n: '02',
     icon: Coins,
     title: 'Receive 20,000 IC',
-    body: 'Instant credit of 20,000 virtual Ignite Coins directly to your Stark nanotech wallet.'
+    body: 'Instant credit of 20,000 virtual Ignite Coins directly to your trading wallet.'
   },
   {
     n: '03',
     icon: Activity,
-    title: 'Track Spidey Index',
-    body: 'Monitor real-time prices across 15 high-volatility sector equities on the live Spider Board.'
+    title: 'Track the Live Market',
+    body: 'Monitor real-time prices across 15 high-volatility sector stocks on the live dashboard.'
   },
   {
     n: '04',
     icon: Zap,
-    title: 'Sling Orders & Climb',
+    title: 'Place Orders & Climb',
     body: 'Execute market buys and sells instantly. Climb the global trader leaderboard.'
   }
 ];
@@ -849,12 +849,12 @@ const About = forwardRef((props, ref) => {
           ))}
         </div>
 
-        {/* Narrative Peter Parker Story Progression Caption */}
+        {/* Onboarding Progress Caption */}
         <div className="mt-16 text-center max-w-xl mx-auto">
           <div className="relative rounded-2xl border border-red-500/30 bg-[#070b19]/80 px-6 py-4 shadow-xl backdrop-blur-md overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-red-600/5 via-transparent to-blue-600/5" />
             <p id="gsap-about-story" className="font-mono text-[13px] font-bold text-red-400 tracking-wide transition-all duration-300">
-              STORY CAPTION: Scroll to unlock Peter Parker's trading origin...
+              STATUS FEED: Scroll to monitor your onboarding progress...
             </p>
           </div>
         </div>
@@ -885,11 +885,11 @@ function FinalCTA({ onRegisterClick }) {
 
             <div className="relative z-10 mx-auto max-w-[620px]">
               <span className="badge-neo bg-[#ff0055] text-white px-3.5 py-1.5 text-xs font-black shadow-[2px_2px_0px_#05070e]">
-                JOIN THE SPIDER TRADING NETWORK TODAY
+                JOIN THE ARENA TRADING NETWORK TODAY
               </span>
 
               <h2 className="font-display mt-6 text-[clamp(2.2rem,5vw,3.6rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white">
-                Ready to sling your first simulated trade?
+                Ready to execute your first simulated trade?
               </h2>
 
               <p className="mt-4 text-[16px] leading-relaxed text-slate-300">
@@ -902,7 +902,7 @@ function FinalCTA({ onRegisterClick }) {
                   onClick={onRegisterClick}
                   className="btn-neo px-8 py-4 text-[15px] font-black"
                 >
-                  Register Spider Account <ArrowRight className="h-5 w-5" />
+                  Register Your Account <ArrowRight className="h-5 w-5" />
                 </a>
               </div>
             </div>
@@ -928,7 +928,7 @@ function Footer({ stocks, onRegisterClick }) {
               </span>
             </div>
             <p className="mt-3.5 max-w-[340px] text-[13px] leading-relaxed text-slate-400">
-              The high-tech Spider-Verse trading simulator. Real-time Indian market equities, sub-second tickers, and instant simulated fills.
+              The high-tech virtual trading simulator. Real-time Indian market equities, sub-second tickers, and instant simulated fills.
             </p>
           </div>
 
@@ -952,7 +952,7 @@ function Footer({ stocks, onRegisterClick }) {
               <ul className="mt-3 space-y-2 text-[13px]">
                 <li className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-slate-300">Spidey Web Online</span>
+                  <span className="text-slate-300">Exchange Network Online</span>
                 </li>
                 <li className="font-mono text-[11px] text-slate-500">Ignite-8 Engine v2.4</li>
               </ul>
@@ -997,7 +997,7 @@ function Footer({ stocks, onRegisterClick }) {
           </p>
           <p className="flex items-center gap-2 text-[12.5px] text-slate-400">
             <span className="h-2 w-2 rounded-full bg-red-500 animate-live" />
-            Spider Web Engine Online
+            Arena Core Engine Online
           </p>
         </div>
       </div>

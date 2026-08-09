@@ -43,7 +43,7 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
           const line = aboutRef.current.querySelector('#gsap-about-line');
           if (line) gsap.set(line, { scaleX: 1 });
           const story = aboutRef.current.querySelector('#gsap-about-story');
-          if (story) story.textContent = "STORY: Peter Parker logs in and becomes a trading legend.";
+          if (story) story.textContent = "STATUS FEED: Create your profile and launch your trading career.";
         }
         if (featuresRef.current) {
           gsap.set(featuresRef.current.querySelectorAll('[data-gsap="card"]'), { opacity: 1, scale: 1, x: 0, y: 0, rotate: 0 });
@@ -201,17 +201,17 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
 
             aboutTl
               // ------------------------------------
-              // STEP 1: Discover Stark Trading Hub
+              // STEP 1: Discover Trading Hub
               // ------------------------------------
               .to(stepCards[0], { opacity: 1, scale: 1.05, duration: 0.5 }, 'step1')
               .to(stepLine, { scaleX: 0.33, duration: 0.5, ease: 'none' }, 'step1')
               .to(comicThwip, { opacity: 1, scale: 1.2, rotate: -15, duration: 0.3, ease: 'back.out(1.5)' }, 'step1')
               .call(() => {
-                if (storyText) storyText.textContent = "STORY: Volatility bite strikes! Peter Parker discovers the Stark Trading Hub.";
+                if (storyText) storyText.textContent = "STATUS FEED: Account initialized! Analyze market trends and prepare your strategy.";
               }, null, 'step1')
 
               // ------------------------------------
-              // STEP 2: Spidey-Sense Unlocks
+              // STEP 2: Market Intelligence Unlocks
               // ------------------------------------
               .to(stepCards[0], { opacity: 0.25, scale: 0.98, duration: 0.3 }, 'step2')
               .to(comicThwip, { opacity: 0, scale: 0, duration: 0.2 }, 'step2')
@@ -219,7 +219,7 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
               .to(stepLine, { scaleX: 0.66, duration: 0.5, ease: 'none' }, 'step2')
               .to(comicBzzzt, { opacity: 1, scale: 1.2, rotate: 8, duration: 0.3, ease: 'back.out(1.5)' }, 'step2')
               .call(() => {
-                if (storyText) storyText.textContent = "STORY: Spidey-sense activated! He sees the price action charts before they form.";
+                if (storyText) storyText.textContent = "STATUS FEED: Market intelligence active! Spot volatility swings and dynamic price trends.";
               }, null, 'step2')
 
               // ------------------------------------
@@ -231,11 +231,11 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
               .to(stepLine, { scaleX: 0.9, duration: 0.5, ease: 'none' }, 'step3')
               .to(comicSwing, { opacity: 1, scale: 1.2, rotate: -8, duration: 0.3, ease: 'back.out(1.5)' }, 'step3')
               .call(() => {
-                if (storyText) storyText.textContent = "STORY: Stark Wallet receives 20,000 Ignite Coins. Volatility yields to leverage.";
+                if (storyText) storyText.textContent = "STATUS FEED: Wallet credited! Deploy your 20,000 virtual Ignite Coins across sector assets.";
               }, null, 'step3')
 
               // ------------------------------------
-              // STEP 4: First Order & Bite Impact
+              // STEP 4: First Order & Leaderboard
               // ------------------------------------
               .to(stepCards[2], { opacity: 0.25, scale: 0.98, duration: 0.3 }, 'step4')
               .to(comicSwing, { opacity: 0, scale: 0, duration: 0.2 }, 'step4')
@@ -244,7 +244,7 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
               .to(comicBoom, { opacity: 1, scale: 1.4, rotate: 12, duration: 0.4, ease: 'elastic.out(1.1, 0.6)' }, 'step4')
               .to([senseLeft, senseRight], { opacity: 1, scale: 1.0, duration: 0.3, ease: 'back.out(1.5)' }, 'step4')
               .call(() => {
-                if (storyText) storyText.textContent = "STORY: First fill executed! The Web-Slinger dominates the Arena Leaderboard.";
+                if (storyText) storyText.textContent = "STATUS FEED: First fill executed! Place your orders and secure your place on the leaderboard.";
               }, null, 'step4');
 
             // Screen flash overlay pulse
