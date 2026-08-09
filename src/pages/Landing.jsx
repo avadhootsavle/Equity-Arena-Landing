@@ -379,6 +379,42 @@ function Hero({ stocks, index, isLive, onRegisterClick }) {
         <div className="absolute inset-x-0 bottom-0 h-[45vh] grid-floor opacity-75" />
       </div>
 
+      {/* 🕷️ Spider-Man — absolute, hanging from the very top of the hero */}
+      <div className="absolute top-0 right-[4%] lg:right-[8%] xl:right-[10%] z-10 pointer-events-none hidden sm:flex flex-col items-center">
+        {/* Web strand: goes from absolute top of section down to Spider-Man's feet (top of image) */}
+        <div
+          style={{
+            width: '3px',
+            height: '90px',
+            background: 'linear-gradient(to bottom, rgba(180,180,180,0.9) 0%, #b0b0b0 60%, #888 100%)',
+            boxShadow: '0 0 4px 1px rgba(180,180,180,0.35)',
+          }}
+        />
+        {/* Pendulum swing — origin is top center = the web anchor point */}
+        <motion.div
+          animate={{ rotate: [-6, 6, -6] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          style={{ transformOrigin: 'top center' }}
+          className="relative mt-[-1px]"
+        >
+          {/* Ambient glow */}
+          <div
+            className="absolute inset-0 blur-3xl opacity-50 z-0"
+            style={{ background: 'radial-gradient(ellipse at 50% 20%, rgba(239,68,68,0.55) 0%, rgba(59,130,246,0.15) 65%, transparent 100%)' }}
+          />
+          <img
+            src="/images/spiderman_hanging.png"
+            alt="Spider-Man hanging from web"
+            draggable={false}
+            className="relative z-10 select-none w-[180px] md:w-[220px] lg:w-[260px] xl:w-[300px]"
+            style={{
+              mixBlendMode: 'multiply',
+              filter: 'drop-shadow(0 4px 28px rgba(239,68,68,0.6)) drop-shadow(0 0 12px rgba(59,130,246,0.3))',
+            }}
+          />
+        </motion.div>
+      </div>
+
       <div className="mx-auto grid max-w-[1280px] items-center gap-10 sm:gap-14 px-4 sm:px-8 pb-20 pt-10 sm:pb-24 sm:pt-14 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pb-12 lg:pt-20">
         {/* ---------- Left column ---------- */}
         <motion.div variants={stagger} initial="hidden" animate="show" className="relative z-10">
@@ -449,47 +485,30 @@ function Hero({ stocks, index, isLive, onRegisterClick }) {
           </motion.div>
         </motion.div>
 
-        {/* ---------- Right column: Spider-Man Hanging + HeroDeck ---------- */}
+        {/* ---------- Right column: HeroDeck (Spider-Man is absolute above) ---------- */}
         <motion.div style={{ y }} className="relative flex flex-col items-center lg:pr-4">
-          {/* 🕷️ Spider-Man hanging from glowing web */}
-          <div className="relative flex flex-col items-center w-full">
 
-            {/* Glowing neon web strand from top — the string Spider-Man hangs from */}
-            <div className="relative flex flex-col items-center">
-              <div
-                className="w-[3px] rounded-full"
-                style={{
-                  height: '60px',
-                  background: 'linear-gradient(to bottom, rgba(200,200,200,0) 0%, #cccccc 50%, #aaaaaa 100%)',
-                  boxShadow: '0 0 6px 2px rgba(200,200,200,0.4)',
-                }}
-              />
-            </div>
-
-            {/* Spider-Man figure with gentle pendulum swing */}
+          {/* Mobile-only: Spider-Man in flow (since absolute is hidden on mobile) */}
+          <div className="flex sm:hidden flex-col items-center w-full mb-4">
+            <div style={{ width: '3px', height: '50px', background: 'linear-gradient(to bottom, rgba(180,180,180,0.9), #888)', boxShadow: '0 0 4px 1px rgba(180,180,180,0.3)' }} />
             <motion.div
               animate={{ rotate: [-5, 5, -5] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative z-10 mt-[-2px]"
               style={{ transformOrigin: 'top center' }}
+              className="mt-[-1px]"
             >
-              {/* Subtle red glow behind the figure */}
-              <div
-                className="absolute inset-0 z-0 blur-3xl opacity-40"
-                style={{ background: 'radial-gradient(ellipse at 50% 30%, rgba(239,68,68,0.5) 0%, rgba(59,130,246,0.15) 60%, transparent 90%)' }}
-              />
               <img
                 src="/images/spiderman_hanging.png"
                 alt="Spider-Man hanging from web"
-                className="relative z-10 w-[180px] sm:w-[240px] md:w-[280px] lg:w-[320px] xl:w-[360px] select-none"
-                style={{ mixBlendMode: 'multiply', filter: 'drop-shadow(0 8px 32px rgba(239,68,68,0.55)) drop-shadow(0 0 16px rgba(59,130,246,0.3))' }}
                 draggable={false}
+                className="w-[140px] select-none"
+                style={{ mixBlendMode: 'multiply', filter: 'drop-shadow(0 4px 20px rgba(239,68,68,0.55))' }}
               />
             </motion.div>
           </div>
 
           {/* HeroDeck trading terminal card */}
-          <div className="mt-4 w-full relative rounded-3xl p-2 border border-red-500/40 bg-gradient-to-b from-red-600/15 via-slate-950 to-blue-600/15 shadow-2xl shadow-red-950/90 backdrop-blur-xl">
+          <div className="w-full relative rounded-3xl p-2 border border-red-500/40 bg-gradient-to-b from-red-600/15 via-slate-950 to-blue-600/15 shadow-2xl shadow-red-950/90 backdrop-blur-xl">
             <HeroDeck stocks={stocks} index={index} isLive={isLive} />
           </div>
         </motion.div>
