@@ -494,7 +494,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
           {/* Comic pop stamp next to Spider-man */}
           <div
             id="gsap-hero-spiderman-stamp"
-            className="absolute -left-14 bottom-[12%] opacity-0 scale-0 z-30 bg-[#ffd200] border-3 border-slate-950 text-slate-950 font-black uppercase px-3.5 py-1.5 rounded-lg text-xs rotate-[-8deg] shadow-[3px_3px_0px_#05070e] font-mono select-none"
+            className="absolute left-[5px] bottom-[12%] opacity-0 scale-0 z-30 bg-[#ffd200] border-3 border-slate-950 text-slate-950 font-black uppercase px-3.5 py-1.5 rounded-lg text-xs rotate-[-8deg] shadow-[3px_3px_0px_#05070e] font-mono select-none"
           >
             Hey there!
           </div>
