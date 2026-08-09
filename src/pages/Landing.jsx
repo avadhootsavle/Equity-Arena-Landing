@@ -321,7 +321,7 @@ function Navbar({ onRegisterClick }) {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'border-b border-white/[0.08] bg-[#05070e]/45 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.37),inset_0_1px_0px_rgba(255,255,255,0.1)]'
+          ? 'border-b-3 border-slate-950 bg-[#05070e]/92 backdrop-blur-md shadow-[0_4px_20px_rgba(0,243,255,0.08)]'
           : 'border-b border-transparent bg-transparent'
       }`}
     >
