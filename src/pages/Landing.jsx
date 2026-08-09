@@ -996,20 +996,16 @@ function SpideyCursor() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.15 }}
-                  className="stroke-[#ffd200] stroke-[2.5] stroke-linecap-round filter drop-shadow-[0_0_4px_#ff0055] animate-spidey-sense-tingle"
+                  className="stroke-white stroke-[2] stroke-linecap-round filter drop-shadow-[0_0_3px_rgba(255,255,255,0.5)] animate-spidey-sense-tingle"
                 >
-                  {/* Radials */}
+                  {/* Fewer Clean Radiating Waves */}
                   <path d="M 50 28 Q 47 22 52 16 T 50 8" />
-                  <path d="M 57 29 Q 62 23 59 17 T 64 10" />
                   <path d="M 43 29 Q 38 23 41 17 T 36 10" />
-                  <path d="M 64 33 Q 71 28 66 22 T 74 15" stroke="#ff0055" />
-                  <path d="M 36 33 Q 29 28 34 22 T 26 15" stroke="#ff0055" />
-                  <path d="M 69 39 Q 78 36 74 30 T 83 23" />
+                  <path d="M 57 29 Q 62 23 59 17 T 64 10" />
                   <path d="M 31 39 Q 22 36 26 30 T 17 23" />
-                  <path d="M 72 47 Q 82 46 79 40 T 89 35" stroke="#ff0055" />
-                  <path d="M 28 47 Q 18 46 21 40 T 11 35" stroke="#ff0055" />
-                  <path d="M 73 54 Q 83 55 81 49 T 91 46" />
-                  <path d="M 27 54 Q 17 55 19 49 T 9 46" />
+                  <path d="M 69 39 Q 78 36 74 30 T 83 23" />
+                  <path d="M 28 47 Q 18 46 21 40 T 11 35" />
+                  <path d="M 72 47 Q 82 46 79 40 T 89 35" />
                 </motion.g>
               )}
             </AnimatePresence>
