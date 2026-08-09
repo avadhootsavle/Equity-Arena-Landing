@@ -400,16 +400,15 @@ function DraggableSpiderMan() {
         cursor: dragging ? 'grabbing' : 'grab',
         userSelect: 'none',
         touchAction: 'none',
-        animation: dragging ? 'none' : 'spideySwing 4s ease-in-out infinite',
-        transformOrigin: 'top center',
+        animation: dragging ? 'none' : 'float-slow 4s ease-in-out infinite',
       }}
     >
-      <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 10%, rgba(239,68,68,0.35), transparent 70%)', filter:'blur(22px)', pointerEvents:'none' }} />
+      <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 50%, rgba(239,68,68,0.25), transparent 70%)', filter:'blur(22px)', pointerEvents:'none' }} />
       <img
-        src="/images/spiderman_hanging.png"
+        src="/images/spiderman_side.png"
         alt="Spider-Man"
         draggable={false}
-        style={{ width:'clamp(120px,13vw,230px)', mixBlendMode:'multiply', filter:'drop-shadow(0 4px 18px rgba(239,68,68,0.55))', display:'block', position:'relative' }}
+        style={{ width:'clamp(140px,16vw,260px)', display:'block', position:'relative', filter:'drop-shadow(0 4px 18px rgba(239,68,68,0.4))' }}
       />
     </div>
   );
