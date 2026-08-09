@@ -350,103 +350,6 @@ function Navbar({ onRegisterClick }) {
   );
 }
 
-/* ------------------------------------------------------------------ *
- * Draggable Spider-Man — CSS drag, no complex hooks
- * ------------------------------------------------------------------ */
-function DraggableSpiderMan() {
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-  const [dragging, setDragging] = useState(false);
-  const startRef = useRef({ mx: 0, my: 0, ox: 0, oy: 0 });
-
-  const onDown = (e) => {
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    startRef.current = { mx: clientX, my: clientY, ox: pos.x, oy: pos.y };
-    setDragging(true);
-  };
-
-  useEffect(() => {
-    if (!dragging) return;
-    const onMove = (e) => {
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      setPos({
-        x: startRef.current.ox + clientX - startRef.current.mx,
-        y: startRef.current.oy + clientY - startRef.current.my,
-      });
-    };
-    const onUp = () => setDragging(false);
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onUp);
-    window.addEventListener('touchmove', onMove, { passive: true });
-    window.addEventListener('touchend', onUp);
-    return () => {
-      window.removeEventListener('mousemove', onMove);
-      window.removeEventListener('mouseup', onUp);
-      window.removeEventListener('touchmove', onMove);
-      window.removeEventListener('touchend', onUp);
-    };
-  }, [dragging]);
-
-  return (
-    <div
-      onMouseDown={onDown}
-      onTouchStart={onDown}
-      className="group"
-      style={{
-        position: 'fixed',
-        top: `calc(50vh - 120px + ${pos.y}px)`, // Centered vertically
-        left: `calc(0% + ${pos.x}px)`,         // Flush to the left edge
-        zIndex: 9999,
-        cursor: dragging ? 'grabbing' : 'grab',
-        userSelect: 'none',
-        touchAction: 'none',
-        animation: dragging ? 'none' : 'float-slow 4s ease-in-out infinite',
-      }}
-    >
-      {/* Dynamic Glowing Aura */}
-      <div 
-        className="absolute inset-0 rounded-full transition-all duration-300"
-        style={{ 
-          background: dragging 
-            ? 'radial-gradient(ellipse at 50% 50%, rgba(239,68,68,0.5), transparent 70%)'
-            : 'radial-gradient(ellipse at 50% 50%, rgba(239,68,68,0.25), transparent 70%)', 
-          filter: dragging ? 'blur(30px)' : 'blur(22px)',
-          transform: dragging ? 'scale(1.2)' : 'scale(1)',
-          pointerEvents: 'none' 
-        }} 
-      />
-      
-      {/* Spider-Man Image with Hover & Drag Effects */}
-      <img
-        src="/images/spiderman_side.png"
-        alt="Spider-Man"
-        draggable={false}
-        className="transition-all duration-300 group-hover:drop-shadow-[0_8px_24px_rgba(239,68,68,0.6)]"
-        style={{ 
-          width: 'clamp(140px,16vw,260px)', 
-          display: 'block', 
-          position: 'relative', 
-          filter: dragging 
-            ? 'drop-shadow(0 15px 30px rgba(239,68,68,0.8)) brightness(1.15)' 
-            : 'drop-shadow(0 4px 18px rgba(239,68,68,0.4))',
-          transform: dragging ? 'scale(1.1) rotate(-4deg)' : 'scale(1) rotate(0deg)'
-        }}
-      />
-
-      {/* Sleek Tooltip */}
-      {!dragging && (
-        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-          <span className="bg-red-950/90 text-red-300 text-[10px] font-bold px-2.5 py-1 rounded-full border border-red-500/40 whitespace-nowrap uppercase tracking-widest shadow-[0_0_12px_rgba(239,68,68,0.4)] backdrop-blur-sm">
-            Drag Me
-          </span>
-        </div>
-      )}
-    </div>
-  );
-}
-
-
 
 /* ------------------------------------------------------------------ *
  * Hero Section — With Intricate Corner Spiderweb Overlays
@@ -1346,7 +1249,6 @@ export function Landing() {
       />
 
       <Navbar onRegisterClick={handleRegisterClick} />
-      <DraggableSpiderMan />
       <main>
         <Hero stocks={stocks} index={index} isLive={isLive} onRegisterClick={handleRegisterClick} />
         <TickerTape stocks={stocks} />
