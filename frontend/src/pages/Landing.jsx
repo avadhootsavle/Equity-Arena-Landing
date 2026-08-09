@@ -172,8 +172,8 @@ const fadeUp = {
 
 function SectionTag({ icon: Icon, children }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-red-400 backdrop-blur-md">
-      <Icon className="h-3.5 w-3.5 text-red-400" />
+    <span className="badge-neo px-4 py-1.5 inline-flex items-center gap-2">
+      <Icon className="h-3.5 w-3.5" />
       {children}
     </span>
   );
@@ -240,11 +240,9 @@ function Navbar({ onRegisterClick }) {
           <a
             href={REGISTER_URL}
             onClick={onRegisterClick}
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-blue-600 px-5 py-2.5 text-[13px] font-bold text-white shadow-lg shadow-red-600/30 transition-all hover:scale-105 active:scale-95"
+            className="btn-neo px-5 py-2.5 text-[13px] font-extrabold group"
           >
-            <span className="relative z-10 flex items-center gap-2">
-              Sling Into Trading <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </span>
+            Sling Into Trading <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
         </div>
 
@@ -367,17 +365,17 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
             sense price swings with your Spidey-Sense ticker, and sling orders across the live market web with 20,000 Ignite Coins.
           </p>
 
-          <div className="mt-8 sm:mt-9 flex flex-wrap items-center gap-4 sm:gap-5">
+          <div className="mt-8 flex flex-wrap gap-4 sm:gap-5 justify-center lg:justify-start">
             <a
               href={REGISTER_URL}
               onClick={onRegisterClick}
-              className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-blue-600 px-6 sm:px-7 py-3.5 sm:py-4 text-[14px] sm:text-[15px] font-bold text-white shadow-xl shadow-red-600/30 transition-all hover:scale-105 active:scale-95"
+              className="btn-neo px-6 sm:px-8 py-3.5 sm:py-4 text-[13px] sm:text-[14px] font-extrabold group"
             >
-              Sling Orders Live <ArrowRight className="h-4.5 w-4.5 transition-transform group-hover:translate-x-1" />
+              Sling Into Trading <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
             <a
               href="#markets"
-              className="inline-flex items-center gap-2 rounded-2xl border border-red-500/30 bg-slate-900/60 px-5 sm:px-6 py-3.5 sm:py-4 text-[13px] sm:text-[14px] font-bold text-slate-200 backdrop-blur transition-all hover:border-red-500/60 hover:bg-slate-900/90"
+              className="btn-neo btn-neo-blue px-5 sm:px-6 py-3.5 sm:py-4 text-[13px] sm:text-[14px] font-extrabold"
             >
               Inspect Spider Board
             </a>
@@ -396,7 +394,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
 
         {/* ---------- Right column: HeroDeck ---------- */}
         <div data-gsap="hero" className="relative flex flex-col items-center lg:pr-4">
-          <div className="w-full relative rounded-3xl p-2 border border-red-500/40 bg-gradient-to-b from-red-600/15 via-slate-950 to-blue-600/15 shadow-2xl shadow-red-950/90 backdrop-blur-xl">
+          <div className="w-full relative p-4 border-3 border-slate-950 bg-slate-900 shadow-[6px_6px_0px_#000] rounded-lg">
             <HeroDeck stocks={stocks} index={index} isLive={isLive} />
           </div>
         </div>
@@ -528,7 +526,7 @@ const Features = forwardRef((props, ref) => {
             <div
               key={title}
               data-gsap="card"
-              className={`glow-ring layer-3d group relative overflow-hidden rounded-2xl border border-red-500/25 bg-gradient-to-b from-slate-900/85 to-slate-950/95 p-6 backdrop-blur-md shadow-xl ${span}`}
+              className={`card-neo layer-3d group relative overflow-hidden p-6 ${span}`}
             >
               <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-red-500/0 blur-3xl transition-all duration-500 group-hover:bg-red-500/20" />
 
@@ -611,7 +609,7 @@ const News = forwardRef(({ onRegisterClick }, ref) => {
           <a
             href={REGISTER_URL}
             onClick={onRegisterClick}
-            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-blue-600 px-5 py-3 text-[13px] font-bold text-white shadow-lg shadow-red-600/30 transition-transform hover:scale-105"
+            className="btn-neo px-5 py-3 text-[13px] font-extrabold"
           >
             Sling Orders Live <ArrowRight className="h-4 w-4" />
           </a>
@@ -636,7 +634,7 @@ const News = forwardRef(({ onRegisterClick }, ref) => {
             <div
               key={item.title}
               data-gsap="card"
-              className="glow-ring group relative overflow-hidden rounded-2xl border border-red-500/25 bg-slate-900/80 p-6 backdrop-blur-md shadow-xl transition-all hover:border-red-500/60"
+              className="card-neo group relative overflow-hidden p-6"
             >
               <div className="flex items-center justify-between">
                 <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-bold ring-1 ${TONES[item.tone]}`}>
@@ -712,7 +710,7 @@ const About = forwardRef((props, ref) => {
             <div
               key={n}
               data-gsap="step-card"
-              className="layer-3d group relative rounded-2xl border border-red-500/25 bg-slate-900/70 p-6 text-center backdrop-blur-md transition-colors hover:border-red-500/60 shadow-xl"
+              className="card-neo layer-3d group relative p-6 text-center"
             >
               <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-red-500/40 bg-[#0c0f1d] shadow-lg shadow-red-950/60 transition-transform duration-300 group-hover:scale-110">
                 <Icon className="h-6 w-6 text-red-400" strokeWidth={1.8} />

@@ -3,12 +3,14 @@
 @tailwind utilities;
 
 /* ============================================================
-   Equity Arena — Spider-Man High-Tech Cyber-Web Theme
+   Equity Arena — Spider-Man Neo-Brutalist Cyber-Web Theme
    ============================================================ */
 
 .font-display {
-  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-  letter-spacing: -0.02em;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 /* 3D perspective stage */
@@ -22,33 +24,21 @@
   will-change: transform;
 }
 
-/* Spider-Man Glass Panel with Red & Blue Inset Glows */
-.panel-3d, .panel-spidey {
-  background: linear-gradient(155deg, rgba(18, 12, 28, 0.92) 0%, rgba(8, 10, 20, 0.95) 100%);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  backdrop-filter: blur(18px);
-  box-shadow:
-    0 30px 70px -15px rgba(220, 38, 38, 0.25),
-    0 0 0 1px rgba(37, 99, 235, 0.15) inset,
-    0 1px 0 0 rgba(255, 255, 255, 0.1) inset;
+/* Neo-Brutalist Layouts */
+.panel-spidey {
+  background: #0f172a;
+  border: 3px solid #05070e;
+  box-shadow: 6px 6px 0px #05070e;
+  border-radius: 4px;
 }
 
-/* Specular sheen that sweeps across glass panels */
-.sheen::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(115deg, transparent 35%, rgba(239, 68, 68, 0.08) 48%, rgba(59, 130, 246, 0.08) 55%, transparent 65%);
-  pointer-events: none;
-}
-
-/* Spider-Man Text Gradients */
+/* Spider-Man Text Gradients with Neo-Brutalist Stroke */
 .text-gradient-spidey {
   background: linear-gradient(120deg, #ef4444 0%, #ff1e42 40%, #3b82f6 80%, #00d2ff 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(2px 2px 0px #05070e);
 }
 
 .text-gradient-crimson {
@@ -56,6 +46,7 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(2px 2px 0px #05070e);
 }
 
 .text-gradient-blue {
@@ -63,49 +54,79 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(2px 2px 0px #05070e);
 }
 
-/* Spider Web Conic Border Glow */
-.glow-ring {
+/* Neo-Brutalist Buttons */
+.btn-neo {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 3px solid #05070e;
+  background: #ef4444;
+  color: #ffffff;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 4px 4px 0px #05070e;
+  transition: all 0.15s ease-in-out;
+  border-radius: 6px;
 }
-.glow-ring::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: conic-gradient(from var(--ring-angle, 0deg), transparent 0deg, #ef4444 90deg, #3b82f6 180deg, #ff1e42 270deg, transparent 360deg);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.3;
-  transition: opacity 0.4s ease;
-  animation: ring-spin 5s linear infinite;
+.btn-neo:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #05070e;
+  background: #ff1e42;
 }
-.glow-ring:hover::before {
-  opacity: 1;
-}
-
-@property --ring-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
+.btn-neo:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #05070e;
 }
 
-@keyframes ring-spin {
-  to {
-    --ring-angle: 360deg;
-  }
+.btn-neo-blue {
+  background: #3b82f6;
+  box-shadow: 4px 4px 0px #05070e;
+}
+.btn-neo-blue:hover {
+  background: #2563eb;
+  box-shadow: 6px 6px 0px #05070e;
+}
+
+/* Neo-Brutalist Cards */
+.card-neo {
+  border: 3px solid #05070e !important;
+  background: #0f172a !important;
+  border-radius: 8px !important;
+  box-shadow: 5px 5px 0px #05070e !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card-neo:hover {
+  border-color: #ef4444 !important;
+  box-shadow: 8px 8px 0px #05070e !important;
+}
+
+/* Badge Neo */
+.badge-neo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ef4444;
+  color: #ffffff;
+  border: 2px solid #05070e;
+  box-shadow: 2px 2px 0px #05070e;
+  border-radius: 4px;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 11px;
 }
 
 /* Spiderweb Grid pattern floor */
 .grid-floor {
   background-image:
     radial-gradient(circle at 50% 50%, rgba(239, 68, 68, 0.15) 0%, transparent 60%),
-    linear-gradient(to right, rgba(239, 68, 68, 0.12) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(37, 99, 235, 0.12) 1px, transparent 1px);
-  background-size: 100% 100%, 50px 50px, 50px 50px;
+    linear-gradient(to right, rgba(239, 68, 68, 0.15) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(37, 99, 235, 0.15) 1.5px, transparent 1.5px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
   transform: perspective(420px) rotateX(62deg);
   transform-origin: center bottom;
   mask-image: linear-gradient(to bottom, transparent, #000 45%, transparent);
@@ -114,8 +135,8 @@
 
 /* Spiderweb overlay texture */
 .spider-web-bg {
-  background-image: radial-gradient(circle at 50% 0%, rgba(239, 68, 68, 0.12) 0%, transparent 50%),
-                    radial-gradient(circle at 100% 100%, rgba(37, 99, 235, 0.12) 0%, transparent 50%);
+  background-image: radial-gradient(circle at 50% 0%, rgba(239, 68, 68, 0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 100% 100%, rgba(37, 99, 235, 0.15) 0%, transparent 50%);
 }
 
 /* Continuous marquee for ticker tape */
@@ -175,7 +196,6 @@
   50%       { transform: rotate(5deg); }
 }
 
-
 .animate-web-glow {
   animation: web-pulse-glow 1.5s ease-in-out infinite;
 }
@@ -185,8 +205,7 @@
   .animate-marquee,
   .animate-float-slow,
   .animate-live,
-  .animate-web-shoot,
-  .glow-ring::before {
+  .animate-web-shoot {
     animation: none !important;
   }
 }
