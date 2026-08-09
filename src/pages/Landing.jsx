@@ -321,26 +321,38 @@ function Navbar({ onRegisterClick }) {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'border-b border-red-500/30 bg-[#05070e]/85 backdrop-blur-xl shadow-lg shadow-red-950/40'
-          : 'bg-transparent'
+          ? 'border-b-3 border-slate-950 bg-[#05070e]/92 backdrop-blur-md shadow-[0_4px_20px_rgba(0,243,255,0.08)]'
+          : 'border-b border-transparent bg-transparent'
       }`}
     >
       <div className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-5 sm:px-8">
         {/* Brand */}
-        <a href="#home" className="group flex items-center gap-3">
-          <span className="font-display text-[16px] font-extrabold tracking-tight text-white group-hover:text-red-400 transition-colors">
+        <a href="#home" className="group flex items-center gap-2.5">
+          <span className="badge-neo bg-[#ff0055] text-white px-2 py-0.5 text-[9px] font-black tracking-wider shadow-[1.5px_1.5px_0px_#05070e] uppercase transition-transform group-hover:scale-105 group-hover:-rotate-2">
+            IGNITE 8.0
+          </span>
+          <span className="font-display text-[15px] font-black tracking-tight text-white transition-colors group-hover:text-[#00f3ff] uppercase">
             EQUITY <span className="text-red-500">ARENA</span>
           </span>
         </a>
 
         <nav className="hidden items-center gap-8 md:flex">
-          <a href="#home" className="text-[13px] font-medium text-slate-300 transition-colors hover:text-white">
+          <a
+            href="#home"
+            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-300 transition-all hover:text-[#00f3ff] after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#00f3ff] after:transition-transform after:duration-250 hover:after:scale-x-100"
+          >
             Home
           </a>
-          <a href="#features" className="text-[13px] font-medium text-slate-300 transition-colors hover:text-white">
+          <a
+            href="#features"
+            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-300 transition-all hover:text-[#00f3ff] after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#00f3ff] after:transition-transform after:duration-250 hover:after:scale-x-100"
+          >
             Highlights
           </a>
-          <a href="#about" className="text-[13px] font-medium text-slate-300 transition-colors hover:text-white">
+          <a
+            href="#about"
+            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-300 transition-all hover:text-[#00f3ff] after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#00f3ff] after:transition-transform after:duration-250 hover:after:scale-x-100"
+          >
             Rules & Onboarding
           </a>
         </nav>
