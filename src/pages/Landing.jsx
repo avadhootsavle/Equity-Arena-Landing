@@ -540,43 +540,32 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
             </a>
           </div>
 
-          {/* Spidey-Themed Holographic Launch Countdown to Sept 4 */}
-          <div className="mt-8 border-2 border-red-500/40 bg-red-950/10 backdrop-blur-md p-5 rounded-2xl shadow-[0_0_25px_rgba(255,0,85,0.15),_inset_0_0_20px_rgba(255,0,85,0.1)] text-left max-w-[420px] w-full relative overflow-hidden group border-t-red-400/60 border-b-red-500/20">
-            {/* Holographic projector beam source glow */}
-            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-48 h-10 bg-red-500/20 rounded-full blur-xl pointer-events-none animate-pulse" />
-            
-            {/* Repeating vertical scanlines background overlay */}
-            <div 
-              className="absolute inset-0 pointer-events-none opacity-40 mix-blend-overlay"
-              style={{
-                backgroundImage: 'repeating-linear-gradient(0deg, rgba(255, 0, 85, 0.15) 0px, rgba(255, 0, 85, 0.15) 1px, transparent 1px, transparent 3px)'
-              }}
-            />
-
-            <div className="flex items-center justify-between mb-4 border-b border-red-500/20 pb-2.5 relative z-10">
-              <span className="inline-flex items-center gap-1.5 text-[9px] font-mono font-bold tracking-widest text-[#ff0055] drop-shadow-[0_0_6px_rgba(255,0,85,0.8)]">
-                <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-ping" />
-                SPIDEY-SENSE // LAUNCH TELEMETRY
+          {/* Neo-Brutalist Launch Countdown to Sept 4 */}
+          <div className="mt-8 border-3 border-slate-950 bg-[#070b16] p-4.5 rounded-xl shadow-[4px_4px_0px_#05070e,8px_8px_0px_rgba(255,0,85,0.12)] text-left max-w-[420px] w-full relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-red-600/5 via-transparent to-blue-600/5 pointer-events-none" />
+            <div className="flex items-center justify-between mb-3 border-b border-slate-850 pb-2.5">
+              <span className="badge-neo bg-[#ffd200] text-slate-950 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider shadow-[1.5px_1.5px_0px_#05070e]">
+                LAUNCH TELEMETRY // SEPT 4
               </span>
-              <span className="text-[9px] font-mono text-red-400/60 select-none animate-pulse">FREQ: 104.9 MHz</span>
+              <span className="text-[9px] font-mono text-slate-500 animate-pulse select-none font-bold">STATE: ONLINE</span>
             </div>
             
-            <div className="grid grid-cols-4 gap-3 text-center relative z-10 animate-holo-flicker-red">
-              <div className="bg-red-950/20 p-2.5 rounded-xl border border-red-500/20 backdrop-blur-sm shadow-[inset_0_0_10px_rgba(255,0,85,0.1)]">
-                <span className="block font-display text-2xl font-black text-[#ff0055] drop-shadow-[0_0_8px_rgba(255,0,85,0.85)] tabular-nums">{timeLeft.days}</span>
-                <span className="text-[8.5px] font-mono uppercase text-red-300/60 tracking-wider font-bold">Days</span>
+            <div className="grid grid-cols-4 gap-3 text-center">
+              <div className="bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#ff0055] transition-transform group-hover:translate-y-[-1px]">
+                <span className="block font-display text-2xl font-black text-[#ff0055] tabular-nums">{timeLeft.days}</span>
+                <span className="text-[9px] font-mono uppercase text-slate-400 font-black tracking-wider">Days</span>
               </div>
-              <div className="bg-cyan-950/20 p-2.5 rounded-xl border border-cyan-500/20 backdrop-blur-sm shadow-[inset_0_0_10px_rgba(0,243,255,0.1)]">
-                <span className="block font-display text-2xl font-black text-[#00f3ff] drop-shadow-[0_0_8px_rgba(0,243,255,0.85)] tabular-nums">{timeLeft.hours}</span>
-                <span className="text-[8.5px] font-mono uppercase text-cyan-300/60 tracking-wider font-bold">Hours</span>
+              <div className="bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#00f3ff] transition-transform group-hover:translate-y-[-1px]">
+                <span className="block font-display text-2xl font-black text-[#00f3ff] tabular-nums">{timeLeft.hours}</span>
+                <span className="text-[9px] font-mono uppercase text-slate-400 font-black tracking-wider">Hours</span>
               </div>
-              <div className="bg-amber-950/20 p-2.5 rounded-xl border border-amber-500/20 backdrop-blur-sm shadow-[inset_0_0_10px_rgba(255,210,0,0.1)]">
-                <span className="block font-display text-2xl font-black text-[#ffd200] drop-shadow-[0_0_8px_rgba(255,210,0,0.85)] tabular-nums">{timeLeft.minutes}</span>
-                <span className="text-[8.5px] font-mono uppercase text-amber-300/60 tracking-wider font-bold">Mins</span>
+              <div className="bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#ffd200] transition-transform group-hover:translate-y-[-1px]">
+                <span className="block font-display text-2xl font-black text-[#ffd200] tabular-nums">{timeLeft.minutes}</span>
+                <span className="text-[9px] font-mono uppercase text-slate-400 font-black tracking-wider">Mins</span>
               </div>
-              <div className="bg-slate-950/20 p-2.5 rounded-xl border border-slate-700/30 backdrop-blur-sm">
-                <span className="block font-display text-2xl font-black text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] tabular-nums">{timeLeft.seconds}</span>
-                <span className="text-[8.5px] font-mono uppercase text-slate-400 tracking-wider font-bold">Secs</span>
+              <div className="bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#ffffff] transition-transform group-hover:translate-y-[-1px]">
+                <span className="block font-display text-2xl font-black text-white tabular-nums">{timeLeft.seconds}</span>
+                <span className="text-[9px] font-mono uppercase text-slate-400 font-black tracking-wider">Secs</span>
               </div>
             </div>
           </div>
