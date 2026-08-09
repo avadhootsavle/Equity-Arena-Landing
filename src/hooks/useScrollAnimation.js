@@ -83,6 +83,26 @@ export function useScrollAnimation(homeRef, aboutRef, featuresRef) {
             );
           }
 
+          if (spidermanWrapper && spidermanLine) {
+            // Initial state: starts high off-screen with rotation skew
+            gsap.set(spidermanWrapper, { y: -450, rotate: -20 });
+            gsap.set(spidermanLine, { scaleY: 0, transformOrigin: 'top center' });
+
+            // Swing drop-down animation timeline
+            gsap.timeline({ delay: 0.1 })
+              .to(spidermanWrapper, {
+                y: 0,
+                rotate: 0,
+                duration: 1.8,
+                ease: 'elastic.out(0.85, 0.55)'
+              })
+              .to(spidermanLine, {
+                scaleY: 1,
+                duration: 1.4,
+                ease: 'power2.out'
+              }, '<');
+          }
+
           if (spiderwebLine) {
             gsap.fromTo(
               spiderwebLine,
