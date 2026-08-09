@@ -171,7 +171,7 @@ function Navbar() {
             <img src="/images/spider_emblem_hero.jpg" alt="Spider Emblem" className="h-full w-full object-cover rounded-[10px]" />
           </div>
           <span className="font-display text-[17px] font-bold tracking-[0.14em] text-white">
-            SPIDEY <span className="text-red-500">EQUITY</span> <span className="text-blue-400">ARENA</span>
+            EQUITY<span className="text-red-500">ARENA</span>
           </span>
         </a>
 
@@ -1005,7 +1005,7 @@ function Footer({ stocks }) {
                 <img src="/images/spider_emblem_hero.jpg" alt="Spider Emblem" className="h-full w-full object-cover" />
               </div>
               <span className="font-display text-[17px] font-bold tracking-[0.14em] text-white">
-                SPIDEY <span className="text-red-500">EQUITY</span> <span className="text-blue-400">ARENA</span>
+                EQUITY<span className="text-red-500">ARENA</span>
               </span>
             </div>
             <p className="mt-4 max-w-[300px] text-[13.5px] leading-relaxed text-slate-400">
@@ -1047,7 +1047,7 @@ function Footer({ stocks }) {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-red-500/20 pt-7 sm:flex-row">
           <p className="text-[12.5px] text-slate-500">
-            © {new Date().getFullYear()} Spidey Equity Arena. Simulated exchange — no real money is traded.
+            © {new Date().getFullYear()} Equity Arena. Simulated exchange — no real money is traded.
           </p>
           <p className="flex items-center gap-2 text-[12.5px] text-slate-400">
             <span className="h-2 w-2 rounded-full bg-red-500 animate-live" />
