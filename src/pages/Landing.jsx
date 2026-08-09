@@ -242,7 +242,7 @@ function SpiderWebTransitionModal() {
         </h3>
 
         <p className="mt-3 text-xs text-slate-300 leading-relaxed font-mono">
-          Deploying simulated capital • Spidey WebSocket feeds live
+          Deploying simulated capital • Live WebSocket feeds live
         </p>
       </motion.div>
     </motion.div>
@@ -415,9 +415,9 @@ function Navbar({ onRegisterClick }) {
  * Hero Section — Page-Load GSAP Entrance & Parallax Background
  * ------------------------------------------------------------------ */
 const HERO_FEATURES = [
-  { icon: Zap, title: 'Spidey-Sense Ticker', sub: 'Sub-second WebSocket web' },
-  { icon: Shield, title: 'Stark Nanotech Fills', sub: 'Instant order execution' },
-  { icon: BarChart3, title: 'Spider-Verse Depth', sub: 'Real-time index matrix' }
+  { icon: Zap, title: 'Live Ticker Feed', sub: 'Sub-second WebSocket network' },
+  { icon: Shield, title: 'Instant Fills', sub: 'Instant order execution' },
+  { icon: BarChart3, title: 'Market Order Depth', sub: 'Real-time index matrix' }
 ];
 
 const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
@@ -460,53 +460,18 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
         <div className="absolute inset-x-0 bottom-0 h-[45vh] grid-floor opacity-75" />
       </div>
 
-      {/* Spider-Man hanging from web */}
-      <div id="gsap-hero-spiderman-wrapper" className="absolute top-0 right-[4%] lg:right-[8%] xl:right-[10%] z-10 pointer-events-none hidden sm:flex flex-col items-center">
-        <div
-          id="gsap-hero-spiderman-line"
-          style={{
-            width: '3px',
-            height: '90px',
-            background: 'linear-gradient(to bottom, rgba(180,180,180,0.9) 0%, #b0b0b0 60%, #888 100%)',
-            boxShadow: '0 0 4px 1px rgba(180,180,180,0.35)',
-            transformOrigin: 'top center'
-          }}
-        />
-        <div
-          id="gsap-hero-spiderman-body"
-          className="relative mt-[-1px]"
-          style={{ transformOrigin: 'top center' }}
-        >
-          <div
-            className="absolute inset-0 blur-3xl opacity-50 z-0"
-            style={{ background: 'radial-gradient(ellipse at 50% 20%, rgba(239,68,68,0.55) 0%, rgba(59,130,246,0.15) 65%, transparent 100%)' }}
-          />
-          <img
-            src="/images/spiderman_hanging.png"
-            alt="Spider-Man hanging from web"
-            draggable={false}
-            className="relative z-10 select-none w-[180px] md:w-[220px] lg:w-[260px] xl:w-[300px]"
-            style={{
-              mixBlendMode: 'multiply',
-              filter: 'drop-shadow(0 4px 28px rgba(239,68,68,0.6)) drop-shadow(0 0 12px rgba(59,130,246,0.3))',
-            }}
-          />
-        </div>
-      </div>
-
       {/* Layout grid */}
       <div className="mx-auto grid max-w-[1280px] items-center gap-10 sm:gap-14 px-4 sm:px-8 pb-20 pt-10 sm:pb-24 sm:pt-14 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pb-12 lg:pt-20">
         {/* ---------- Left column (GSAP Hero Page-Load Entrance) ---------- */}
         <div data-gsap="hero" className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
           <h1 className="font-display mt-6 sm:mt-7 text-[clamp(2.25rem,6vw,4.6rem)] font-bold leading-[1.0] tracking-[-0.03em] text-white">
-            With great capital
+            With great strategy
             <br />
-            comes <span className="text-gradient-spidey">great responsibility.</span>
+            comes <span className="text-gradient-spidey">market dominance.</span>
           </h1>
 
           <p className="mt-5 sm:mt-6 max-w-[460px] text-[15px] sm:text-[16px] leading-relaxed text-slate-300">
-            Step into the Spider-Verse of trading. Monitor 15 high-volatility sector stocks,
-            sense price swings with your Spidey-Sense ticker, and sling orders across the live market web with 20,000 Ignite Coins.
+            Step into the live trading arena. Monitor 15 high-volatility sector stocks, track price swings in real time, and place orders across the market with 20,000 Ignite Coins to start.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4 sm:gap-5 justify-center lg:justify-start">
@@ -515,7 +480,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
               onClick={onRegisterClick}
               className="btn-neo px-6 sm:px-8 py-3.5 sm:py-4 text-[13px] sm:text-[14px] font-extrabold group"
             >
-              Sling Into Trading <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              Register Now <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
           </div>
 
