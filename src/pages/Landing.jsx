@@ -10,17 +10,17 @@ import { useLiveStocks, useArenaIndex, sectorTheme } from '../hooks/useLiveStock
 const REGISTER_URL = 'https://ignite-8.vercel.app/register-stock';
 
 /* ------------------------------------------------------------------ *
- * SVG Spiderweb Decorative Components
+ * SVG Spiderweb Decorative Components (Responsive Vector Scaling)
  * ------------------------------------------------------------------ */
 
 /** Intricate 2D SVG Spiderweb Corner Overlay */
 function SpiderWebCorner({ className = "top-0 left-0", rotate = 0 }) {
   return (
     <div
-      className={`pointer-events-none absolute z-0 opacity-40 hover:opacity-85 transition-opacity duration-700 ${className}`}
+      className={`pointer-events-none absolute z-0 opacity-40 hover:opacity-85 transition-opacity duration-700 w-36 h-36 sm:w-64 sm:h-64 ${className}`}
       style={{ transform: `rotate(${rotate}deg)` }}
     >
-      <svg width="260" height="260" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="100%" height="100%" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="spideyWebGrad" x1="0" y1="0" x2="260" y2="260" gradientUnits="userSpaceOnUse">
             <stop stopColor="#ef4444" stopOpacity="0.85" />
@@ -164,19 +164,19 @@ function Navbar() {
         scrolled ? 'border-b border-red-500/25 bg-[#05070e]/92 backdrop-blur-xl shadow-xl shadow-red-950/20' : 'bg-transparent'
       }`}
     >
-      <nav className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-5 sm:px-8">
+      <nav className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-4 sm:px-8">
         {/* Brand */}
-        <a href="#home" className="group flex items-center gap-3">
-          <div className="relative flex h-10 w-10 overflow-hidden items-center justify-center rounded-xl bg-gradient-to-br from-red-600 via-red-500 to-blue-600 p-0.5 shadow-lg shadow-red-500/40 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+        <a href="#home" className="group flex items-center gap-2.5 sm:gap-3">
+          <div className="relative flex h-9 w-9 sm:h-10 sm:w-10 overflow-hidden items-center justify-center rounded-xl bg-gradient-to-br from-red-600 via-red-500 to-blue-600 p-0.5 shadow-lg shadow-red-500/40 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
             <img src="/images/spider_emblem_hero.jpg" alt="Spider Emblem" className="h-full w-full object-cover rounded-[10px]" />
           </div>
-          <span className="font-display text-[17px] font-bold tracking-[0.14em] text-white">
+          <span className="font-display text-[15px] sm:text-[17px] font-bold tracking-[0.14em] text-white">
             EQUITY<span className="text-red-500">ARENA</span>
           </span>
         </a>
 
         {/* Desktop links */}
-        <div className="hidden items-center gap-9 lg:flex">
+        <div className="hidden items-center gap-8 xl:gap-9 lg:flex">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -199,7 +199,7 @@ function Navbar() {
         <div className="flex items-center gap-3">
           <a
             href={REGISTER_URL}
-            className="glow-ring group flex items-center gap-2 rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-blue-600 px-5 py-2.5 text-[14px] font-bold text-white shadow-lg shadow-red-600/35 transition-all hover:brightness-110 hover:shadow-red-500/60"
+            className="glow-ring group flex items-center gap-2 rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-blue-600 px-4 py-2 sm:px-5 sm:py-2.5 text-[13px] sm:text-[14px] font-bold text-white shadow-lg shadow-red-600/35 transition-all hover:brightness-110 hover:shadow-red-500/60"
           >
             <span>Register</span>
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -278,48 +278,48 @@ function Hero({ stocks, index, isLive }) {
         <div className="absolute inset-x-0 bottom-0 h-[45vh] grid-floor opacity-75" />
       </div>
 
-      <div className="mx-auto grid max-w-[1280px] items-center gap-14 px-5 pb-24 pt-14 sm:px-8 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pb-12 lg:pt-20">
+      <div className="mx-auto grid max-w-[1280px] items-center gap-10 sm:gap-14 px-4 sm:px-8 pb-20 pt-10 sm:pb-24 sm:pt-14 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pb-12 lg:pt-20">
         {/* ---------- Left column ---------- */}
         <motion.div variants={stagger} initial="hidden" animate="show" className="relative z-10">
           {/* Badge */}
           <motion.div variants={fadeUp}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-red-500/40 bg-red-500/10 px-4 py-2 text-[12px] font-bold text-red-300 backdrop-blur shadow-lg shadow-red-500/20">
+            <span className="inline-flex items-center gap-2 rounded-full border border-red-500/40 bg-red-500/10 px-3.5 py-1.5 sm:px-4 sm:py-2 text-[11px] sm:text-[12px] font-bold text-red-300 backdrop-blur shadow-lg shadow-red-500/20">
               <span className="h-2.5 w-2.5 rounded-full bg-red-500 animate-live" />
-              🕷️ SPIDEY TRADING NETWORK • WEB-SHOOTER SPEED • ZERO RISK
+              🕷️ SPIDER TRADING NETWORK • WEB-SHOOTER SPEED • ZERO RISK
             </span>
           </motion.div>
 
           {/* Headline */}
           <motion.h1
             variants={fadeUp}
-            className="font-display mt-7 text-[clamp(2.75rem,7vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.03em] text-white"
+            className="font-display mt-6 sm:mt-7 text-[clamp(2.25rem,6vw,4.6rem)] font-bold leading-[1.0] tracking-[-0.03em] text-white"
           >
             With great capital
             <br />
             comes <span className="text-gradient-spidey">great responsibility.</span>
           </motion.h1>
 
-          <motion.p variants={fadeUp} className="mt-6 max-w-[460px] text-[16px] leading-relaxed text-slate-300">
+          <motion.p variants={fadeUp} className="mt-5 sm:mt-6 max-w-[460px] text-[15px] sm:text-[16px] leading-relaxed text-slate-300">
             Step into the Spider-Verse of trading. Monitor 15 high-volatility sector stocks,
             sense price swings with your Spidey-Sense ticker, and sling orders across the live market web with 20,000 Ignite Coins.
           </motion.p>
 
           {/* CTAs */}
-          <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center gap-5">
+          <motion.div variants={fadeUp} className="mt-8 sm:mt-9 flex flex-wrap items-center gap-4 sm:gap-5">
             <a
               href={REGISTER_URL}
-              className="glow-ring group flex items-center gap-2.5 rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-blue-600 px-7 py-4 text-[15px] font-bold text-white shadow-xl shadow-red-600/40 transition-all hover:scale-[1.03] hover:shadow-red-500/70"
+              className="glow-ring group flex items-center gap-2.5 rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-blue-600 px-6 py-3.5 sm:px-7 sm:py-4 text-[14px] sm:text-[15px] font-bold text-white shadow-xl shadow-red-600/40 transition-all hover:scale-[1.03] hover:shadow-red-500/70"
             >
               Register Now
               <ArrowRight className="h-4.5 w-4.5 transition-transform group-hover:translate-x-1.5" />
             </a>
 
             <a href="#features" className="group flex items-center gap-3.5">
-              <span className="relative flex h-12 w-12 items-center justify-center rounded-full border border-red-500/40 bg-red-500/15 transition-all group-hover:border-red-400 group-hover:bg-red-500/25">
+              <span className="relative flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-red-500/40 bg-red-500/15 transition-all group-hover:border-red-400 group-hover:bg-red-500/25">
                 <Play className="h-4 w-4 fill-white text-white translate-x-[1px]" />
                 <span className="absolute inset-0 rounded-full border border-blue-400/40 opacity-0 transition-all duration-500 group-hover:scale-[1.35] group-hover:opacity-100" />
               </span>
-              <span className="text-[15px] font-medium text-slate-300 transition group-hover:text-white">
+              <span className="text-[14px] sm:text-[15px] font-medium text-slate-300 transition group-hover:text-white">
                 Explore Web Terminal
               </span>
             </a>
@@ -328,7 +328,7 @@ function Hero({ stocks, index, isLive }) {
           {/* Feature strip */}
           <motion.div
             variants={fadeUp}
-            className="mt-12 grid grid-cols-1 gap-1 rounded-2xl border border-red-500/30 bg-slate-900/70 p-2 backdrop-blur-md sm:grid-cols-3 shadow-2xl"
+            className="mt-10 sm:mt-12 grid grid-cols-1 gap-2.5 rounded-2xl border border-red-500/30 bg-slate-900/70 p-2 backdrop-blur-md sm:grid-cols-3 shadow-2xl"
           >
             {HERO_FEATURES.map(({ icon: Icon, title, sub }) => (
               <div
@@ -350,9 +350,9 @@ function Hero({ stocks, index, isLive }) {
         {/* ---------- Right column: 3D deck + Spider Banner preview ---------- */}
         <motion.div style={{ y }} className="relative lg:pr-14">
           <div className="relative rounded-3xl p-2 border border-red-500/40 bg-gradient-to-b from-red-600/15 via-slate-950 to-blue-600/15 shadow-2xl shadow-red-950/90 backdrop-blur-xl">
-            {/* Embedded High-Tech Spider Cyber Image */}
+            {/* Embedded High-Tech Spider Cyber Image with Equity Arena Exchange */}
             <div className="mb-4 overflow-hidden rounded-2xl border border-red-500/30 shadow-xl">
-              <img src="/images/spider_cyber_hero.jpg" alt="Spider-Man Trading Terminal" className="h-44 w-full object-cover brightness-110 hover:scale-105 transition-transform duration-700" />
+              <img src="/images/spider_cyber_hero.jpg" alt="Equity Arena Exchange Terminal" className="h-44 sm:h-52 w-full object-cover brightness-110 hover:scale-105 transition-transform duration-700" />
             </div>
             <HeroDeck stocks={stocks} index={index} isLive={isLive} />
           </div>
@@ -635,7 +635,7 @@ function Markets({ stocks, isLive }) {
           <p className="flex items-center gap-2.5 text-[13.5px] text-slate-300">
             <span className={`h-2.5 w-2.5 rounded-full ${isLive ? 'bg-red-500 animate-live' : 'bg-amber-400'}`} />
             {isLive
-              ? 'Streaming live price ticks across the Spider-Man trading web'
+              ? 'Streaming live price ticks across the Equity Arena exchange web'
               : 'Showing reference market seeds — register to enter the live Spider-Verse'}
           </p>
           <a
