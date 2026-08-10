@@ -885,7 +885,7 @@ function FinalCTA({ onRegisterClick }) {
     <section data-gsap="section" className="relative py-24 sm:py-28 bg-slate-100/80 border-t-3 border-slate-950">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div data-gsap="heading">
-          <div className="relative overflow-hidden rounded-2xl px-6 py-16 text-center sm:px-16 sm:py-20 bg-slate-950 text-white border-4 border-slate-950 shadow-[8px_8px_0px_#ff0055]">
+          <div className="card-neo relative overflow-hidden px-6 py-16 text-center sm:px-16 sm:py-20 bg-white border-4 border-slate-950 shadow-[8px_8px_0px_#05070e]">
             {/* 🕸️ Spiderweb Corner Overlays inside CTA Banner */}
             <SpiderWebCorner className="top-0 left-0" rotate={0} />
             <SpiderWebCorner className="top-0 right-0" rotate={90} />
@@ -893,18 +893,18 @@ function FinalCTA({ onRegisterClick }) {
             <SpiderWebCorner className="bottom-0 right-0" rotate={180} />
 
             {/* Watermark Glow */}
-            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600/25 blur-[100px]" />
+            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500/10 blur-[100px]" />
 
             <div className="relative z-10 mx-auto max-w-[620px]">
-              <span className="badge-neo bg-[#ffd200] text-slate-950 px-3.5 py-1.5 text-xs font-black shadow-[2px_2px_0px_#05070e]">
+              <span className="badge-neo bg-[#ff0055] text-white px-3.5 py-1.5 text-xs font-black shadow-[2px_2px_0px_#05070e]">
                 JOIN THE ARENA TRADING NETWORK TODAY
               </span>
 
-              <h2 className="font-display mt-6 text-[clamp(2.2rem,5vw,3.6rem)] font-black leading-[1.05] tracking-[-0.03em] text-white">
+              <h2 className="font-display mt-6 text-[clamp(2.2rem,5vw,3.6rem)] font-black leading-[1.05] tracking-[-0.03em] text-slate-950">
                 Ready to execute your first simulated trade?
               </h2>
 
-              <p className="mt-4 text-[16px] leading-relaxed text-slate-200 font-medium">
+              <p className="mt-4 text-[16px] leading-relaxed text-slate-700 font-bold">
                 Join thousands of traders building strategies on Equity Arena with 20,000 Ignite Coins. Zero risk, 100% real-time market action.
               </p>
 
