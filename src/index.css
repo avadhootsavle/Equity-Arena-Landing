@@ -106,11 +106,11 @@ body::before {
 /* Custom Halftone-Inspired Premium Neo-Brutalist Cards */
 .card-neo {
   position: relative;
-  border: 3px solid #0f172a !important;
-  background: radial-gradient(circle, rgba(15, 23, 42, 0.05) 1px, transparent 1px), #ffffff !important;
-  background-size: 10px 10px !important;
-  border-radius: 8px !important;
-  box-shadow: 5px 5px 0px #0f172a, 8px 8px 0px rgba(255, 0, 85, 0.12) !important;
+  border: 3px solid #0f172a;
+  background: radial-gradient(circle, rgba(15, 23, 42, 0.05) 1px, transparent 1px), #ffffff;
+  background-size: 10px 10px;
+  border-radius: 8px;
+  box-shadow: 5px 5px 0px #0f172a, 8px 8px 0px rgba(255, 0, 85, 0.12);
   transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   overflow: hidden;
 }
@@ -126,11 +126,11 @@ body::before {
   z-index: 10;
 }
 .card-neo:hover {
-  transform: translate(-5px, -5px) scale(1.015) !important;
-  border-color: #0f172a !important;
-  box-shadow: 9px 9px 0px #0f172a, 13px 13px 0px rgba(0, 195, 255, 0.25) !important;
-  background: radial-gradient(circle, rgba(0, 195, 255, 0.09) 1.5px, transparent 1.5px), #f8fafc !important;
-  background-size: 8px 8px !important;
+  transform: translate(-5px, -5px) scale(1.015);
+  border-color: #0f172a;
+  box-shadow: 9px 9px 0px #0f172a, 13px 13px 0px rgba(0, 195, 255, 0.25);
+  background: radial-gradient(circle, rgba(0, 195, 255, 0.09) 1.5px, transparent 1.5px), #f8fafc;
+  background-size: 8px 8px;
 }
 
 /* Badge Neo */
