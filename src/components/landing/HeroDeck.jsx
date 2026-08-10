@@ -329,16 +329,16 @@ export function HeroDeck({ stocks, index, isLive }) {
                 )}
               </AnimatePresence>
 
-              <div className="mt-2 font-display text-3xl sm:text-4xl font-black tracking-tight text-slate-950 tabular-nums">
+              <div className="mt-2 font-display text-3xl sm:text-4xl font-black tracking-tight text-slate-950 dark:text-white tabular-nums">
                 {display.value.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </div>
-              <div className={`mt-1 font-mono text-sm font-bold ${up ? 'text-emerald-600' : 'text-rose-600'}`}>
+              <div className={`mt-1 font-mono text-sm font-bold ${up ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                 {up ? '+' : ''}{display.absolute.toFixed(2)} ({up ? '+' : ''}{display.change.toFixed(2)}%)
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="flex items-center gap-1.5 rounded-full border border-emerald-600/30 bg-emerald-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700">
+              <span className="flex items-center gap-1.5 rounded-full border border-emerald-600/30 bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-live" />
                 {isLive ? 'Live' : 'Demo'}
               </span>
