@@ -2,7 +2,7 @@ import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } 
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import {
   Activity, ArrowRight, BarChart3, ChevronDown, Coins, Gauge, LineChart, Lock,
-  Menu, Newspaper, Play, Radio, Shield, Sparkles, TrendingUp, Trophy, Users, Wallet, X, Zap
+  Menu, Moon, Newspaper, Play, Radio, Shield, Sparkles, Sun, TrendingUp, Trophy, Users, Wallet, X, Zap
 } from 'lucide-react';
 import { HeroDeck } from '../components/landing/HeroDeck';
 import { useLiveStocks, useArenaIndex, sectorTheme } from '../hooks/useLiveStocks';
@@ -307,7 +307,7 @@ function SectionTag({ icon: Icon, children }) {
 /* ------------------------------------------------------------------ *
  * Navbar
  * ------------------------------------------------------------------ */
-function Navbar({ onRegisterClick }) {
+function Navbar({ onRegisterClick, theme, toggleTheme }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -321,7 +321,7 @@ function Navbar({ onRegisterClick }) {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'border-b-3 border-slate-950 bg-white/92 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.06)]'
+          ? 'border-b-3 border-slate-950 bg-white/92 dark:bg-[#05070e]/92 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.06)]'
           : 'border-b border-transparent bg-transparent'
       }`}
     >
@@ -331,7 +331,7 @@ function Navbar({ onRegisterClick }) {
           <span className="badge-neo bg-[#ff0055] text-white px-2 py-0.5 text-[9px] font-black tracking-wider shadow-[1.5px_1.5px_0px_#05070e] uppercase transition-transform group-hover:scale-105 group-hover:-rotate-2">
             IGNITE 8.0
           </span>
-          <span className="font-display text-[15px] font-black tracking-tight text-slate-950 transition-colors group-hover:text-red-600 uppercase">
+          <span className="font-display text-[15px] font-black tracking-tight text-slate-950 dark:text-white transition-colors group-hover:text-red-600 uppercase">
             EQUITY <span className="text-red-600">ARENA</span>
           </span>
         </a>
@@ -339,26 +339,45 @@ function Navbar({ onRegisterClick }) {
         <nav className="hidden items-center gap-8 md:flex">
           <a
             href="#home"
-            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 transition-all hover:text-red-600 after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
+            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-[#00f3ff] after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
           >
             Home
           </a>
           <a
             href="#features"
-            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 transition-all hover:text-red-600 after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
+            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-[#00f3ff] after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
           >
             Highlights
           </a>
           <a
             href="#about"
-            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 transition-all hover:text-red-600 after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
+            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-[#00f3ff] after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
           >
             Rules & Onboarding
           </a>
         </nav>
 
-        {/* Action Button */}
+        {/* Action Button & Theme Toggle */}
         <div className="hidden items-center gap-3 sm:flex">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label="Toggle dark or light theme"
+            className="badge-neo cursor-pointer bg-[#ffd200] text-slate-950 dark:bg-slate-800 dark:text-white px-3 py-2 text-xs font-mono font-black shadow-[2px_2px_0px_#05070e] transition-all hover:scale-105 active:scale-95 flex items-center gap-1.5"
+          >
+            {theme === 'dark' ? (
+              <>
+                <Sun className="h-4 w-4 text-amber-400" />
+                <span className="text-[11px] font-extrabold tracking-wider">LIGHT</span>
+              </>
+            ) : (
+              <>
+                <Moon className="h-4 w-4 text-blue-600" />
+                <span className="text-[11px] font-extrabold tracking-wider">DARK</span>
+              </>
+            )}
+          </button>
+
           <a
             href={REGISTER_URL}
             onClick={onRegisterClick}
@@ -371,7 +390,7 @@ function Navbar({ onRegisterClick }) {
         {/* Mobile menu button */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-slate-950 bg-white text-slate-900 md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-slate-950 bg-white dark:bg-slate-900 text-slate-900 dark:text-white md:hidden"
         >
           {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -384,30 +403,45 @@ function Navbar({ onRegisterClick }) {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="border-b-3 border-slate-950 bg-white px-5 py-6 backdrop-blur-2xl md:hidden"
+            className="border-b-3 border-slate-950 bg-white dark:bg-[#05070e] px-5 py-6 backdrop-blur-2xl md:hidden"
           >
             <nav className="flex flex-col gap-3">
               <a
                 href="#home"
                 onClick={() => setMobileOpen(false)}
-                className="block text-center border-2 border-slate-950 bg-slate-100 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e]"
+                className="block text-center border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px]"
               >
                 Home
               </a>
               <a
                 href="#features"
                 onClick={() => setMobileOpen(false)}
-                className="block text-center border-2 border-slate-950 bg-slate-100 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e]"
+                className="block text-center border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px]"
               >
                 Highlights
               </a>
               <a
                 href="#about"
                 onClick={() => setMobileOpen(false)}
-                className="block text-center border-2 border-slate-950 bg-slate-100 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e]"
+                className="block text-center border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px]"
               >
                 Rules & Onboarding
               </a>
+              <button
+                type="button"
+                onClick={() => { toggleTheme(); }}
+                className="flex items-center justify-center gap-2 border-2 border-slate-950 bg-amber-300 dark:bg-slate-800 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px]"
+              >
+                {theme === 'dark' ? (
+                  <>
+                    <Sun className="h-4 w-4 text-amber-500" /> Switch to Light Mode
+                  </>
+                ) : (
+                  <>
+                    <Moon className="h-4 w-4 text-blue-600" /> Switch to Dark Mode
+                  </>
+                )}
+              </button>
               <a
                 href={REGISTER_URL}
                 onClick={(e) => { setMobileOpen(false); onRegisterClick(e); }}
@@ -458,7 +492,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
   }, []);
 
   return (
-    <section ref={ref} id="home" className="relative min-h-screen overflow-hidden pt-[72px] spider-web-bg bg-slate-50">
+    <section ref={ref} id="home" className="relative min-h-screen overflow-hidden pt-[72px] spider-web-bg bg-slate-50 dark:bg-[#05070e]">
       {/* Corner Spiderwebs */}
       <SpiderWebCorner className="top-0 left-0" rotate={0} />
       <SpiderWebCorner className="top-0 right-0" rotate={90} />
@@ -516,13 +550,13 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
       <div className="mx-auto grid max-w-[1280px] items-center gap-10 sm:gap-14 px-4 sm:px-8 pb-20 pt-10 sm:pb-24 sm:pt-14 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pb-12 lg:pt-20">
         {/* ---------- Left column (GSAP Hero Page-Load Entrance) ---------- */}
         <div data-gsap="hero" className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
-          <h1 className="font-display mt-6 sm:mt-7 text-[clamp(2.25rem,6vw,4.6rem)] font-bold leading-[1.0] tracking-[-0.03em] text-slate-950">
+          <h1 className="font-display mt-6 sm:mt-7 text-[clamp(2.25rem,6vw,4.6rem)] font-bold leading-[1.0] tracking-[-0.03em] text-slate-950 dark:text-white">
             With great capital
             <br />
             comes <span className="text-gradient-spidey">great responsibility.</span>
           </h1>
 
-          <p className="mt-5 sm:mt-6 max-w-[460px] text-[15px] sm:text-[16px] leading-relaxed text-slate-700 font-medium">
+          <p className="mt-5 sm:mt-6 max-w-[460px] text-[15px] sm:text-[16px] leading-relaxed text-slate-700 dark:text-slate-300 font-medium">
             Step into the live trading arena. Monitor 15 high-volatility sector stocks, track price swings in real time, and place orders across the market with 20,000 Ignite Coins to start.
           </p>
 
@@ -537,41 +571,41 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
           </div>
 
           {/* Neo-Brutalist Launch Countdown to Sept 4 */}
-          <div className="mt-8 border-3 border-slate-950 bg-white p-4.5 rounded-xl shadow-[4px_4px_0px_#05070e,8px_8px_0px_rgba(255,0,85,0.12)] text-left max-w-[420px] w-full relative overflow-hidden group">
+          <div className="mt-8 border-3 border-slate-950 bg-white dark:bg-[#070b16] p-4.5 rounded-xl shadow-[4px_4px_0px_#05070e,8px_8px_0px_rgba(255,0,85,0.12)] text-left max-w-[420px] w-full relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-red-600/5 via-transparent to-blue-600/5 pointer-events-none" />
-            <div className="flex items-center justify-between mb-3 border-b border-slate-200 pb-2.5">
+            <div className="flex items-center justify-between mb-3 border-b border-slate-200 dark:border-slate-800 pb-2.5">
               <span className="badge-neo bg-[#ffd200] text-slate-950 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider shadow-[1.5px_1.5px_0px_#05070e]">
                 LAUNCH TELEMETRY // SEPT 4
               </span>
-              <span className="text-[9px] font-mono text-emerald-600 animate-pulse select-none font-bold">STATE: ONLINE</span>
+              <span className="text-[9px] font-mono text-emerald-600 dark:text-emerald-400 animate-pulse select-none font-bold">STATE: ONLINE</span>
             </div>
             
             <div className="grid grid-cols-4 gap-3 text-center">
-              <div className="bg-slate-100 p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#ff0055] transition-transform group-hover:translate-y-[-1px]">
+              <div className="bg-slate-100 dark:bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#ff0055] transition-transform group-hover:translate-y-[-1px]">
                 <span className="block font-display text-2xl font-black text-[#ff0055] tabular-nums animate-brutalist-glitch">{timeLeft.days}</span>
-                <span className="text-[9px] font-mono uppercase text-slate-700 font-black tracking-wider">Days</span>
+                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-400 font-black tracking-wider">Days</span>
               </div>
-              <div className="bg-slate-100 p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#0284c7] transition-transform group-hover:translate-y-[-1px]">
+              <div className="bg-slate-100 dark:bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#0284c7] transition-transform group-hover:translate-y-[-1px]">
                 <span className="block font-display text-2xl font-black text-[#0284c7] tabular-nums animate-brutalist-glitch">{timeLeft.hours}</span>
-                <span className="text-[9px] font-mono uppercase text-slate-700 font-black tracking-wider">Hours</span>
+                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-400 font-black tracking-wider">Hours</span>
               </div>
-              <div className="bg-slate-100 p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#d97706] transition-transform group-hover:translate-y-[-1px]">
+              <div className="bg-slate-100 dark:bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#d97706] transition-transform group-hover:translate-y-[-1px]">
                 <span className="block font-display text-2xl font-black text-[#d97706] tabular-nums animate-brutalist-glitch">{timeLeft.minutes}</span>
-                <span className="text-[9px] font-mono uppercase text-slate-700 font-black tracking-wider">Mins</span>
+                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-400 font-black tracking-wider">Mins</span>
               </div>
-              <div className="bg-slate-100 p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#0f172a] transition-transform group-hover:translate-y-[-1px]">
-                <span className="block font-display text-2xl font-black text-slate-950 tabular-nums animate-brutalist-glitch">{timeLeft.seconds}</span>
-                <span className="text-[9px] font-mono uppercase text-slate-700 font-black tracking-wider">Secs</span>
+              <div className="bg-slate-100 dark:bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#0f172a] transition-transform group-hover:translate-y-[-1px]">
+                <span className="block font-display text-2xl font-black text-slate-950 dark:text-white tabular-nums animate-brutalist-glitch">{timeLeft.seconds}</span>
+                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-400 font-black tracking-wider">Secs</span>
               </div>
             </div>
           </div>
 
-          <div className="mt-10 sm:mt-12 grid grid-cols-3 gap-3 border-t border-slate-300 pt-6 sm:pt-7 w-full">
+          <div className="mt-10 sm:mt-12 grid grid-cols-3 gap-3 border-t border-slate-300 dark:border-slate-800 pt-6 sm:pt-7 w-full">
             {HERO_FEATURES.map(({ icon: Icon, title, sub }) => (
               <div key={title} className="flex flex-col items-center lg:items-start gap-1">
                 <Icon className="h-4 w-4 text-red-600 mx-auto lg:mx-0" />
-                <span className="font-display text-[12px] sm:text-[13px] font-bold text-slate-950">{title}</span>
-                <span className="text-[11px] text-slate-600 font-medium">{sub}</span>
+                <span className="font-display text-[12px] sm:text-[13px] font-bold text-slate-950 dark:text-white">{title}</span>
+                <span className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">{sub}</span>
               </div>
             ))}
           </div>
@@ -587,7 +621,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
               <circle cx="100" cy="100" r="62" strokeDasharray="3 6" />
             </svg>
           </div>
-          <div className="w-full relative p-4 border-3 border-slate-950 bg-slate-100 shadow-[6px_6px_0px_#05070e] rounded-xl">
+          <div className="w-full relative p-4 border-3 border-slate-950 bg-slate-100 dark:bg-[#070b16] shadow-[6px_6px_0px_#05070e] rounded-xl">
             <HeroDeck stocks={stocks} index={index} isLive={isLive} />
           </div>
         </div>
@@ -603,19 +637,19 @@ function TickerTape({ stocks }) {
   const doubled = [...stocks, ...stocks];
 
   return (
-    <div className="marquee-track relative overflow-hidden border-y-3 border-slate-950 bg-white py-3.5 backdrop-blur">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-white to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-white to-transparent" />
+    <div className="marquee-track relative overflow-hidden border-y-3 border-slate-950 bg-white dark:bg-[#05070e]/95 py-3.5 backdrop-blur">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-white dark:from-[#05070e] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-white dark:from-[#05070e] to-transparent" />
 
       <div className="flex w-max animate-marquee gap-8">
         {doubled.map((stock, i) => {
           const positive = (stock.percentChange || 0) >= 0;
           return (
             <div key={`${stock.symbol}-${i}`} className="flex shrink-0 items-center gap-2.5 text-[13px]">
-              <span className="font-display font-extrabold text-slate-950">{stock.symbol}</span>
-              <span className="font-mono text-slate-700 font-bold tabular-nums">{(stock.currentPrice || 0).toFixed(2)}</span>
-              <span className={`flex items-center gap-1 font-mono text-[12px] font-bold ${positive ? 'text-emerald-600' : 'text-rose-600'}`}>
-                <TrendingUp className={`h-3 w-3 ${positive ? '' : 'rotate-180 text-rose-600'}`} />
+              <span className="font-display font-extrabold text-slate-950 dark:text-white">{stock.symbol}</span>
+              <span className="font-mono text-slate-700 dark:text-slate-300 font-bold tabular-nums">{(stock.currentPrice || 0).toFixed(2)}</span>
+              <span className={`flex items-center gap-1 font-mono text-[12px] font-bold ${positive ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                <TrendingUp className={`h-3 w-3 ${positive ? '' : 'rotate-180 text-rose-600 dark:text-rose-400'}`} />
                 {positive ? '+' : ''}{(stock.percentChange || 0).toFixed(2)}%
               </span>
               <span className="text-red-500">🕸️</span>
@@ -671,13 +705,13 @@ const FEATURES = [
 
 const Features = forwardRef((props, ref) => {
   return (
-    <section ref={ref} id="features" data-gsap="section" className="relative border-t-3 border-slate-950 py-24 sm:py-28 bg-slate-100/70">
+    <section ref={ref} id="features" data-gsap="section" className="relative border-t-3 border-slate-950 py-24 sm:py-28 bg-slate-100/70 dark:bg-[#05070e]/70">
       <SpiderWebCorner className="top-0 right-0" rotate={90} />
 
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div data-gsap="heading" className="max-w-[800px]">
           <SectionTag icon={Sparkles}>IGNITE 8.0</SectionTag>
-          <h2 className="font-display mt-5 text-[clamp(2.2rem,5vw,3.6rem)] font-black leading-[1.05] tracking-[-0.03em] text-slate-950 uppercase">
+          <h2 className="font-display mt-5 text-[clamp(2.2rem,5vw,3.6rem)] font-black leading-[1.05] tracking-[-0.03em] text-slate-950 dark:text-white uppercase">
             EQUITY <span className="text-red-600">ARENA</span>
           </h2>
           
@@ -689,7 +723,7 @@ const Features = forwardRef((props, ref) => {
           </div>
 
           {/* Intro Paragraphs */}
-          <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-slate-700 font-medium">
+          <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-slate-700 dark:text-slate-300 font-medium">
             <p>
               Equity Arena is an exciting finance-inspired simulation designed to test your analytical thinking, decision-making, and investment strategy in a risk-free environment. Inspired by modern trading platforms, this event provides participants with virtual capital to build and manage their own investment portfolio using simulated stock prices.
             </p>
@@ -707,16 +741,16 @@ const Features = forwardRef((props, ref) => {
             <div
               key={title}
               data-gsap="card"
-              className={`card-neo layer-3d group relative overflow-hidden p-6 bg-white border-3 border-slate-950 ${span}`}
+              className={`card-neo layer-3d group relative overflow-hidden p-6 bg-white dark:bg-[#0e111a] border-3 border-slate-950 ${span}`}
             >
               <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-red-500/0 blur-3xl transition-all duration-500 group-hover:bg-red-500/10" />
 
-              <span className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 ring-1 ring-slate-300 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
+              <span className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 ring-1 ring-slate-300 dark:ring-slate-700 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
                 <Icon className="h-5.5 w-5.5 text-red-600" strokeWidth={1.9} />
               </span>
 
-              <h3 className="font-display relative mt-5 text-[18px] font-bold tracking-tight text-slate-950">{title}</h3>
-              <p className="relative mt-2.5 text-[14px] leading-relaxed text-slate-700 font-medium">{body}</p>
+              <h3 className="font-display relative mt-5 text-[18px] font-bold tracking-tight text-slate-950 dark:text-white">{title}</h3>
+              <p className="relative mt-2.5 text-[14px] leading-relaxed text-slate-700 dark:text-slate-300 font-medium">{body}</p>
             </div>
           ))}
         </div>
@@ -724,12 +758,12 @@ const Features = forwardRef((props, ref) => {
         {/* Two new sections below the feature cards */}
         <div className="mt-16 grid gap-8 lg:grid-cols-2">
           {/* What to Expect */}
-          <div data-gsap="card" className="card-neo relative overflow-hidden p-8 bg-white border-3 border-slate-950 border-t-4 border-t-[#0284c7] shadow-[5px_5px_0px_#05070e]">
-            <h3 className="font-display text-slate-950 text-xl font-black tracking-tight mb-6 uppercase flex items-center gap-2">
+          <div data-gsap="card" className="card-neo relative overflow-hidden p-8 bg-white dark:bg-[#070b16]/90 border-3 border-slate-950 border-t-4 border-t-[#0284c7] shadow-[5px_5px_0px_#05070e]">
+            <h3 className="font-display text-slate-950 dark:text-white text-xl font-black tracking-tight mb-6 uppercase flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-[#0284c7]" />
               What to Expect
             </h3>
-            <ul className="space-y-4 font-mono text-[13px] text-slate-800 font-bold">
+            <ul className="space-y-4 font-mono text-[13px] text-slate-800 dark:text-slate-200 font-bold">
               <li className="flex items-start gap-3">
                 <Activity className="h-4.5 w-4.5 text-[#0284c7] shrink-0 mt-0.5" />
                 <span>Realistic trading interface inspired by modern investment platforms</span>
@@ -758,12 +792,12 @@ const Features = forwardRef((props, ref) => {
           </div>
 
           {/* Rules at a Glance */}
-          <div data-gsap="card" className="card-neo relative overflow-hidden p-8 bg-white border-3 border-slate-950 border-t-4 border-t-[#ff0055] shadow-[5px_5px_0px_#05070e]">
-            <h3 className="font-display text-slate-950 text-xl font-black tracking-tight mb-6 uppercase flex items-center gap-2">
+          <div data-gsap="card" className="card-neo relative overflow-hidden p-8 bg-white dark:bg-[#070b16]/90 border-3 border-slate-950 border-t-4 border-t-[#ff0055] shadow-[5px_5px_0px_#05070e]">
+            <h3 className="font-display text-slate-950 dark:text-white text-xl font-black tracking-tight mb-6 uppercase flex items-center gap-2">
               <Shield className="h-5 w-5 text-[#ff0055]" />
               Rules at a Glance
             </h3>
-            <ul className="space-y-4 font-mono text-[13px] text-slate-800 font-bold">
+            <ul className="space-y-4 font-mono text-[13px] text-slate-800 dark:text-slate-200 font-bold">
               <li className="flex items-start gap-3">
                 <Wallet className="h-4.5 w-4.5 text-[#ff0055] shrink-0 mt-0.5" />
                 <span>Each participant starts with the same predefined virtual capital</span>
@@ -824,7 +858,7 @@ const STEPS = [
 
 const About = forwardRef((props, ref) => {
   return (
-    <section ref={ref} id="about" data-gsap="section" className="relative border-t-3 border-slate-950 py-24 sm:py-28 bg-slate-50 overflow-hidden">
+    <section ref={ref} id="about" data-gsap="section" className="relative border-t-3 border-slate-950 py-24 sm:py-28 bg-slate-50 dark:bg-[#05070e]/90 overflow-hidden">
       {/* Comic Book popups scoped to About section */}
       <div id="gsap-comic-thwip" className="pointer-events-none absolute left-[12%] top-[42%] opacity-0 scale-0 z-30 bg-[#ff1e42] border-4 border-black text-white font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg -rotate-12 shadow-[4px_4px_0px_#000] font-mono">THWIP!</div>
       <div id="gsap-comic-bzzzt" className="pointer-events-none absolute left-[38%] top-[38%] opacity-0 scale-0 z-30 bg-amber-400 border-4 border-black text-black font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg rotate-6 shadow-[4px_4px_0px_#000] font-mono">BZZZT!</div>
@@ -834,7 +868,7 @@ const About = forwardRef((props, ref) => {
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div data-gsap="heading" className="mx-auto max-w-[620px] text-center">
           <SectionTag icon={Gauge}>Execution Workflow</SectionTag>
-          <h2 className="font-display mt-5 text-[clamp(2rem,4.5vw,3.1rem)] font-bold leading-[1.05] tracking-[-0.025em] text-slate-950">
+          <h2 className="font-display mt-5 text-[clamp(2rem,4.5vw,3.1rem)] font-bold leading-[1.05] tracking-[-0.025em] text-slate-950 dark:text-white">
             From setup to
             <span className="text-gradient-spidey"> first fill</span> in seconds.
           </h2>
@@ -847,26 +881,26 @@ const About = forwardRef((props, ref) => {
             <div
               key={n}
               data-gsap="step-card"
-              className="card-neo layer-3d group relative p-6 text-center bg-white border-3 border-slate-950"
+              className="card-neo layer-3d group relative p-6 text-center bg-white dark:bg-[#0e111a] border-3 border-slate-950"
             >
-              <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-slate-950 bg-slate-100 shadow-[3px_3px_0px_#05070e] transition-transform duration-300 group-hover:scale-110">
+              <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-slate-950 bg-slate-100 dark:bg-slate-800 shadow-[3px_3px_0px_#05070e] transition-transform duration-300 group-hover:scale-110">
                 <Icon className="h-6 w-6 text-red-600" strokeWidth={1.8} />
                 <span className="absolute -right-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-slate-950 font-mono text-[10px] font-bold text-white shadow-md">
                   {n}
                 </span>
               </span>
 
-              <h3 className="font-display mt-5 text-[17px] font-bold tracking-tight text-slate-950">{title}</h3>
-              <p className="mt-2.5 text-[13.5px] leading-relaxed text-slate-700 font-medium">{body}</p>
+              <h3 className="font-display mt-5 text-[17px] font-bold tracking-tight text-slate-950 dark:text-white">{title}</h3>
+              <p className="mt-2.5 text-[13.5px] leading-relaxed text-slate-700 dark:text-slate-300 font-medium">{body}</p>
             </div>
           ))}
         </div>
 
         {/* Onboarding Progress Caption */}
         <div className="mt-16 text-center max-w-xl mx-auto">
-          <div className="relative rounded-2xl border-3 border-slate-950 bg-white px-6 py-4 shadow-[4px_4px_0px_#05070e] overflow-hidden">
+          <div className="relative rounded-2xl border-3 border-slate-950 bg-white dark:bg-[#070b19]/90 px-6 py-4 shadow-[4px_4px_0px_#05070e] overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-red-600/5 via-transparent to-blue-600/5" />
-            <p id="gsap-about-story" className="font-mono text-[13px] font-bold text-red-600 tracking-wide transition-all duration-300">
+            <p id="gsap-about-story" className="font-mono text-[13px] font-bold text-red-600 dark:text-red-400 tracking-wide transition-all duration-300">
               STATUS FEED: Scroll to monitor your onboarding progress...
             </p>
           </div>
@@ -882,10 +916,10 @@ const About = forwardRef((props, ref) => {
  * ------------------------------------------------------------------ */
 function FinalCTA({ onRegisterClick }) {
   return (
-    <section data-gsap="section" className="relative py-24 sm:py-28 bg-slate-100/80 border-t-3 border-slate-950">
+    <section data-gsap="section" className="relative py-24 sm:py-28 bg-slate-100/80 dark:bg-[#05070e]/80 border-t-3 border-slate-950">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div data-gsap="heading">
-          <div className="card-neo relative overflow-hidden px-6 py-16 text-center sm:px-16 sm:py-20 bg-white border-4 border-slate-950 shadow-[8px_8px_0px_#05070e]">
+          <div className="card-neo relative overflow-hidden px-6 py-16 text-center sm:px-16 sm:py-20 bg-white dark:bg-[#0e111a] border-4 border-slate-950 shadow-[8px_8px_0px_#05070e]">
             {/* 🕸️ Spiderweb Corner Overlays inside CTA Banner */}
             <SpiderWebCorner className="top-0 left-0" rotate={0} />
             <SpiderWebCorner className="top-0 right-0" rotate={90} />
@@ -900,11 +934,11 @@ function FinalCTA({ onRegisterClick }) {
                 JOIN THE ARENA TRADING NETWORK TODAY
               </span>
 
-              <h2 className="font-display mt-6 text-[clamp(2.2rem,5vw,3.6rem)] font-black leading-[1.05] tracking-[-0.03em] text-slate-950">
+              <h2 className="font-display mt-6 text-[clamp(2.2rem,5vw,3.6rem)] font-black leading-[1.05] tracking-[-0.03em] text-slate-950 dark:text-white">
                 Ready to execute your first simulated trade?
               </h2>
 
-              <p className="mt-4 text-[16px] leading-relaxed text-slate-700 font-bold">
+              <p className="mt-4 text-[16px] leading-relaxed text-slate-700 dark:text-slate-300 font-bold">
                 Join thousands of traders building strategies on Equity Arena with 20,000 Ignite Coins. Zero risk, 100% real-time market action.
               </p>
 
@@ -930,58 +964,58 @@ function FinalCTA({ onRegisterClick }) {
  * ------------------------------------------------------------------ */
 function Footer({ stocks, onRegisterClick }) {
   return (
-    <footer className="relative border-t-3 border-slate-950 bg-slate-100 py-14 text-slate-700">
+    <footer className="relative border-t-3 border-slate-950 bg-slate-100 dark:bg-[#04060e] py-14 text-slate-700 dark:text-slate-400">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_2fr]">
           <div>
             <div className="flex items-center gap-3">
-              <span className="font-display text-[17px] font-extrabold text-slate-950">
+              <span className="font-display text-[17px] font-extrabold text-slate-950 dark:text-white">
                 EQUITY <span className="text-red-600">ARENA</span>
               </span>
             </div>
-            <p className="mt-3.5 max-w-[340px] text-[13px] leading-relaxed text-slate-700 font-medium">
+            <p className="mt-3.5 max-w-[340px] text-[13px] leading-relaxed text-slate-700 dark:text-slate-400 font-medium">
               The high-tech virtual trading simulator. Real-time Indian market equities, sub-second tickers, and instant simulated fills.
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
             <div>
-              <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-950">Platform</h4>
+              <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-950 dark:text-slate-200">Platform</h4>
               <ul className="mt-3 space-y-2 text-[13px] font-semibold">
-                <li><a href="#home" className="hover:text-red-600 transition-colors">Home</a></li>
-                <li><a href="#features" className="hover:text-red-600 transition-colors">Highlights</a></li>
+                <li><a href="#home" className="hover:text-red-600 dark:hover:text-[#00f3ff] transition-colors">Home</a></li>
+                <li><a href="#features" className="hover:text-red-600 dark:hover:text-[#00f3ff] transition-colors">Highlights</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-950">Resources</h4>
+              <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-950 dark:text-slate-200">Resources</h4>
               <ul className="mt-3 space-y-2 text-[13px] font-semibold">
-                <li><a href="#about" className="hover:text-red-600 transition-colors">Rules & Onboarding</a></li>
-                <li><a href={REGISTER_URL} onClick={onRegisterClick} className="hover:text-red-600 transition-colors">Register Account</a></li>
+                <li><a href="#about" className="hover:text-red-600 dark:hover:text-[#00f3ff] transition-colors">Rules & Onboarding</a></li>
+                <li><a href={REGISTER_URL} onClick={onRegisterClick} className="hover:text-red-600 dark:hover:text-[#00f3ff] transition-colors">Register Account</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-950">Network</h4>
+              <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-950 dark:text-slate-200">Network</h4>
               <ul className="mt-3 space-y-2 text-[13px] font-semibold">
                 <li className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-slate-800">Exchange Network Online</span>
+                  <span className="text-slate-800 dark:text-slate-200">Exchange Network Online</span>
                 </li>
-                <li className="font-mono text-[11px] text-slate-600 font-bold">Ignite-8 Engine v2.4</li>
+                <li className="font-mono text-[11px] text-slate-600 dark:text-slate-400 font-bold">Ignite-8 Engine v2.4</li>
               </ul>
             </div>
           </div>
         </div>
 
         {/* Styled Premium Neo-Brutalist Disclaimer Card */}
-        <div className="card-neo mt-12 p-6 bg-white border-3 border-slate-950 border-t-4 border-t-[#ffd200] relative overflow-hidden text-left shadow-[4px_4px_0px_#05070e]">
+        <div className="card-neo mt-12 p-6 bg-white dark:bg-[#070b16] border-3 border-slate-950 border-t-4 border-t-[#ffd200] relative overflow-hidden text-left shadow-[4px_4px_0px_#05070e]">
           <div className="flex items-center gap-2 mb-3">
             <span className="badge-neo bg-[#ffd200] text-slate-950 px-2.5 py-1 text-[11px] font-black shadow-[2px_2px_0px_#05070e]">
               DISCLAIMER // READ CAREFULLY
             </span>
-            <span className="text-slate-500 font-mono text-[11px] select-none font-bold">ID: EA-TELEMETRY-SEC-88</span>
+            <span className="text-slate-500 dark:text-slate-400 font-mono text-[11px] select-none font-bold">ID: EA-TELEMETRY-SEC-88</span>
           </div>
-          <h4 className="font-display text-slate-950 text-md font-black tracking-tight mb-2">EQUITY ARENA — LEGAL DISCLAIMER</h4>
-          <div className="space-y-3 font-mono text-[12px] text-slate-700 leading-relaxed font-medium">
+          <h4 className="font-display text-slate-950 dark:text-white text-md font-black tracking-tight mb-2">EQUITY ARENA — LEGAL DISCLAIMER</h4>
+          <div className="space-y-3 font-mono text-[12px] text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
             <p>
               <strong>Equity Arena</strong> is an educational stock-market simulation game created for learning and entertainment purposes only.
             </p>
@@ -1154,6 +1188,32 @@ export function Landing() {
   const { stocks, isLive } = useLiveStocks(3000);
   const index = useArenaIndex(stocks);
   const [isSlingingWeb, setIsSlingingWeb] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    try {
+      const stored = localStorage.getItem('ea_theme');
+      if (stored === 'light' || stored === 'dark') return stored;
+    } catch (_) {}
+    return 'dark'; // DEFAULT IS DARK MODE
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    } else {
+      root.classList.add('light');
+      root.classList.remove('dark');
+    }
+    try {
+      localStorage.setItem('ea_theme', theme);
+    } catch (_) {}
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  }, []);
+
   const [showDisclaimer, setShowDisclaimer] = useState(() => {
     try {
       const stored = localStorage.getItem('ea_disclaimer_accepted');
@@ -1189,7 +1249,7 @@ export function Landing() {
   };
 
   return (
-    <div className="relative min-h-screen bg-slate-50 text-slate-900 antialiased overflow-x-hidden">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-[#05070e] text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
       <SpideyCursor />
       {/* "The Bite" Full-Bleed Radial Impact Overlay */}
       <div id="gsap-bite-overlay" className="pointer-events-none fixed inset-0 z-[90] opacity-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-600/30 via-blue-600/15 to-transparent" />
@@ -1236,7 +1296,7 @@ export function Landing() {
         </div>
       </div>
 
-      <Navbar onRegisterClick={handleRegisterClick} />
+      <Navbar onRegisterClick={handleRegisterClick} theme={theme} toggleTheme={toggleTheme} />
       <main>
         <Hero ref={homeRef} stocks={stocks} index={index} isLive={isLive} onRegisterClick={handleRegisterClick} />
         <TickerTape stocks={stocks} />

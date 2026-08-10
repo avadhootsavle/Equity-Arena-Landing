@@ -114,6 +114,13 @@ body::before {
   transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   overflow: hidden;
 }
+
+.dark .card-neo {
+  border-color: #05070e;
+  background: radial-gradient(circle, rgba(0, 243, 255, 0.04) 1px, transparent 1px), #0e111a;
+  box-shadow: 5px 5px 0px #05070e, 8px 8px 0px rgba(255, 0, 85, 0.15);
+}
+
 /* Hazard strip pattern top-accent for each card */
 .card-neo::before {
   content: '';
@@ -131,6 +138,12 @@ body::before {
   box-shadow: 9px 9px 0px #0f172a, 13px 13px 0px rgba(0, 195, 255, 0.25);
   background: radial-gradient(circle, rgba(0, 195, 255, 0.09) 1.5px, transparent 1.5px), #f8fafc;
   background-size: 8px 8px;
+}
+
+.dark .card-neo:hover {
+  border-color: #00f3ff;
+  box-shadow: 9px 9px 0px #05070e, 13px 13px 0px rgba(0, 243, 255, 0.35);
+  background: radial-gradient(circle, rgba(0, 243, 255, 0.08) 1.5px, transparent 1.5px), #111522;
 }
 
 /* Badge Neo */
@@ -182,10 +195,22 @@ body::before {
   -webkit-mask-image: linear-gradient(to bottom, transparent, #000 45%, transparent);
 }
 
+.dark .grid-floor {
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(255, 0, 85, 0.15) 0%, transparent 60%),
+    linear-gradient(to right, rgba(255, 0, 85, 0.18) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(0, 243, 255, 0.18) 1.5px, transparent 1.5px);
+}
+
 /* Spiderweb overlay texture for Light Mode */
 .spider-web-bg {
   background-image: radial-gradient(circle at 50% 0%, rgba(255, 0, 85, 0.06) 0%, transparent 50%),
                     radial-gradient(circle at 100% 100%, rgba(0, 195, 255, 0.06) 0%, transparent 50%);
+}
+
+.dark .spider-web-bg {
+  background-image: radial-gradient(circle at 50% 0%, rgba(255, 0, 85, 0.18) 0%, transparent 50%),
+                    radial-gradient(circle at 100% 100%, rgba(0, 243, 255, 0.18) 0%, transparent 50%);
 }
 
 /* Continuous marquee for ticker tape */
@@ -264,14 +289,21 @@ body::before {
 
 /* Custom 3D panel style used in HeroDeck widgets */
 .panel-3d {
-  background: radial-gradient(circle, rgba(15, 23, 42, 0.04) 1px, transparent 1px), #ffffff !important;
-  background-size: 10px 10px !important;
-  border: 3px solid #0f172a !important;
-  border-radius: 16px !important;
-  box-shadow: 6px 6px 0px #0f172a, 10px 10px 0px rgba(0, 195, 255, 0.18) !important;
+  background: radial-gradient(circle, rgba(15, 23, 42, 0.04) 1px, transparent 1px), #ffffff;
+  background-size: 10px 10px;
+  border: 3px solid #0f172a;
+  border-radius: 16px;
+  box-shadow: 6px 6px 0px #0f172a, 10px 10px 0px rgba(0, 195, 255, 0.18);
   backdrop-filter: blur(16px);
   transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
+.dark .panel-3d {
+  background: radial-gradient(circle, rgba(0, 243, 255, 0.04) 1px, transparent 1px), #0e111a;
+  border-color: #05070e;
+  box-shadow: 6px 6px 0px #05070e, 10px 10px 0px rgba(0, 243, 255, 0.22);
+}
+
 .panel-3d::before {
   content: '';
   position: absolute;
@@ -284,7 +316,11 @@ body::before {
 }
 .panel-3d:hover {
   transform: translate(-3px, -3px) scale(1.005);
-  box-shadow: 9px 9px 0px #0f172a, 14px 14px 0px rgba(0, 195, 255, 0.25) !important;
+  box-shadow: 9px 9px 0px #0f172a, 14px 14px 0px rgba(0, 195, 255, 0.25);
+}
+
+.dark .panel-3d:hover {
+  box-shadow: 9px 9px 0px #05070e, 14px 14px 0px rgba(0, 243, 255, 0.32);
 }
 
 .sheen::after {
