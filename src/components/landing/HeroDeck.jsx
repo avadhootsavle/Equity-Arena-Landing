@@ -121,18 +121,18 @@ function MenuRow({ label, caption, value, change, selected, onSelect }) {
       aria-selected={selected}
       onClick={onSelect}
       className={`flex w-full items-center justify-between gap-3 rounded px-2.5 py-2 text-left transition-all ${
-        selected ? 'bg-[#ff0055]/10 text-red-600 font-bold' : 'hover:bg-slate-100'
+        selected ? 'bg-[#ff0055]/10 text-red-600 font-bold' : 'hover:bg-slate-100 dark:hover:bg-slate-800'
       }`}
     >
       <span className="min-w-0">
-        <span className={`block text-[12.5px] font-bold ${selected ? 'text-red-600' : 'text-slate-900'}`}>
+        <span className={`block text-[12.5px] font-bold ${selected ? 'text-red-600' : 'text-slate-900 dark:text-white'}`}>
           {label}
         </span>
-        <span className="block truncate text-[10.5px] text-slate-500">{caption}</span>
+        <span className="block truncate text-[10.5px] text-slate-500 dark:text-slate-400">{caption}</span>
       </span>
       <span className="shrink-0 text-right">
-        <span className="block font-mono text-[11.5px] text-slate-800 font-semibold tabular-nums">{value.toFixed(2)}</span>
-        <span className={`block font-mono text-[10.5px] font-bold ${positive ? 'text-emerald-600' : 'text-rose-600'}`}>
+        <span className="block font-mono text-[11.5px] text-slate-800 dark:text-slate-200 font-semibold tabular-nums">{value.toFixed(2)}</span>
+        <span className={`block font-mono text-[10.5px] font-bold ${positive ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
           {positive ? '+' : ''}{change.toFixed(2)}%
         </span>
       </span>

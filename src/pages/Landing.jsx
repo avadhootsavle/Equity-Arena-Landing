@@ -23,29 +23,29 @@ function DisclaimerModal({ onClose }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/60 backdrop-blur-md overflow-hidden pointer-events-auto p-4"
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/70 dark:bg-black/80 backdrop-blur-md overflow-hidden pointer-events-auto p-4"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-blue-600/10 blur-3xl opacity-60 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-red-600/15 via-transparent to-blue-600/15 blur-3xl opacity-60 pointer-events-none" />
 
       <motion.div
         initial={{ scale: 0.9, y: 15 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 15 }}
         transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-        className="card-neo w-full max-w-[620px] bg-white border-4 border-slate-950 max-h-[85vh] overflow-y-auto flex flex-col p-6 sm:p-8 relative shadow-[8px_8px_0px_#ff0055]"
+        className="card-neo w-full max-w-[620px] bg-white dark:bg-[#070b16] border-4 border-slate-950 max-h-[85vh] overflow-y-auto flex flex-col p-6 sm:p-8 relative shadow-[8px_8px_0px_#ff0055]"
       >
         <div className="flex items-center gap-2 mb-4">
           <span className="badge-neo bg-[#ffd200] text-slate-950 px-2.5 py-1 text-[11px] font-black shadow-[2px_2px_0px_#05070e]">
             WARNING // REGULATORY DISCLAIMER
           </span>
-          <span className="text-slate-500 font-mono text-[11px] select-none font-bold">ID: EA-SEC-99</span>
+          <span className="text-slate-500 dark:text-slate-400 font-mono text-[11px] select-none font-bold">ID: EA-SEC-99</span>
         </div>
 
-        <h3 className="font-display text-slate-950 text-xl sm:text-2xl font-black tracking-tight mb-2 text-left">
+        <h3 className="font-display text-slate-950 dark:text-white text-xl sm:text-2xl font-black tracking-tight mb-2 text-left">
           EQUITY ARENA — LEGAL DISCLAIMER
         </h3>
 
-        <div className="space-y-4 font-mono text-[12px] text-slate-700 leading-relaxed max-h-[40vh] overflow-y-auto pr-3 border-y border-slate-200 py-4 my-4 text-left font-medium">
+        <div className="space-y-4 font-mono text-[12px] text-slate-700 dark:text-slate-300 leading-relaxed max-h-[40vh] overflow-y-auto pr-3 border-y border-slate-200 dark:border-slate-800 py-4 my-4 text-left font-medium">
           <p>
             <strong>Equity Arena</strong> is an educational stock-market simulation game created for learning and entertainment purposes only.
           </p>
@@ -74,7 +74,7 @@ function DisclaimerModal({ onClose }) {
               onChange={(e) => setChecked(e.target.checked)}
               className="mt-1 accent-[#ff0055] h-5 w-5 border-2 border-slate-950 rounded cursor-pointer shrink-0"
             />
-            <span className="font-mono text-[11px] text-slate-600 leading-tight font-bold">
+            <span className="font-mono text-[11px] text-slate-600 dark:text-slate-400 leading-tight font-bold">
               I understand and agree that this is a simulated platform and no real money is involved.
             </span>
           </label>
@@ -100,7 +100,7 @@ function SpiderWebTransitionModal() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-50 overflow-hidden pointer-events-auto"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-50 dark:bg-[#05070e] overflow-hidden pointer-events-auto"
     >
       {/* Halftone Comic Dot Pattern Overlay */}
       <div 
@@ -113,32 +113,11 @@ function SpiderWebTransitionModal() {
 
       {/* Repeating Diagonal Hazard Stripes Background Panel */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.06]"
         style={{
           backgroundImage: 'repeating-linear-gradient(45deg, #ffd200, #ffd200 10px, #05070e 10px, #05070e 20px)'
         }}
       />
-
-      {/* Giant Expanding Concentric Web Rings (Solid Outlines, no glows) */}
-      {Array.from({ length: 5 }).map((_, idx) => (
-        <motion.div
-          key={`ring-${idx}`}
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: [0, 4.5], opacity: [0, 0.7, 0] }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            delay: idx * 0.3,
-            ease: "linear"
-          }}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
-        >
-          <svg viewBox="0 0 300 300" fill="none" className="w-[85vw] h-[85vw] max-w-[450px] max-h-[450px]">
-            <circle cx="150" cy="150" r="120" stroke="#0284c7" strokeWidth="2.5" strokeDasharray="8 6" />
-            <circle cx="150" cy="150" r="75" stroke="#ff0055" strokeWidth="2" strokeDasharray="4 4" />
-          </svg>
-        </motion.div>
-      ))}
 
       {/* Layer 1: Clockwise Web Shoot (Solid Comic Lines) */}
       <motion.div
@@ -148,53 +127,51 @@ function SpiderWebTransitionModal() {
           rotate: [-360, 270, 720, 1440],
           opacity: [0, 0.95, 0.9, 0]
         }}
-        transition={{ duration: 1.5, times: [0, 0.25, 0.55, 1], ease: "easeInOut" }}
+        transition={{
+          duration: 1.6,
+          ease: "easeInOut",
+          times: [0, 0.3, 0.6, 1]
+        }}
         className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
       >
-        <svg viewBox="0 0 600 600" fill="none" className="w-[90vw] h-[90vw] max-w-[850px] max-h-[850px]">
-          {/* Radial Strands */}
-          {Array.from({ length: 20 }).map((_, i) => {
-            const angle = (i * 18 * Math.PI) / 180;
-            const x2 = 300 + Math.cos(angle) * 350;
-            const y2 = 300 + Math.sin(angle) * 350;
-            return (
-              <line 
-                key={i} 
-                x1="300" 
-                y1="300" 
-                x2={x2} 
-                y2={y2} 
-                stroke="#ff0055" 
-                strokeWidth="3.5" 
-              />
-            );
-          })}
-
-          {/* Arcs */}
-          {[40, 80, 120, 160, 200, 240, 280].map((r, i) => (
-            <circle 
-              key={r} 
-              cx="300" 
-              cy="300" 
-              r={r} 
-              stroke="#ffd200" 
-              strokeWidth="2.5" 
-              fill="none" 
-            />
-          ))}
+        <svg viewBox="0 0 400 400" className="w-[100vw] h-[100vw] max-w-[550px] max-h-[550px]">
+          <path d="M 200 200 L 0 0 M 200 200 L 400 0 M 200 200 L 400 400 M 200 200 L 0 400" stroke="#05070e" strokeWidth="3" />
+          <path d="M 200 200 L 200 0 M 200 200 L 400 200 M 200 200 L 200 400 M 200 200 L 0 200" stroke="#ff0055" strokeWidth="3" />
+          <path d="M 200 60 Q 260 60 260 120" stroke="#ffd200" strokeWidth="3.5" fill="none" />
+          <path d="M 260 120 Q 260 200 200 200" stroke="#ffd200" strokeWidth="3.5" fill="none" />
+          <path d="M 200 200 Q 140 200 140 120" stroke="#ffd200" strokeWidth="3.5" fill="none" />
+          <path d="M 140 120 Q 140 60 200 60" stroke="#ffd200" strokeWidth="3.5" fill="none" />
+          <path d="M 200 10 Q 320 10 320 150" stroke="#0284c7" strokeWidth="3.5" fill="none" />
+          <path d="M 320 150 Q 320 300 200 300" stroke="#0284c7" strokeWidth="3.5" fill="none" />
+          <path d="M 200 300 Q 80 300 80 150" stroke="#0284c7" strokeWidth="3.5" fill="none" />
+          <path d="M 80 150 Q 80 10 200 10" stroke="#0284c7" strokeWidth="3.5" fill="none" />
         </svg>
       </motion.div>
 
-      {/* MULTIPLE COMIC SHOCKWAVE POPS: THWIP!, BAM!, CRASH! */}
+      {/* Layer 2: Counter-Clockwise Secondary Web */}
       <motion.div
-        initial={{ scale: 0, rotate: -45, opacity: 0 }}
-        animate={{ scale: [0, 2.5, 0], rotate: [-45, 12, 28], opacity: [0, 1, 0] }}
-        transition={{ duration: 0.9, times: [0, 0.35, 1], ease: "backOut" }}
-        className="absolute z-30 pointer-events-none select-none font-display font-black text-6xl sm:text-8.5xl text-slate-950 bg-[#ffd200] border-4 border-slate-950 px-8 py-4 shadow-[6px_6px_0px_#ff0055] rounded-lg tracking-tighter"
+        initial={{ scale: 0.08, rotate: 180, opacity: 0 }}
+        animate={{
+          scale: [0.08, 1.8, 3.5, 7.0],
+          rotate: [180, -120, -360, -720],
+          opacity: [0, 0.9, 0.7, 0]
+        }}
+        transition={{
+          duration: 1.6,
+          ease: "easeInOut",
+          times: [0, 0.35, 0.7, 1]
+        }}
+        className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
       >
-        *THWIP!*
+        <svg viewBox="0 0 400 400" className="w-[100vw] h-[100vw] max-w-[550px] max-h-[550px]">
+          <path d="M 200 200 L 100 0 M 200 200 L 300 0 M 200 200 L 400 100 M 200 200 L 400 300" stroke="#05070e" strokeWidth="3" />
+          <path d="M 200 200 L 300 400 M 200 200 L 100 400 M 200 200 L 0 300 M 200 200 L 0 100" stroke="#ff0055" strokeWidth="3" />
+          <polygon points="200,40 340,110 310,270 200,340 90,270 60,110" stroke="#ffd200" strokeWidth="3" fill="none" />
+          <polygon points="200,80 290,130 270,240 200,290 130,240 110,130" stroke="#0284c7" strokeWidth="2.5" fill="none" />
+        </svg>
       </motion.div>
 
+      {/* Comic Action Sound Effects */}
       <motion.div
         initial={{ scale: 0, rotate: 30, opacity: 0 }}
         animate={{ scale: [0, 1.8, 0], rotate: [30, -8, -22], opacity: [0, 0.95, 0] }}
@@ -204,21 +181,12 @@ function SpiderWebTransitionModal() {
         *ZIP!*
       </motion.div>
 
-      <motion.div
-        initial={{ scale: 0, rotate: -20, opacity: 0 }}
-        animate={{ scale: [0, 2.0, 0], rotate: [-20, 15, 35], opacity: [0, 0.95, 0] }}
-        transition={{ duration: 0.8, delay: 0.35, times: [0, 0.35, 1], ease: "backOut" }}
-        className="absolute z-30 bottom-1/4 right-1/4 pointer-events-none select-none font-display font-black text-4xl sm:text-6xl text-slate-950 bg-[#00c3ff] border-3 border-slate-950 px-6 py-2.5 shadow-[4px_4px_0px_#ffd200] rounded-lg rotate-12"
-      >
-        *SHWIIP!*
-      </motion.div>
-
       {/* Center Spidey Status Neo-Brutalist Card */}
       <motion.div
         initial={{ opacity: 0, scale: 0.5, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-20 mx-4 max-w-[420px] bg-white border-4 border-slate-950 p-8 text-center rounded-xl shadow-[8px_8px_0px_#ff0055]"
+        className="relative z-20 mx-4 max-w-[420px] bg-white dark:bg-[#070b16] border-4 border-slate-950 p-8 text-center rounded-xl shadow-[8px_8px_0px_#ff0055]"
       >
         {/* Top accent hazard stripes inside card */}
         <div 
@@ -237,11 +205,11 @@ function SpiderWebTransitionModal() {
           CONNECTION DEPLOYED
         </span>
 
-        <h3 className="font-display mt-5 text-2xl font-black tracking-tight text-slate-950 uppercase">
+        <h3 className="font-display mt-5 text-2xl font-black tracking-tight text-slate-950 dark:text-white uppercase">
           TELEPORTING TO SYSTEM
         </h3>
 
-        <p className="mt-3 text-xs text-slate-700 leading-relaxed font-mono font-bold">
+        <p className="mt-3 text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-mono font-bold">
           Deploying simulated capital • Live WebSocket feeds live
         </p>
       </motion.div>
