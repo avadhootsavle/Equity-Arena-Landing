@@ -2,49 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg-body: #f8fafc;
-  --bg-card: #ffffff;
-  --text-main: #334155;
-  --text-heading: #0f172a;
-  --border-main: #0f172a;
-  --web-color: rgba(15, 23, 42, 0.07);
-  --grid-color-right: rgba(15, 23, 42, 0.09);
-  --grid-color-bottom: rgba(255, 0, 85, 0.08);
-  --radial-dots: rgba(15, 23, 42, 0.06);
-  --hover-bg-card: #f1f5f9;
-  --card-shadow: 5px 5px 0px #0f172a, 8px 8px 0px rgba(255, 0, 85, 0.15);
-  --card-shadow-hover: 9px 9px 0px #0f172a, 13px 13px 0px rgba(0, 243, 255, 0.25);
-  --body-scanlines: 0.06;
-}
-
-.dark {
-  --bg-body: #05070e;
-  --bg-card: #0e111a;
-  --text-main: #cbd5e1;
-  --text-heading: #ffffff;
-  --border-main: #05070e;
-  --web-color: rgba(239, 68, 68, 0.15);
-  --grid-color-right: rgba(255, 0, 85, 0.18);
-  --grid-color-bottom: rgba(0, 243, 255, 0.18);
-  --radial-dots: rgba(0, 243, 255, 0.04);
-  --hover-bg-card: #111522;
-  --card-shadow: 5px 5px 0px #05070e, 8px 8px 0px rgba(255, 0, 85, 0.15);
-  --card-shadow-hover: 9px 9px 0px #05070e, 13px 13px 0px rgba(0, 243, 255, 0.35);
-  --body-scanlines: 0.22;
-}
-
 @media (min-width: 1024px) {
   html, body, a, button, select, input, [role="button"] {
     cursor: none !important;
   }
 }
 
-body {
-  background-color: var(--bg-body) !important;
-  color: var(--text-main) !important;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
 
 /* ============================================================
    Equity Arena — Spider-Man Neo-Brutalist Cyber-Web Theme
@@ -55,21 +18,18 @@ body {
   letter-spacing: -0.01em;
   font-weight: 900;
   text-transform: uppercase;
-  color: var(--text-heading);
-}
-
-/* Stark HUD Scanline Terminal Overlay */
+}/* Scanline Terminal Overlay for Light Mode */
 body::before {
   content: " ";
   display: block;
   position: fixed;
   top: 0; left: 0; bottom: 0; right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%), 
-              linear-gradient(90deg, rgba(255, 0, 85, 0.05), rgba(0, 243, 255, 0.03), rgba(255, 210, 0, 0.04));
+  background: linear-gradient(rgba(240, 240, 240, 0) 50%, rgba(15, 23, 42, 0.03) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 85, 0.02), rgba(0, 195, 255, 0.02), rgba(255, 210, 0, 0.02));
   z-index: 999;
   background-size: 100% 4px, 6px 100%;
   pointer-events: none;
-  opacity: var(--body-scanlines);
+  opacity: 0.5;
 }
 
 /* 3D perspective stage */
@@ -83,29 +43,29 @@ body::before {
   will-change: transform;
 }
 
-/* Spider-Man Text Gradients with Neo-Brutalist Stroke */
+/* Neo-Brutalist Text Gradients with Light-Theme Stroke */
 .text-gradient-spidey {
-  background: linear-gradient(120deg, #ff0055 0%, #ff1e42 40%, #00f3ff 80%, #ffd200 100%);
+  background: linear-gradient(120deg, #e11d48 0%, #ff0055 40%, #0284c7 80%, #d97706 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(3px 3px 0px #05070e);
+  filter: drop-shadow(2px 2px 0px rgba(15, 23, 42, 0.15));
 }
 
 .text-gradient-crimson {
-  background: linear-gradient(120deg, #ff5e97 0%, #ff0055 50%, #990022 100%);
+  background: linear-gradient(120deg, #ff0055 0%, #e11d48 50%, #9f1239 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(3px 3px 0px #05070e);
+  filter: drop-shadow(2px 2px 0px rgba(15, 23, 42, 0.15));
 }
 
 .text-gradient-blue {
-  background: linear-gradient(120deg, #82f3ff 0%, #00c3ff 50%, #0055aa 100%);
+  background: linear-gradient(120deg, #0284c7 0%, #0099ff 50%, #1e3a8a 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(3px 3px 0px #05070e);
+  filter: drop-shadow(2px 2px 0px rgba(15, 23, 42, 0.15));
 }
 
 /* Neo-Brutalist Buttons - High Tactility */
@@ -114,43 +74,43 @@ body::before {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border: 3.5px solid var(--border-main);
+  border: 3.5px solid #0f172a;
   background: #ff0055;
   color: #ffffff;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  box-shadow: 4px 4px 0px var(--border-main), 6px 6px 0px rgba(0, 243, 255, 0.3);
+  box-shadow: 4px 4px 0px #0f172a, 6px 6px 0px rgba(0, 195, 255, 0.25);
   transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border-radius: 4px;
 }
 .btn-neo:hover {
   transform: translate(-3px, -3px);
-  box-shadow: 7px 7px 0px var(--border-main), 9px 9px 0px rgba(255, 210, 0, 0.4);
-  background: #ff226e;
+  box-shadow: 7px 7px 0px #0f172a, 9px 9px 0px rgba(255, 210, 0, 0.4);
+  background: #ff1e56;
 }
 .btn-neo:active {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px var(--border-main), 3px 3px 0px rgba(0, 243, 255, 0.15);
+  box-shadow: 2px 2px 0px #0f172a, 3px 3px 0px rgba(0, 195, 255, 0.15);
 }
 
 .btn-neo-blue {
-  background: #00c3ff;
-  color: var(--border-main);
+  background: #0284c7;
+  color: #ffffff;
 }
 .btn-neo-blue:hover {
-  background: #00f3ff;
-  color: var(--border-main);
+  background: #0369a1;
+  color: #ffffff;
 }
 
 /* Custom Halftone-Inspired Premium Neo-Brutalist Cards */
 .card-neo {
   position: relative;
-  border: 3px solid var(--border-main) !important;
-  background: radial-gradient(circle, var(--radial-dots) 1px, transparent 1px), var(--bg-card) !important;
+  border: 3px solid #0f172a !important;
+  background: radial-gradient(circle, rgba(15, 23, 42, 0.05) 1px, transparent 1px), #ffffff !important;
   background-size: 10px 10px !important;
-  border-radius: 6px !important;
-  box-shadow: var(--card-shadow) !important;
+  border-radius: 8px !important;
+  box-shadow: 5px 5px 0px #0f172a, 8px 8px 0px rgba(255, 0, 85, 0.12) !important;
   transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   overflow: hidden;
 }
@@ -162,14 +122,14 @@ body::before {
   left: 0;
   width: 100%;
   height: 6px;
-  background: linear-gradient(90deg, #ff0055 0%, #ffd200 50%, #00f3ff 100%);
+  background: linear-gradient(90deg, #ff0055 0%, #ffd200 50%, #00c3ff 100%);
   z-index: 10;
 }
 .card-neo:hover {
   transform: translate(-5px, -5px) scale(1.015) !important;
-  border-color: #00f3ff !important;
-  box-shadow: var(--card-shadow-hover) !important;
-  background: radial-gradient(circle, var(--radial-dots) 1.5px, transparent 1.5px), var(--hover-bg-card) !important;
+  border-color: #0f172a !important;
+  box-shadow: 9px 9px 0px #0f172a, 13px 13px 0px rgba(0, 195, 255, 0.25) !important;
+  background: radial-gradient(circle, rgba(0, 195, 255, 0.09) 1.5px, transparent 1.5px), #f8fafc !important;
   background-size: 8px 8px !important;
 }
 
@@ -179,9 +139,9 @@ body::before {
   align-items: center;
   gap: 6px;
   background: #ffd200;
-  color: #05070e;
-  border: 2.5px solid var(--border-main);
-  box-shadow: 3px 3px 0px var(--border-main);
+  color: #0f172a;
+  border: 2.5px solid #0f172a;
+  box-shadow: 3px 3px 0px #0f172a;
   border-radius: 3px;
   font-weight: 900;
   text-transform: uppercase;
@@ -190,7 +150,7 @@ body::before {
 }
 .badge-neo:hover {
   transform: scale(1.06) rotate(1.5deg);
-  box-shadow: 5px 5px 0px var(--border-main), 7px 7px 0px rgba(0, 243, 255, 0.2);
+  box-shadow: 5px 5px 0px #0f172a, 7px 7px 0px rgba(0, 195, 255, 0.2);
 }
 
 /* Dynamic Custom Web Cursor Dot */
@@ -201,7 +161,7 @@ body::before {
   width: 10px;
   height: 10px;
   background: #ff0055;
-  border: 2px solid #05070e;
+  border: 2px solid #0f172a;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
@@ -209,12 +169,12 @@ body::before {
   box-shadow: 0 0 10px #ff0055;
 }
 
-/* Spiderweb Grid pattern floor */
+/* Light Mode Grid pattern floor */
 .grid-floor {
   background-image:
-    radial-gradient(circle at 50% 50%, rgba(255, 0, 85, 0.1) 0%, transparent 60%),
-    linear-gradient(to right, var(--grid-color-right) 1.5px, transparent 1.5px),
-    linear-gradient(to bottom, var(--grid-color-bottom) 1.5px, transparent 1.5px);
+    radial-gradient(circle at 50% 50%, rgba(255, 0, 85, 0.08) 0%, transparent 60%),
+    linear-gradient(to right, rgba(15, 23, 42, 0.08) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(0, 195, 255, 0.12) 1.5px, transparent 1.5px);
   background-size: 100% 100%, 40px 40px, 40px 40px;
   transform: perspective(420px) rotateX(62deg);
   transform-origin: center bottom;
@@ -222,10 +182,10 @@ body::before {
   -webkit-mask-image: linear-gradient(to bottom, transparent, #000 45%, transparent);
 }
 
-/* Spiderweb overlay texture */
+/* Spiderweb overlay texture for Light Mode */
 .spider-web-bg {
-  background-image: radial-gradient(circle at 50% 0%, rgba(255, 0, 85, 0.18) 0%, transparent 50%),
-                    radial-gradient(circle at 100% 100%, rgba(0, 243, 255, 0.18) 0%, transparent 50%);
+  background-image: radial-gradient(circle at 50% 0%, rgba(255, 0, 85, 0.06) 0%, transparent 50%),
+                    radial-gradient(circle at 100% 100%, rgba(0, 195, 255, 0.06) 0%, transparent 50%);
 }
 
 /* Continuous marquee for ticker tape */
@@ -293,23 +253,22 @@ body::before {
   animation: web-shoot-crazy 1.3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 
-
 @keyframes web-pulse-glow {
-  0%, 100% { filter: drop-shadow(0 0 15px rgba(255, 0, 85, 0.8)); }
-  50% { filter: drop-shadow(0 0 35px rgba(0, 243, 255, 0.9)); }
+  0%, 100% { filter: drop-shadow(0 0 15px rgba(255, 0, 85, 0.6)); }
+  50% { filter: drop-shadow(0 0 35px rgba(0, 195, 255, 0.7)); }
 }
 
 .animate-web-glow {
   animation: web-pulse-glow 1.5s ease-in-out infinite;
 }
 
-/* Custom 3D holographic panel style used in HeroDeck widgets */
+/* Custom 3D panel style used in HeroDeck widgets */
 .panel-3d {
-  background: radial-gradient(circle, var(--radial-dots) 1px, transparent 1px), var(--bg-card) !important;
+  background: radial-gradient(circle, rgba(15, 23, 42, 0.04) 1px, transparent 1px), #ffffff !important;
   background-size: 10px 10px !important;
-  border: 3px solid var(--border-main) !important;
+  border: 3px solid #0f172a !important;
   border-radius: 16px !important;
-  box-shadow: 6px 6px 0px var(--border-main), 10px 10px 0px rgba(0, 243, 255, 0.22) !important;
+  box-shadow: 6px 6px 0px #0f172a, 10px 10px 0px rgba(0, 195, 255, 0.18) !important;
   backdrop-filter: blur(16px);
   transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -320,12 +279,12 @@ body::before {
   left: 0;
   width: 100%;
   height: 6px;
-  background: linear-gradient(90deg, #ff0055 0%, #ffd200 50%, #00f3ff 100%);
+  background: linear-gradient(90deg, #ff0055 0%, #ffd200 50%, #00c3ff 100%);
   z-index: 10;
 }
 .panel-3d:hover {
   transform: translate(-3px, -3px) scale(1.005);
-  box-shadow: 9px 9px 0px var(--border-main), 14px 14px 0px rgba(0, 243, 255, 0.32) !important;
+  box-shadow: 9px 9px 0px #0f172a, 14px 14px 0px rgba(0, 195, 255, 0.25) !important;
 }
 
 .sheen::after {
