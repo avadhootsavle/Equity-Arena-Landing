@@ -887,7 +887,7 @@ function FinalCTA({ onRegisterClick }) {
     <section data-gsap="section" className="relative py-24 sm:py-28 bg-slate-100/80 dark:bg-[#05070e]/80 border-t-3 border-slate-950">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div data-gsap="heading">
-          <div className="card-neo relative overflow-hidden px-6 py-16 text-center sm:px-16 sm:py-20 bg-white dark:bg-[#0e111a] border-4 border-slate-950 shadow-[8px_8px_0px_#05070e]">
+          <div className="card-neo relative overflow-hidden px-6 py-16 text-center sm:px-16 sm:py-20 bg-white dark:bg-[#0e111a] border-4 border-slate-950 shadow-[8px_8px_0px_#05070e] dark:shadow-[8px_8px_0px_#ff0055]">
             {/* 🕸️ Spiderweb Corner Overlays inside CTA Banner */}
             <SpiderWebCorner className="top-0 left-0" rotate={0} />
             <SpiderWebCorner className="top-0 right-0" rotate={90} />
@@ -895,10 +895,10 @@ function FinalCTA({ onRegisterClick }) {
             <SpiderWebCorner className="bottom-0 right-0" rotate={180} />
 
             {/* Watermark Glow */}
-            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500/10 blur-[100px]" />
+            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500/10 dark:bg-red-600/25 blur-[100px]" />
 
             <div className="relative z-10 mx-auto max-w-[620px]">
-              <span className="badge-neo bg-[#ff0055] text-white px-3.5 py-1.5 text-xs font-black shadow-[2px_2px_0px_#05070e]">
+              <span className="badge-neo bg-[#ff0055] dark:bg-[#ffd200] text-white dark:text-slate-950 px-3.5 py-1.5 text-xs font-black shadow-[2px_2px_0px_#05070e]">
                 JOIN THE ARENA TRADING NETWORK TODAY
               </span>
 
