@@ -107,6 +107,14 @@ body::before {
   box-shadow: 2px 2px 0px #0f172a, 3px 3px 0px rgba(0, 195, 255, 0.15);
 }
 
+.dark .btn-neo {
+  border: 3.5px solid #05070e;
+  box-shadow: 4px 4px 0px #05070e, 6px 6px 0px rgba(0, 243, 255, 0.35);
+}
+.dark .btn-neo:hover {
+  box-shadow: 7px 7px 0px #05070e, 10px 10px 0px rgba(255, 210, 0, 0.6);
+}
+
 .btn-neo-blue {
   background: #0284c7;
   color: #ffffff;
@@ -178,6 +186,48 @@ body::before {
 .badge-neo:hover {
   transform: scale(1.06) rotate(1.5deg);
   box-shadow: 5px 5px 0px #0f172a, 7px 7px 0px rgba(0, 195, 255, 0.2);
+}
+
+.dark .badge-neo {
+  border-color: #05070e;
+  box-shadow: 3px 3px 0px #05070e;
+}
+.dark .badge-neo:hover {
+  box-shadow: 5px 5px 0px #05070e, 7px 7px 0px rgba(0, 243, 255, 0.3);
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 10px;
+  border: 2.5px solid #0f172a;
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 3px 3px 0px #0f172a;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.theme-toggle-btn:hover {
+  transform: translate(-2px, -2px) rotate(-4deg);
+  box-shadow: 5px 5px 0px #0f172a, 7px 7px 0px rgba(0, 195, 255, 0.3);
+}
+.theme-toggle-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #0f172a;
+}
+.dark .theme-toggle-btn {
+  border-color: #05070e;
+  background: #0f1422;
+  color: #ffd200;
+  box-shadow: 3px 3px 0px #ffd200;
+}
+.dark .theme-toggle-btn:hover {
+  transform: translate(-2px, -2px) rotate(6deg);
+  box-shadow: 5px 5px 0px #ffd200, 8px 8px 0px rgba(0, 243, 255, 0.4);
 }
 
 /* Dynamic Custom Web Cursor Dot */

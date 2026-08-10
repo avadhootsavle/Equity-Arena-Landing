@@ -364,12 +364,13 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
             type="button"
             onClick={onToggleTheme}
             aria-label="Toggle Light and Dark Theme"
-            className="relative flex items-center justify-center h-10 w-10 rounded-lg border-2 border-slate-950 bg-white dark:bg-slate-900 text-slate-900 dark:text-yellow-400 shadow-[2px_2px_0px_#05070e] dark:shadow-[2px_2px_0px_#ffd200] transition-all hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px]"
+            title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            className="theme-toggle-btn group"
           >
             {theme === 'dark' ? (
-              <Sun className="h-5 w-5 text-[#ffd200]" />
+              <Sun className="h-5 w-5 text-[#ffd200] transition-transform duration-300 group-hover:rotate-45" />
             ) : (
-              <Moon className="h-5 w-5 text-slate-800" />
+              <Moon className="h-5 w-5 text-slate-800 transition-transform duration-300 group-hover:-rotate-12" />
             )}
           </button>
 
@@ -388,17 +389,18 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
             type="button"
             onClick={onToggleTheme}
             aria-label="Toggle Light and Dark Theme"
-            className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-slate-950 bg-white dark:bg-slate-900 text-slate-900 dark:text-yellow-400 shadow-[2px_2px_0px_#05070e] dark:shadow-[2px_2px_0px_#ffd200]"
+            title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            className="theme-toggle-btn group !h-9 !w-9"
           >
-            {theme === 'dark' ? <Sun className="h-5 w-5 text-[#ffd200]" /> : <Moon className="h-5 w-5 text-slate-800" />}
+            {theme === 'dark' ? <Sun className="h-4 w-4 text-[#ffd200]" /> : <Moon className="h-4 w-4 text-slate-800" />}
           </button>
 
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-slate-950 bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-[2px_2px_0px_#05070e]"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-slate-950 bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-[2px_2px_0px_#05070e]"
           >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
         </div>
       </div>
@@ -1204,13 +1206,13 @@ export function Landing() {
     }
   });
 
-  // Theme management: default to 'light', persist in localStorage
+  // Theme management: default to 'dark', persist in localStorage
   const [theme, setTheme] = useState(() => {
     try {
       const saved = localStorage.getItem('ea_theme');
-      return saved === 'dark' ? 'dark' : 'light';
+      return saved === 'light' ? 'light' : 'dark';
     } catch (_) {
-      return 'light';
+      return 'dark';
     }
   });
 
