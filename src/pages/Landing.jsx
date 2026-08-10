@@ -23,16 +23,16 @@ function DisclaimerModal({ onClose }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/70 dark:bg-black/80 backdrop-blur-md overflow-hidden pointer-events-auto p-4"
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/60 dark:bg-black/80 backdrop-blur-md overflow-hidden pointer-events-auto p-4"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-red-600/15 via-transparent to-blue-600/15 blur-3xl opacity-60 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-blue-600/10 blur-3xl opacity-60 pointer-events-none" />
 
       <motion.div
         initial={{ scale: 0.9, y: 15 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 15 }}
         transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-        className="card-neo w-full max-w-[620px] bg-white dark:bg-[#070b16] border-4 border-slate-950 max-h-[85vh] overflow-y-auto flex flex-col p-6 sm:p-8 relative shadow-[8px_8px_0px_#ff0055]"
+        className="card-neo w-full max-w-[620px] bg-white dark:bg-[#0e111a] border-4 border-slate-950 max-h-[85vh] overflow-y-auto flex flex-col p-6 sm:p-8 relative shadow-[8px_8px_0px_#ff0055]"
       >
         <div className="flex items-center gap-2 mb-4">
           <span className="badge-neo bg-[#ffd200] text-slate-950 px-2.5 py-1 text-[11px] font-black shadow-[2px_2px_0px_#05070e]">
@@ -74,7 +74,7 @@ function DisclaimerModal({ onClose }) {
               onChange={(e) => setChecked(e.target.checked)}
               className="mt-1 accent-[#ff0055] h-5 w-5 border-2 border-slate-950 rounded cursor-pointer shrink-0"
             />
-            <span className="font-mono text-[11px] text-slate-600 dark:text-slate-400 leading-tight font-bold">
+            <span className="font-mono text-[11px] text-slate-600 leading-tight font-bold">
               I understand and agree that this is a simulated platform and no real money is involved.
             </span>
           </label>
@@ -100,7 +100,7 @@ function SpiderWebTransitionModal() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-50 dark:bg-[#05070e] overflow-hidden pointer-events-auto"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-50 overflow-hidden pointer-events-auto"
     >
       {/* Halftone Comic Dot Pattern Overlay */}
       <div 
@@ -113,11 +113,32 @@ function SpiderWebTransitionModal() {
 
       {/* Repeating Diagonal Hazard Stripes Background Panel */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.06]"
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
           backgroundImage: 'repeating-linear-gradient(45deg, #ffd200, #ffd200 10px, #05070e 10px, #05070e 20px)'
         }}
       />
+
+      {/* Giant Expanding Concentric Web Rings (Solid Outlines, no glows) */}
+      {Array.from({ length: 5 }).map((_, idx) => (
+        <motion.div
+          key={`ring-${idx}`}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: [0, 4.5], opacity: [0, 0.7, 0] }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            delay: idx * 0.3,
+            ease: "linear"
+          }}
+          className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
+        >
+          <svg viewBox="0 0 300 300" fill="none" className="w-[85vw] h-[85vw] max-w-[450px] max-h-[450px]">
+            <circle cx="150" cy="150" r="120" stroke="#0284c7" strokeWidth="2.5" strokeDasharray="8 6" />
+            <circle cx="150" cy="150" r="75" stroke="#ff0055" strokeWidth="2" strokeDasharray="4 4" />
+          </svg>
+        </motion.div>
+      ))}
 
       {/* Layer 1: Clockwise Web Shoot (Solid Comic Lines) */}
       <motion.div
@@ -127,51 +148,53 @@ function SpiderWebTransitionModal() {
           rotate: [-360, 270, 720, 1440],
           opacity: [0, 0.95, 0.9, 0]
         }}
-        transition={{
-          duration: 1.6,
-          ease: "easeInOut",
-          times: [0, 0.3, 0.6, 1]
-        }}
+        transition={{ duration: 1.5, times: [0, 0.25, 0.55, 1], ease: "easeInOut" }}
         className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
       >
-        <svg viewBox="0 0 400 400" className="w-[100vw] h-[100vw] max-w-[550px] max-h-[550px]">
-          <path d="M 200 200 L 0 0 M 200 200 L 400 0 M 200 200 L 400 400 M 200 200 L 0 400" stroke="#05070e" strokeWidth="3" />
-          <path d="M 200 200 L 200 0 M 200 200 L 400 200 M 200 200 L 200 400 M 200 200 L 0 200" stroke="#ff0055" strokeWidth="3" />
-          <path d="M 200 60 Q 260 60 260 120" stroke="#ffd200" strokeWidth="3.5" fill="none" />
-          <path d="M 260 120 Q 260 200 200 200" stroke="#ffd200" strokeWidth="3.5" fill="none" />
-          <path d="M 200 200 Q 140 200 140 120" stroke="#ffd200" strokeWidth="3.5" fill="none" />
-          <path d="M 140 120 Q 140 60 200 60" stroke="#ffd200" strokeWidth="3.5" fill="none" />
-          <path d="M 200 10 Q 320 10 320 150" stroke="#0284c7" strokeWidth="3.5" fill="none" />
-          <path d="M 320 150 Q 320 300 200 300" stroke="#0284c7" strokeWidth="3.5" fill="none" />
-          <path d="M 200 300 Q 80 300 80 150" stroke="#0284c7" strokeWidth="3.5" fill="none" />
-          <path d="M 80 150 Q 80 10 200 10" stroke="#0284c7" strokeWidth="3.5" fill="none" />
+        <svg viewBox="0 0 600 600" fill="none" className="w-[90vw] h-[90vw] max-w-[850px] max-h-[850px]">
+          {/* Radial Strands */}
+          {Array.from({ length: 20 }).map((_, i) => {
+            const angle = (i * 18 * Math.PI) / 180;
+            const x2 = 300 + Math.cos(angle) * 350;
+            const y2 = 300 + Math.sin(angle) * 350;
+            return (
+              <line 
+                key={i} 
+                x1="300" 
+                y1="300" 
+                x2={x2} 
+                y2={y2} 
+                stroke="#ff0055" 
+                strokeWidth="3.5" 
+              />
+            );
+          })}
+
+          {/* Arcs */}
+          {[40, 80, 120, 160, 200, 240, 280].map((r, i) => (
+            <circle 
+              key={r} 
+              cx="300" 
+              cy="300" 
+              r={r} 
+              stroke="#ffd200" 
+              strokeWidth="2.5" 
+              fill="none" 
+            />
+          ))}
         </svg>
       </motion.div>
 
-      {/* Layer 2: Counter-Clockwise Secondary Web */}
+      {/* MULTIPLE COMIC SHOCKWAVE POPS: THWIP!, BAM!, CRASH! */}
       <motion.div
-        initial={{ scale: 0.08, rotate: 180, opacity: 0 }}
-        animate={{
-          scale: [0.08, 1.8, 3.5, 7.0],
-          rotate: [180, -120, -360, -720],
-          opacity: [0, 0.9, 0.7, 0]
-        }}
-        transition={{
-          duration: 1.6,
-          ease: "easeInOut",
-          times: [0, 0.35, 0.7, 1]
-        }}
-        className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
+        initial={{ scale: 0, rotate: -45, opacity: 0 }}
+        animate={{ scale: [0, 2.5, 0], rotate: [-45, 12, 28], opacity: [0, 1, 0] }}
+        transition={{ duration: 0.9, times: [0, 0.35, 1], ease: "backOut" }}
+        className="absolute z-30 pointer-events-none select-none font-display font-black text-6xl sm:text-8.5xl text-slate-950 bg-[#ffd200] border-4 border-slate-950 px-8 py-4 shadow-[6px_6px_0px_#ff0055] rounded-lg tracking-tighter"
       >
-        <svg viewBox="0 0 400 400" className="w-[100vw] h-[100vw] max-w-[550px] max-h-[550px]">
-          <path d="M 200 200 L 100 0 M 200 200 L 300 0 M 200 200 L 400 100 M 200 200 L 400 300" stroke="#05070e" strokeWidth="3" />
-          <path d="M 200 200 L 300 400 M 200 200 L 100 400 M 200 200 L 0 300 M 200 200 L 0 100" stroke="#ff0055" strokeWidth="3" />
-          <polygon points="200,40 340,110 310,270 200,340 90,270 60,110" stroke="#ffd200" strokeWidth="3" fill="none" />
-          <polygon points="200,80 290,130 270,240 200,290 130,240 110,130" stroke="#0284c7" strokeWidth="2.5" fill="none" />
-        </svg>
+        *THWIP!*
       </motion.div>
 
-      {/* Comic Action Sound Effects */}
       <motion.div
         initial={{ scale: 0, rotate: 30, opacity: 0 }}
         animate={{ scale: [0, 1.8, 0], rotate: [30, -8, -22], opacity: [0, 0.95, 0] }}
@@ -181,12 +204,21 @@ function SpiderWebTransitionModal() {
         *ZIP!*
       </motion.div>
 
+      <motion.div
+        initial={{ scale: 0, rotate: -20, opacity: 0 }}
+        animate={{ scale: [0, 2.0, 0], rotate: [-20, 15, 35], opacity: [0, 0.95, 0] }}
+        transition={{ duration: 0.8, delay: 0.35, times: [0, 0.35, 1], ease: "backOut" }}
+        className="absolute z-30 bottom-1/4 right-1/4 pointer-events-none select-none font-display font-black text-4xl sm:text-6xl text-slate-950 bg-[#00c3ff] border-3 border-slate-950 px-6 py-2.5 shadow-[4px_4px_0px_#ffd200] rounded-lg rotate-12"
+      >
+        *SHWIIP!*
+      </motion.div>
+
       {/* Center Spidey Status Neo-Brutalist Card */}
       <motion.div
         initial={{ opacity: 0, scale: 0.5, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-20 mx-4 max-w-[420px] bg-white dark:bg-[#070b16] border-4 border-slate-950 p-8 text-center rounded-xl shadow-[8px_8px_0px_#ff0055]"
+        className="relative z-20 mx-4 max-w-[420px] bg-white border-4 border-slate-950 p-8 text-center rounded-xl shadow-[8px_8px_0px_#ff0055]"
       >
         {/* Top accent hazard stripes inside card */}
         <div 
@@ -205,11 +237,11 @@ function SpiderWebTransitionModal() {
           CONNECTION DEPLOYED
         </span>
 
-        <h3 className="font-display mt-5 text-2xl font-black tracking-tight text-slate-950 dark:text-white uppercase">
+        <h3 className="font-display mt-5 text-2xl font-black tracking-tight text-slate-950 uppercase">
           TELEPORTING TO SYSTEM
         </h3>
 
-        <p className="mt-3 text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-mono font-bold">
+        <p className="mt-3 text-xs text-slate-700 leading-relaxed font-mono font-bold">
           Deploying simulated capital • Live WebSocket feeds live
         </p>
       </motion.div>
@@ -275,7 +307,7 @@ function SectionTag({ icon: Icon, children }) {
 /* ------------------------------------------------------------------ *
  * Navbar
  * ------------------------------------------------------------------ */
-function Navbar({ onRegisterClick, theme, toggleTheme }) {
+function Navbar({ onRegisterClick, theme, onToggleTheme }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -289,7 +321,7 @@ function Navbar({ onRegisterClick, theme, toggleTheme }) {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'border-b-3 border-slate-950 bg-white/92 dark:bg-[#05070e]/92 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.06)]'
+          ? 'border-b-3 border-slate-950 bg-white/92 dark:bg-[#05070e]/92 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)]'
           : 'border-b border-transparent bg-transparent'
       }`}
     >
@@ -307,42 +339,37 @@ function Navbar({ onRegisterClick, theme, toggleTheme }) {
         <nav className="hidden items-center gap-8 md:flex">
           <a
             href="#home"
-            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-[#00f3ff] after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
+            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-red-500 after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
           >
             Home
           </a>
           <a
             href="#features"
-            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-[#00f3ff] after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
+            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-red-500 after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
           >
             Highlights
           </a>
           <a
             href="#about"
-            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-[#00f3ff] after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
+            className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-red-500 after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
           >
             Rules & Onboarding
           </a>
         </nav>
 
-        {/* Action Button & Theme Toggle */}
+        {/* Action Buttons & Theme Toggle */}
         <div className="hidden items-center gap-3 sm:flex">
+          {/* Theme Toggle Button */}
           <button
             type="button"
-            onClick={toggleTheme}
-            aria-label="Toggle dark or light theme"
-            className="badge-neo cursor-pointer bg-[#ffd200] text-slate-950 dark:bg-slate-800 dark:text-white px-3 py-2 text-xs font-mono font-black shadow-[2px_2px_0px_#05070e] transition-all hover:scale-105 active:scale-95 flex items-center gap-1.5"
+            onClick={onToggleTheme}
+            aria-label="Toggle Light and Dark Theme"
+            className="relative flex items-center justify-center h-10 w-10 rounded-lg border-2 border-slate-950 bg-white dark:bg-slate-900 text-slate-900 dark:text-yellow-400 shadow-[2px_2px_0px_#05070e] dark:shadow-[2px_2px_0px_#ffd200] transition-all hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px]"
           >
             {theme === 'dark' ? (
-              <>
-                <Sun className="h-4 w-4 text-amber-400" />
-                <span className="text-[11px] font-extrabold tracking-wider">LIGHT</span>
-              </>
+              <Sun className="h-5 w-5 text-[#ffd200]" />
             ) : (
-              <>
-                <Moon className="h-4 w-4 text-blue-600" />
-                <span className="text-[11px] font-extrabold tracking-wider">DARK</span>
-              </>
+              <Moon className="h-5 w-5 text-slate-800" />
             )}
           </button>
 
@@ -355,13 +382,25 @@ function Navbar({ onRegisterClick, theme, toggleTheme }) {
           </a>
         </div>
 
-        {/* Mobile menu button */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-slate-950 bg-white dark:bg-slate-900 text-slate-900 dark:text-white md:hidden"
-        >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        {/* Mobile menu controls */}
+        <div className="flex items-center gap-2 md:hidden">
+          <button
+            type="button"
+            onClick={onToggleTheme}
+            aria-label="Toggle Light and Dark Theme"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-slate-950 bg-white dark:bg-slate-900 text-slate-900 dark:text-yellow-400 shadow-[2px_2px_0px_#05070e] dark:shadow-[2px_2px_0px_#ffd200]"
+          >
+            {theme === 'dark' ? <Sun className="h-5 w-5 text-[#ffd200]" /> : <Moon className="h-5 w-5 text-slate-800" />}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-slate-950 bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-[2px_2px_0px_#05070e]"
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}
@@ -371,42 +410,42 @@ function Navbar({ onRegisterClick, theme, toggleTheme }) {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="border-b-3 border-slate-950 bg-white dark:bg-[#05070e] px-5 py-6 backdrop-blur-2xl md:hidden"
+            className="border-b-3 border-slate-950 bg-white dark:bg-[#070b16] px-5 py-6 backdrop-blur-2xl md:hidden"
           >
             <nav className="flex flex-col gap-3">
               <a
                 href="#home"
                 onClick={() => setMobileOpen(false)}
-                className="block text-center border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px]"
+                className="block text-center border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e]"
               >
                 Home
               </a>
               <a
                 href="#features"
                 onClick={() => setMobileOpen(false)}
-                className="block text-center border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px]"
+                className="block text-center border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e]"
               >
                 Highlights
               </a>
               <a
                 href="#about"
                 onClick={() => setMobileOpen(false)}
-                className="block text-center border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px]"
+                className="block text-center border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e]"
               >
                 Rules & Onboarding
               </a>
               <button
                 type="button"
-                onClick={() => { toggleTheme(); }}
-                className="flex items-center justify-center gap-2 border-2 border-slate-950 bg-amber-300 dark:bg-slate-800 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px]"
+                onClick={onToggleTheme}
+                className="flex items-center justify-center gap-2 border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all"
               >
                 {theme === 'dark' ? (
                   <>
-                    <Sun className="h-4 w-4 text-amber-500" /> Switch to Light Mode
+                    <Sun className="h-4 w-4 text-[#ffd200]" /> Switch to Light Mode
                   </>
                 ) : (
                   <>
-                    <Moon className="h-4 w-4 text-blue-600" /> Switch to Dark Mode
+                    <Moon className="h-4 w-4 text-slate-800" /> Switch to Dark Mode
                   </>
                 )}
               </button>
@@ -549,21 +588,21 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
             </div>
             
             <div className="grid grid-cols-4 gap-3 text-center">
-              <div className="bg-slate-100 dark:bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#ff0055] transition-transform group-hover:translate-y-[-1px]">
+              <div className="bg-slate-100 dark:bg-slate-900 p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#ff0055] transition-transform group-hover:translate-y-[-1px]">
                 <span className="block font-display text-2xl font-black text-[#ff0055] tabular-nums animate-brutalist-glitch">{timeLeft.days}</span>
-                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-400 font-black tracking-wider">Days</span>
+                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Days</span>
               </div>
-              <div className="bg-slate-100 dark:bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#0284c7] transition-transform group-hover:translate-y-[-1px]">
+              <div className="bg-slate-100 dark:bg-slate-900 p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#0284c7] transition-transform group-hover:translate-y-[-1px]">
                 <span className="block font-display text-2xl font-black text-[#0284c7] tabular-nums animate-brutalist-glitch">{timeLeft.hours}</span>
-                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-400 font-black tracking-wider">Hours</span>
+                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Hours</span>
               </div>
-              <div className="bg-slate-100 dark:bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#d97706] transition-transform group-hover:translate-y-[-1px]">
+              <div className="bg-slate-100 dark:bg-slate-900 p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#d97706] transition-transform group-hover:translate-y-[-1px]">
                 <span className="block font-display text-2xl font-black text-[#d97706] tabular-nums animate-brutalist-glitch">{timeLeft.minutes}</span>
-                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-400 font-black tracking-wider">Mins</span>
+                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Mins</span>
               </div>
-              <div className="bg-slate-100 dark:bg-[#0e1220] p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#0f172a] transition-transform group-hover:translate-y-[-1px]">
+              <div className="bg-slate-100 dark:bg-slate-900 p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#0f172a] dark:shadow-[2px_2px_0px_#ffffff] transition-transform group-hover:translate-y-[-1px]">
                 <span className="block font-display text-2xl font-black text-slate-950 dark:text-white tabular-nums animate-brutalist-glitch">{timeLeft.seconds}</span>
-                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-400 font-black tracking-wider">Secs</span>
+                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Secs</span>
               </div>
             </div>
           </div>
@@ -617,7 +656,7 @@ function TickerTape({ stocks }) {
               <span className="font-display font-extrabold text-slate-950 dark:text-white">{stock.symbol}</span>
               <span className="font-mono text-slate-700 dark:text-slate-300 font-bold tabular-nums">{(stock.currentPrice || 0).toFixed(2)}</span>
               <span className={`flex items-center gap-1 font-mono text-[12px] font-bold ${positive ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
-                <TrendingUp className={`h-3 w-3 ${positive ? '' : 'rotate-180 text-rose-600 dark:text-rose-400'}`} />
+                <TrendingUp className={`h-3 w-3 ${positive ? '' : 'rotate-180 text-rose-600'}`} />
                 {positive ? '+' : ''}{(stock.percentChange || 0).toFixed(2)}%
               </span>
               <span className="text-red-500">🕸️</span>
@@ -673,7 +712,7 @@ const FEATURES = [
 
 const Features = forwardRef((props, ref) => {
   return (
-    <section ref={ref} id="features" data-gsap="section" className="relative border-t-3 border-slate-950 py-24 sm:py-28 bg-slate-100/70 dark:bg-[#05070e]/70">
+    <section ref={ref} id="features" data-gsap="section" className="relative border-t-3 border-slate-950 py-24 sm:py-28 bg-slate-100/70 dark:bg-[#05070e]/90">
       <SpiderWebCorner className="top-0 right-0" rotate={90} />
 
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
@@ -726,7 +765,7 @@ const Features = forwardRef((props, ref) => {
         {/* Two new sections below the feature cards */}
         <div className="mt-16 grid gap-8 lg:grid-cols-2">
           {/* What to Expect */}
-          <div data-gsap="card" className="card-neo relative overflow-hidden p-8 bg-white dark:bg-[#070b16]/90 border-3 border-slate-950 border-t-4 border-t-[#0284c7] shadow-[5px_5px_0px_#05070e]">
+          <div data-gsap="card" className="card-neo relative overflow-hidden p-8 bg-white dark:bg-[#070b16] border-3 border-slate-950 border-t-4 border-t-[#0284c7] shadow-[5px_5px_0px_#05070e]">
             <h3 className="font-display text-slate-950 dark:text-white text-xl font-black tracking-tight mb-6 uppercase flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-[#0284c7]" />
               What to Expect
@@ -760,7 +799,7 @@ const Features = forwardRef((props, ref) => {
           </div>
 
           {/* Rules at a Glance */}
-          <div data-gsap="card" className="card-neo relative overflow-hidden p-8 bg-white dark:bg-[#070b16]/90 border-3 border-slate-950 border-t-4 border-t-[#ff0055] shadow-[5px_5px_0px_#05070e]">
+          <div data-gsap="card" className="card-neo relative overflow-hidden p-8 bg-white dark:bg-[#070b16] border-3 border-slate-950 border-t-4 border-t-[#ff0055] shadow-[5px_5px_0px_#05070e]">
             <h3 className="font-display text-slate-950 dark:text-white text-xl font-black tracking-tight mb-6 uppercase flex items-center gap-2">
               <Shield className="h-5 w-5 text-[#ff0055]" />
               Rules at a Glance
@@ -826,7 +865,7 @@ const STEPS = [
 
 const About = forwardRef((props, ref) => {
   return (
-    <section ref={ref} id="about" data-gsap="section" className="relative border-t-3 border-slate-950 py-24 sm:py-28 bg-slate-50 dark:bg-[#05070e]/90 overflow-hidden">
+    <section ref={ref} id="about" data-gsap="section" className="relative border-t-3 border-slate-950 py-24 sm:py-28 bg-slate-50 dark:bg-[#05070e] overflow-hidden">
       {/* Comic Book popups scoped to About section */}
       <div id="gsap-comic-thwip" className="pointer-events-none absolute left-[12%] top-[42%] opacity-0 scale-0 z-30 bg-[#ff1e42] border-4 border-black text-white font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg -rotate-12 shadow-[4px_4px_0px_#000] font-mono">THWIP!</div>
       <div id="gsap-comic-bzzzt" className="pointer-events-none absolute left-[38%] top-[38%] opacity-0 scale-0 z-30 bg-amber-400 border-4 border-black text-black font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg rotate-6 shadow-[4px_4px_0px_#000] font-mono">BZZZT!</div>
@@ -866,9 +905,9 @@ const About = forwardRef((props, ref) => {
 
         {/* Onboarding Progress Caption */}
         <div className="mt-16 text-center max-w-xl mx-auto">
-          <div className="relative rounded-2xl border-3 border-slate-950 bg-white dark:bg-[#070b19]/90 px-6 py-4 shadow-[4px_4px_0px_#05070e] overflow-hidden">
+          <div className="relative rounded-2xl border-3 border-slate-950 bg-white dark:bg-[#070b16] px-6 py-4 shadow-[4px_4px_0px_#05070e] overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-red-600/5 via-transparent to-blue-600/5" />
-            <p id="gsap-about-story" className="font-mono text-[13px] font-bold text-red-600 dark:text-red-400 tracking-wide transition-all duration-300">
+            <p id="gsap-about-story" className="font-mono text-[13px] font-bold text-red-600 tracking-wide transition-all duration-300">
               STATUS FEED: Scroll to monitor your onboarding progress...
             </p>
           </div>
@@ -884,10 +923,10 @@ const About = forwardRef((props, ref) => {
  * ------------------------------------------------------------------ */
 function FinalCTA({ onRegisterClick }) {
   return (
-    <section data-gsap="section" className="relative py-24 sm:py-28 bg-slate-100/80 dark:bg-[#05070e]/80 border-t-3 border-slate-950">
+    <section data-gsap="section" className="relative py-24 sm:py-28 bg-slate-100/80 dark:bg-[#05070e]/90 border-t-3 border-slate-950">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div data-gsap="heading">
-          <div className="card-neo relative overflow-hidden px-6 py-16 text-center sm:px-16 sm:py-20 bg-white dark:bg-[#0e111a] border-4 border-slate-950 shadow-[8px_8px_0px_#05070e] dark:shadow-[8px_8px_0px_#ff0055]">
+          <div className="card-neo relative overflow-hidden px-6 py-16 text-center sm:px-16 sm:py-20 bg-white dark:bg-[#070b16] border-4 border-slate-950 shadow-[8px_8px_0px_#05070e] dark:shadow-[8px_8px_0px_#ff0055]">
             {/* 🕸️ Spiderweb Corner Overlays inside CTA Banner */}
             <SpiderWebCorner className="top-0 left-0" rotate={0} />
             <SpiderWebCorner className="top-0 right-0" rotate={90} />
@@ -895,10 +934,10 @@ function FinalCTA({ onRegisterClick }) {
             <SpiderWebCorner className="bottom-0 right-0" rotate={180} />
 
             {/* Watermark Glow */}
-            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500/10 dark:bg-red-600/25 blur-[100px]" />
+            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500/10 blur-[100px]" />
 
             <div className="relative z-10 mx-auto max-w-[620px]">
-              <span className="badge-neo bg-[#ff0055] dark:bg-[#ffd200] text-white dark:text-slate-950 px-3.5 py-1.5 text-xs font-black shadow-[2px_2px_0px_#05070e]">
+              <span className="badge-neo bg-[#ff0055] text-white px-3.5 py-1.5 text-xs font-black shadow-[2px_2px_0px_#05070e]">
                 JOIN THE ARENA TRADING NETWORK TODAY
               </span>
 
@@ -941,28 +980,28 @@ function Footer({ stocks, onRegisterClick }) {
                 EQUITY <span className="text-red-600">ARENA</span>
               </span>
             </div>
-            <p className="mt-3.5 max-w-[340px] text-[13px] leading-relaxed text-slate-700 dark:text-slate-400 font-medium">
+            <p className="mt-3.5 max-w-[340px] text-[13px] leading-relaxed text-slate-700 dark:text-slate-300 font-medium">
               The high-tech virtual trading simulator. Real-time Indian market equities, sub-second tickers, and instant simulated fills.
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
             <div>
-              <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-950 dark:text-slate-200">Platform</h4>
+              <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-950 dark:text-white">Platform</h4>
               <ul className="mt-3 space-y-2 text-[13px] font-semibold">
-                <li><a href="#home" className="hover:text-red-600 dark:hover:text-[#00f3ff] transition-colors">Home</a></li>
-                <li><a href="#features" className="hover:text-red-600 dark:hover:text-[#00f3ff] transition-colors">Highlights</a></li>
+                <li><a href="#home" className="hover:text-red-600 dark:hover:text-red-400 transition-colors">Home</a></li>
+                <li><a href="#features" className="hover:text-red-600 dark:hover:text-red-400 transition-colors">Highlights</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-950 dark:text-slate-200">Resources</h4>
+              <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-950 dark:text-white">Resources</h4>
               <ul className="mt-3 space-y-2 text-[13px] font-semibold">
-                <li><a href="#about" className="hover:text-red-600 dark:hover:text-[#00f3ff] transition-colors">Rules & Onboarding</a></li>
-                <li><a href={REGISTER_URL} onClick={onRegisterClick} className="hover:text-red-600 dark:hover:text-[#00f3ff] transition-colors">Register Account</a></li>
+                <li><a href="#about" className="hover:text-red-600 dark:hover:text-red-400 transition-colors">Rules & Onboarding</a></li>
+                <li><a href={REGISTER_URL} onClick={onRegisterClick} className="hover:text-red-600 dark:hover:text-red-400 transition-colors">Register Account</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-950 dark:text-slate-200">Network</h4>
+              <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-950 dark:text-white">Network</h4>
               <ul className="mt-3 space-y-2 text-[13px] font-semibold">
                 <li className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -1005,11 +1044,11 @@ function Footer({ stocks, onRegisterClick }) {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-300 pt-8 text-center sm:flex-row sm:text-left">
-          <p className="text-[12.5px] text-slate-600 font-medium">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-300 dark:border-slate-800 pt-8 text-center sm:flex-row sm:text-left">
+          <p className="text-[12.5px] text-slate-600 dark:text-slate-400 font-medium">
             © {new Date().getFullYear()} Equity Arena. Simulated exchange — no real money is traded.
           </p>
-          <p className="flex items-center gap-2 text-[12.5px] text-slate-700 font-semibold">
+          <p className="flex items-center gap-2 text-[12.5px] text-slate-700 dark:text-slate-300 font-semibold">
             <span className="h-2 w-2 rounded-full bg-red-600 animate-live" />
             Arena Core Engine Online
           </p>
@@ -1091,7 +1130,7 @@ function SpideyCursor() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.15 }}
-                  className="stroke-slate-900 stroke-[2] stroke-linecap-round filter drop-shadow-[0_0_3px_rgba(0,0,0,0.3)] animate-spidey-sense-tingle"
+                  className="stroke-slate-900 dark:stroke-yellow-400 stroke-[2] stroke-linecap-round filter drop-shadow-[0_0_3px_rgba(0,0,0,0.3)] animate-spidey-sense-tingle"
                 >
                   {/* Fewer Clean Radiating Waves */}
                   <path d="M 50 28 Q 47 22 52 16 T 50 8" />
@@ -1156,32 +1195,6 @@ export function Landing() {
   const { stocks, isLive } = useLiveStocks(3000);
   const index = useArenaIndex(stocks);
   const [isSlingingWeb, setIsSlingingWeb] = useState(false);
-  const [theme, setTheme] = useState(() => {
-    try {
-      const stored = localStorage.getItem('ea_theme');
-      if (stored === 'light' || stored === 'dark') return stored;
-    } catch (_) {}
-    return 'dark'; // DEFAULT IS DARK MODE
-  });
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-      root.classList.remove('light');
-    } else {
-      root.classList.add('light');
-      root.classList.remove('dark');
-    }
-    try {
-      localStorage.setItem('ea_theme', theme);
-    } catch (_) {}
-  }, [theme]);
-
-  const toggleTheme = useCallback(() => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  }, []);
-
   const [showDisclaimer, setShowDisclaimer] = useState(() => {
     try {
       const stored = localStorage.getItem('ea_disclaimer_accepted');
@@ -1190,6 +1203,34 @@ export function Landing() {
       return true;
     }
   });
+
+  // Theme management: default to 'light', persist in localStorage
+  const [theme, setTheme] = useState(() => {
+    try {
+      const saved = localStorage.getItem('ea_theme');
+      return saved === 'dark' ? 'dark' : 'light';
+    } catch (_) {
+      return 'light';
+    }
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    } else {
+      root.classList.remove('dark');
+      root.classList.add('light');
+    }
+    try {
+      localStorage.setItem('ea_theme', theme);
+    } catch (_) {}
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  }, []);
 
   const handleAcceptDisclaimer = () => {
     try {
@@ -1264,7 +1305,7 @@ export function Landing() {
         </div>
       </div>
 
-      <Navbar onRegisterClick={handleRegisterClick} theme={theme} toggleTheme={toggleTheme} />
+      <Navbar onRegisterClick={handleRegisterClick} theme={theme} onToggleTheme={toggleTheme} />
       <main>
         <Hero ref={homeRef} stocks={stocks} index={index} isLive={isLive} onRegisterClick={handleRegisterClick} />
         <TickerTape stocks={stocks} />

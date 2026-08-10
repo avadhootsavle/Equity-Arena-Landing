@@ -121,7 +121,7 @@ function MenuRow({ label, caption, value, change, selected, onSelect }) {
       aria-selected={selected}
       onClick={onSelect}
       className={`flex w-full items-center justify-between gap-3 rounded px-2.5 py-2 text-left transition-all ${
-        selected ? 'bg-[#ff0055]/10 text-red-600 font-bold' : 'hover:bg-slate-100 dark:hover:bg-slate-800'
+        selected ? 'bg-[#ff0055]/10 text-red-600 font-bold' : 'hover:bg-slate-100 dark:hover:bg-slate-800/80'
       }`}
     >
       <span className="min-w-0">
@@ -281,7 +281,7 @@ export function HeroDeck({ stocks, index, isLive }) {
                 onClick={() => setOpenMenu((m) => (m === 'instrument' ? null : 'instrument'))}
                 aria-haspopup="listbox"
                 aria-expanded={openMenu === 'instrument'}
-                className="flex items-center gap-1.5 border-2 border-slate-950 bg-slate-100 dark:bg-[#070b16] px-2.5 py-1.5 text-xs font-mono font-bold text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-all hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e] rounded"
+                className="flex items-center gap-1.5 border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-2.5 py-1.5 text-xs font-mono font-bold text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-all hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e] rounded"
               >
                 {display.label}
                 <ChevronDown
@@ -310,7 +310,7 @@ export function HeroDeck({ stocks, index, isLive }) {
                         setOpenMenu(null);
                       }}
                     />
-                    <div className="my-1 border-t border-slate-200" />
+                    <div className="my-1 border-t border-slate-200 dark:border-slate-800" />
                     {stocks.map((s) => (
                       <MenuRow
                         key={s.symbol}
@@ -338,7 +338,7 @@ export function HeroDeck({ stocks, index, isLive }) {
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="flex items-center gap-1.5 rounded-full border border-emerald-600/30 bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+              <span className="flex items-center gap-1.5 rounded-full border border-emerald-600/30 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-live" />
                 {isLive ? 'Live' : 'Demo'}
               </span>
@@ -349,7 +349,7 @@ export function HeroDeck({ stocks, index, isLive }) {
                   onClick={() => setOpenMenu((m) => (m === 'timeframe' ? null : 'timeframe'))}
                   aria-haspopup="listbox"
                   aria-expanded={openMenu === 'timeframe'}
-                  className="flex items-center gap-1.5 border-2 border-slate-950 bg-slate-100 dark:bg-[#070b16] px-2.5 py-1.5 text-xs font-mono font-bold text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-all hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] rounded"
+                  className="flex items-center gap-1.5 border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-2.5 py-1.5 text-xs font-mono font-bold text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-all hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e] rounded"
                 >
                   {frame.label}
                   <ChevronDown
@@ -378,7 +378,7 @@ export function HeroDeck({ stocks, index, isLive }) {
                             setOpenMenu(null);
                           }}
                           className={`flex w-full items-center justify-between rounded px-2.5 py-2 text-left text-[12.5px] transition ${
-                            t.id === timeframe ? 'bg-[#ff0055]/10 text-red-600 font-bold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
+                            t.id === timeframe ? 'bg-[#ff0055]/10 text-red-600 font-bold' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80'
                           }`}
                         >
                           {t.title}
@@ -441,11 +441,10 @@ export function HeroDeck({ stocks, index, isLive }) {
               )}
             </svg>
 
-            {/* Price axis labels — kept inside the left gutter so the floating
-                side panels never sit on top of live numbers */}
-            <div className="pointer-events-none absolute left-0 top-0 flex h-[120px] flex-col justify-between text-[9px] font-mono text-slate-600 font-bold">
+            {/* Price axis labels */}
+            <div className="pointer-events-none absolute left-0 top-0 flex h-[120px] flex-col justify-between text-[9px] font-mono text-slate-600 dark:text-slate-400 font-bold">
               {[1.04, 1.02, 1.0, 0.98, 0.96].map((m) => (
-                <span key={m} className="rounded bg-slate-100 border border-slate-200 px-1">
+                <span key={m} className="rounded bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-1">
                   {(display.value * m).toFixed(display.value < 100 ? 1 : 0)}
                 </span>
               ))}
@@ -453,7 +452,7 @@ export function HeroDeck({ stocks, index, isLive }) {
           </div>
 
           {/* Time axis */}
-          <div className="mt-1 flex justify-between px-1 text-[9px] font-mono text-slate-500 font-bold">
+          <div className="mt-1 flex justify-between px-1 text-[9px] font-mono text-slate-500 dark:text-slate-400 font-bold">
             {times.map((t, i) => (
               <span key={i}>{t}</span>
             ))}
@@ -463,7 +462,7 @@ export function HeroDeck({ stocks, index, isLive }) {
           <div className="mt-5 border-t border-slate-200 dark:border-slate-800 pt-4">
             <div className="flex items-center justify-between">
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">Top Gainers</h4>
-              <button className="text-[11px] font-bold text-blue-600 dark:text-[#00f3ff] hover:text-blue-800 transition">View all</button>
+              <button className="text-[11px] font-bold text-blue-600 dark:text-blue-400 hover:text-blue-800 transition">View all</button>
             </div>
 
             <div className="mt-3 space-y-2.5">
@@ -487,7 +486,7 @@ export function HeroDeck({ stocks, index, isLive }) {
 
                     <div className="flex items-center gap-4">
                       <span className="font-mono text-[13px] text-slate-900 dark:text-white font-semibold tabular-nums">
-                        {(stock.currentPrice || 0).toFixed(2)} <span className="text-slate-500 dark:text-slate-400">IC</span>
+                        {(stock.currentPrice || 0).toFixed(2)} <span className="text-slate-500">IC</span>
                       </span>
                       <span className={`flex w-[68px] items-center justify-end gap-1 font-mono text-[12px] font-bold ${positive ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                         <TrendingUp className={`h-3 w-3 ${positive ? '' : 'rotate-180'}`} />
@@ -510,7 +509,7 @@ export function HeroDeck({ stocks, index, isLive }) {
           transition={{ delay: 0.8, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-950 dark:text-white">
-            <Newspaper className="h-3.5 w-3.5 text-blue-600" />
+            <Newspaper className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
             Market News
           </div>
           <p className="mt-2 text-[10.5px] leading-relaxed text-slate-700 dark:text-slate-300 font-medium">
@@ -518,7 +517,7 @@ export function HeroDeck({ stocks, index, isLive }) {
           </p>
           <div className="mt-2.5 flex items-center justify-between text-[9px] text-slate-500 dark:text-slate-400 font-mono font-bold">
             <span>3h ago</span>
-            <ChevronRight className="h-3 w-3 text-slate-700 dark:text-slate-300" />
+            <ChevronRight className="h-3 w-3 text-slate-700 dark:text-slate-400" />
           </div>
         </motion.div>
 
@@ -535,29 +534,29 @@ export function HeroDeck({ stocks, index, isLive }) {
           </p>
           <div className="mt-2.5 flex items-center justify-between text-[9px] text-slate-500 dark:text-slate-400 font-mono font-bold">
             <span>4h ago</span>
-            <ChevronRight className="h-3 w-3 text-slate-700 dark:text-slate-300" />
+            <ChevronRight className="h-3 w-3 text-slate-700 dark:text-slate-400" />
           </div>
         </motion.div>
 
         {/* ---------------- Orbiting coin badges ---------------- */}
         <motion.div
-          className="absolute z-40 -right-4 sm:-right-12 top-16 flex h-14 w-14 items-center justify-center rounded-full border-2 border-slate-950 bg-white dark:bg-slate-900 text-blue-600 shadow-[3px_3px_0px_#05070e] animate-float-slow"
+          className="absolute z-40 -right-4 sm:-right-12 top-16 flex h-14 w-14 items-center justify-center rounded-full border-2 border-slate-950 bg-white dark:bg-[#0e111a] text-blue-600 dark:text-blue-400 shadow-[3px_3px_0px_#05070e] animate-float-slow"
           style={{ z: 150 }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1.2, type: 'spring', stiffness: 180 }}
         >
-          <TrendingUp className="h-6 w-6 text-blue-600" />
+          <TrendingUp className="h-6 w-6 text-blue-600 dark:text-blue-400" />
         </motion.div>
 
         <motion.div
-          className="absolute z-40 -right-7 bottom-14 flex h-12 w-12 items-center justify-center rounded-full border-2 border-slate-950 bg-white dark:bg-slate-900 text-emerald-600 shadow-[3px_3px_0px_#05070e] animate-float-slow"
+          className="absolute z-40 -right-7 bottom-14 flex h-12 w-12 items-center justify-center rounded-full border-2 border-slate-950 bg-white dark:bg-[#0e111a] text-emerald-600 dark:text-emerald-400 shadow-[3px_3px_0px_#05070e] animate-float-slow"
           style={{ z: 140, animationDelay: '1.5s' }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1.4, type: 'spring', stiffness: 180 }}
         >
-          <span className="font-display text-sm font-bold text-emerald-600">IC</span>
+          <span className="font-display text-sm font-bold text-emerald-600 dark:text-emerald-400">IC</span>
         </motion.div>
 
         {/* ---------------- Podium ---------------- */}
@@ -569,9 +568,9 @@ export function HeroDeck({ stocks, index, isLive }) {
           transition={{ delay: 0.6, duration: 0.8 }}
         >
           {/* Cylinder body */}
-          <div className="absolute inset-x-0 top-3 h-12 rounded-[50%/26%] bg-gradient-to-b from-slate-200 via-slate-300 to-slate-400 dark:from-slate-700 dark:via-slate-800 dark:to-slate-950 shadow-[0_20px_40px_-10px_rgba(15,23,42,0.25)] border border-slate-300 dark:border-slate-700" />
+          <div className="absolute inset-x-0 top-3 h-12 rounded-[50%/26%] bg-gradient-to-b from-slate-200 dark:from-slate-700 via-slate-300 dark:via-slate-800 to-slate-400 dark:to-slate-900 shadow-[0_20px_40px_-10px_rgba(15,23,42,0.25)] border border-slate-300 dark:border-slate-700" />
           {/* Top face */}
-          <div className="absolute inset-x-0 top-0 h-8 rounded-[50%] bg-gradient-to-b from-white to-slate-100 dark:from-slate-700 dark:to-slate-800 border-t border-slate-300 dark:border-slate-700" />
+          <div className="absolute inset-x-0 top-0 h-8 rounded-[50%] bg-gradient-to-b from-white dark:from-slate-700 to-slate-100 dark:to-slate-800 border-t border-slate-300 dark:border-slate-700" />
           {/* Under-glow ring */}
           <div className="absolute inset-x-4 -bottom-1 h-7 rounded-[50%] bg-blue-400/40 blur-lg" />
           <div className="absolute inset-x-1 bottom-0 h-5 rounded-[50%] border-2 border-blue-400/40 blur-[2px]" />
