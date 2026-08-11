@@ -353,21 +353,13 @@ function SpideyTrackerModal({ onClose }) {
             </div>
           </div>
 
-          {/* Top Center: Movie Spidey Tracker Pill Badge */}
-          <div className="flex items-center gap-2 px-3 sm:px-6 py-1 sm:py-1.5 rounded-full bg-[#071326] border-2 sm:border-3 border-[#00f3ff] shadow-[3px_3px_0px_#05070e]">
-            <span className="font-display text-[11px] sm:text-sm md:text-base font-black text-[#00f3ff] tracking-wider uppercase">
-              SPIDEY
-            </span>
-            {/* Spider-Man Mask Eyes SVG Icon with subtle glow */}
-            <div className="relative flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-[#ff0055] border-2 border-slate-950 shrink-0 shadow-[0_0_10px_#ff0055]">
-              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-white stroke-slate-950 stroke-[1.5]">
-                <ellipse cx="8" cy="11" rx="3.5" ry="5" transform="rotate(-15 8 11)" />
-                <ellipse cx="16" cy="11" rx="3.5" ry="5" transform="rotate(15 16 11)" />
-              </svg>
-            </div>
-            <span className="font-display text-[11px] sm:text-sm md:text-base font-black text-[#00f3ff] tracking-wider uppercase">
-              TRACKER
-            </span>
+          {/* Top Center: Official Pixel-Art Spidey Tracker Header Banner */}
+          <div className="flex items-center justify-center max-w-[200px] xs:max-w-[260px] sm:max-w-[340px] md:max-w-[400px]">
+            <img
+              src="/images/spidey_tracker_banner.png"
+              alt="Spidey Tracker Official Logo"
+              className="w-full h-auto object-contain pixelated drop-shadow-[0_4px_10px_rgba(0,243,255,0.4)] border-2 border-slate-950 rounded-lg bg-[#071326]/80 p-0.5"
+            />
           </div>
 
           {/* Top Right: Signal Telemetry & Close Button */}
@@ -396,6 +388,25 @@ function SpideyTrackerModal({ onClose }) {
 
         {/* ================= SCREEN / MAP DISPLAY ================= */}
         <div className="relative w-full h-[340px] xs:h-[390px] sm:h-[450px] md:h-[500px] rounded-xl sm:rounded-2xl border-3 sm:border-4 border-slate-950 overflow-hidden bg-[#070e1c] shadow-inner">
+          {/* Animated Pixel Spider-Man Patrol Avatar along bottom left edge */}
+          <div className="absolute bottom-3 left-3 z-30 pointer-events-none flex items-center gap-2 bg-slate-950/85 border-2 border-cyan-400 px-2 py-1 rounded-xl shadow-[2px_2px_0px_#000] backdrop-blur-sm">
+            <div className="relative w-7 h-7 overflow-hidden rounded-lg bg-red-950/40 border border-red-500/40 flex items-center justify-center">
+              <div 
+                className="w-5 h-5 pixelated animate-spidey-bounce"
+                style={{
+                  backgroundImage: 'url(/images/spidey_spritesheet.png)',
+                  backgroundSize: '1024px 21px',
+                  backgroundPosition: '0px 0px',
+                  transform: 'scale(1.3)'
+                }}
+              />
+            </div>
+            <div className="flex flex-col text-left">
+              <span className="font-mono text-[8px] sm:text-[9px] font-black text-[#ffd200] leading-none">SPIDEY_PATROL</span>
+              <span className="font-mono text-[7px] text-cyan-300 font-bold">SCOUTING CAMPUS</span>
+            </div>
+          </div>
+
           {/* Top Ruler / Coordinate Scale Ticks inside screen */}
           <div className="absolute top-0 inset-x-0 z-20 h-6 bg-[#070e1c]/90 backdrop-blur border-b border-cyan-500/30 flex items-center justify-between px-3 pointer-events-none text-[8.5px] sm:text-[9.5px] font-mono text-[#00f3ff] select-none">
             <span className="tracking-widest truncate hidden xs:inline opacity-70">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</span>
