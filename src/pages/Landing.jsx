@@ -32,7 +32,7 @@ function DisclaimerModal({ onClose }) {
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 15 }}
         transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-        className="card-neo w-full max-w-[620px] bg-white dark:bg-[#0e111a] border-4 border-slate-950 max-h-[85vh] overflow-y-auto flex flex-col p-6 sm:p-8 relative shadow-[8px_8px_0px_#ff0055]"
+        className="card-neo w-full max-w-[620px] bg-white dark:bg-[#131c30] border-4 border-slate-950 max-h-[85vh] overflow-y-auto flex flex-col p-6 sm:p-8 relative shadow-[8px_8px_0px_#ff0055]"
       >
         <div className="flex items-center gap-2 mb-4">
           <span className="badge-neo bg-[#ffd200] text-slate-950 px-2.5 py-1 text-[11px] font-black shadow-[2px_2px_0px_#05070e]">
@@ -100,7 +100,7 @@ function SpiderWebTransitionModal() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-50 dark:bg-[#05070e] overflow-hidden pointer-events-auto"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-50 dark:bg-[#0c1222] overflow-hidden pointer-events-auto"
     >
       {/* Halftone Comic Dot Pattern Overlay */}
       <div 
@@ -218,7 +218,7 @@ function SpiderWebTransitionModal() {
         initial={{ opacity: 0, scale: 0.5, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-20 mx-4 max-w-[420px] bg-white dark:bg-[#0e111a] border-4 border-slate-950 p-8 text-center rounded-xl shadow-[8px_8px_0px_#ff0055]"
+        className="relative z-20 mx-4 max-w-[420px] bg-white dark:bg-[#131c30] border-4 border-slate-950 p-8 text-center rounded-xl shadow-[8px_8px_0px_#ff0055]"
       >
         {/* Top accent hazard stripes inside card */}
         <div 
@@ -253,18 +253,18 @@ function SpiderWebTransitionModal() {
 function SpiderWebCorner({ className = "top-0 left-0", rotate = 0 }) {
   return (
     <div
-      className={`pointer-events-none absolute z-10 opacity-35 transition-opacity hover:opacity-75 ${className}`}
+      className={`pointer-events-none absolute z-10 opacity-55 dark:opacity-85 transition-opacity hover:opacity-100 ${className}`}
       style={{ transform: `rotate(${rotate}deg)` }}
     >
-      <svg data-gsap="corner-web" width="180" height="180" viewBox="0 0 180 180" fill="none" className="drop-shadow-[0_0_8px_rgba(239,68,68,0.3)]">
-        <path d="M0 0 L180 0 M0 0 L0 180" stroke="#ef4444" strokeWidth="1.5" />
-        <path d="M0 0 L140 140" stroke="#ef4444" strokeWidth="1.2" strokeDasharray="3 3" />
-        <path d="M30 0 Q 30 30 0 30" stroke="#ef4444" strokeWidth="1.2" fill="none" />
-        <path d="M60 0 Q 60 60 0 60" stroke="#ef4444" strokeWidth="1.2" fill="none" />
-        <path d="M90 0 Q 90 90 0 90" stroke="#ef4444" strokeWidth="1.2" fill="none" />
-        <path d="M120 0 Q 120 120 0 120" stroke="#0284c7" strokeWidth="1" fill="none" />
-        <path d="M150 0 Q 150 150 0 150" stroke="#ef4444" strokeWidth="1" fill="none" />
-        <circle cx="140" cy="140" r="3" fill="#ef4444" className="animate-pulse" />
+      <svg data-gsap="corner-web" width="190" height="190" viewBox="0 0 180 180" fill="none" className="drop-shadow-[0_0_12px_rgba(255,0,85,0.65)]">
+        <path d="M0 0 L180 0 M0 0 L0 180" stroke="#ff0055" strokeWidth="2" />
+        <path d="M0 0 L140 140" stroke="#00f3ff" strokeWidth="1.8" strokeDasharray="3 3" />
+        <path d="M30 0 Q 30 30 0 30" stroke="#ff0055" strokeWidth="1.6" fill="none" />
+        <path d="M60 0 Q 60 60 0 60" stroke="#ffd200" strokeWidth="1.6" fill="none" />
+        <path d="M90 0 Q 90 90 0 90" stroke="#ff0055" strokeWidth="1.6" fill="none" />
+        <path d="M120 0 Q 120 120 0 120" stroke="#00f3ff" strokeWidth="1.8" fill="none" />
+        <path d="M150 0 Q 150 150 0 150" stroke="#ff0055" strokeWidth="1.6" fill="none" />
+        <circle cx="140" cy="140" r="3.5" fill="#00f3ff" className="animate-pulse" />
       </svg>
     </div>
   );
@@ -273,13 +273,16 @@ function SpiderWebCorner({ className = "top-0 left-0", rotate = 0 }) {
 /** Spider Web Strand Grid Lines Background */
 function WebStrandPattern() {
   return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-[0.08]">
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-20 dark:opacity-50">
       <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <pattern id="spiderGrid" width="120" height="120" patternUnits="userSpaceOnUse">
-            <path d="M 120 0 L 0 0 0 120" fill="none" stroke="#ef4444" strokeWidth="0.8" />
-            <path d="M 0 0 L 120 120" fill="none" stroke="#ef4444" strokeWidth="0.4" strokeDasharray="2 4" />
-            <circle cx="60" cy="60" r="2" fill="#ef4444" />
+          <pattern id="spiderGrid" width="100" height="100" patternUnits="userSpaceOnUse">
+            <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#ff0055" strokeWidth="1.2" strokeOpacity="0.75" />
+            <path d="M 0 0 L 100 100" fill="none" stroke="#00f3ff" strokeWidth="1" strokeDasharray="3 4" strokeOpacity="0.8" />
+            <path d="M 100 0 L 0 100" fill="none" stroke="#ffd200" strokeWidth="0.8" strokeDasharray="2 5" strokeOpacity="0.5" />
+            <circle cx="50" cy="50" r="2.5" fill="#00f3ff" fillOpacity="0.85" />
+            <circle cx="0" cy="0" r="3" fill="#ff0055" fillOpacity="0.85" />
+            <circle cx="100" cy="100" r="3" fill="#ff0055" fillOpacity="0.85" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#spiderGrid)" />
@@ -321,7 +324,7 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'border-b-3 border-slate-950 bg-white/92 dark:bg-[#05070e]/92 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)]'
+          ? 'border-b-3 border-slate-950 bg-white/92 dark:bg-[#0c1222]/92 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)]'
           : 'border-b border-transparent bg-transparent'
       }`}
     >
@@ -399,7 +402,7 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle Mobile Navigation"
-            className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-slate-950 bg-white dark:bg-slate-900 text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-transform active:scale-95"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-slate-950 bg-white dark:bg-[#131c30] text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-transform active:scale-95"
           >
             {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -414,7 +417,7 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="relative border-b-4 border-slate-950 bg-white/98 dark:bg-[#070b16]/98 px-5 py-6 backdrop-blur-2xl md:hidden shadow-[0_12px_32px_rgba(0,0,0,0.35)] overflow-hidden"
+            className="relative border-b-4 border-slate-950 bg-white/98 dark:bg-[#10172a]/98 px-5 py-6 backdrop-blur-2xl md:hidden shadow-[0_12px_32px_rgba(0,0,0,0.35)] overflow-hidden"
           >
             {/* Top Hazard Accent Stripe */}
             <div 
@@ -443,7 +446,7 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
               <a
                 href="#home"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#ff0055]"
+                className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-[#131c30] px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#ff0055]"
               >
                 <span>🏠 Home Deck</span>
                 <ArrowRight className="h-4 w-4 text-slate-400" />
@@ -451,7 +454,7 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
               <a
                 href="#features"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#0284c7]"
+                className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-[#131c30] px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#0284c7]"
               >
                 <span>⚡ Event Highlights</span>
                 <ArrowRight className="h-4 w-4 text-slate-400" />
@@ -459,7 +462,7 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
               <a
                 href="#about"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#ffd200]"
+                className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-[#131c30] px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#ffd200]"
               >
                 <span>📋 Rules & Onboarding</span>
                 <ArrowRight className="h-4 w-4 text-slate-400" />
@@ -468,7 +471,7 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
               <button
                 type="button"
                 onClick={onToggleTheme}
-                className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all border-l-4 border-l-[#00f3ff]"
+                className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-[#131c30] px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all border-l-4 border-l-[#00f3ff]"
               >
                 <div className="flex items-center gap-2">
                   {theme === 'dark' ? <Sun className="h-4 w-4 text-[#ffd200]" /> : <Moon className="h-4 w-4 text-slate-800" />}
@@ -529,7 +532,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
   }, []);
 
   return (
-    <section ref={ref} id="home" className="relative min-h-screen overflow-hidden pt-[68px] sm:pt-[72px] spider-web-bg bg-slate-50 dark:bg-[#05070e]">
+    <section ref={ref} id="home" className="relative min-h-screen overflow-hidden pt-[68px] sm:pt-[72px] spider-web-bg bg-slate-50 dark:bg-[#0c1222]">
       {/* Corner Spiderwebs */}
       <SpiderWebCorner className="top-0 left-0" rotate={0} />
       <SpiderWebCorner className="top-0 right-0" rotate={90} />
@@ -619,7 +622,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
           </div>
 
           {/* Neo-Brutalist Launch Countdown to Sept 4 */}
-          <div className="mt-6 sm:mt-8 border-3 border-slate-950 bg-white dark:bg-[#070b16] p-3.5 sm:p-4.5 rounded-xl shadow-[4px_4px_0px_#05070e,8px_8px_0px_rgba(255,0,85,0.15)] text-left max-w-[420px] w-full relative overflow-hidden group">
+          <div className="mt-6 sm:mt-8 border-3 border-slate-950 bg-white dark:bg-[#10172a] p-3.5 sm:p-4.5 rounded-xl shadow-[4px_4px_0px_#05070e,8px_8px_0px_rgba(255,0,85,0.15)] text-left max-w-[420px] w-full relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-red-600/5 via-transparent to-blue-600/5 pointer-events-none" />
             <div className="flex items-center justify-between mb-2.5 sm:mb-3 border-b border-slate-200 dark:border-slate-800 pb-2 sm:pb-2.5">
               <span className="badge-neo bg-[#ffd200] text-slate-950 px-2 py-0.5 text-[8.5px] sm:text-[9px] font-black uppercase tracking-wider shadow-[1.5px_1.5px_0px_#05070e]">
@@ -650,7 +653,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
 
           <div className="mt-8 sm:mt-12 grid grid-cols-3 gap-2 sm:gap-3 border-t border-slate-300 dark:border-slate-800 pt-5 sm:pt-7 w-full">
             {HERO_FEATURES.map(({ icon: Icon, title, sub }) => (
-              <div key={title} className="flex flex-col items-center lg:items-start gap-1 p-2 rounded-xl border-2 border-slate-950 bg-white dark:bg-[#0c101c] shadow-[2.5px_2.5px_0px_#05070e] transition-transform hover:-translate-y-0.5">
+              <div key={title} className="flex flex-col items-center lg:items-start gap-1 p-2 rounded-xl border-2 border-slate-950 bg-white dark:bg-[#131c30] shadow-[2.5px_2.5px_0px_#05070e] transition-transform hover:-translate-y-0.5">
                 <Icon className="h-4 w-4 text-red-600 mx-auto lg:mx-0" />
                 <span className="font-display text-[10.5px] sm:text-[12px] font-bold text-slate-950 dark:text-white leading-tight">{title}</span>
                 <span className="text-[9px] sm:text-[10.5px] text-slate-600 dark:text-slate-400 font-medium leading-tight">{sub}</span>
@@ -669,7 +672,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
               <circle cx="100" cy="100" r="62" strokeDasharray="3 6" />
             </svg>
           </div>
-          <div className="w-full relative p-3 sm:p-4 border-3 border-slate-950 bg-slate-100 dark:bg-[#070b16] shadow-[5px_5px_0px_#05070e] sm:shadow-[6px_6px_0px_#05070e] rounded-xl sm:rounded-2xl">
+          <div className="w-full relative p-3 sm:p-4 border-3 border-slate-950 bg-slate-100 dark:bg-[#10172a] shadow-[5px_5px_0px_#05070e] sm:shadow-[6px_6px_0px_#05070e] rounded-xl sm:rounded-2xl">
             <HeroDeck stocks={stocks} index={index} isLive={isLive} />
           </div>
         </div>
@@ -685,9 +688,9 @@ function TickerTape({ stocks }) {
   const doubled = [...stocks, ...stocks];
 
   return (
-    <div className="marquee-track relative overflow-hidden border-y-3 border-slate-950 bg-white dark:bg-[#05070e]/95 py-3.5 backdrop-blur">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-white dark:from-[#05070e] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-white dark:from-[#05070e] to-transparent" />
+    <div className="marquee-track relative overflow-hidden border-y-3 border-slate-950 bg-white dark:bg-[#0c1222]/95 py-3.5 backdrop-blur">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-white dark:from-[#0c1222] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-white dark:from-[#0c1222] to-transparent" />
 
       <div className="flex w-max animate-marquee gap-8">
         {doubled.map((stock, i) => {
@@ -753,7 +756,7 @@ const FEATURES = [
 
 const Features = forwardRef((props, ref) => {
   return (
-    <section ref={ref} id="features" data-gsap="section" className="relative border-t-3 border-slate-950 py-24 sm:py-28 bg-slate-100/70 dark:bg-[#05070e]/90">
+    <section ref={ref} id="features" data-gsap="section" className="relative border-t-3 border-slate-950 py-24 sm:py-28 bg-slate-100/70 dark:bg-[#0c1222]/90">
       <SpiderWebCorner className="top-0 right-0" rotate={90} />
 
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
@@ -800,7 +803,7 @@ const Features = forwardRef((props, ref) => {
               <div
                 key={title}
                 data-gsap="card"
-                className={`card-neo layer-3d group relative overflow-hidden p-5 sm:p-6 bg-white dark:bg-[#0e111a] border-3 border-slate-950 ${span}`}
+                className={`card-neo layer-3d group relative overflow-hidden p-5 sm:p-6 bg-white dark:bg-[#131c30] border-3 border-slate-950 ${span}`}
               >
                 <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-red-500/0 blur-3xl transition-all duration-500 group-hover:bg-red-500/15" />
 
@@ -818,7 +821,7 @@ const Features = forwardRef((props, ref) => {
         {/* Two new sections below the feature cards */}
         <div className="mt-14 sm:mt-16 grid gap-6 sm:gap-8 lg:grid-cols-2">
           {/* What to Expect */}
-          <div data-gsap="card" className="card-neo relative overflow-hidden p-6 sm:p-8 bg-white dark:bg-[#070b16] border-3 border-slate-950 border-t-4 border-t-[#0284c7] shadow-[5px_5px_0px_#05070e,8px_8px_0px_rgba(2,132,199,0.15)]">
+          <div data-gsap="card" className="card-neo relative overflow-hidden p-6 sm:p-8 bg-white dark:bg-[#10172a] border-3 border-slate-950 border-t-4 border-t-[#0284c7] shadow-[5px_5px_0px_#05070e,8px_8px_0px_rgba(2,132,199,0.15)]">
             <h3 className="font-display text-slate-950 dark:text-white text-lg sm:text-xl font-black tracking-tight mb-5 sm:mb-6 uppercase flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-[#0284c7]" />
               What to Expect
@@ -852,7 +855,7 @@ const Features = forwardRef((props, ref) => {
           </div>
 
           {/* Rules at a Glance */}
-          <div data-gsap="card" className="card-neo relative overflow-hidden p-6 sm:p-8 bg-white dark:bg-[#070b16] border-3 border-slate-950 border-t-4 border-t-[#ff0055] shadow-[5px_5px_0px_#05070e,8px_8px_0px_rgba(255,0,85,0.15)]">
+          <div data-gsap="card" className="card-neo relative overflow-hidden p-6 sm:p-8 bg-white dark:bg-[#10172a] border-3 border-slate-950 border-t-4 border-t-[#ff0055] shadow-[5px_5px_0px_#05070e,8px_8px_0px_rgba(255,0,85,0.15)]">
             <h3 className="font-display text-slate-950 dark:text-white text-lg sm:text-xl font-black tracking-tight mb-5 sm:mb-6 uppercase flex items-center gap-2">
               <Shield className="h-5 w-5 text-[#ff0055]" />
               Rules at a Glance
@@ -922,7 +925,7 @@ const STEPS = [
 
 const About = forwardRef((props, ref) => {
   return (
-    <section ref={ref} id="about" data-gsap="section" className="relative border-t-3 border-slate-950 py-20 sm:py-28 bg-slate-50 dark:bg-[#05070e] overflow-hidden">
+    <section ref={ref} id="about" data-gsap="section" className="relative border-t-3 border-slate-950 py-20 sm:py-28 bg-slate-50 dark:bg-[#0c1222] overflow-hidden">
       {/* Comic Book popups scoped to About section */}
       <div id="gsap-comic-thwip" className="pointer-events-none absolute left-[12%] top-[42%] opacity-0 scale-0 z-30 bg-[#ff1e42] border-4 border-black text-white font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg -rotate-12 shadow-[4px_4px_0px_#000] font-mono hidden sm:block">THWIP!</div>
       <div id="gsap-comic-bzzzt" className="pointer-events-none absolute left-[38%] top-[38%] opacity-0 scale-0 z-30 bg-amber-400 border-4 border-black text-black font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg rotate-6 shadow-[4px_4px_0px_#000] font-mono hidden sm:block">BZZZT!</div>
@@ -945,7 +948,7 @@ const About = forwardRef((props, ref) => {
             <div
               key={n}
               data-gsap="step-card"
-              className="card-neo layer-3d group relative p-5 sm:p-6 text-center bg-white dark:bg-[#0e111a] border-3 border-slate-950"
+              className="card-neo layer-3d group relative p-5 sm:p-6 text-center bg-white dark:bg-[#131c30] border-3 border-slate-950"
             >
               {/* Mobile Comic Sound badge */}
               <div className="absolute top-2.5 right-2.5 sm:hidden">
@@ -969,7 +972,7 @@ const About = forwardRef((props, ref) => {
 
         {/* Onboarding Progress Caption */}
         <div className="mt-12 sm:mt-16 text-center max-w-xl mx-auto">
-          <div className="relative rounded-2xl border-3 border-slate-950 bg-white dark:bg-[#070b16] px-4 sm:px-6 py-3.5 sm:py-4 shadow-[4px_4px_0px_#05070e] overflow-hidden">
+          <div className="relative rounded-2xl border-3 border-slate-950 bg-white dark:bg-[#10172a] px-4 sm:px-6 py-3.5 sm:py-4 shadow-[4px_4px_0px_#05070e] overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-red-600/5 via-transparent to-blue-600/5" />
             <p id="gsap-about-story" className="font-mono text-[12px] sm:text-[13px] font-bold text-red-600 dark:text-red-400 tracking-wide transition-all duration-300">
               STATUS FEED: Scroll to monitor your onboarding progress...
@@ -987,10 +990,10 @@ const About = forwardRef((props, ref) => {
  * ------------------------------------------------------------------ */
 function FinalCTA({ onRegisterClick }) {
   return (
-    <section data-gsap="section" className="relative py-20 sm:py-28 bg-slate-100/80 dark:bg-[#05070e]/90 border-t-3 border-slate-950">
+    <section data-gsap="section" className="relative py-20 sm:py-28 bg-slate-100/80 dark:bg-[#0c1222]/90 border-t-3 border-slate-950">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
         <div data-gsap="heading">
-          <div className="card-neo glow-neon-card relative overflow-hidden px-5 py-14 text-center sm:px-16 sm:py-20 bg-white dark:bg-[#070b16] border-4 border-slate-950 shadow-[6px_6px_0px_#05070e,10px_10px_0px_rgba(255,0,85,0.15)] dark:shadow-[8px_8px_0px_#ff0055]">
+          <div className="card-neo glow-neon-card relative overflow-hidden px-5 py-14 text-center sm:px-16 sm:py-20 bg-white dark:bg-[#10172a] border-4 border-slate-950 shadow-[6px_6px_0px_#05070e,10px_10px_0px_rgba(255,0,85,0.15)] dark:shadow-[8px_8px_0px_#ff0055]">
             {/* 🕸️ Spiderweb Corner Overlays inside CTA Banner */}
             <SpiderWebCorner className="top-0 left-0" rotate={0} />
             <SpiderWebCorner className="top-0 right-0" rotate={90} />
@@ -1035,7 +1038,7 @@ function FinalCTA({ onRegisterClick }) {
  * ------------------------------------------------------------------ */
 function Footer({ stocks, onRegisterClick }) {
   return (
-    <footer className="relative border-t-3 border-slate-950 bg-slate-100 dark:bg-[#04060e] py-14 text-slate-700 dark:text-slate-400">
+    <footer className="relative border-t-3 border-slate-950 bg-slate-100 dark:bg-[#090e1b] py-14 text-slate-700 dark:text-slate-400">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_2fr]">
           <div>
@@ -1078,7 +1081,7 @@ function Footer({ stocks, onRegisterClick }) {
         </div>
 
         {/* Styled Premium Neo-Brutalist Disclaimer Card */}
-        <div className="card-neo mt-12 p-6 bg-white dark:bg-[#070b16] border-3 border-slate-950 border-t-4 border-t-[#ffd200] relative overflow-hidden text-left shadow-[4px_4px_0px_#05070e]">
+        <div className="card-neo mt-12 p-6 bg-white dark:bg-[#10172a] border-3 border-slate-950 border-t-4 border-t-[#ffd200] relative overflow-hidden text-left shadow-[4px_4px_0px_#05070e]">
           <div className="flex items-center gap-2 mb-3">
             <span className="badge-neo bg-[#ffd200] text-slate-950 px-2.5 py-1 text-[11px] font-black shadow-[2px_2px_0px_#05070e]">
               DISCLAIMER // READ CAREFULLY
@@ -1322,7 +1325,7 @@ export function Landing() {
   };
 
   return (
-    <div className="relative min-h-screen bg-slate-50 dark:bg-[#05070e] text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-[#0c1222] text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
       <SpideyCursor />
       {/* "The Bite" Full-Bleed Radial Impact Overlay */}
       <div id="gsap-bite-overlay" className="pointer-events-none fixed inset-0 z-[90] opacity-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-600/30 via-blue-600/15 to-transparent" />
@@ -1382,7 +1385,7 @@ export function Landing() {
 
       {/* Sticky Mobile Bottom HUD Bar — Ultra-slick Phone Floating Controls */}
       <div className="fixed bottom-3 inset-x-3 z-40 sm:hidden">
-        <div className="card-neo !shadow-[4px_4px_0px_#05070e] flex items-center justify-between gap-2 p-2 px-3 bg-white/95 dark:bg-[#090d1a]/95 backdrop-blur-lg border-2 border-slate-950 rounded-2xl">
+        <div className="card-neo !shadow-[4px_4px_0px_#05070e] flex items-center justify-between gap-2 p-2 px-3 bg-white/95 dark:bg-[#10172a]/95 backdrop-blur-lg border-2 border-slate-950 rounded-2xl">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-live" />
             <div className="flex flex-col">

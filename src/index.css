@@ -33,9 +33,9 @@ body::before {
 }
 
 .dark body::before {
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%), 
-              linear-gradient(90deg, rgba(255, 0, 85, 0.05), rgba(0, 243, 255, 0.03), rgba(255, 210, 0, 0.04));
-  opacity: 0.22;
+  background: linear-gradient(rgba(18, 24, 40, 0) 50%, rgba(0, 0, 0, 0.35) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 85, 0.08), rgba(0, 243, 255, 0.08), rgba(255, 210, 0, 0.06));
+  opacity: 0.4;
 }
 
 /* 3D perspective stage */
@@ -62,7 +62,7 @@ body::before {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(3px 3px 0px #05070e);
+  filter: drop-shadow(3px 3px 0px #060b18);
 }
 
 .text-gradient-crimson {
@@ -108,11 +108,11 @@ body::before {
 }
 
 .dark .btn-neo {
-  border: 3.5px solid #05070e;
-  box-shadow: 4px 4px 0px #05070e, 6px 6px 0px rgba(0, 243, 255, 0.35);
+  border: 3.5px solid #1e293b;
+  box-shadow: 4px 4px 0px #060b18, 6px 6px 0px rgba(0, 243, 255, 0.45);
 }
 .dark .btn-neo:hover {
-  box-shadow: 7px 7px 0px #05070e, 10px 10px 0px rgba(255, 210, 0, 0.6);
+  box-shadow: 7px 7px 0px #060b18, 10px 10px 0px rgba(255, 210, 0, 0.7);
 }
 
 .btn-neo-blue {
@@ -154,18 +154,18 @@ body::before {
   background-size: 8px 8px;
 }
 
-/* Dark Mode Card Neo */
+/* Dark Mode Card Neo — Rich Halftone Contrast on Textured Slate-Navy */
 .dark .card-neo {
-  border: 3px solid #05070e;
-  background: radial-gradient(circle, rgba(0, 243, 255, 0.04) 1px, transparent 1px), #0e111a;
-  background-size: 10px 10px;
-  box-shadow: 5px 5px 0px #05070e, 8px 8px 0px rgba(255, 0, 85, 0.15);
+  border: 3px solid #1e293b;
+  background: radial-gradient(circle, rgba(0, 243, 255, 0.14) 1.5px, transparent 1.5px), #131c30;
+  background-size: 12px 12px;
+  box-shadow: 5px 5px 0px #060b18, 8px 8px 0px rgba(255, 0, 85, 0.28);
 }
 .dark .card-neo:hover {
   border-color: #00f3ff;
-  box-shadow: 9px 9px 0px #05070e, 13px 13px 0px rgba(0, 243, 255, 0.35);
-  background: radial-gradient(circle, rgba(0, 243, 255, 0.08) 1.5px, transparent 1.5px), #111522;
-  background-size: 8px 8px;
+  box-shadow: 9px 9px 0px #060b18, 13px 13px 0px rgba(0, 243, 255, 0.45);
+  background: radial-gradient(circle, rgba(0, 243, 255, 0.2) 1.5px, transparent 1.5px), #18243e;
+  background-size: 10px 10px;
 }
 
 /* Badge Neo */
@@ -189,11 +189,11 @@ body::before {
 }
 
 .dark .badge-neo {
-  border-color: #05070e;
-  box-shadow: 3px 3px 0px #05070e;
+  border-color: #1e293b;
+  box-shadow: 3px 3px 0px #060b18;
 }
 .dark .badge-neo:hover {
-  box-shadow: 5px 5px 0px #05070e, 7px 7px 0px rgba(0, 243, 255, 0.3);
+  box-shadow: 5px 5px 0px #060b18, 7px 7px 0px rgba(0, 243, 255, 0.4);
 }
 
 /* Theme Toggle Button */
@@ -220,14 +220,14 @@ body::before {
   box-shadow: 1px 1px 0px #0f172a;
 }
 .dark .theme-toggle-btn {
-  border-color: #05070e;
-  background: #0f1422;
+  border-color: #1e293b;
+  background: #131c30;
   color: #ffd200;
   box-shadow: 3px 3px 0px #ffd200;
 }
 .dark .theme-toggle-btn:hover {
   transform: translate(-2px, -2px) rotate(6deg);
-  box-shadow: 5px 5px 0px #ffd200, 8px 8px 0px rgba(0, 243, 255, 0.4);
+  box-shadow: 5px 5px 0px #ffd200, 8px 8px 0px rgba(0, 243, 255, 0.45);
 }
 
 /* Dynamic Custom Web Cursor Dot */
@@ -260,9 +260,10 @@ body::before {
 }
 .dark .grid-floor {
   background-image:
-    radial-gradient(circle at 50% 50%, rgba(255, 0, 85, 0.15) 0%, transparent 60%),
-    linear-gradient(to right, rgba(255, 0, 85, 0.18) 1.5px, transparent 1.5px),
-    linear-gradient(to bottom, rgba(0, 243, 255, 0.18) 1.5px, transparent 1.5px);
+    radial-gradient(circle at 50% 50%, rgba(255, 0, 85, 0.28) 0%, transparent 60%),
+    linear-gradient(to right, rgba(0, 243, 255, 0.35) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(255, 0, 85, 0.35) 1.5px, transparent 1.5px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
 }
 
 /* Spiderweb overlay texture for Light & Dark Mode */
@@ -271,8 +272,9 @@ body::before {
                     radial-gradient(circle at 100% 100%, rgba(0, 195, 255, 0.06) 0%, transparent 50%);
 }
 .dark .spider-web-bg {
-  background-image: radial-gradient(circle at 50% 0%, rgba(255, 0, 85, 0.18) 0%, transparent 50%),
-                    radial-gradient(circle at 100% 100%, rgba(0, 243, 255, 0.18) 0%, transparent 50%);
+  background-image: radial-gradient(circle at 50% 0%, rgba(255, 0, 85, 0.32) 0%, transparent 60%),
+                    radial-gradient(circle at 100% 100%, rgba(0, 243, 255, 0.28) 0%, transparent 60%),
+                    radial-gradient(circle at 0% 50%, rgba(255, 210, 0, 0.18) 0%, transparent 60%);
 }
 
 /* Continuous marquee for ticker tape */
@@ -375,12 +377,15 @@ body::before {
 }
 
 .dark .panel-3d {
-  background: radial-gradient(circle, rgba(0, 243, 255, 0.04) 1px, transparent 1px), #0e111a;
-  border: 3px solid #05070e;
-  box-shadow: 6px 6px 0px #05070e, 10px 10px 0px rgba(0, 243, 255, 0.22);
+  background: radial-gradient(circle, rgba(0, 243, 255, 0.14) 1.5px, transparent 1.5px), #131c30;
+  background-size: 12px 12px;
+  border: 3px solid #1e293b;
+  box-shadow: 6px 6px 0px #060b18, 10px 10px 0px rgba(0, 243, 255, 0.3);
 }
 .dark .panel-3d:hover {
-  box-shadow: 9px 9px 0px #05070e, 14px 14px 0px rgba(0, 243, 255, 0.32);
+  border-color: #00f3ff;
+  box-shadow: 9px 9px 0px #060b18, 14px 14px 0px rgba(0, 243, 255, 0.45);
+  background: radial-gradient(circle, rgba(0, 243, 255, 0.2) 1.5px, transparent 1.5px), #17233d;
 }
 
 .sheen::after {

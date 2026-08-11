@@ -268,7 +268,7 @@ export function HeroDeck({ stocks, index, isLive }) {
       >
         {/* ---------------- Main terminal panel ---------------- */}
         <motion.div
-          className="panel-3d sheen relative z-20 rounded-3xl p-5 pb-9 sm:p-6 sm:pb-9 bg-white dark:bg-[#0e111a] border-3 border-slate-950 shadow-[6px_6px_0px_#05070e]"
+          className="panel-3d sheen relative z-20 rounded-3xl p-5 pb-9 sm:p-6 sm:pb-9 bg-white dark:bg-[#131c30] border-3 border-slate-950 shadow-[6px_6px_0px_#05070e]"
           style={{ z: 60 }}
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
@@ -281,7 +281,7 @@ export function HeroDeck({ stocks, index, isLive }) {
                 onClick={() => setOpenMenu((m) => (m === 'instrument' ? null : 'instrument'))}
                 aria-haspopup="listbox"
                 aria-expanded={openMenu === 'instrument'}
-                className="flex items-center gap-1.5 border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-2.5 py-1.5 text-xs font-mono font-bold text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-all hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e] rounded"
+                className="flex items-center gap-1.5 border-2 border-slate-950 bg-slate-100 dark:bg-[#10172a] px-2.5 py-1.5 text-xs font-mono font-bold text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-all hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e] rounded"
               >
                 {display.label}
                 <ChevronDown
@@ -297,7 +297,7 @@ export function HeroDeck({ stocks, index, isLive }) {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -6, scale: 0.97 }}
                     transition={{ duration: 0.16 }}
-                    className="absolute left-0 top-full z-50 mt-2 max-h-[290px] w-[248px] overflow-y-auto rounded-xl border-2 border-slate-950 bg-white dark:bg-[#070b16] p-1.5 shadow-2xl backdrop-blur-xl"
+                    className="absolute left-0 top-full z-50 mt-2 max-h-[290px] w-[248px] overflow-y-auto rounded-xl border-2 border-slate-950 bg-white dark:bg-[#10172a] p-1.5 shadow-2xl backdrop-blur-xl"
                   >
                     <MenuRow
                       label="ARENA 15"
@@ -349,7 +349,7 @@ export function HeroDeck({ stocks, index, isLive }) {
                   onClick={() => setOpenMenu((m) => (m === 'timeframe' ? null : 'timeframe'))}
                   aria-haspopup="listbox"
                   aria-expanded={openMenu === 'timeframe'}
-                  className="flex items-center gap-1.5 border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-2.5 py-1.5 text-xs font-mono font-bold text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-all hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e] rounded"
+                  className="flex items-center gap-1.5 border-2 border-slate-950 bg-slate-100 dark:bg-[#10172a] px-2.5 py-1.5 text-xs font-mono font-bold text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-all hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e] rounded"
                 >
                   {frame.label}
                   <ChevronDown
@@ -365,7 +365,7 @@ export function HeroDeck({ stocks, index, isLive }) {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -6, scale: 0.97 }}
                       transition={{ duration: 0.16 }}
-                      className="absolute right-0 top-full z-50 mt-2 w-[148px] rounded-xl border-2 border-slate-950 bg-white dark:bg-[#070b16] p-1.5 shadow-2xl backdrop-blur-xl"
+                      className="absolute right-0 top-full z-50 mt-2 w-[148px] rounded-xl border-2 border-slate-950 bg-white dark:bg-[#10172a] p-1.5 shadow-2xl backdrop-blur-xl"
                     >
                       {TIMEFRAMES.map((t) => (
                         <button
@@ -503,7 +503,7 @@ export function HeroDeck({ stocks, index, isLive }) {
             </div>
 
             {/* Mobile-only Live News Chip */}
-            <div className="mt-3.5 sm:hidden flex items-center justify-between gap-2 rounded-lg border-2 border-slate-950 bg-slate-50 dark:bg-[#070b16] p-2.5 shadow-[2px_2px_0px_#05070e]">
+            <div className="mt-3.5 sm:hidden flex items-center justify-between gap-2 rounded-lg border-2 border-slate-950 bg-slate-50 dark:bg-[#10172a] p-2.5 shadow-[2px_2px_0px_#05070e]">
               <div className="flex items-center gap-2 min-w-0">
                 <span className="badge-neo !px-1.5 !py-0.5 !text-[8.5px] bg-[#ff0055] text-white shrink-0">
                   LIVE NEWS
@@ -519,7 +519,7 @@ export function HeroDeck({ stocks, index, isLive }) {
 
         {/* ---------------- Floating: market news (front left) ---------------- */}
         <motion.div
-          className="panel-3d absolute z-30 -left-8 lg:-left-12 -bottom-24 w-[172px] rounded-2xl p-3.5 bg-white dark:bg-[#0e111a] border-2 border-slate-950 shadow-[4px_4px_0px_#05070e] hidden sm:block"
+          className="panel-3d absolute z-30 -left-8 lg:-left-12 -bottom-24 w-[172px] rounded-2xl p-3.5 bg-white dark:bg-[#131c30] border-2 border-slate-950 shadow-[4px_4px_0px_#05070e] hidden sm:block"
           style={{ x: driftX, y: driftY, z: 120, rotate: -6 }}
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -540,7 +540,7 @@ export function HeroDeck({ stocks, index, isLive }) {
 
         {/* ---------------- Floating: sector rally (right) ---------------- */}
         <motion.div
-          className="panel-3d absolute z-30 -right-14 lg:-right-20 top-[22%] w-[152px] rounded-2xl p-3.5 bg-white dark:bg-[#0e111a] border-2 border-slate-950 shadow-[4px_4px_0px_#05070e] hidden sm:block"
+          className="panel-3d absolute z-30 -right-14 lg:-right-20 top-[22%] w-[152px] rounded-2xl p-3.5 bg-white dark:bg-[#131c30] border-2 border-slate-950 shadow-[4px_4px_0px_#05070e] hidden sm:block"
           style={{ x: counterDriftX, y: driftY, z: 100, rotate: 5 }}
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -557,7 +557,7 @@ export function HeroDeck({ stocks, index, isLive }) {
 
         {/* ---------------- Orbiting coin badges ---------------- */}
         <motion.div
-          className="absolute z-40 -right-2 sm:-right-12 top-10 sm:top-16 flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center rounded-full border-2 border-slate-950 bg-white dark:bg-[#0e111a] text-blue-600 dark:text-blue-400 shadow-[2px_2px_0px_#05070e] sm:shadow-[3px_3px_0px_#05070e] animate-float-slow"
+          className="absolute z-40 -right-2 sm:-right-12 top-10 sm:top-16 flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center rounded-full border-2 border-slate-950 bg-white dark:bg-[#131c30] text-blue-600 dark:text-blue-400 shadow-[2px_2px_0px_#05070e] sm:shadow-[3px_3px_0px_#05070e] animate-float-slow"
           style={{ z: 150 }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -567,7 +567,7 @@ export function HeroDeck({ stocks, index, isLive }) {
         </motion.div>
 
         <motion.div
-          className="absolute z-40 -right-3 sm:-right-7 bottom-10 sm:bottom-14 flex h-9 w-9 sm:h-12 sm:w-12 items-center justify-center rounded-full border-2 border-slate-950 bg-white dark:bg-[#0e111a] text-emerald-600 dark:text-emerald-400 shadow-[2px_2px_0px_#05070e] sm:shadow-[3px_3px_0px_#05070e] animate-float-slow"
+          className="absolute z-40 -right-3 sm:-right-7 bottom-10 sm:bottom-14 flex h-9 w-9 sm:h-12 sm:w-12 items-center justify-center rounded-full border-2 border-slate-950 bg-white dark:bg-[#131c30] text-emerald-600 dark:text-emerald-400 shadow-[2px_2px_0px_#05070e] sm:shadow-[3px_3px_0px_#05070e] animate-float-slow"
           style={{ z: 140, animationDelay: '1.5s' }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
