@@ -10,6 +10,7 @@ import { useLiveStocks, useArenaIndex, sectorTheme } from '../hooks/useLiveStock
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import {
   playSonarPing, playWebSling, playSpiderTingle, playTactileClick,
+  playSpidermanNotification, playSpidermanWebThwip, playSpidermanSpiderSense, playSpidermanTrackerSonar,
   isSoundEnabled, setSoundEnabled, initSoundPreference
 } from '../utils/audioFx';
 
@@ -307,6 +308,7 @@ function SpideyTrackerModal({ onClose }) {
 
   // Real-time fluctuating tracking telemetry
   useEffect(() => {
+    playSpidermanNotification();
     const interval = setInterval(() => {
       setTrackingDistance((0.03 + Math.random() * 0.02).toFixed(2));
       setSignalQuality(Math.floor(97 + Math.random() * 3));
@@ -315,7 +317,7 @@ function SpideyTrackerModal({ onClose }) {
   }, []);
 
   const triggerSonarPulse = () => {
-    playSonarPing();
+    playSpidermanTrackerSonar();
     setSonarPulse(true);
     setTimeout(() => setSonarPulse(false), 1200);
   };
@@ -696,9 +698,12 @@ function FloatingSpiderSenseChip({ onTrackerClick, onRegisterClick }) {
 
   useEffect(() => {
     return scrollY.on('change', (latest) => {
+      if (latest > 350 && !visible) {
+        playSpidermanSpiderSense();
+      }
       setVisible(latest > 350);
     });
-  }, [scrollY]);
+  }, [scrollY, visible]);
 
   return (
     <AnimatePresence>
@@ -708,6 +713,7 @@ function FloatingSpiderSenseChip({ onTrackerClick, onRegisterClick }) {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 30, scale: 0.9 }}
           transition={{ type: 'spring', damping: 20, stiffness: 220 }}
+          onMouseEnter={() => playSpidermanSpiderSense()}
           className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-2.5 p-2 pr-3 bg-slate-950/95 border-2 sm:border-3 border-[#ff0055] rounded-2xl shadow-[4px_4px_0px_#05070e,0_0_16px_rgba(255,0,85,0.5)] backdrop-blur-xl select-none"
         >
           <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#ff0055] text-white shrink-0 shadow animate-pulse">
@@ -723,7 +729,7 @@ function FloatingSpiderSenseChip({ onTrackerClick, onRegisterClick }) {
             <button
               type="button"
               onClick={() => {
-                playSonarPing();
+                playSpidermanNotification();
                 onTrackerClick();
               }}
               className="px-2.5 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-[9px] font-black hover:bg-cyan-300 active:scale-95 shadow-[1px_1px_0px_#000] cursor-pointer"
@@ -733,7 +739,7 @@ function FloatingSpiderSenseChip({ onTrackerClick, onRegisterClick }) {
             <a
               href={REGISTER_URL}
               onClick={(e) => {
-                playWebSling();
+                playSpidermanWebThwip();
                 onRegisterClick(e);
               }}
               className="px-2.5 py-1 rounded-lg bg-[#ffd200] text-slate-950 font-mono text-[9px] font-black hover:bg-amber-300 active:scale-95 shadow-[1px_1px_0px_#000] cursor-pointer"
