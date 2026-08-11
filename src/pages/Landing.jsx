@@ -418,73 +418,68 @@ function SpideyTrackerModal({ onClose }) {
             <span>00</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span><span>80</span><span>90</span>
           </div>
 
-          {/* Interactive Google Map Embed centered on SVKM SBMP */}
+          {/* Interactive Google Map Embed centered on SVKM SBMP (Natural & Crisp) */}
           <iframe
             title="Spidey Tracker SVKM Campus Map"
             src="https://maps.google.com/maps?q=SVKM's%20Shri%20Bhagubhai%20Mafatlal%20Polytechnic%20Vile%20Parle%20West%20Mumbai&t=&z=17&ie=UTF8&iwloc=&output=embed"
-            className="w-full h-full border-0 filter contrast-[1.12] brightness-[0.90] saturate-[1.1]"
+            className="w-full h-full border-0"
             loading="lazy"
           />
 
-          {/* Tactical Scanline Sweep Overlay */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-20">
-            <div className="w-full h-12 bg-gradient-to-b from-transparent via-cyan-400/50 to-transparent animate-tracker-scanline" />
-          </div>
-
-          {/* Tactical Radar Sonar Sweep Overlay */}
+          {/* Faint Radar Range Circles */}
           {radarActive && (
-            <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-40">
-              <div className="absolute w-[220px] h-[220px] sm:w-[320px] sm:h-[320px] rounded-full border-2 border-cyan-400/60 animate-sonar-ping" />
-              <div className="absolute w-[220px] h-[220px] sm:w-[320px] sm:h-[320px] rounded-full border-2 border-red-500/60 animate-sonar-ping-delayed" />
-              <div 
-                className="absolute w-[340px] h-[340px] sm:w-[480px] sm:h-[480px] rounded-full animate-radar-sweep pointer-events-none"
-                style={{
-                  background: 'conic-gradient(from 0deg, rgba(0, 243, 255, 0.55) 0deg, rgba(0, 243, 255, 0.12) 45deg, transparent 70deg, transparent 360deg)'
-                }}
-              />
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-30">
+              <div className="absolute w-[240px] h-[240px] sm:w-[340px] sm:h-[340px] rounded-full border-2 border-cyan-500/50 animate-sonar-ping" />
+              <div className="absolute w-[360px] h-[360px] sm:w-[500px] sm:h-[500px] rounded-full border border-cyan-500/40" />
             </div>
           )}
 
-          {/* Spidey Sighting Pin 1 (Bandra / Western Suburbs) */}
-          <div className="absolute top-[28%] left-[24%] pointer-events-none z-20 hidden sm:flex items-center justify-center">
-            <div className="w-7 h-7 rounded-full bg-emerald-500/90 border-2 border-slate-950 flex items-center justify-center p-1 shadow-[2px_2px_0px_#000] animate-pulse">
+          {/* Sighting Pin 1 (Top Left near Mukesh Patel School) */}
+          <div className="absolute top-[20%] left-[16%] pointer-events-none z-20 hidden sm:flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-emerald-400 border-2 sm:border-3 border-slate-950 flex items-center justify-center p-1 shadow-[2px_2px_0px_#000] animate-pulse">
               <img src="/images/spidey_pixel_spider_icon.png" alt="Sighting" className="w-full h-full object-contain pixelated" />
             </div>
           </div>
 
-          {/* Spidey Sighting Pin 2 (Andheri / Airport Suburbs) */}
-          <div className="absolute top-[68%] right-[28%] pointer-events-none z-20 hidden sm:flex items-center justify-center">
-            <div className="w-7 h-7 rounded-full bg-[#ff0055]/90 border-2 border-slate-950 flex items-center justify-center p-1 shadow-[2px_2px_0px_#000] animate-bounce">
+          {/* Sighting Pin 2 (Bottom Right near Dadabhai Rd) */}
+          <div className="absolute top-[68%] right-[22%] pointer-events-none z-20 hidden sm:flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-[#ff0055] border-2 sm:border-3 border-slate-950 flex items-center justify-center p-1 shadow-[2px_2px_0px_#000] animate-bounce">
               <img src="/images/spidey_pixel_spider_icon.png" alt="Sighting" className="w-full h-full object-contain pixelated" />
             </div>
           </div>
 
-          {/* Center Campus Target Lock Card Overlay (Exact like movie trailer card) */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-25 flex flex-col items-center">
-            <div className="card-neo bg-slate-950/95 border-3 border-[#00f3ff] p-2.5 rounded-xl shadow-[4px_4px_0px_#000] flex flex-col items-center text-center max-w-[240px] sm:max-w-[280px]">
-              <div className="flex items-center gap-1.5 mb-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#ff0055] animate-ping" />
-                <span className="font-mono text-[9px] sm:text-[10px] font-black text-[#ffd200] uppercase tracking-wider">
-                  CAMPUS TARGET LOCKED
-                </span>
-              </div>
-              <span className="font-display text-[11px] sm:text-xs font-black text-white leading-tight mb-2">
-                SVKM'S SBMP &amp; ENGG CAMPUS
+          {/* Exact Central Target Locked Card & Spidey Pin as in Reference */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-25 flex flex-col items-center pointer-events-auto">
+            {/* White Target Locked Neo-Brutalist Box */}
+            <div className="relative bg-white border-3 sm:border-4 border-slate-950 rounded-2xl shadow-[6px_6px_0px_#05070e] p-3.5 sm:p-5 flex flex-col items-center justify-center min-w-[230px] sm:min-w-[290px] overflow-hidden">
+              {/* Top Rainbow/Gradient Bar */}
+              <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[#ff0055] via-[#ffd200] to-[#00f3ff]" />
+
+              {/* Title: CAMPUS TARGET LOCKED */}
+              <span className="font-mono text-[10px] sm:text-[12px] font-black text-amber-500 tracking-wider sm:tracking-widest uppercase mb-3 text-center">
+                CAMPUS TARGET LOCKED
               </span>
+
+              {/* Main Action: OPEN GOOGLE MAPS Button */}
               <a
                 href={venue.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#ffd200] border-2 border-slate-950 shadow-[2px_2px_0px_#000] font-mono text-[10px] sm:text-[11px] font-black text-slate-950 hover:bg-amber-300 transition-colors"
+                className="w-full flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[3px_3px_0px_#05070e] font-mono text-xs sm:text-sm font-black text-slate-950 hover:bg-amber-300 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer group"
               >
-                <Navigation className="h-3 w-3" />
+                <Navigation className="h-4 w-4 text-slate-950 group-hover:rotate-45 transition-transform" />
                 <span>OPEN GOOGLE MAPS</span>
               </a>
             </div>
 
-            {/* Target Spider Emblem Pin */}
-            <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-xl bg-white border-2 border-slate-950 shadow-[2px_2px_0px_#000] p-1">
-              <img src="/images/spidey_pixel_spider_icon.png" alt="Spider Lock" className="w-full h-full object-contain pixelated" />
+            {/* Target Spidey Mask & Emblem Pin pointing below card */}
+            <div className="flex items-center -mt-1 z-30">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white border-2 border-slate-950 shadow-[2px_2px_0px_#000] p-0.5">
+                <img src="/images/spidey_pixel_spider_icon.png" alt="Target Badge" className="w-full h-full object-contain pixelated" />
+              </div>
+              <div className="flex h-8 w-8 -ml-1.5 items-center justify-center rounded-full bg-[#ff0055] border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#000] p-0.5 animate-pulse">
+                <img src="/images/spidey_pixel_head_icon.png" alt="Target Spidey Head" className="w-full h-full object-contain pixelated" />
+              </div>
             </div>
           </div>
 
