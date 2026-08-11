@@ -590,18 +590,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
       <div className="mx-auto grid max-w-[1280px] items-center gap-8 sm:gap-14 px-4 sm:px-8 pb-16 pt-4 sm:pb-24 sm:pt-14 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pb-12 lg:pt-16">
         {/* ---------- Left column (GSAP Hero Page-Load Entrance) ---------- */}
         <div data-gsap="hero" className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
-          {/* Live Event Telemetry Beacon */}
-          <div className="telemetry-beacon mb-3 sm:mb-4 select-none">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-live shrink-0" />
-            <span className="text-slate-950 dark:text-white font-black text-[10px] sm:text-[11px] tracking-wider">
-              IGNITE 8.0 <span className="text-red-600">•</span> LIVE TRADING SIMULATION <span className="text-red-600">•</span> SEPT 4
-            </span>
-            <span className="badge-neo !px-1.5 !py-0.2 !text-[8px] bg-[#ffd200] text-slate-950 ml-1 hidden xs:inline-block">
-              20K IC
-            </span>
-          </div>
-
-          <h1 className="font-display mt-2 sm:mt-4 text-[clamp(2.05rem,6.8vw,4.6rem)] font-black leading-[1.03] tracking-[-0.03em] text-slate-950 dark:text-white">
+          <h1 className="font-display text-[clamp(2.05rem,6.8vw,4.6rem)] font-black leading-[1.03] tracking-[-0.03em] text-slate-950 dark:text-white">
             With great capital
             <br />
             comes <span className="text-gradient-spidey">great responsibility.</span>
