@@ -291,7 +291,8 @@ function SpideyTrackerModal({ onClose }) {
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-950/85 backdrop-blur-md overflow-y-auto pointer-events-auto p-2 sm:p-4 md:p-6"
     >
-      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-600/20 via-transparent to-red-600/20 blur-3xl pointer-events-none" />
+      {/* Background Stark-tech Glow Field */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-500/20 via-red-500/10 to-transparent blur-3xl pointer-events-none" />
 
       {/* Main Spidey-Tracker Movie-Styled Bezel Frame */}
       <motion.div
@@ -299,8 +300,22 @@ function SpideyTrackerModal({ onClose }) {
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.88, y: 30 }}
         transition={{ type: 'spring', damping: 24, stiffness: 200 }}
-        className="relative w-full max-w-[960px] bg-[#0284c7] border-4 sm:border-[5px] border-slate-950 rounded-2xl sm:rounded-3xl p-2.5 sm:p-4 md:p-5 shadow-[8px_8px_0px_#05070e,12px_12px_0px_rgba(0,243,255,0.4)] flex flex-col select-none"
+        className="relative w-full max-w-[960px] bg-[#0284c7] border-4 sm:border-[5px] border-slate-950 rounded-2xl sm:rounded-3xl p-2.5 sm:p-4 md:p-5 shadow-[8px_8px_0px_#05070e,12px_12px_0px_rgba(0,243,255,0.4)] flex flex-col select-none overflow-hidden"
       >
+        {/* Bezel Corner Tech Rivet Screws */}
+        <div className="absolute top-2 left-2 w-2.5 h-2.5 rounded-full bg-slate-900 border border-slate-950 flex items-center justify-center pointer-events-none opacity-60">
+          <span className="w-1.5 h-0.5 bg-slate-400 block" />
+        </div>
+        <div className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-slate-900 border border-slate-950 flex items-center justify-center pointer-events-none opacity-60">
+          <span className="w-1.5 h-0.5 bg-slate-400 block" />
+        </div>
+        <div className="absolute bottom-2 left-2 w-2.5 h-2.5 rounded-full bg-slate-900 border border-slate-950 flex items-center justify-center pointer-events-none opacity-60">
+          <span className="w-1.5 h-0.5 bg-slate-400 block" />
+        </div>
+        <div className="absolute bottom-2 right-2 w-2.5 h-2.5 rounded-full bg-slate-900 border border-slate-950 flex items-center justify-center pointer-events-none opacity-60">
+          <span className="w-1.5 h-0.5 bg-slate-400 block" />
+        </div>
+
         {/* ================= TOP BEZEL BAR ================= */}
         <div className="relative flex items-center justify-between gap-2 pb-2 sm:pb-3">
           {/* Top Left: Orange/Yellow Circle Menu Button */}
@@ -309,12 +324,12 @@ function SpideyTrackerModal({ onClose }) {
               type="button"
               onClick={onClose}
               title="Close Tracker"
-              className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#f59e0b] border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] transition-transform hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+              className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#f59e0b] border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] transition-transform hover:scale-105 active:scale-95 cursor-pointer shrink-0 group"
             >
               <div className="flex flex-col gap-[3px] items-center justify-center">
-                <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full" />
-                <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full" />
-                <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full" />
+                <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full transition-transform group-hover:scale-x-110" />
+                <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full transition-transform group-hover:scale-x-90" />
+                <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full transition-transform group-hover:scale-x-110" />
               </div>
             </button>
             <span className="hidden md:inline-block font-mono text-[9px] font-black text-white/90 uppercase tracking-wider">
@@ -323,18 +338,18 @@ function SpideyTrackerModal({ onClose }) {
           </div>
 
           {/* Top Center: Movie Spidey Tracker Pill Badge */}
-          <div className="flex items-center gap-2 px-4 sm:px-6 py-1 sm:py-1.5 rounded-full bg-[#0a192f] border-2 sm:border-3 border-[#00f3ff] shadow-[3px_3px_0px_#05070e]">
-            <span className="font-display text-xs sm:text-sm md:text-base font-black text-[#00f3ff] tracking-wider uppercase">
+          <div className="flex items-center gap-2 px-3 sm:px-6 py-1 sm:py-1.5 rounded-full bg-[#0a192f] border-2 sm:border-3 border-[#00f3ff] shadow-[3px_3px_0px_#05070e]">
+            <span className="font-display text-[11px] sm:text-sm md:text-base font-black text-[#00f3ff] tracking-wider uppercase">
               SPIDEY
             </span>
-            {/* Spider-Man Mask Eyes SVG Icon */}
-            <div className="relative flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-[#ff0055] border-2 border-slate-950 shrink-0">
+            {/* Spider-Man Mask Eyes SVG Icon with subtle glow */}
+            <div className="relative flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-[#ff0055] border-2 border-slate-950 shrink-0 shadow-[0_0_8px_rgba(255,0,85,0.8)]">
               <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-white stroke-slate-950 stroke-[1.5]">
                 <ellipse cx="8" cy="11" rx="3.5" ry="5" transform="rotate(-15 8 11)" />
                 <ellipse cx="16" cy="11" rx="3.5" ry="5" transform="rotate(15 16 11)" />
               </svg>
             </div>
-            <span className="font-display text-xs sm:text-sm md:text-base font-black text-[#00f3ff] tracking-wider uppercase">
+            <span className="font-display text-[11px] sm:text-sm md:text-base font-black text-[#00f3ff] tracking-wider uppercase">
               TRACKER
             </span>
           </div>
@@ -345,7 +360,7 @@ function SpideyTrackerModal({ onClose }) {
               type="button"
               onClick={onClose}
               title="Close Tracker"
-              className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-white border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] hover:bg-slate-100 active:scale-95 transition-transform cursor-pointer shrink-0"
+              className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-white border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] hover:bg-red-50 hover:border-red-600 active:scale-95 transition-all cursor-pointer shrink-0"
             >
               {/* Spider Silhouette */}
               <svg viewBox="0 0 24 24" className="w-4 h-4 sm:w-5 sm:h-5 fill-slate-950 stroke-slate-950 stroke-[0.8]">
@@ -361,9 +376,9 @@ function SpideyTrackerModal({ onClose }) {
         {/* ================= SCREEN / MAP DISPLAY ================= */}
         <div className="relative w-full h-[320px] xs:h-[380px] sm:h-[440px] md:h-[490px] rounded-xl sm:rounded-2xl border-3 sm:border-4 border-slate-950 overflow-hidden bg-[#0a1224] shadow-inner">
           {/* Top Ruler / Coordinate Scale Ticks inside screen */}
-          <div className="absolute top-0 inset-x-0 z-20 h-5 bg-[#0a1224]/80 backdrop-blur border-b border-cyan-500/30 flex items-center justify-between px-3 pointer-events-none text-[8.5px] sm:text-[9.5px] font-mono text-[#00f3ff] select-none">
-            <span className="tracking-widest truncate">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</span>
-            <span className="font-bold text-white shrink-0 ml-2">SVKM_CAMPUS // GRID_REF: 19.1075_72.8360</span>
+          <div className="absolute top-0 inset-x-0 z-20 h-5 bg-[#0a1224]/85 backdrop-blur border-b border-cyan-500/30 flex items-center justify-between px-3 pointer-events-none text-[8.5px] sm:text-[9.5px] font-mono text-[#00f3ff] select-none">
+            <span className="tracking-widest truncate hidden xs:inline">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</span>
+            <span className="font-bold text-white shrink-0">SVKM_CAMPUS // GRID_REF: 19.1075_72.8360</span>
           </div>
 
           {/* Left Vertical Ruler Ticks */}
@@ -372,7 +387,7 @@ function SpideyTrackerModal({ onClose }) {
           </div>
 
           {/* Left Bezel Side-Tabs (White & Red Spider Pins like movie screen) */}
-          <div className="absolute top-10 left-1 z-30 flex flex-col gap-2 pointer-events-none hidden xs:flex">
+          <div className="absolute top-10 left-1.5 z-30 flex flex-col gap-2 pointer-events-none hidden xs:flex">
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-white border-2 border-slate-950 shadow-[1.5px_1.5px_0px_#05070e]">
               <svg viewBox="0 0 24 24" className="w-3 h-3 fill-slate-950">
                 <circle cx="12" cy="12" r="4" />
@@ -422,9 +437,9 @@ function SpideyTrackerModal({ onClose }) {
             </div>
           </div>
 
-          {/* Bottom Right: Spiderweb Radar Compass Widget (Exact like movie interface) */}
+          {/* Bottom Right: Spiderweb Radar Compass Widget with Spinning Needle (Exact like movie interface) */}
           <div className="absolute bottom-3 right-3 z-30 pointer-events-none hidden xs:flex flex-col items-center">
-            <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0a1224]/85 border-2 border-[#00f3ff] shadow-[2px_2px_0px_#000] flex items-center justify-center backdrop-blur-sm">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0a1224]/90 border-2 border-[#00f3ff] shadow-[2px_2px_0px_#000] flex items-center justify-center backdrop-blur-md">
               {/* Spiderweb Web Net lines */}
               <svg viewBox="0 0 100 100" className="w-full h-full stroke-[#00f3ff] stroke-[1] fill-none opacity-80">
                 <circle cx="50" cy="50" r="45" strokeDasharray="3 3" />
@@ -434,9 +449,14 @@ function SpideyTrackerModal({ onClose }) {
                 <line x1="5" y1="50" x2="95" y2="50" />
                 <line x1="18" y1="18" x2="82" y2="82" />
                 <line x1="18" y1="82" x2="82" y2="18" />
-                <circle cx="50" cy="50" r="3" fill="#ff0055" className="animate-ping" />
+                {/* Rotating Radar Needle */}
+                <g className="animate-radar-needle">
+                  <line x1="50" y1="50" x2="50" y2="10" stroke="#ff0055" strokeWidth="2" />
+                  <circle cx="50" cy="10" r="2.5" fill="#ff0055" />
+                </g>
+                <circle cx="50" cy="50" r="3.5" fill="#ffd200" />
               </svg>
-              <span className="absolute bottom-1 font-mono text-[7px] text-[#00f3ff] font-bold">RADAR</span>
+              <span className="absolute bottom-1 font-mono text-[6.5px] sm:text-[7.5px] text-[#00f3ff] font-bold">RADAR</span>
             </div>
           </div>
         </div>
@@ -449,17 +469,17 @@ function SpideyTrackerModal({ onClose }) {
               href={venue.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] font-mono text-[10.5px] sm:text-xs font-black text-slate-950 hover:bg-amber-300 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[3px_3px_0px_#05070e] font-mono text-[11px] sm:text-xs font-black text-slate-950 hover:bg-amber-300 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
             >
-              <Navigation className="h-3.5 w-3.5" />
+              <Navigation className="h-4 w-4" />
               <span>NAVIGATE TO CAMPUS</span>
-              <ExternalLink className="h-3 w-3" />
+              <ExternalLink className="h-3.5 w-3.5" />
             </a>
 
             <button
               type="button"
               onClick={handleCopyCoords}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white border-2 border-slate-950 shadow-[2px_2px_0px_#05070e] font-mono text-[10px] sm:text-[11px] font-bold text-slate-950 hover:bg-slate-100 cursor-pointer sm:hidden"
+              className="flex items-center gap-1.5 px-2.5 py-2 rounded-lg bg-white border-2 border-slate-950 shadow-[2px_2px_0px_#05070e] font-mono text-[10px] sm:text-[11px] font-bold text-slate-950 hover:bg-slate-100 cursor-pointer sm:hidden"
             >
               {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5 text-slate-600" />}
               <span>{copied ? 'COPIED' : 'COORDS'}</span>
@@ -489,7 +509,7 @@ function SpideyTrackerModal({ onClose }) {
             <button
               type="button"
               onClick={handleCopyCoords}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] font-mono text-xs font-bold text-slate-950 hover:bg-slate-100 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer shrink-0"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white border-2 sm:border-3 border-slate-950 shadow-[2.5px_2.5px_0px_#05070e] font-mono text-xs font-bold text-slate-950 hover:bg-slate-100 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer shrink-0"
             >
               {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5 text-slate-600" />}
               <span>{copied ? 'COPIED TO CLIPBOARD' : 'COPY COORDS'}</span>

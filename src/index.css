@@ -593,3 +593,18 @@ body::before {
   animation: tracker-target-pulse 2s ease-in-out infinite;
 }
 
+@keyframes radar-needle-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-radar-needle {
+  transform-origin: center center;
+  animation: radar-needle-spin 3s linear infinite;
+}
+
+
