@@ -421,7 +421,7 @@ function SpideyTrackerModal({ onClose }) {
           {/* Animated Pixel Spider-Man Patrol Sprite along bottom left edge */}
           <div className="absolute bottom-3 left-3 z-30 pointer-events-none flex items-center gap-2 bg-slate-950/90 border-2 border-cyan-400 px-2.5 py-1.5 rounded-xl shadow-[3px_3px_0px_#000] backdrop-blur-md">
             <div className="relative w-8 h-8 overflow-hidden rounded-lg bg-red-950/50 border border-red-500/50 flex items-center justify-center shadow-inner">
-              <div className="w-[23px] h-[21px] animate-spidey-patrol scale-125" />
+              <div className="w-[22px] h-[21px] shrink-0 animate-spidey-patrol" />
             </div>
             <div className="flex flex-col text-left">
               <span className="font-mono text-[8.5px] sm:text-[9.5px] font-black text-[#ffd200] leading-none flex items-center gap-1">

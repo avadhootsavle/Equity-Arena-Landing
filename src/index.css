@@ -679,8 +679,10 @@ body::before {
   background-image: url('/images/spidey_spritesheet.png');
   background-repeat: no-repeat;
   background-size: 1024px 21px;
-  animation: spidey-patrol-walk 3s steps(45) infinite;
+  animation: spidey-patrol-walk 7.5s steps(45) infinite;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 @keyframes shockwave-sonar {
