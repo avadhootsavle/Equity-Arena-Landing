@@ -426,29 +426,7 @@ function SpideyTrackerModal({ onClose }) {
             loading="lazy"
           />
 
-          {/* Faint Radar Range Circles */}
-          {radarActive && (
-            <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-30">
-              <div className="absolute w-[240px] h-[240px] sm:w-[340px] sm:h-[340px] rounded-full border-2 border-cyan-500/50 animate-sonar-ping" />
-              <div className="absolute w-[360px] h-[360px] sm:w-[500px] sm:h-[500px] rounded-full border border-cyan-500/40" />
-            </div>
-          )}
-
-          {/* Sighting Pin 1 (Top Left near Mukesh Patel School) */}
-          <div className="absolute top-[20%] left-[16%] pointer-events-none z-20 hidden sm:flex items-center justify-center">
-            <div className="w-8 h-8 rounded-full bg-emerald-400 border-2 sm:border-3 border-slate-950 flex items-center justify-center p-1 shadow-[2px_2px_0px_#000] animate-pulse">
-              <img src="/images/spidey_pixel_spider_icon.png" alt="Sighting" className="w-full h-full object-contain pixelated" />
-            </div>
-          </div>
-
-          {/* Sighting Pin 2 (Bottom Right near Dadabhai Rd) */}
-          <div className="absolute top-[68%] right-[22%] pointer-events-none z-20 hidden sm:flex items-center justify-center">
-            <div className="w-8 h-8 rounded-full bg-[#ff0055] border-2 sm:border-3 border-slate-950 flex items-center justify-center p-1 shadow-[2px_2px_0px_#000] animate-bounce">
-              <img src="/images/spidey_pixel_spider_icon.png" alt="Sighting" className="w-full h-full object-contain pixelated" />
-            </div>
-          </div>
-
-          {/* Exact Central Target Locked Card & Spidey Pin as in Reference */}
+          {/* Central Target Locked Card & Single Center Mark (Exact as requested) */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-25 flex flex-col items-center pointer-events-auto">
             {/* White Target Locked Neo-Brutalist Box */}
             <div className="relative bg-white border-3 sm:border-4 border-slate-950 rounded-2xl shadow-[6px_6px_0px_#05070e] p-3.5 sm:p-5 flex flex-col items-center justify-center min-w-[230px] sm:min-w-[290px] overflow-hidden">
@@ -472,7 +450,7 @@ function SpideyTrackerModal({ onClose }) {
               </a>
             </div>
 
-            {/* Target Spidey Mask & Emblem Pin pointing below card */}
+            {/* Single Center Spidey Mark below card */}
             <div className="flex items-center -mt-1 z-30">
               <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white border-2 border-slate-950 shadow-[2px_2px_0px_#000] p-0.5">
                 <img src="/images/spidey_pixel_spider_icon.png" alt="Target Badge" className="w-full h-full object-contain pixelated" />
