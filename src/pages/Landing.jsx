@@ -1779,7 +1779,6 @@ export function Landing() {
   const index = useArenaIndex(stocks);
   const [isSlingingWeb, setIsSlingingWeb] = useState(false);
   const [isTrackerOpen, setIsTrackerOpen] = useState(false);
-  const [soundOn, setSoundOn] = useState(() => initSoundPreference());
   const [showDisclaimer, setShowDisclaimer] = useState(() => {
     try {
       const stored = localStorage.getItem('ea_disclaimer_accepted');
