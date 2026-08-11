@@ -466,10 +466,10 @@ function SpideyTrackerModal({ onClose }) {
             </div>
           </div>
 
-          {/* Fixed Google Map Embed (pointer-events-none ensures user cannot drag or move map) */}
+          {/* Fixed Google Map Embed without popup card */}
           <iframe
             title="Spidey Tracker SVKM Campus Map"
-            src="https://maps.google.com/maps?q=SVKM's%20Shri%20Bhagubhai%20Mafatlal%20Polytechnic%20Vile%20Parle%20West%20Mumbai&t=&z=17&ie=UTF8&iwloc=&output=embed"
+            src="https://maps.google.com/maps?q=19.107474,72.836034&z=17&t=m&hl=en&output=embed"
             className="w-full h-full border-0 filter contrast-[1.12] brightness-[0.90] saturate-[1.1] pointer-events-none select-none"
             loading="lazy"
           />
