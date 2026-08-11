@@ -250,7 +250,7 @@ function SpiderWebTransitionModal() {
   );
 }
 
-/** Spidey-Tracer Tactical Campus Radar & Interactive Map Modal */
+/** Spidey-Tracer Tactical Campus Radar & Interactive Map Modal — Movie-Style Bezel */
 function SpideyTrackerModal({ onClose }) {
   const [copied, setCopied] = useState(false);
   const [radarActive, setRadarActive] = useState(true);
@@ -289,113 +289,119 @@ function SpideyTrackerModal({ onClose }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-950/75 dark:bg-black/85 backdrop-blur-md overflow-y-auto pointer-events-auto p-3 sm:p-5"
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-950/85 backdrop-blur-md overflow-y-auto pointer-events-auto p-2 sm:p-4 md:p-6"
     >
-      {/* Background Stark-tech Glow Effect */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-red-600/15 via-transparent to-cyan-500/15 blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-600/20 via-transparent to-red-600/20 blur-3xl pointer-events-none" />
 
+      {/* Main Spidey-Tracker Movie-Styled Bezel Frame */}
       <motion.div
-        initial={{ scale: 0.88, y: 25 }}
+        initial={{ scale: 0.88, y: 30 }}
         animate={{ scale: 1, y: 0 }}
-        exit={{ scale: 0.88, y: 25 }}
-        transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-        className="card-neo w-full max-w-[760px] bg-white dark:bg-[#0f172a] border-4 border-slate-950 max-h-[92vh] overflow-y-auto flex flex-col p-4 sm:p-6 relative shadow-[8px_8px_0px_#ff0055] rounded-2xl"
+        exit={{ scale: 0.88, y: 30 }}
+        transition={{ type: 'spring', damping: 24, stiffness: 200 }}
+        className="relative w-full max-w-[960px] bg-[#0284c7] border-4 sm:border-[5px] border-slate-950 rounded-2xl sm:rounded-3xl p-2.5 sm:p-4 md:p-5 shadow-[8px_8px_0px_#05070e,12px_12px_0px_rgba(0,243,255,0.4)] flex flex-col select-none"
       >
-        {/* Top Hazard Accent Stripe */}
-        <div 
-          className="absolute top-0 left-0 right-0 h-2 pointer-events-none rounded-t-xl"
-          style={{
-            backgroundImage: 'repeating-linear-gradient(45deg, #ff0055, #ff0055 8px, #ffd200 8px, #ffd200 16px, #00f3ff 16px, #00f3ff 24px)'
-          }}
-        />
-
-        {/* Modal Header */}
-        <div className="flex items-center justify-between gap-3 pt-2 pb-3 border-b-2 border-slate-950 dark:border-slate-800">
-          <div className="flex items-center gap-2.5">
-            {/* Spider-Tracer Device Icon */}
-            <div className="relative flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-[#ff0055] border-2 border-slate-950 shadow-[2px_2px_0px_#05070e] text-white shrink-0">
-              <Crosshair className="h-5 w-5 animate-spin" style={{ animationDuration: '8s' }} />
-              <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-emerald-400 border border-slate-950 animate-ping" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="badge-neo bg-[#ffd200] text-slate-950 !px-1.5 !py-0.5 !text-[8.5px] font-black shadow-[1.5px_1.5px_0px_#05070e]">
-                  SPIDEY-TRACER v4.2
-                </span>
-                <span className="text-[10px] sm:text-[11px] font-mono font-bold text-emerald-600 dark:text-emerald-400 animate-pulse flex items-center gap-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> TARGET LOCKED
-                </span>
+        {/* ================= TOP BEZEL BAR ================= */}
+        <div className="relative flex items-center justify-between gap-2 pb-2 sm:pb-3">
+          {/* Top Left: Orange/Yellow Circle Menu Button */}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              title="Close Tracker"
+              className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#f59e0b] border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] transition-transform hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+            >
+              <div className="flex flex-col gap-[3px] items-center justify-center">
+                <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full" />
+                <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full" />
+                <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full" />
               </div>
-              <h3 className="font-display text-slate-950 dark:text-white text-base sm:text-xl font-black tracking-tight leading-tight uppercase">
-                SPIDEY TRACKER // CAMPUS RADAR
-              </h3>
+            </button>
+            <span className="hidden md:inline-block font-mono text-[9px] font-black text-white/90 uppercase tracking-wider">
+              SYS_NAV // GPS
+            </span>
+          </div>
+
+          {/* Top Center: Movie Spidey Tracker Pill Badge */}
+          <div className="flex items-center gap-2 px-4 sm:px-6 py-1 sm:py-1.5 rounded-full bg-[#0a192f] border-2 sm:border-3 border-[#00f3ff] shadow-[3px_3px_0px_#05070e]">
+            <span className="font-display text-xs sm:text-sm md:text-base font-black text-[#00f3ff] tracking-wider uppercase">
+              SPIDEY
+            </span>
+            {/* Spider-Man Mask Eyes SVG Icon */}
+            <div className="relative flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-[#ff0055] border-2 border-slate-950 shrink-0">
+              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-white stroke-slate-950 stroke-[1.5]">
+                <ellipse cx="8" cy="11" rx="3.5" ry="5" transform="rotate(-15 8 11)" />
+                <ellipse cx="16" cy="11" rx="3.5" ry="5" transform="rotate(15 16 11)" />
+              </svg>
+            </div>
+            <span className="font-display text-xs sm:text-sm md:text-base font-black text-[#00f3ff] tracking-wider uppercase">
+              TRACKER
+            </span>
+          </div>
+
+          {/* Top Right: White Spider Emblem Badge / Close */}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              title="Close Tracker"
+              className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-white border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] hover:bg-slate-100 active:scale-95 transition-transform cursor-pointer shrink-0"
+            >
+              {/* Spider Silhouette */}
+              <svg viewBox="0 0 24 24" className="w-4 h-4 sm:w-5 sm:h-5 fill-slate-950 stroke-slate-950 stroke-[0.8]">
+                <ellipse cx="12" cy="13" rx="3" ry="4.5" />
+                <circle cx="12" cy="7.5" r="2.2" />
+                <path d="M9 8 C5 6 3 9 2 12 M9 11 C4 11 2 14 1 17 M9 14 C5 16 3 19 3 22" fill="none" strokeWidth="1.8" />
+                <path d="M15 8 C19 6 21 9 22 12 M15 11 C20 11 22 14 23 17 M15 14 C19 16 21 19 21 22" fill="none" strokeWidth="1.8" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* ================= SCREEN / MAP DISPLAY ================= */}
+        <div className="relative w-full h-[320px] xs:h-[380px] sm:h-[440px] md:h-[490px] rounded-xl sm:rounded-2xl border-3 sm:border-4 border-slate-950 overflow-hidden bg-[#0a1224] shadow-inner">
+          {/* Top Ruler / Coordinate Scale Ticks inside screen */}
+          <div className="absolute top-0 inset-x-0 z-20 h-5 bg-[#0a1224]/80 backdrop-blur border-b border-cyan-500/30 flex items-center justify-between px-3 pointer-events-none text-[8.5px] sm:text-[9.5px] font-mono text-[#00f3ff] select-none">
+            <span className="tracking-widest truncate">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</span>
+            <span className="font-bold text-white shrink-0 ml-2">SVKM_CAMPUS // GRID_REF: 19.1075_72.8360</span>
+          </div>
+
+          {/* Left Vertical Ruler Ticks */}
+          <div className="absolute top-6 bottom-0 left-0 z-20 w-4 bg-[#0a1224]/60 border-r border-cyan-500/20 hidden sm:flex flex-col justify-between py-2 items-center pointer-events-none select-none text-[7px] font-mono text-cyan-400">
+            <span>00</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span><span>80</span><span>90</span>
+          </div>
+
+          {/* Left Bezel Side-Tabs (White & Red Spider Pins like movie screen) */}
+          <div className="absolute top-10 left-1 z-30 flex flex-col gap-2 pointer-events-none hidden xs:flex">
+            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-white border-2 border-slate-950 shadow-[1.5px_1.5px_0px_#05070e]">
+              <svg viewBox="0 0 24 24" className="w-3 h-3 fill-slate-950">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M8 8 L4 5 M8 12 L3 12 M8 16 L4 19 M16 8 L20 5 M16 12 L21 12 M16 16 L20 19" stroke="#000" strokeWidth="2" fill="none" />
+              </svg>
+            </div>
+            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#ff0055] border-2 border-slate-950 shadow-[1.5px_1.5px_0px_#05070e]">
+              <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M8 8 L4 5 M8 12 L3 12 M8 16 L4 19 M16 8 L20 5 M16 12 L21 12 M16 16 L20 19" stroke="#fff" strokeWidth="2" fill="none" />
+              </svg>
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close Spidey Tracker"
-            className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg border-2 border-slate-950 bg-slate-100 dark:bg-slate-800 text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-transform hover:scale-105 active:scale-95 shrink-0"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </div>
-
-        {/* Telemetry Radar Readout Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 my-3 font-mono text-[10px] sm:text-[11px]">
-          <div className="p-2 rounded-lg border-2 border-slate-950 bg-slate-50 dark:bg-[#131c30] shadow-[2px_2px_0px_#05070e]">
-            <span className="text-slate-500 dark:text-slate-400 block text-[8.5px] font-bold uppercase">Signal Telemetry</span>
-            <span className="font-black text-emerald-600 dark:text-emerald-400 text-xs">100% STARK-LINK</span>
-          </div>
-          <div className="p-2 rounded-lg border-2 border-slate-950 bg-slate-50 dark:bg-[#131c30] shadow-[2px_2px_0px_#05070e]">
-            <span className="text-slate-500 dark:text-slate-400 block text-[8.5px] font-bold uppercase">Direct Distance</span>
-            <span className="font-black text-[#0284c7] text-xs">0.0 KM • DIRECT</span>
-          </div>
-          <div className="p-2 rounded-lg border-2 border-slate-950 bg-slate-50 dark:bg-[#131c30] shadow-[2px_2px_0px_#05070e]">
-            <span className="text-slate-500 dark:text-slate-400 block text-[8.5px] font-bold uppercase">Coordinates</span>
-            <span className="font-black text-[#ff0055] text-[10px] truncate block">{venue.coords}</span>
-          </div>
-          <div className="p-2 rounded-lg border-2 border-slate-950 bg-slate-50 dark:bg-[#131c30] shadow-[2px_2px_0px_#05070e]">
-            <span className="text-slate-500 dark:text-slate-400 block text-[8.5px] font-bold uppercase">Event Timeline</span>
-            <span className="font-black text-[#d97706] text-xs">SEPT 4 • 3-HR</span>
-          </div>
-        </div>
-
-        {/* Tactical Map Container with Spidey Radar Overlay */}
-        <div className="relative w-full h-[270px] sm:h-[340px] rounded-xl border-3 border-slate-950 overflow-hidden shadow-[4px_4px_0px_#05070e] bg-slate-900">
           {/* Interactive Google Map Embed */}
           <iframe
-            title="Spidey Tracker College Map"
+            title="Spidey Tracker SVKM Campus Map"
             src="https://maps.google.com/maps?q=SVKM's%20Shri%20Bhagubhai%20Mafatlal%20Polytechnic%20Vile%20Parle%20West%20Mumbai&t=&z=17&ie=UTF8&iwloc=&output=embed"
-            className="w-full h-full border-0 filter contrast-[1.05] brightness-[0.95]"
+            className="w-full h-full border-0 filter contrast-[1.08] brightness-[0.92]"
             loading="lazy"
           />
 
-          {/* Corner Crosshairs */}
-          <div className="absolute top-2 left-2 pointer-events-none font-mono text-[10px] font-black text-[#ff0055] select-none">
-            + [RADAR_NW]
-          </div>
-          <div className="absolute top-2 right-2 pointer-events-none font-mono text-[10px] font-black text-[#00f3ff] select-none">
-            [RADAR_NE] +
-          </div>
-          <div className="absolute bottom-2 left-2 pointer-events-none font-mono text-[10px] font-black text-[#ffd200] select-none">
-            + [GRID_SW]
-          </div>
-          <div className="absolute bottom-2 right-2 pointer-events-none font-mono text-[10px] font-black text-emerald-400 select-none">
-            [GRID_SE] +
-          </div>
-
-          {/* Radar Sweep Scanner Effect (Overlaid on the map) */}
+          {/* Tactical Radar Sonar Sweep Overlay */}
           {radarActive && (
-            <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-40">
-              {/* Concentric Radar Sonar Rings */}
-              <div className="absolute w-[180px] h-[180px] sm:w-[240px] sm:h-[240px] rounded-full border border-cyan-400/60 animate-sonar-ping" />
-              <div className="absolute w-[180px] h-[180px] sm:w-[240px] sm:h-[240px] rounded-full border border-red-500/60 animate-sonar-ping-delayed" />
-              
-              {/* Rotating Radar Sweep Cone */}
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-35">
+              <div className="absolute w-[200px] h-[200px] sm:w-[280px] sm:h-[280px] rounded-full border border-cyan-400/60 animate-sonar-ping" />
+              <div className="absolute w-[200px] h-[200px] sm:w-[280px] sm:h-[280px] rounded-full border border-red-500/60 animate-sonar-ping-delayed" />
               <div 
-                className="absolute w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] rounded-full animate-radar-sweep pointer-events-none"
+                className="absolute w-[320px] h-[320px] sm:w-[460px] sm:h-[460px] rounded-full animate-radar-sweep pointer-events-none"
                 style={{
                   background: 'conic-gradient(from 0deg, rgba(0, 243, 255, 0.45) 0deg, rgba(0, 243, 255, 0.1) 45deg, transparent 70deg, transparent 360deg)'
                 }}
@@ -403,74 +409,91 @@ function SpideyTrackerModal({ onClose }) {
             </div>
           )}
 
-          {/* Pulsing Spidey-Tracer Pin on Center of Map */}
+          {/* Pulsing Spidey-Tracer Pin on Campus */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20 flex flex-col items-center">
             <div className="relative animate-tracker-target">
-              {/* Spidey mask / tracer target badge */}
-              <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-[#ff0055] border-2 sm:border-3 border-slate-950 text-white shadow-[3px_3px_0px_#05070e]">
-                <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-white drop-shadow" />
+              <div className="flex h-11 w-11 sm:h-13 sm:w-13 items-center justify-center rounded-2xl bg-[#ff0055] border-3 border-slate-950 text-white shadow-[4px_4px_0px_#05070e]">
+                <MapPin className="h-6 w-6 sm:h-7 sm:w-7 text-white drop-shadow" />
               </div>
-              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#ffd200] rotate-45 border border-slate-950" />
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-[#ffd200] rotate-45 border-2 border-slate-950" />
             </div>
-            {/* Target Label */}
-            <div className="mt-1.5 bg-slate-950/90 text-white border border-[#00f3ff] px-2 py-0.5 rounded text-[9px] font-mono font-black shadow-[2px_2px_0px_#000] whitespace-nowrap">
-              🎯 SPIDEY-TRACER // COLLEGE VENUE
+            <div className="mt-1.5 bg-slate-950/95 text-white border-2 border-[#00f3ff] px-2.5 py-1 rounded-md text-[9px] sm:text-[10.5px] font-mono font-black shadow-[3px_3px_0px_#000] whitespace-nowrap">
+              🎯 SVKM'S SBMP &amp; ENGG CAMPUS
             </div>
           </div>
 
-          {/* Interactive Map Overlay Controls */}
-          <div className="absolute bottom-3 right-3 z-30 flex items-center gap-1.5">
-            <button
-              type="button"
-              onClick={() => setRadarActive(!radarActive)}
-              className="badge-neo !px-2 !py-1 !text-[9px] bg-slate-900/90 text-white border-2 border-slate-950 font-mono font-black shadow-[2px_2px_0px_#000] cursor-pointer hover:bg-slate-800"
-            >
-              {radarActive ? '⚡ RADAR: ON' : '⏸ RADAR: PAUSED'}
-            </button>
-          </div>
-        </div>
-
-        {/* Venue Information Dossier */}
-        <div className="mt-3.5 p-3.5 sm:p-4 rounded-xl border-2 border-slate-950 bg-slate-50 dark:bg-[#131c30] shadow-[3px_3px_0px_#05070e] text-left">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="badge-neo bg-[#0284c7] text-white !px-1.5 !py-0.5 !text-[8.5px] font-black">
-                  OFFICIAL VENUE
-                </span>
-                <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 font-bold">IGNITE 8.0 ARENA</span>
-              </div>
-              <h4 className="font-display text-slate-950 dark:text-white font-black text-sm sm:text-base mt-1">
-                {venue.name}
-              </h4>
-              <p className="font-mono text-slate-600 dark:text-slate-300 text-xs mt-0.5 font-medium">
-                {venue.address} • {venue.city}
-              </p>
+          {/* Bottom Right: Spiderweb Radar Compass Widget (Exact like movie interface) */}
+          <div className="absolute bottom-3 right-3 z-30 pointer-events-none hidden xs:flex flex-col items-center">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0a1224]/85 border-2 border-[#00f3ff] shadow-[2px_2px_0px_#000] flex items-center justify-center backdrop-blur-sm">
+              {/* Spiderweb Web Net lines */}
+              <svg viewBox="0 0 100 100" className="w-full h-full stroke-[#00f3ff] stroke-[1] fill-none opacity-80">
+                <circle cx="50" cy="50" r="45" strokeDasharray="3 3" />
+                <circle cx="50" cy="50" r="30" />
+                <circle cx="50" cy="50" r="15" strokeDasharray="2 2" />
+                <line x1="50" y1="5" x2="50" y2="95" />
+                <line x1="5" y1="50" x2="95" y2="50" />
+                <line x1="18" y1="18" x2="82" y2="82" />
+                <line x1="18" y1="82" x2="82" y2="18" />
+                <circle cx="50" cy="50" r="3" fill="#ff0055" className="animate-ping" />
+              </svg>
+              <span className="absolute bottom-1 font-mono text-[7px] text-[#00f3ff] font-bold">RADAR</span>
             </div>
           </div>
         </div>
 
-        {/* Action Controls */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mt-3.5 pt-2">
-          <button
-            type="button"
-            onClick={handleCopyCoords}
-            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border-2 border-slate-950 bg-slate-100 dark:bg-slate-800 text-slate-950 dark:text-white font-mono text-xs font-black shadow-[2px_2px_0px_#05070e] hover:bg-slate-200 dark:hover:bg-slate-700 transition-all w-full sm:w-auto active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
-          >
-            {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4 text-slate-600 dark:text-slate-400" />}
-            <span>{copied ? 'COORDINATES COPIED!' : 'COPY VENUE COORDS'}</span>
-          </button>
-
-          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+        {/* ================= BOTTOM BEZEL CONSOLE ================= */}
+        <div className="relative flex flex-col sm:flex-row items-center justify-between gap-2.5 pt-2.5 sm:pt-3">
+          {/* Bottom Left: Navigate Button */}
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
             <a
               href={venue.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-neo flex-1 sm:flex-none justify-center px-5 py-3 text-xs font-black shadow-[3px_3px_0px_#05070e] flex items-center gap-1.5"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] font-mono text-[10.5px] sm:text-xs font-black text-slate-950 hover:bg-amber-300 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
             >
-              <Navigation className="h-4 w-4" />
-              NAVIGATE IN GOOGLE MAPS <ExternalLink className="h-3.5 w-3.5 ml-0.5" />
+              <Navigation className="h-3.5 w-3.5" />
+              <span>NAVIGATE TO CAMPUS</span>
+              <ExternalLink className="h-3 w-3" />
             </a>
+
+            <button
+              type="button"
+              onClick={handleCopyCoords}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white border-2 border-slate-950 shadow-[2px_2px_0px_#05070e] font-mono text-[10px] sm:text-[11px] font-bold text-slate-950 hover:bg-slate-100 cursor-pointer sm:hidden"
+            >
+              {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5 text-slate-600" />}
+              <span>{copied ? 'COPIED' : 'COORDS'}</span>
+            </button>
+          </div>
+
+          {/* Bottom Center Console Pill (Movie tracker info bar) */}
+          <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-[#0a192f] border-2 sm:border-3 border-[#00f3ff] shadow-[2px_2px_0px_#05070e] max-w-full overflow-hidden">
+            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+            <span className="font-mono text-[9px] sm:text-[10.5px] text-white font-bold truncate">
+              SVKM'S SBMP CAMPUS • VILE PARLE WEST • {venue.coords}
+            </span>
+            <button
+              type="button"
+              onClick={() => setRadarActive(!radarActive)}
+              title={radarActive ? "Pause Radar" : "Start Radar"}
+              className={`flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-md border border-slate-950 font-mono text-[9px] font-black shrink-0 cursor-pointer transition-colors ${
+                radarActive ? 'bg-emerald-400 text-slate-950' : 'bg-slate-700 text-slate-300'
+              }`}
+            >
+              {radarActive ? '⚡' : '⏸'}
+            </button>
+          </div>
+
+          {/* Bottom Right: Copy Coords Desktop Button */}
+          <div className="hidden sm:flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleCopyCoords}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] font-mono text-xs font-bold text-slate-950 hover:bg-slate-100 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer shrink-0"
+            >
+              {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5 text-slate-600" />}
+              <span>{copied ? 'COPIED TO CLIPBOARD' : 'COPY COORDS'}</span>
+            </button>
           </div>
         </div>
       </motion.div>
