@@ -250,13 +250,45 @@ function SpiderWebTransitionModal() {
   );
 }
 
+/** Sleek Marvel/Spidey Vector Spider Emblem */
+function SleekSpiderEmblem({ className = "w-5 h-5", color = "#05070e" }) {
+  return (
+    <svg viewBox="0 0 100 100" className={className} fill={color}>
+      {/* Spider Head & Fangs */}
+      <circle cx="50" cy="22" r="5.5" />
+      <polygon points="46,26 43,31 48,28" />
+      <polygon points="54,26 57,31 52,28" />
+      
+      {/* Spider Thorax & Abdomen */}
+      <ellipse cx="50" cy="36" rx="7.5" ry="10" />
+      <path d="M 43 45 Q 50 48 57 45 Q 59 62 50 78 Q 41 62 43 45 Z" />
+
+      {/* Top 2 Legs (Upper Arc) */}
+      <path d="M 45 28 C 30 14, 20 12, 14 10 C 11 9, 10 14, 13 16 C 18 20, 28 26, 42 34" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M 55 28 C 70 14, 80 12, 86 10 C 89 9, 90 14, 87 16 C 82 20, 72 26, 58 34" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+
+      {/* Second 2 Legs (Horizontal Spread) */}
+      <path d="M 43 36 C 26 26, 14 28, 8 32 C 6 34, 7 38, 11 39 C 20 42, 30 41, 42 41" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M 57 36 C 74 26, 86 28, 92 32 C 94 34, 93 38, 89 39 C 80 42, 70 41, 58 41" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+
+      {/* Third 2 Legs (Lower Arc) */}
+      <path d="M 44 45 C 24 49, 14 60, 10 68 C 8 72, 13 74, 16 71 C 24 64, 34 56, 44 51" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M 56 45 C 76 49, 86 60, 90 68 C 92 72, 87 74, 84 71 C 76 64, 66 56, 56 51" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+
+      {/* Bottom 2 Legs (Long Stride) */}
+      <path d="M 45 54 C 28 66, 22 78, 18 90 C 16 94, 21 96, 25 93 C 33 86, 41 74, 46 64" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M 55 54 C 72 66, 78 78, 82 90 C 84 94, 79 96, 75 93 C 67 86, 59 74, 54 64" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 /** Spidey-Tracer Tactical Campus Radar & Interactive Map Modal — Movie-Style Bezel */
 function SpideyTrackerModal({ onClose }) {
   const [copied, setCopied] = useState(false);
   const [radarActive, setRadarActive] = useState(true);
   const [trackingDistance, setTrackingDistance] = useState('0.04');
   const [signalQuality, setSignalQuality] = useState(99);
-  const [activeTab, setActiveTab] = useState('RADAR'); // 'RADAR' | 'SATELLITE' | 'TELEMETRY'
+  const [sonarPulse, setSonarPulse] = useState(false);
 
   // SVKM's Shri Bhagubhai Mafatlal Polytechnic & College of Engineering Venue Profile
   const venue = {
@@ -267,7 +299,6 @@ function SpideyTrackerModal({ onClose }) {
     coords: "19.1075° N, 72.8360° E",
     lat: 19.1075,
     lng: 72.8360,
-    // Direct Google Maps Search / Navigation URL (opens Google Maps directly to SVKM SBMP campus)
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=SVKM%27s+Shri+Bhagubhai+Mafatlal+Polytechnic+Vile+Parle+West+Mumbai"
   };
 
@@ -279,6 +310,11 @@ function SpideyTrackerModal({ onClose }) {
     }, 2000);
     return () => clearInterval(interval);
   }, []);
+
+  const triggerSonarPulse = () => {
+    setSonarPulse(true);
+    setTimeout(() => setSonarPulse(false), 1200);
+  };
 
   const handleCopyCoords = () => {
     try {
@@ -331,19 +367,19 @@ function SpideyTrackerModal({ onClose }) {
 
         {/* ================= TOP BEZEL BAR ================= */}
         <div className="relative flex items-center justify-between gap-2 pb-2 sm:pb-3">
-          {/* Top Left: Pixel Spider-Man Head Icon Button */}
+          {/* Top Left: Mode & Diagnostics Switcher */}
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={onClose}
               title="Exit Tracker HUD"
-              className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] transition-transform hover:scale-105 active:scale-95 cursor-pointer shrink-0 p-0.5"
+              className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] transition-transform hover:scale-105 active:scale-95 cursor-pointer shrink-0 group"
             >
-              <img
-                src="/images/spidey_pixel_head_icon.png"
-                alt="Spider-Man Pixel Head"
-                className="w-full h-full object-contain pixelated"
-              />
+              <div className="flex flex-col gap-[3px] items-center justify-center">
+                <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full transition-transform group-hover:scale-x-110" />
+                <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full transition-transform group-hover:scale-x-75" />
+                <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full transition-transform group-hover:scale-x-110" />
+              </div>
             </button>
             <div className="hidden md:flex flex-col text-left">
               <span className="font-mono text-[9.5px] font-black text-white leading-none uppercase tracking-wider flex items-center gap-1">
@@ -362,7 +398,7 @@ function SpideyTrackerModal({ onClose }) {
             />
           </div>
 
-          {/* Top Right: Pixel Spider Icon Close Button */}
+          {/* Top Right: Signal Telemetry & Sleek Spider Emblem Close Button */}
           <div className="flex items-center gap-2">
             <div className="hidden sm:flex flex-col text-right font-mono text-[8.5px] font-bold text-white">
               <span className="text-emerald-300">STARK-LINK: {signalQuality}%</span>
@@ -373,34 +409,28 @@ function SpideyTrackerModal({ onClose }) {
               type="button"
               onClick={onClose}
               title="Close Tracker"
-              className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-white border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] hover:bg-red-50 hover:border-red-600 active:scale-95 transition-all cursor-pointer shrink-0 p-0.5"
+              className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-2xl bg-white border-2 sm:border-3 border-slate-950 shadow-[3px_3px_0px_#05070e] hover:bg-red-50 hover:border-red-600 hover:shadow-[0_0_12px_rgba(255,0,85,0.6)] active:scale-95 transition-all cursor-pointer shrink-0 group relative overflow-hidden"
             >
-              <img
-                src="/images/spidey_pixel_spider_icon.png"
-                alt="Pixel Spider Icon"
-                className="w-full h-full object-contain pixelated"
-              />
+              {/* Sleek Spider Emblem with hover glow animation */}
+              <div className="animate-spider-emblem group-hover:rotate-12 transition-transform">
+                <SleekSpiderEmblem className="w-5 h-5 sm:w-6 sm:h-6 text-slate-950 group-hover:text-red-600 transition-colors" color="currentColor" />
+              </div>
             </button>
           </div>
         </div>
 
         {/* ================= SCREEN / MAP DISPLAY ================= */}
-        <div className="relative w-full h-[360px] xs:h-[410px] sm:h-[470px] md:h-[520px] rounded-xl sm:rounded-2xl border-3 sm:border-4 border-slate-950 overflow-hidden bg-[#070e1c] shadow-inner">
-          {/* Left Bezel Side-Tabs (Pixel Spider & Head Badges exact as movie layout) */}
-          <div className="absolute top-9 left-2 z-30 flex flex-col gap-2 pointer-events-none hidden xs:flex">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-400 border-2 border-slate-950 shadow-[1.5px_1.5px_0px_#05070e] p-0.5 animate-pulse">
-              <img
-                src="/images/spidey_pixel_spider_icon.png"
-                alt="Spider Sightings Tab"
-                className="w-full h-full object-contain pixelated"
-              />
+        <div className="relative w-full h-[340px] xs:h-[390px] sm:h-[450px] md:h-[500px] rounded-xl sm:rounded-2xl border-3 sm:border-4 border-slate-950 overflow-hidden bg-[#070e1c] shadow-inner">
+          {/* Animated Pixel Spider-Man Patrol Sprite along bottom left edge */}
+          <div className="absolute bottom-3 left-3 z-30 pointer-events-none flex items-center gap-2 bg-slate-950/90 border-2 border-cyan-400 px-2.5 py-1.5 rounded-xl shadow-[3px_3px_0px_#000] backdrop-blur-md">
+            <div className="relative w-8 h-8 overflow-hidden rounded-lg bg-red-950/50 border border-red-500/50 flex items-center justify-center shadow-inner">
+              <div className="w-[23px] h-[21px] animate-spidey-patrol scale-125" />
             </div>
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#ff0055] border-2 border-slate-950 shadow-[1.5px_1.5px_0px_#05070e] p-0.5">
-              <img
-                src="/images/spidey_pixel_head_icon.png"
-                alt="Spidey Head Badge"
-                className="w-full h-full object-contain pixelated"
-              />
+            <div className="flex flex-col text-left">
+              <span className="font-mono text-[8.5px] sm:text-[9.5px] font-black text-[#ffd200] leading-none flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" /> SPIDEY_PATROL
+              </span>
+              <span className="font-mono text-[7px] text-cyan-300 font-bold">SCOUTING CAMPUS</span>
             </div>
           </div>
 
@@ -409,7 +439,7 @@ function SpideyTrackerModal({ onClose }) {
             <span className="tracking-widest truncate hidden xs:inline opacity-70">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</span>
             <span className="font-bold text-white shrink-0 flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-[#ff0055] animate-pulse" />
-              SVKM_SBMP_CAMPUS // VILE PARLE WEST // {venue.coords}
+              TARGET: SVKM_SBMP_CAMPUS // {venue.coords}
             </span>
           </div>
 
@@ -418,46 +448,77 @@ function SpideyTrackerModal({ onClose }) {
             <span>00</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span><span>80</span><span>90</span>
           </div>
 
-          {/* Interactive Google Map Embed centered on SVKM SBMP (Natural & Crisp) */}
+          {/* Left Bezel Side-Tabs (Docked Red & White Spider-Tracers) */}
+          <div className="absolute top-10 left-1.5 z-30 flex flex-col gap-2 pointer-events-none hidden xs:flex">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white border-2 border-slate-950 shadow-[1.5px_1.5px_0px_#05070e]">
+              <SleekSpiderEmblem className="w-4 h-4 text-slate-950" color="#05070e" />
+            </div>
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#ff0055] border-2 border-slate-950 shadow-[1.5px_1.5px_0px_#05070e]">
+              <SleekSpiderEmblem className="w-4 h-4 text-white" color="#ffffff" />
+            </div>
+          </div>
+
+          {/* Top Right Live Radar Status HUD */}
+          <div className="absolute top-8 right-3 z-30 pointer-events-none flex flex-col items-end gap-1 font-mono text-[9px] font-bold">
+            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-950/80 border border-cyan-400 text-cyan-300 shadow">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+              <span>LIVE_LOCK: ACTIVE</span>
+            </div>
+            <div className="px-2 py-0.5 rounded bg-slate-950/80 border border-slate-700 text-slate-300 text-[8px]">
+              GPS: {trackingDistance} KM • BEARING: 284° NW
+            </div>
+          </div>
+
+          {/* Interactive Google Map Embed centered on SVKM SBMP */}
           <iframe
             title="Spidey Tracker SVKM Campus Map"
             src="https://maps.google.com/maps?q=SVKM's%20Shri%20Bhagubhai%20Mafatlal%20Polytechnic%20Vile%20Parle%20West%20Mumbai&t=&z=17&ie=UTF8&iwloc=&output=embed"
-            className="w-full h-full border-0"
+            className="w-full h-full border-0 filter contrast-[1.12] brightness-[0.90] saturate-[1.1]"
             loading="lazy"
           />
 
-          {/* Central Target Locked Card & Single Center Mark (Exact as requested) */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-25 flex flex-col items-center pointer-events-auto">
-            {/* White Target Locked Neo-Brutalist Box */}
-            <div className="relative bg-white border-3 sm:border-4 border-slate-950 rounded-2xl shadow-[6px_6px_0px_#05070e] p-3.5 sm:p-5 flex flex-col items-center justify-center min-w-[230px] sm:min-w-[290px] overflow-hidden">
-              {/* Top Rainbow/Gradient Bar */}
-              <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[#ff0055] via-[#ffd200] to-[#00f3ff]" />
+          {/* Tactical Scanline Sweep Overlay */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-20">
+            <div className="w-full h-12 bg-gradient-to-b from-transparent via-cyan-400/50 to-transparent animate-tracker-scanline" />
+          </div>
 
-              {/* Title: CAMPUS TARGET LOCKED */}
-              <span className="font-mono text-[10px] sm:text-[12px] font-black text-amber-500 tracking-wider sm:tracking-widest uppercase mb-3 text-center">
-                CAMPUS TARGET LOCKED
-              </span>
+          {/* Tactical Radar Sonar Sweep Overlay */}
+          {radarActive && (
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-45">
+              <div className="absolute w-[220px] h-[220px] sm:w-[320px] sm:h-[320px] rounded-full border-2 border-cyan-400/70 animate-shockwave" />
+              <div className="absolute w-[220px] h-[220px] sm:w-[320px] sm:h-[320px] rounded-full border-2 border-red-500/70 animate-shockwave-delayed" />
+              <div 
+                className="absolute w-[340px] h-[340px] sm:w-[480px] sm:h-[480px] rounded-full animate-radar-sweep pointer-events-none"
+                style={{
+                  background: 'conic-gradient(from 0deg, rgba(0, 243, 255, 0.6) 0deg, rgba(0, 243, 255, 0.15) 45deg, transparent 70deg, transparent 360deg)'
+                }}
+              />
+            </div>
+          )}
 
-              {/* Main Action: OPEN GOOGLE MAPS Button */}
-              <a
-                href={venue.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[3px_3px_0px_#05070e] font-mono text-xs sm:text-sm font-black text-slate-950 hover:bg-amber-300 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer group"
-              >
-                <Navigation className="h-4 w-4 text-slate-950 group-hover:rotate-45 transition-transform" />
-                <span>OPEN GOOGLE MAPS</span>
-              </a>
+          {/* User-Triggered Sonar Blast Wave */}
+          {sonarPulse && (
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-25 overflow-hidden">
+              <div className="w-[100px] h-[100px] rounded-full border-4 border-cyan-300 bg-cyan-400/20 animate-ping" />
+            </div>
+          )}
+
+          {/* Pulsing Spidey-Tracer Pin & Stark Target Crosshair on Campus */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20 flex flex-col items-center">
+            {/* Outer Rotating Tactical Reticle */}
+            <div className="absolute w-24 h-24 sm:w-32 sm:h-32 rounded-full border-2 border-dashed border-cyan-400/60 animate-reticle-reverse" />
+            
+            <div className="relative animate-tracker-target">
+              <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-[#ff0055] border-3 border-slate-950 text-white shadow-[4px_4px_0px_#05070e]">
+                <MapPin className="h-6 w-6 sm:h-7 sm:w-7 text-white drop-shadow" />
+              </div>
+              <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#ffd200] rotate-45 border-2 border-slate-950" />
             </div>
 
-            {/* Single Center Spidey Mark below card */}
-            <div className="flex items-center -mt-1 z-30">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white border-2 border-slate-950 shadow-[2px_2px_0px_#000] p-0.5">
-                <img src="/images/spidey_pixel_spider_icon.png" alt="Target Badge" className="w-full h-full object-contain pixelated" />
-              </div>
-              <div className="flex h-8 w-8 -ml-1.5 items-center justify-center rounded-full bg-[#ff0055] border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#000] p-0.5 animate-pulse">
-                <img src="/images/spidey_pixel_head_icon.png" alt="Target Spidey Head" className="w-full h-full object-contain pixelated" />
-              </div>
+            {/* Target Label with glowing border */}
+            <div className="mt-2 bg-slate-950/95 text-white border-2 border-[#00f3ff] px-3 py-1 rounded-md text-[9.5px] sm:text-[11px] font-mono font-black shadow-[3px_3px_0px_#000] whitespace-nowrap flex items-center gap-1.5">
+              <span className="inline-block w-2 h-2 rounded-full bg-[#ff0055] animate-ping" />
+              <span>SVKM'S SBMP &amp; ENGG CAMPUS</span>
             </div>
           </div>
 
@@ -497,31 +558,39 @@ function SpideyTrackerModal({ onClose }) {
         </div>
 
         {/* ================= BOTTOM BEZEL CONSOLE ================= */}
-        <div className="relative flex flex-col sm:flex-row items-center justify-between gap-2.5 pt-3">
-          {/* Standing Pixel Spidey on bottom left corner */}
-          <div className="absolute -top-7 left-2 z-30 pointer-events-none flex items-center">
-            <div 
-              className="w-7 h-7 pixelated animate-spidey-bounce"
-              style={{
-                backgroundImage: 'url(/images/spidey_spritesheet.png)',
-                backgroundSize: '1024px 21px',
-                backgroundPosition: '0px 0px',
-                transform: 'scale(1.8)'
-              }}
-            />
-          </div>
+        <div className="relative flex flex-col sm:flex-row items-center justify-between gap-2.5 pt-2.5 sm:pt-3">
+          {/* Bottom Left: Direct Navigate in Google Maps Button */}
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
+            <a
+              href={venue.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[3px_3px_0px_#05070e] font-mono text-[11px] sm:text-xs font-black text-slate-950 hover:bg-amber-300 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer group"
+            >
+              <Navigation className="h-4 w-4 text-slate-950 group-hover:rotate-45 transition-transform" />
+              <span>OPEN GOOGLE MAPS</span>
+              <ExternalLink className="h-3.5 w-3.5 text-slate-950" />
+            </a>
 
-          {/* Bottom Left Hanging Button */}
-          <a
-            href={venue.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[3px_3px_0px_#05070e] font-mono text-[11px] sm:text-xs font-black text-slate-950 hover:bg-amber-300 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer group"
-          >
-            <Navigation className="h-4 w-4 text-slate-950 group-hover:rotate-45 transition-transform" />
-            <span>NAVIGATE IN GOOGLE MAPS</span>
-            <ExternalLink className="h-3.5 w-3.5 text-slate-950" />
-          </a>
+            <button
+              type="button"
+              onClick={triggerSonarPulse}
+              title="Ping Sonar Beacon"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#00f3ff] border-2 border-slate-950 shadow-[2px_2px_0px_#05070e] font-mono text-[10px] sm:text-[11px] font-black text-slate-950 hover:bg-cyan-300 active:scale-95 cursor-pointer"
+            >
+              <Zap className="h-3.5 w-3.5 text-slate-950" />
+              <span>PING SONAR</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleCopyCoords}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border-2 border-slate-950 shadow-[2px_2px_0px_#05070e] font-mono text-[10px] sm:text-[11px] font-bold text-slate-950 hover:bg-slate-100 cursor-pointer sm:hidden"
+            >
+              {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5 text-slate-600" />}
+              <span>{copied ? 'COPIED' : 'COORDS'}</span>
+            </button>
+          </div>
 
           {/* Bottom Center Console Pill (Movie tracker info bar) */}
           <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-[#071326] border-2 sm:border-3 border-[#00f3ff] shadow-[2px_2px_0px_#05070e] max-w-full overflow-hidden">
@@ -541,22 +610,22 @@ function SpideyTrackerModal({ onClose }) {
             </button>
           </div>
 
-          {/* Bottom Right Hanging Button */}
-          <a
-            href={REGISTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[2.5px_2.5px_0px_#05070e] font-mono text-xs font-black text-slate-950 hover:bg-amber-300 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer shrink-0"
-          >
-            <span>REGISTER NOW</span>
-            <ArrowRight className="h-3.5 w-3.5" />
-          </a>
+          {/* Bottom Right: Copy Coords Desktop Button */}
+          <div className="hidden sm:flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleCopyCoords}
+              className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white border-2 sm:border-3 border-slate-950 shadow-[2.5px_2.5px_0px_#05070e] font-mono text-xs font-bold text-slate-950 hover:bg-slate-100 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer shrink-0"
+            >
+              {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5 text-slate-600" />}
+              <span>{copied ? 'COPIED TO CLIPBOARD' : 'COPY GPS COORDS'}</span>
+            </button>
+          </div>
         </div>
       </motion.div>
     </motion.div>
   );
 }
-
 
 /** Corner Spiderweb SVG Overlay */
 function SpiderWebCorner({ className = "top-0 left-0", rotate = 0 }) {
