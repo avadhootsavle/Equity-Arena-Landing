@@ -2,14 +2,19 @@ import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } 
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import {
   Activity, ArrowRight, BarChart3, Check, ChevronDown, Coins, Compass, Copy, Crosshair, ExternalLink,
-  Gauge, LineChart, Lock, MapPin, Menu, Moon, Navigation, Newspaper, Play, Radio,
-  Shield, Sparkles, Sun, TrendingUp, Trophy, Users, Wallet, X, Zap
+  Eye, Flame, Gauge, LineChart, Lock, MapPin, Menu, Moon, Navigation, Newspaper, Play, Radio,
+  Shield, Sparkles, Sun, TrendingUp, Trophy, Users, Volume2, VolumeX, Wallet, X, Zap
 } from 'lucide-react';
 import { HeroDeck } from '../components/landing/HeroDeck';
 import { useLiveStocks, useArenaIndex, sectorTheme } from '../hooks/useLiveStocks';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import {
+  playSonarPing, playWebSling, playSpiderTingle, playTactileClick,
+  isSoundEnabled, setSoundEnabled, initSoundPreference
+} from '../utils/audioFx';
 
 const REGISTER_URL = 'https://ignite-8.vercel.app/register-stock';
+
 
 /* ------------------------------------------------------------------ *
  * SVG Spiderweb Decorative & Transition Components
@@ -286,6 +291,7 @@ function SpideyTrackerModal({ onClose }) {
   const [trackingDistance, setTrackingDistance] = useState('0.04');
   const [signalQuality, setSignalQuality] = useState(99);
   const [sonarPulse, setSonarPulse] = useState(false);
+  const [mapMode, setMapMode] = useState('RADAR'); // 'RADAR' | 'SATELLITE'
 
   // SVKM's Shri Bhagubhai Mafatlal Polytechnic & College of Engineering Venue Profile
   const venue = {
@@ -309,11 +315,13 @@ function SpideyTrackerModal({ onClose }) {
   }, []);
 
   const triggerSonarPulse = () => {
+    playSonarPing();
     setSonarPulse(true);
     setTimeout(() => setSonarPulse(false), 1200);
   };
 
   const handleCopyCoords = () => {
+    playTactileClick();
     try {
       navigator.clipboard?.writeText?.(`${venue.coords} - ${venue.name}, ${venue.address}, ${venue.city}`);
     } catch (_) {}
@@ -368,7 +376,10 @@ function SpideyTrackerModal({ onClose }) {
           <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => {
+                playTactileClick();
+                onClose();
+              }}
               title="Exit Tracker HUD"
               className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] transition-transform hover:scale-105 active:scale-95 cursor-pointer shrink-0 group"
             >
@@ -378,16 +389,38 @@ function SpideyTrackerModal({ onClose }) {
                 <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full transition-transform group-hover:scale-x-110" />
               </div>
             </button>
-            <div className="hidden md:flex flex-col text-left">
-              <span className="font-mono text-[9.5px] font-black text-white leading-none uppercase tracking-wider flex items-center gap-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" /> STARK_OS v4.8
-              </span>
-              <span className="font-mono text-[8px] text-cyan-200 font-bold">RADAR_BEACON_LOCK</span>
+            
+            {/* Tactical View Switcher Tabs */}
+            <div className="hidden xs:flex items-center bg-slate-950/80 p-0.5 rounded-lg border border-cyan-400">
+              <button
+                type="button"
+                onClick={() => {
+                  playTactileClick();
+                  setMapMode('RADAR');
+                }}
+                className={`px-2 py-1 rounded text-[8.5px] font-mono font-black transition-colors ${
+                  mapMode === 'RADAR' ? 'bg-[#00f3ff] text-slate-950' : 'text-cyan-300 hover:text-white'
+                }`}
+              >
+                RADAR
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  playTactileClick();
+                  setMapMode('SATELLITE');
+                }}
+                className={`px-2 py-1 rounded text-[8.5px] font-mono font-black transition-colors ${
+                  mapMode === 'SATELLITE' ? 'bg-[#ff0055] text-white' : 'text-cyan-300 hover:text-white'
+                }`}
+              >
+                SATELLITE
+              </button>
             </div>
           </div>
 
           {/* Top Center: Official Pixel-Art Spidey Tracker Header Banner */}
-          <div className="flex items-center justify-center max-w-[200px] xs:max-w-[260px] sm:max-w-[340px] md:max-w-[400px]">
+          <div className="flex items-center justify-center max-w-[180px] xs:max-w-[240px] sm:max-w-[320px] md:max-w-[380px]">
             <img
               src="/images/spidey_tracker_banner.png"
               alt="Spidey Tracker Official Logo"
@@ -404,7 +437,10 @@ function SpideyTrackerModal({ onClose }) {
 
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => {
+                playTactileClick();
+                onClose();
+              }}
               title="Close Tracker"
               className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-2xl bg-white border-2 sm:border-3 border-slate-950 shadow-[3px_3px_0px_#05070e] hover:bg-red-50 hover:border-red-600 hover:shadow-[0_0_12px_rgba(255,0,85,0.6)] active:scale-95 transition-all cursor-pointer shrink-0 group relative overflow-hidden"
             >
@@ -462,15 +498,18 @@ function SpideyTrackerModal({ onClose }) {
               <span>LIVE_LOCK: ACTIVE</span>
             </div>
             <div className="px-2 py-0.5 rounded bg-slate-950/80 border border-slate-700 text-slate-300 text-[8px]">
-              GPS: {trackingDistance} KM • BEARING: 284° NW
+              MODE: {mapMode} • BEARING: 284° NW
             </div>
           </div>
 
-          {/* Fixed Google Map Embed without popup card */}
+          {/* Fixed Google Map Embed (Toggleable between Radar Blueprint & Satellite) */}
           <iframe
+            key={mapMode}
             title="Spidey Tracker SVKM Campus Map"
-            src="https://maps.google.com/maps?q=19.107474,72.836034&z=17&t=m&hl=en&output=embed"
-            className="w-full h-full border-0 filter contrast-[1.12] brightness-[0.90] saturate-[1.1] pointer-events-none select-none"
+            src={`https://maps.google.com/maps?q=19.107474,72.836034&z=17&t=${mapMode === 'SATELLITE' ? 'k' : 'm'}&hl=en&output=embed`}
+            className={`w-full h-full border-0 filter ${
+              mapMode === 'SATELLITE' ? 'contrast-[1.18] brightness-[0.95]' : 'contrast-[1.12] brightness-[0.90] saturate-[1.1]'
+            } pointer-events-none select-none`}
             loading="lazy"
           />
 
@@ -562,6 +601,7 @@ function SpideyTrackerModal({ onClose }) {
               href={venue.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => playTactileClick()}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[3px_3px_0px_#05070e] font-mono text-[11px] sm:text-xs font-black text-slate-950 hover:bg-amber-300 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer group"
             >
               <Navigation className="h-4 w-4 text-slate-950 group-hover:rotate-45 transition-transform" />
@@ -597,7 +637,10 @@ function SpideyTrackerModal({ onClose }) {
             </span>
             <button
               type="button"
-              onClick={() => setRadarActive(!radarActive)}
+              onClick={() => {
+                playTactileClick();
+                setRadarActive(!radarActive);
+              }}
               title={radarActive ? "Pause Radar Beam" : "Start Radar Beam"}
               className={`flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-md border border-slate-950 font-mono text-[9px] font-black shrink-0 cursor-pointer transition-colors ${
                 radarActive ? 'bg-emerald-400 text-slate-950' : 'bg-slate-700 text-slate-300'
@@ -623,6 +666,87 @@ function SpideyTrackerModal({ onClose }) {
     </motion.div>
   );
 }
+
+/** Spider-Silk Interactive Scroll Progress Engine with Crawling Spider-Man */
+function SpideyScrollCrawler({ progress }) {
+  const leftPos = useTransform(progress, [0, 1], ['0%', '100%']);
+
+  return (
+    <div className="fixed inset-x-0 top-0 z-[70] pointer-events-none">
+      {/* Glowing Spider-Silk Thread */}
+      <motion.div
+        style={{ scaleX: progress }}
+        className="h-[3.5px] origin-left bg-gradient-to-r from-[#ff0055] via-[#ffd200] to-[#00f3ff] shadow-[0_0_12px_rgba(0,243,255,0.8)]"
+      />
+      {/* Crawling Mini Spider-Man at the leading tip of the silk */}
+      <motion.div
+        style={{ left: leftPos, x: '-50%' }}
+        className="absolute top-[-9px] pointer-events-none hidden sm:flex items-center justify-center filter drop-shadow-[0_2px_8px_rgba(255,0,85,0.8)]"
+      >
+        <div className="w-[22px] h-[21px] shrink-0 animate-spidey-patrol scale-90" />
+      </motion.div>
+    </div>
+  );
+}
+
+/** Floating Spider-Sense Market Radar Widget */
+function FloatingSpiderSenseChip({ onTrackerClick, onRegisterClick }) {
+  const { scrollY } = useScroll();
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    return scrollY.on('change', (latest) => {
+      setVisible(latest > 350);
+    });
+  }, [scrollY]);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 30, scale: 0.9 }}
+          transition={{ type: 'spring', damping: 20, stiffness: 220 }}
+          className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-2.5 p-2 pr-3 bg-slate-950/95 border-2 sm:border-3 border-[#ff0055] rounded-2xl shadow-[4px_4px_0px_#05070e,0_0_16px_rgba(255,0,85,0.5)] backdrop-blur-xl select-none"
+        >
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#ff0055] text-white shrink-0 shadow animate-pulse">
+            <Zap className="h-4 w-4" />
+          </div>
+          <div className="flex flex-col text-left">
+            <span className="font-mono text-[9px] font-black text-[#ffd200] leading-tight flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" /> SPIDEY-SENSE LIVE
+            </span>
+            <span className="font-mono text-[8px] text-cyan-200 font-bold">₹5L CAPITAL ARENA</span>
+          </div>
+          <div className="flex items-center gap-1.5 ml-1">
+            <button
+              type="button"
+              onClick={() => {
+                playSonarPing();
+                onTrackerClick();
+              }}
+              className="px-2.5 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-[9px] font-black hover:bg-cyan-300 active:scale-95 shadow-[1px_1px_0px_#000] cursor-pointer"
+            >
+              RADAR
+            </button>
+            <a
+              href={REGISTER_URL}
+              onClick={(e) => {
+                playWebSling();
+                onRegisterClick(e);
+              }}
+              className="px-2.5 py-1 rounded-lg bg-[#ffd200] text-slate-950 font-mono text-[9px] font-black hover:bg-amber-300 active:scale-95 shadow-[1px_1px_0px_#000] cursor-pointer"
+            >
+              JOIN
+            </a>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 
 /** Corner Spiderweb SVG Overlay */
 function SpiderWebCorner({ className = "top-0 left-0", rotate = 0 }) {
@@ -685,7 +809,10 @@ function SectionTag({ icon: Icon, children }) {
 /* ------------------------------------------------------------------ *
  * Navbar
  * ------------------------------------------------------------------ */
-function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
+/* ------------------------------------------------------------------ *
+ * Navbar
+ * ------------------------------------------------------------------ */
+function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme, soundOn, onToggleSound }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -705,7 +832,11 @@ function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
     >
       <div className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-5 sm:px-8">
         {/* Brand */}
-        <a href="#home" className="group flex items-center gap-2.5">
+        <a 
+          href="#home" 
+          onClick={() => playSpiderTingle()}
+          className="group flex items-center gap-2.5"
+        >
           <span className="badge-neo bg-[#ff0055] text-white px-2 py-0.5 text-[9px] font-black tracking-wider shadow-[1.5px_1.5px_0px_#05070e] uppercase transition-transform group-hover:scale-105 group-hover:-rotate-2">
             IGNITE 8.0
           </span>
@@ -717,18 +848,21 @@ function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
         <nav className="hidden items-center gap-7 lg:gap-8 md:flex">
           <a
             href="#home"
+            onClick={() => playTactileClick()}
             className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-red-500 after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
           >
             Home
           </a>
           <a
             href="#features"
+            onClick={() => playTactileClick()}
             className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-red-500 after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
           >
             Highlights
           </a>
           <a
             href="#about"
+            onClick={() => playTactileClick()}
             className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-red-500 after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
           >
             Rules & Onboarding
@@ -737,7 +871,10 @@ function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
           {/* Spidey Tracker Nav Trigger */}
           <button
             type="button"
-            onClick={onTrackerClick}
+            onClick={() => {
+              playSonarPing();
+              onTrackerClick();
+            }}
             className="relative text-[12px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-red-400 flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-slate-950/20 dark:border-slate-700/60 bg-slate-100/60 dark:bg-slate-800/60 shadow-sm cursor-pointer hover:border-red-500"
           >
             <span className="relative flex h-2 w-2">
@@ -748,26 +885,50 @@ function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
           </button>
         </nav>
 
-        {/* Action Buttons & Theme Toggle */}
+        {/* Action Buttons, Sound Toggle & Theme Toggle */}
         <div className="hidden items-center gap-3 sm:flex">
+          {/* Sound FX Toggle Button */}
+          <button
+            type="button"
+            onClick={() => {
+              playTactileClick();
+              onToggleSound();
+            }}
+            aria-label="Toggle Sound Effects"
+            title={soundOn ? "Mute Stark Sound FX" : "Enable Stark Sound FX"}
+            className="theme-toggle-btn group !w-10 !h-10"
+          >
+            {soundOn ? (
+              <Volume2 className="h-4.5 w-4.5 text-cyan-500 transition-transform group-hover:scale-110" />
+            ) : (
+              <VolumeX className="h-4.5 w-4.5 text-slate-400 transition-transform group-hover:scale-110" />
+            )}
+          </button>
+
           {/* Theme Toggle Button */}
           <button
             type="button"
-            onClick={onToggleTheme}
+            onClick={() => {
+              playSpiderTingle();
+              onToggleTheme();
+            }}
             aria-label="Toggle Light and Dark Theme"
             title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            className="theme-toggle-btn group"
+            className="theme-toggle-btn group !w-10 !h-10"
           >
             {theme === 'dark' ? (
-              <Sun className="h-5 w-5 text-[#ffd200] transition-transform duration-300 group-hover:rotate-45" />
+              <Sun className="h-4.5 w-4.5 text-[#ffd200] transition-transform duration-300 group-hover:rotate-45" />
             ) : (
-              <Moon className="h-5 w-5 text-slate-800 transition-transform duration-300 group-hover:-rotate-12" />
+              <Moon className="h-4.5 w-4.5 text-slate-800 transition-transform duration-300 group-hover:-rotate-12" />
             )}
           </button>
 
           <a
             href={REGISTER_URL}
-            onClick={onRegisterClick}
+            onClick={(e) => {
+              playWebSling();
+              onRegisterClick(e);
+            }}
             className="btn-neo px-5 py-2.5 text-[13px] font-extrabold group"
           >
             Register Now <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -775,20 +936,39 @@ function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
         </div>
 
         {/* Mobile menu controls */}
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-1.5 md:hidden">
           <button
             type="button"
-            onClick={onTrackerClick}
+            onClick={() => {
+              playTactileClick();
+              onToggleSound();
+            }}
+            aria-label="Toggle Sound Effects"
+            title={soundOn ? "Mute Sound" : "Enable Sound"}
+            className="theme-toggle-btn group !h-9 !w-9"
+          >
+            {soundOn ? <Volume2 className="h-4 w-4 text-cyan-500" /> : <VolumeX className="h-4 w-4 text-slate-400" />}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              playSonarPing();
+              onTrackerClick();
+            }}
             aria-label="Open Spidey Tracker"
             title="Spidey Tracker // Campus Radar"
-            className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-slate-950 bg-[#ff0055] text-white shadow-[2px_2px_0px_#05070e] transition-transform active:scale-95"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-slate-950 bg-[#ff0055] text-white shadow-[2px_2px_0px_#05070e] transition-transform active:scale-95 cursor-pointer"
           >
             <Crosshair className="h-4 w-4" />
           </button>
 
           <button
             type="button"
-            onClick={onToggleTheme}
+            onClick={() => {
+              playSpiderTingle();
+              onToggleTheme();
+            }}
             aria-label="Toggle Light and Dark Theme"
             title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
             className="theme-toggle-btn group !h-9 !w-9"
@@ -798,9 +978,12 @@ function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
 
           <button
             type="button"
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => {
+              playTactileClick();
+              setMobileOpen(!mobileOpen);
+            }}
             aria-label="Toggle Mobile Navigation"
-            className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-slate-950 bg-white dark:bg-[#131c30] text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-transform active:scale-95"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-slate-950 bg-white dark:bg-[#131c30] text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-transform active:scale-95 cursor-pointer"
           >
             {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -1679,6 +1862,7 @@ export function Landing() {
   const index = useArenaIndex(stocks);
   const [isSlingingWeb, setIsSlingingWeb] = useState(false);
   const [isTrackerOpen, setIsTrackerOpen] = useState(false);
+  const [soundOn, setSoundOn] = useState(() => initSoundPreference());
   const [showDisclaimer, setShowDisclaimer] = useState(() => {
     try {
       const stored = localStorage.getItem('ea_disclaimer_accepted');
@@ -1716,7 +1900,16 @@ export function Landing() {
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   }, []);
 
+  const toggleSound = useCallback(() => {
+    setSoundOn(prev => {
+      const next = !prev;
+      setSoundEnabled(next);
+      return next;
+    });
+  }, []);
+
   const handleAcceptDisclaimer = () => {
+    playSpiderTingle();
     try {
       localStorage.setItem('ea_disclaimer_accepted', 'true');
     } catch (_) {}
@@ -1735,6 +1928,7 @@ export function Landing() {
 
   const handleRegisterClick = (e) => {
     if (e) e.preventDefault();
+    playWebSling();
     setIsSlingingWeb(true);
     setTimeout(() => {
       window.location.href = REGISTER_URL;
@@ -1778,10 +1972,13 @@ export function Landing() {
         {showDisclaimer && <DisclaimerModal onClose={handleAcceptDisclaimer} />}
       </AnimatePresence>
 
-      {/* GSAP ScrollTrigger Top Progress Bar */}
-      <motion.div
-        style={{ scaleX: progress }}
-        className="fixed inset-x-0 top-0 z-[60] h-[3.5px] origin-left bg-gradient-to-r from-red-600 via-red-500 to-blue-600 shadow-md shadow-red-500"
+      {/* Spider-Silk Interactive Scroll Progress Bar & Crawling Spider-Man */}
+      <SpideyScrollCrawler progress={progress} />
+
+      {/* Floating Spider-Sense Market Radar Chip */}
+      <FloatingSpiderSenseChip 
+        onTrackerClick={() => setIsTrackerOpen(true)} 
+        onRegisterClick={handleRegisterClick} 
       />
 
       {/* GSAP ScrollTrigger Side Spider-Web Strand */}
@@ -1799,6 +1996,8 @@ export function Landing() {
         onTrackerClick={() => setIsTrackerOpen(true)}
         theme={theme}
         onToggleTheme={toggleTheme}
+        soundOn={soundOn}
+        onToggleSound={toggleSound}
       />
       <main>
         <Hero
@@ -1830,15 +2029,32 @@ export function Landing() {
           <div className="flex items-center gap-1.5">
             <button
               type="button"
-              onClick={() => setIsTrackerOpen(true)}
-              className="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-slate-950 bg-[#ff0055] text-white shadow-[1.5px_1.5px_0px_#05070e]"
+              onClick={() => {
+                playTactileClick();
+                toggleSound();
+              }}
+              className="theme-toggle-btn !h-8 !w-8 !rounded-lg"
+              title={soundOn ? "Mute Sound" : "Enable Sound"}
+            >
+              {soundOn ? <Volume2 className="h-3.5 w-3.5 text-cyan-500" /> : <VolumeX className="h-3.5 w-3.5 text-slate-400" />}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                playSonarPing();
+                setIsTrackerOpen(true);
+              }}
+              className="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-slate-950 bg-[#ff0055] text-white shadow-[1.5px_1.5px_0px_#05070e] cursor-pointer"
               title="Spidey Tracker Radar"
             >
               <Crosshair className="h-3.5 w-3.5" />
             </button>
             <button
               type="button"
-              onClick={toggleTheme}
+              onClick={() => {
+                playSpiderTingle();
+                toggleTheme();
+              }}
               className="theme-toggle-btn !h-8 !w-8 !rounded-lg"
               title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
@@ -1846,7 +2062,10 @@ export function Landing() {
             </button>
             <a
               href={REGISTER_URL}
-              onClick={handleRegisterClick}
+              onClick={(e) => {
+                playWebSling();
+                handleRegisterClick(e);
+              }}
               className="btn-neo !px-3.5 !py-2 !text-[11px] font-black whitespace-nowrap !shadow-[2px_2px_0px_#05070e]"
             >
               Register <ArrowRight className="h-3 w-3 inline ml-0.5" />
