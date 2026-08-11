@@ -398,65 +398,93 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-slate-950 bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-[2px_2px_0px_#05070e]"
+            aria-label="Toggle Mobile Navigation"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-slate-950 bg-white dark:bg-slate-900 text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-transform active:scale-95"
           >
             {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer — Cyber Neo-Brutalist Action HUD */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="border-b-3 border-slate-950 bg-white dark:bg-[#070b16] px-5 py-6 backdrop-blur-2xl md:hidden"
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="relative border-b-4 border-slate-950 bg-white/98 dark:bg-[#070b16]/98 px-5 py-6 backdrop-blur-2xl md:hidden shadow-[0_12px_32px_rgba(0,0,0,0.35)] overflow-hidden"
           >
-            <nav className="flex flex-col gap-3">
+            {/* Top Hazard Accent Stripe */}
+            <div 
+              className="absolute top-0 left-0 right-0 h-1.5 pointer-events-none"
+              style={{
+                backgroundImage: 'repeating-linear-gradient(45deg, #ff0055, #ff0055 8px, #ffd200 8px, #ffd200 16px, #00f3ff 16px, #00f3ff 24px)'
+              }}
+            />
+
+            {/* Mobile Header Info Pill */}
+            <div className="flex items-center justify-between mb-4 border-b border-slate-200 dark:border-slate-800 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="badge-neo bg-[#ffd200] text-slate-950 !px-2 !py-0.5 !text-[9px] font-black">
+                  ARENA 15 // LIVE
+                </span>
+                <span className="text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400 animate-pulse">
+                  FEED: ACTIVE
+                </span>
+              </div>
+              <span className="text-[10px] font-mono text-slate-500 font-bold">
+                SEPT 4 • 20K IC
+              </span>
+            </div>
+
+            <nav className="flex flex-col gap-2.5">
               <a
                 href="#home"
                 onClick={() => setMobileOpen(false)}
-                className="block text-center border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e]"
+                className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#ff0055]"
               >
-                Home
+                <span>🏠 Home Deck</span>
+                <ArrowRight className="h-4 w-4 text-slate-400" />
               </a>
               <a
                 href="#features"
                 onClick={() => setMobileOpen(false)}
-                className="block text-center border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e]"
+                className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#0284c7]"
               >
-                Highlights
+                <span>⚡ Event Highlights</span>
+                <ArrowRight className="h-4 w-4 text-slate-400" />
               </a>
               <a
                 href="#about"
                 onClick={() => setMobileOpen(false)}
-                className="block text-center border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#05070e]"
+                className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#ffd200]"
               >
-                Rules & Onboarding
+                <span>📋 Rules & Onboarding</span>
+                <ArrowRight className="h-4 w-4 text-slate-400" />
               </a>
+              
               <button
                 type="button"
                 onClick={onToggleTheme}
-                className="flex items-center justify-center gap-2 border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded shadow-[2px_2px_0px_#05070e] text-sm font-mono font-bold text-slate-950 dark:text-white transition-all"
+                className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-slate-900 px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all border-l-4 border-l-[#00f3ff]"
               >
-                {theme === 'dark' ? (
-                  <>
-                    <Sun className="h-4 w-4 text-[#ffd200]" /> Switch to Light Mode
-                  </>
-                ) : (
-                  <>
-                    <Moon className="h-4 w-4 text-slate-800" /> Switch to Dark Mode
-                  </>
-                )}
+                <div className="flex items-center gap-2">
+                  {theme === 'dark' ? <Sun className="h-4 w-4 text-[#ffd200]" /> : <Moon className="h-4 w-4 text-slate-800" />}
+                  <span>{theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}</span>
+                </div>
+                <span className="badge-neo !px-1.5 !py-0.5 !text-[8.5px] bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+                  {theme.toUpperCase()}
+                </span>
               </button>
+
               <a
                 href={REGISTER_URL}
                 onClick={(e) => { setMobileOpen(false); onRegisterClick(e); }}
-                className="btn-neo mt-2 justify-center py-3.5 text-sm font-black"
+                className="btn-neo mt-2 justify-center py-3.5 text-sm font-black text-center shadow-[4px_4px_0px_#05070e]"
               >
-                Register Now <ArrowRight className="h-4 w-4" />
+                REGISTER ACCOUNT [20,000 IC] <ArrowRight className="h-4 w-4 ml-1" />
               </a>
             </nav>
           </motion.div>
@@ -472,7 +500,7 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
 const HERO_FEATURES = [
   { icon: Zap, title: 'Live Ticker Feed', sub: 'Sub-second WebSocket network' },
   { icon: Shield, title: 'Instant Fills', sub: 'Instant order execution' },
-  { icon: BarChart3, title: 'Market Order Depth', sub: 'Real-time index matrix' }
+  { icon: BarChart3, title: 'Market Depth', sub: 'Real-time index matrix' }
 ];
 
 const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
@@ -501,7 +529,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
   }, []);
 
   return (
-    <section ref={ref} id="home" className="relative min-h-screen overflow-hidden pt-[72px] spider-web-bg bg-slate-50 dark:bg-[#05070e]">
+    <section ref={ref} id="home" className="relative min-h-screen overflow-hidden pt-[68px] sm:pt-[72px] spider-web-bg bg-slate-50 dark:bg-[#05070e]">
       {/* Corner Spiderwebs */}
       <SpiderWebCorner className="top-0 left-0" rotate={0} />
       <SpiderWebCorner className="top-0 right-0" rotate={90} />
@@ -509,19 +537,19 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
 
       {/* Backdrop: Radial glows + receding grid floor (GSAP Parallax) */}
       <div data-gsap="parallax" className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -left-40 top-10 h-[580px] w-[580px] rounded-full bg-red-400/15 blur-[130px]" />
-        <div className="absolute right-0 top-1/3 h-[520px] w-[520px] rounded-full bg-blue-400/15 blur-[140px]" />
-        <div className="absolute bottom-0 left-1/2 h-[400px] w-[1000px] -translate-x-1/2 rounded-full bg-amber-400/15 blur-[120px]" />
+        <div className="absolute -left-40 top-10 h-[380px] sm:h-[580px] w-[380px] sm:w-[580px] rounded-full bg-red-400/15 blur-[100px] sm:blur-[130px]" />
+        <div className="absolute right-0 top-1/3 h-[320px] sm:h-[520px] w-[320px] sm:w-[520px] rounded-full bg-blue-400/15 blur-[100px] sm:blur-[140px]" />
+        <div className="absolute bottom-0 left-1/2 h-[300px] sm:h-[400px] w-[600px] sm:w-[1000px] -translate-x-1/2 rounded-full bg-amber-400/15 blur-[90px] sm:blur-[120px]" />
         <div className="absolute inset-x-0 bottom-0 h-[45vh] grid-floor opacity-60" />
       </div>
 
-      {/* Spider-Man hanging from web */}
-      <div id="gsap-hero-spiderman-wrapper" className="absolute top-0 right-[4%] lg:right-[8%] xl:right-[10%] z-10 pointer-events-none hidden sm:flex flex-col items-center">
+      {/* Spider-Man hanging from web — now fully responsive and visible on mobile & desktop! */}
+      <div id="gsap-hero-spiderman-wrapper" className="absolute top-0 right-[1%] sm:right-[4%] lg:right-[8%] xl:right-[10%] z-10 pointer-events-none flex flex-col items-center">
         <div
           id="gsap-hero-spiderman-line"
           style={{
             width: '3px',
-            height: '90px',
+            height: 'clamp(50px, 7vw, 90px)',
             background: 'linear-gradient(to bottom, rgba(100,100,100,0.8) 0%, #666 60%, #333 100%)',
             boxShadow: '0 0 4px 1px rgba(0,0,0,0.2)',
             transformOrigin: 'top center'
@@ -533,14 +561,14 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
           style={{ transformOrigin: 'top center' }}
         >
           <div
-            className="absolute inset-0 blur-3xl opacity-40 z-0"
+            className="absolute inset-0 blur-2xl sm:blur-3xl opacity-40 z-0"
             style={{ background: 'radial-gradient(ellipse at 50% 20%, rgba(239,68,68,0.45) 0%, rgba(59,130,246,0.15) 65%, transparent 100%)' }}
           />
           <img
             src="/images/spiderman_hanging.png"
             alt="Spider-Man hanging from web"
             draggable={false}
-            className="relative z-10 select-none w-[180px] md:w-[220px] lg:w-[260px] xl:w-[300px]"
+            className="relative z-10 select-none w-[115px] xs:w-[135px] sm:w-[180px] md:w-[220px] lg:w-[260px] xl:w-[300px]"
             style={{
               filter: 'drop-shadow(0 4px 20px rgba(15,23,42,0.25)) drop-shadow(0 0 10px rgba(239,68,68,0.2))',
             }}
@@ -548,7 +576,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
           {/* Comic pop stamp next to Spider-man */}
           <div
             id="gsap-hero-spiderman-stamp"
-            className="absolute left-[38%] -translate-x-full bottom-[12%] opacity-0 scale-0 z-30 bg-[#ffd200] border-3 border-slate-950 text-slate-950 font-black uppercase px-3.5 py-1.5 rounded-lg text-xs rotate-[-8deg] shadow-[3px_3px_0px_#05070e] font-mono select-none"
+            className="absolute left-[38%] -translate-x-full bottom-[12%] opacity-0 scale-0 z-30 bg-[#ffd200] border-2 sm:border-3 border-slate-950 text-slate-950 font-black uppercase px-2 sm:px-3.5 py-1 sm:py-1.5 rounded-lg text-[9px] sm:text-xs rotate-[-8deg] shadow-[2px_2px_0px_#05070e] sm:shadow-[3px_3px_0px_#05070e] font-mono select-none"
           >
             Hey there!
           </div>
@@ -556,81 +584,81 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
       </div>
 
       {/* Layout grid */}
-      <div className="mx-auto grid max-w-[1280px] items-center gap-10 sm:gap-14 px-4 sm:px-8 pb-20 pt-10 sm:pb-24 sm:pt-14 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pb-12 lg:pt-20">
+      <div className="mx-auto grid max-w-[1280px] items-center gap-8 sm:gap-14 px-4 sm:px-8 pb-16 pt-6 sm:pb-24 sm:pt-14 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pb-12 lg:pt-20">
         {/* ---------- Left column (GSAP Hero Page-Load Entrance) ---------- */}
         <div data-gsap="hero" className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
-          <h1 className="font-display mt-6 sm:mt-7 text-[clamp(2.25rem,6vw,4.6rem)] font-bold leading-[1.0] tracking-[-0.03em] text-slate-950 dark:text-white">
+          <h1 className="font-display mt-4 sm:mt-7 text-[clamp(2.05rem,6.8vw,4.6rem)] font-black leading-[1.03] tracking-[-0.03em] text-slate-950 dark:text-white">
             With great capital
             <br />
             comes <span className="text-gradient-spidey">great responsibility.</span>
           </h1>
 
-          <p className="mt-5 sm:mt-6 max-w-[460px] text-[15px] sm:text-[16px] leading-relaxed text-slate-700 dark:text-slate-300 font-medium">
+          <p className="mt-4 sm:mt-6 max-w-[460px] text-[14.5px] sm:text-[16px] leading-relaxed text-slate-700 dark:text-slate-300 font-medium">
             Step into the live trading arena. Monitor 15 high-volatility sector stocks, track price swings in real time, and place orders across the market with 20,000 Ignite Coins to start.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-4 sm:gap-5 justify-center lg:justify-start">
+          <div className="mt-6 sm:mt-8 flex flex-wrap gap-4 sm:gap-5 justify-center lg:justify-start w-full sm:w-auto">
             <a
               href={REGISTER_URL}
               onClick={onRegisterClick}
-              className="btn-neo px-6 sm:px-8 py-3.5 sm:py-4 text-[13px] sm:text-[14px] font-extrabold group"
+              className="btn-neo w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-[13px] sm:text-[14px] font-extrabold group justify-center shadow-[4px_4px_0px_#05070e]"
             >
               Register Now <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
           </div>
 
           {/* Neo-Brutalist Launch Countdown to Sept 4 */}
-          <div className="mt-8 border-3 border-slate-950 bg-white dark:bg-[#070b16] p-4.5 rounded-xl shadow-[4px_4px_0px_#05070e,8px_8px_0px_rgba(255,0,85,0.12)] text-left max-w-[420px] w-full relative overflow-hidden group">
+          <div className="mt-6 sm:mt-8 border-3 border-slate-950 bg-white dark:bg-[#070b16] p-3.5 sm:p-4.5 rounded-xl shadow-[4px_4px_0px_#05070e,8px_8px_0px_rgba(255,0,85,0.12)] text-left max-w-[420px] w-full relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-red-600/5 via-transparent to-blue-600/5 pointer-events-none" />
-            <div className="flex items-center justify-between mb-3 border-b border-slate-200 dark:border-slate-800 pb-2.5">
-              <span className="badge-neo bg-[#ffd200] text-slate-950 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider shadow-[1.5px_1.5px_0px_#05070e]">
+            <div className="flex items-center justify-between mb-2.5 sm:mb-3 border-b border-slate-200 dark:border-slate-800 pb-2 sm:pb-2.5">
+              <span className="badge-neo bg-[#ffd200] text-slate-950 px-2 py-0.5 text-[8.5px] sm:text-[9px] font-black uppercase tracking-wider shadow-[1.5px_1.5px_0px_#05070e]">
                 LAUNCH TELEMETRY // SEPT 4
               </span>
-              <span className="text-[9px] font-mono text-emerald-600 dark:text-emerald-400 animate-pulse select-none font-bold">STATE: ONLINE</span>
+              <span className="text-[8.5px] sm:text-[9px] font-mono text-emerald-600 dark:text-emerald-400 animate-pulse select-none font-bold">STATE: ONLINE</span>
             </div>
             
-            <div className="grid grid-cols-4 gap-3 text-center">
-              <div className="bg-slate-100 dark:bg-slate-900 p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#ff0055] transition-transform group-hover:translate-y-[-1px]">
-                <span className="block font-display text-2xl font-black text-[#ff0055] tabular-nums animate-brutalist-glitch">{timeLeft.days}</span>
-                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Days</span>
+            <div className="grid grid-cols-4 gap-2 sm:gap-3 text-center">
+              <div className="bg-slate-100 dark:bg-slate-900 p-2 sm:p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#ff0055] transition-transform group-hover:translate-y-[-1px]">
+                <span className="block font-display text-xl sm:text-2xl font-black text-[#ff0055] tabular-nums animate-brutalist-glitch">{timeLeft.days}</span>
+                <span className="text-[8px] sm:text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Days</span>
               </div>
-              <div className="bg-slate-100 dark:bg-slate-900 p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#0284c7] transition-transform group-hover:translate-y-[-1px]">
-                <span className="block font-display text-2xl font-black text-[#0284c7] tabular-nums animate-brutalist-glitch">{timeLeft.hours}</span>
-                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Hours</span>
+              <div className="bg-slate-100 dark:bg-slate-900 p-2 sm:p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#0284c7] transition-transform group-hover:translate-y-[-1px]">
+                <span className="block font-display text-xl sm:text-2xl font-black text-[#0284c7] tabular-nums animate-brutalist-glitch">{timeLeft.hours}</span>
+                <span className="text-[8px] sm:text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Hours</span>
               </div>
-              <div className="bg-slate-100 dark:bg-slate-900 p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#d97706] transition-transform group-hover:translate-y-[-1px]">
-                <span className="block font-display text-2xl font-black text-[#d97706] tabular-nums animate-brutalist-glitch">{timeLeft.minutes}</span>
-                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Mins</span>
+              <div className="bg-slate-100 dark:bg-slate-900 p-2 sm:p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#d97706] transition-transform group-hover:translate-y-[-1px]">
+                <span className="block font-display text-xl sm:text-2xl font-black text-[#d97706] tabular-nums animate-brutalist-glitch">{timeLeft.minutes}</span>
+                <span className="text-[8px] sm:text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Mins</span>
               </div>
-              <div className="bg-slate-100 dark:bg-slate-900 p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#0f172a] dark:shadow-[2px_2px_0px_#ffffff] transition-transform group-hover:translate-y-[-1px]">
-                <span className="block font-display text-2xl font-black text-slate-950 dark:text-white tabular-nums animate-brutalist-glitch">{timeLeft.seconds}</span>
-                <span className="text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Secs</span>
+              <div className="bg-slate-100 dark:bg-slate-900 p-2 sm:p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#0f172a] dark:shadow-[2px_2px_0px_#ffffff] transition-transform group-hover:translate-y-[-1px]">
+                <span className="block font-display text-xl sm:text-2xl font-black text-slate-950 dark:text-white tabular-nums animate-brutalist-glitch">{timeLeft.seconds}</span>
+                <span className="text-[8px] sm:text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Secs</span>
               </div>
             </div>
           </div>
 
-          <div className="mt-10 sm:mt-12 grid grid-cols-3 gap-3 border-t border-slate-300 dark:border-slate-800 pt-6 sm:pt-7 w-full">
+          <div className="mt-8 sm:mt-12 grid grid-cols-3 gap-2 sm:gap-3 border-t border-slate-300 dark:border-slate-800 pt-5 sm:pt-7 w-full">
             {HERO_FEATURES.map(({ icon: Icon, title, sub }) => (
               <div key={title} className="flex flex-col items-center lg:items-start gap-1">
                 <Icon className="h-4 w-4 text-red-600 mx-auto lg:mx-0" />
-                <span className="font-display text-[12px] sm:text-[13px] font-bold text-slate-950 dark:text-white">{title}</span>
-                <span className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">{sub}</span>
+                <span className="font-display text-[11px] sm:text-[13px] font-bold text-slate-950 dark:text-white leading-tight">{title}</span>
+                <span className="text-[9.5px] sm:text-[11px] text-slate-600 dark:text-slate-400 font-medium leading-tight">{sub}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* ---------- Right column: HeroDeck ---------- */}
-        <div data-gsap="hero" className="relative flex flex-col items-center lg:pr-4">
+        <div data-gsap="hero" className="relative flex flex-col items-center lg:pr-4 w-full">
           {/* Rotating HUD ring behind HeroDeck */}
-          <div className="absolute -inset-14 -z-10 flex items-center justify-center pointer-events-none opacity-20 select-none scale-90 sm:scale-100">
+          <div className="absolute -inset-14 -z-10 flex items-center justify-center pointer-events-none opacity-20 select-none scale-75 sm:scale-100">
             <svg width="500" height="500" viewBox="0 0 200 200" className="stroke-[#0284c7] stroke-[0.8] fill-none overflow-visible animate-spin" style={{ animationDuration: '24s' }}>
               <circle cx="100" cy="100" r="82" strokeDasharray="12 6 2 6" />
               <circle cx="100" cy="100" r="92" strokeDasharray="50 15" strokeWidth="1.2" />
               <circle cx="100" cy="100" r="62" strokeDasharray="3 6" />
             </svg>
           </div>
-          <div className="w-full relative p-4 border-3 border-slate-950 bg-slate-100 dark:bg-[#070b16] shadow-[6px_6px_0px_#05070e] rounded-xl">
+          <div className="w-full relative p-3 sm:p-4 border-3 border-slate-950 bg-slate-100 dark:bg-[#070b16] shadow-[5px_5px_0px_#05070e] sm:shadow-[6px_6px_0px_#05070e] rounded-xl sm:rounded-2xl">
             <HeroDeck stocks={stocks} index={index} isLive={isLive} />
           </div>
         </div>
@@ -843,73 +871,84 @@ const STEPS = [
     n: '01',
     icon: Users,
     title: 'Register Your Account',
-    body: 'Create your trader profile on Equity Arena in seconds. No KYC or banking details required.'
+    body: 'Create your trader profile on Equity Arena in seconds. No KYC or banking details required.',
+    sound: 'THWIP!'
   },
   {
     n: '02',
     icon: Coins,
     title: 'Receive 20,000 IC',
-    body: 'Instant credit of 20,000 virtual Ignite Coins directly to your trading wallet.'
+    body: 'Instant credit of 20,000 virtual Ignite Coins directly to your trading wallet.',
+    sound: 'BZZZT!'
   },
   {
     n: '03',
     icon: Activity,
     title: 'Track the Live Market',
-    body: 'Monitor real-time prices across 15 high-volatility sector stocks on the live dashboard.'
+    body: 'Monitor real-time prices across 15 high-volatility sector stocks on the live dashboard.',
+    sound: 'SWING!'
   },
   {
     n: '04',
     icon: Zap,
     title: 'Place Orders & Climb',
-    body: 'Execute market buys and sells instantly. Climb the global trader leaderboard.'
+    body: 'Execute market buys and sells instantly. Climb the global trader leaderboard.',
+    sound: 'BOOM!'
   }
 ];
 
 const About = forwardRef((props, ref) => {
   return (
-    <section ref={ref} id="about" data-gsap="section" className="relative border-t-3 border-slate-950 py-24 sm:py-28 bg-slate-50 dark:bg-[#05070e] overflow-hidden">
+    <section ref={ref} id="about" data-gsap="section" className="relative border-t-3 border-slate-950 py-20 sm:py-28 bg-slate-50 dark:bg-[#05070e] overflow-hidden">
       {/* Comic Book popups scoped to About section */}
-      <div id="gsap-comic-thwip" className="pointer-events-none absolute left-[12%] top-[42%] opacity-0 scale-0 z-30 bg-[#ff1e42] border-4 border-black text-white font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg -rotate-12 shadow-[4px_4px_0px_#000] font-mono">THWIP!</div>
-      <div id="gsap-comic-bzzzt" className="pointer-events-none absolute left-[38%] top-[38%] opacity-0 scale-0 z-30 bg-amber-400 border-4 border-black text-black font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg rotate-6 shadow-[4px_4px_0px_#000] font-mono">BZZZT!</div>
-      <div id="gsap-comic-swing" className="pointer-events-none absolute left-[62%] top-[42%] opacity-0 scale-0 z-30 bg-blue-600 border-4 border-black text-white font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg -rotate-6 shadow-[4px_4px_0px_#000] font-mono">SWING!</div>
-      <div id="gsap-comic-boom" className="pointer-events-none absolute left-[82%] top-[32%] opacity-0 scale-0 z-30 bg-red-600 border-4 border-black text-white font-extrabold uppercase px-7 py-2 rounded-lg text-2xl rotate-12 shadow-[6px_6px_0px_#000] font-mono">BOOM!</div>
+      <div id="gsap-comic-thwip" className="pointer-events-none absolute left-[12%] top-[42%] opacity-0 scale-0 z-30 bg-[#ff1e42] border-4 border-black text-white font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg -rotate-12 shadow-[4px_4px_0px_#000] font-mono hidden sm:block">THWIP!</div>
+      <div id="gsap-comic-bzzzt" className="pointer-events-none absolute left-[38%] top-[38%] opacity-0 scale-0 z-30 bg-amber-400 border-4 border-black text-black font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg rotate-6 shadow-[4px_4px_0px_#000] font-mono hidden sm:block">BZZZT!</div>
+      <div id="gsap-comic-swing" className="pointer-events-none absolute left-[62%] top-[42%] opacity-0 scale-0 z-30 bg-blue-600 border-4 border-black text-white font-extrabold uppercase px-5 py-1.5 rounded-lg text-lg -rotate-6 shadow-[4px_4px_0px_#000] font-mono hidden sm:block">SWING!</div>
+      <div id="gsap-comic-boom" className="pointer-events-none absolute left-[82%] top-[32%] opacity-0 scale-0 z-30 bg-red-600 border-4 border-black text-white font-extrabold uppercase px-7 py-2 rounded-lg text-2xl rotate-12 shadow-[6px_6px_0px_#000] font-mono hidden sm:block">BOOM!</div>
 
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
         <div data-gsap="heading" className="mx-auto max-w-[620px] text-center">
           <SectionTag icon={Gauge}>Execution Workflow</SectionTag>
-          <h2 className="font-display mt-5 text-[clamp(2rem,4.5vw,3.1rem)] font-bold leading-[1.05] tracking-[-0.025em] text-slate-950 dark:text-white">
+          <h2 className="font-display mt-4 sm:mt-5 text-[clamp(1.95rem,5.5vw,3.1rem)] font-black leading-[1.05] tracking-[-0.025em] text-slate-950 dark:text-white">
             From setup to
             <span className="text-gradient-spidey"> first fill</span> in seconds.
           </h2>
         </div>
 
-        <div className="stage-3d relative mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <div className="stage-3d relative mt-12 sm:mt-16 grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-4">
           <div id="gsap-about-line" className="pointer-events-none absolute left-0 right-0 top-[52px] hidden h-[3px] bg-gradient-to-r from-red-600 via-red-500 to-blue-600 shadow-md lg:block origin-left scale-x-0" />
 
-          {STEPS.map(({ n, icon: Icon, title, body }) => (
+          {STEPS.map(({ n, icon: Icon, title, body, sound }) => (
             <div
               key={n}
               data-gsap="step-card"
-              className="card-neo layer-3d group relative p-6 text-center bg-white dark:bg-[#0e111a] border-3 border-slate-950"
+              className="card-neo layer-3d group relative p-5 sm:p-6 text-center bg-white dark:bg-[#0e111a] border-3 border-slate-950"
             >
-              <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-slate-950 bg-slate-100 dark:bg-slate-800 shadow-[3px_3px_0px_#05070e] transition-transform duration-300 group-hover:scale-110">
+              {/* Mobile Comic Sound badge */}
+              <div className="absolute top-2.5 right-2.5 sm:hidden">
+                <span className="badge-neo !px-1.5 !py-0.5 !text-[8.5px] bg-[#ffd200] text-slate-950 font-black">
+                  {sound}
+                </span>
+              </div>
+
+              <span className="relative mx-auto flex h-13 w-13 sm:h-14 sm:w-14 items-center justify-center rounded-2xl border-2 border-slate-950 bg-slate-100 dark:bg-slate-800 shadow-[3px_3px_0px_#05070e] transition-transform duration-300 group-hover:scale-110">
                 <Icon className="h-6 w-6 text-red-600" strokeWidth={1.8} />
-                <span className="absolute -right-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-slate-950 font-mono text-[10px] font-bold text-white shadow-md">
+                <span className="absolute -right-1.5 -top-1.5 flex h-5.5 w-5.5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-slate-950 font-mono text-[9.5px] sm:text-[10px] font-bold text-white shadow-md">
                   {n}
                 </span>
               </span>
 
-              <h3 className="font-display mt-5 text-[17px] font-bold tracking-tight text-slate-950 dark:text-white">{title}</h3>
-              <p className="mt-2.5 text-[13.5px] leading-relaxed text-slate-700 dark:text-slate-300 font-medium">{body}</p>
+              <h3 className="font-display mt-4 sm:mt-5 text-[16px] sm:text-[17px] font-bold tracking-tight text-slate-950 dark:text-white">{title}</h3>
+              <p className="mt-2 text-[13px] sm:text-[13.5px] leading-relaxed text-slate-700 dark:text-slate-300 font-medium">{body}</p>
             </div>
           ))}
         </div>
 
         {/* Onboarding Progress Caption */}
-        <div className="mt-16 text-center max-w-xl mx-auto">
-          <div className="relative rounded-2xl border-3 border-slate-950 bg-white dark:bg-[#070b16] px-6 py-4 shadow-[4px_4px_0px_#05070e] overflow-hidden">
+        <div className="mt-12 sm:mt-16 text-center max-w-xl mx-auto">
+          <div className="relative rounded-2xl border-3 border-slate-950 bg-white dark:bg-[#070b16] px-4 sm:px-6 py-3.5 sm:py-4 shadow-[4px_4px_0px_#05070e] overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-red-600/5 via-transparent to-blue-600/5" />
-            <p id="gsap-about-story" className="font-mono text-[13px] font-bold text-red-600 tracking-wide transition-all duration-300">
+            <p id="gsap-about-story" className="font-mono text-[12px] sm:text-[13px] font-bold text-red-600 dark:text-red-400 tracking-wide transition-all duration-300">
               STATUS FEED: Scroll to monitor your onboarding progress...
             </p>
           </div>
@@ -1317,6 +1356,36 @@ export function Landing() {
         <FinalCTA onRegisterClick={handleRegisterClick} />
       </main>
       <Footer stocks={stocks} onRegisterClick={handleRegisterClick} />
+
+      {/* Sticky Mobile Bottom HUD Bar — Ultra-slick Phone Floating Controls */}
+      <div className="fixed bottom-3 inset-x-3 z-40 sm:hidden">
+        <div className="card-neo !shadow-[4px_4px_0px_#05070e] flex items-center justify-between gap-2 p-2 px-3 bg-white/95 dark:bg-[#090d1a]/95 backdrop-blur-lg border-2 border-slate-950 rounded-2xl">
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-live" />
+            <div className="flex flex-col">
+              <span className="font-display text-[11px] font-black text-slate-950 dark:text-white leading-tight">EQUITY ARENA</span>
+              <span className="font-mono text-[9px] text-red-600 dark:text-red-400 font-black tracking-wide">20,000 IC LIVE</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="theme-toggle-btn !h-8 !w-8 !rounded-lg"
+              title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {theme === 'dark' ? <Sun className="h-3.5 w-3.5 text-[#ffd200]" /> : <Moon className="h-3.5 w-3.5 text-slate-800" />}
+            </button>
+            <a
+              href={REGISTER_URL}
+              onClick={handleRegisterClick}
+              className="btn-neo !px-3.5 !py-2 !text-[11px] font-black whitespace-nowrap !shadow-[2px_2px_0px_#05070e]"
+            >
+              Register <ArrowRight className="h-3 w-3 inline ml-0.5" />
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

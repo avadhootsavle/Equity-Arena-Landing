@@ -461,8 +461,11 @@ export function HeroDeck({ stocks, index, isLive }) {
           {/* Top gainers — real Equity Arena listings */}
           <div className="mt-5 border-t border-slate-200 dark:border-slate-800 pt-4">
             <div className="flex items-center justify-between">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">Top Gainers</h4>
-              <button className="text-[11px] font-bold text-blue-600 dark:text-blue-400 hover:text-blue-800 transition">View all</button>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span className="h-2 w-2 rounded-full bg-[#ff0055] animate-pulse" />
+                Top Gainers
+              </h4>
+              <span className="text-[10.5px] font-mono font-bold text-slate-500 dark:text-slate-400">ARENA 15 MOVERS</span>
             </div>
 
             <div className="mt-3 space-y-2.5">
@@ -472,23 +475,23 @@ export function HeroDeck({ stocks, index, isLive }) {
                 return (
                   <motion.div
                     key={stock.symbol}
-                    className="flex items-center justify-between"
+                    className="flex items-center justify-between p-1.5 sm:p-0 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
                     initial={{ opacity: 0, x: -14 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 1 + i * 0.12, duration: 0.5 }}
                   >
-                    <div className="flex items-center gap-2.5">
-                      <div className={`flex h-7 w-7 items-center justify-center rounded-md bg-slate-100 dark:bg-slate-800 ring-1 ring-slate-300 dark:ring-slate-700 text-[10px] font-bold text-slate-900 dark:text-white`}>
+                    <div className="flex items-center gap-2 sm:gap-2.5">
+                      <div className={`flex h-7 w-7 items-center justify-center rounded-md bg-slate-100 dark:bg-slate-800 ring-1 ring-slate-300 dark:ring-slate-700 text-[10px] font-black text-slate-900 dark:text-white`}>
                         {stock.symbol.slice(0, 2)}
                       </div>
-                      <span className="text-[13px] font-bold text-slate-900 dark:text-white">{stock.symbol}</span>
+                      <span className="text-[12.5px] sm:text-[13px] font-black text-slate-950 dark:text-white">{stock.symbol}</span>
                     </div>
 
-                    <div className="flex items-center gap-4">
-                      <span className="font-mono text-[13px] text-slate-900 dark:text-white font-semibold tabular-nums">
-                        {(stock.currentPrice || 0).toFixed(2)} <span className="text-slate-500">IC</span>
+                    <div className="flex items-center gap-2 sm:gap-4">
+                      <span className="font-mono text-[12px] sm:text-[13px] text-slate-900 dark:text-white font-bold tabular-nums">
+                        {(stock.currentPrice || 0).toFixed(2)} <span className="text-slate-500 text-[10px]">IC</span>
                       </span>
-                      <span className={`flex w-[68px] items-center justify-end gap-1 font-mono text-[12px] font-bold ${positive ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                      <span className={`flex w-[62px] sm:w-[68px] items-center justify-end gap-0.5 sm:gap-1 font-mono text-[11px] sm:text-[12px] font-extrabold ${positive ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                         <TrendingUp className={`h-3 w-3 ${positive ? '' : 'rotate-180'}`} />
                         {positive ? '+' : ''}{(stock.percentChange || 0).toFixed(2)}%
                       </span>
@@ -496,6 +499,19 @@ export function HeroDeck({ stocks, index, isLive }) {
                   </motion.div>
                 );
               })}
+            </div>
+
+            {/* Mobile-only Live News Chip */}
+            <div className="mt-3.5 sm:hidden flex items-center justify-between gap-2 rounded-lg border-2 border-slate-950 bg-slate-50 dark:bg-[#070b16] p-2.5 shadow-[2px_2px_0px_#05070e]">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="badge-neo !px-1.5 !py-0.5 !text-[8.5px] bg-[#ff0055] text-white shrink-0">
+                  LIVE NEWS
+                </span>
+                <span className="truncate text-[10px] font-bold text-slate-800 dark:text-slate-200">
+                  Nimbus InfoTech rallies +4.2% on tech surge
+                </span>
+              </div>
+              <ChevronRight className="h-3.5 w-3.5 shrink-0 text-slate-600 dark:text-slate-400" />
             </div>
           </div>
         </motion.div>
@@ -540,23 +556,23 @@ export function HeroDeck({ stocks, index, isLive }) {
 
         {/* ---------------- Orbiting coin badges ---------------- */}
         <motion.div
-          className="absolute z-40 -right-4 sm:-right-12 top-16 flex h-14 w-14 items-center justify-center rounded-full border-2 border-slate-950 bg-white dark:bg-[#0e111a] text-blue-600 dark:text-blue-400 shadow-[3px_3px_0px_#05070e] animate-float-slow"
+          className="absolute z-40 -right-2 sm:-right-12 top-10 sm:top-16 flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center rounded-full border-2 border-slate-950 bg-white dark:bg-[#0e111a] text-blue-600 dark:text-blue-400 shadow-[2px_2px_0px_#05070e] sm:shadow-[3px_3px_0px_#05070e] animate-float-slow"
           style={{ z: 150 }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1.2, type: 'spring', stiffness: 180 }}
         >
-          <TrendingUp className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+          <TrendingUp className="h-4 w-4 sm:h-6 sm:w-6 text-blue-600 dark:text-blue-400" />
         </motion.div>
 
         <motion.div
-          className="absolute z-40 -right-7 bottom-14 flex h-12 w-12 items-center justify-center rounded-full border-2 border-slate-950 bg-white dark:bg-[#0e111a] text-emerald-600 dark:text-emerald-400 shadow-[3px_3px_0px_#05070e] animate-float-slow"
+          className="absolute z-40 -right-3 sm:-right-7 bottom-10 sm:bottom-14 flex h-9 w-9 sm:h-12 sm:w-12 items-center justify-center rounded-full border-2 border-slate-950 bg-white dark:bg-[#0e111a] text-emerald-600 dark:text-emerald-400 shadow-[2px_2px_0px_#05070e] sm:shadow-[3px_3px_0px_#05070e] animate-float-slow"
           style={{ z: 140, animationDelay: '1.5s' }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1.4, type: 'spring', stiffness: 180 }}
         >
-          <span className="font-display text-sm font-bold text-emerald-600 dark:text-emerald-400">IC</span>
+          <span className="font-display text-xs sm:text-sm font-black text-emerald-600 dark:text-emerald-400">IC</span>
         </motion.div>
 
         {/* ---------------- Podium ---------------- */}
