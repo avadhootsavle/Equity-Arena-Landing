@@ -255,20 +255,21 @@ function SpideyTrackerModal({ onClose }) {
   const [copied, setCopied] = useState(false);
   const [radarActive, setRadarActive] = useState(true);
 
-  // Default campus venue profile
+  // SVKM's Shri Bhagubhai Mafatlal Polytechnic & College of Engineering Venue Profile
   const venue = {
-    name: 'Ignite 8.0 Arena • Central Campus Auditorium',
-    address: 'Campus Tech Complex, Ground Floor Innovation Hall',
-    city: 'College Campus',
-    coords: '19.0760° N, 72.8777° E',
-    lat: 19.0760,
-    lng: 72.8777,
-    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Central+Campus+Auditorium'
+    name: "SVKM's Shri Bhagubhai Mafatlal Polytechnic & Engineering Campus",
+    shortName: "SVKM's SBMP Campus",
+    address: "Irla, N. R. G. Marg, Opp. Cooper Hospital, Vile Parle (West)",
+    city: "Mumbai, Maharashtra 400056",
+    coords: "19.1075° N, 72.8360° E",
+    lat: 19.1075,
+    lng: 72.8360,
+    mapsUrl: "https://share.google/sDVgFXHCsARDOTaYC"
   };
 
   const handleCopyCoords = () => {
     try {
-      navigator.clipboard?.writeText?.(`${venue.coords} - ${venue.name}`);
+      navigator.clipboard?.writeText?.(`${venue.coords} - ${venue.name}, ${venue.address}, ${venue.city}`);
     } catch (_) {}
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -366,7 +367,7 @@ function SpideyTrackerModal({ onClose }) {
           {/* Interactive Google Map Embed */}
           <iframe
             title="Spidey Tracker College Map"
-            src={`https://maps.google.com/maps?q=${encodeURIComponent(venue.name + ' ' + venue.city)}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
+            src="https://maps.google.com/maps?q=SVKM's%20Shri%20Bhagubhai%20Mafatlal%20Polytechnic%20Vile%20Parle%20West%20Mumbai&t=&z=17&ie=UTF8&iwloc=&output=embed"
             className="w-full h-full border-0 filter contrast-[1.05] brightness-[0.95]"
             loading="lazy"
           />
