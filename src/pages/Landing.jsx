@@ -1271,13 +1271,13 @@ export function Landing() {
     }
   });
 
-  // Theme management: default to 'dark', persist in localStorage
+  // Theme management: default to 'light', persist in localStorage
   const [theme, setTheme] = useState(() => {
     try {
       const saved = localStorage.getItem('ea_theme');
-      return saved === 'light' ? 'light' : 'dark';
+      return saved === 'dark' ? 'dark' : 'light';
     } catch (_) {
-      return 'dark';
+      return 'light';
     }
   });
 
