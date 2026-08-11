@@ -100,7 +100,7 @@ function SpiderWebTransitionModal() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-50 overflow-hidden pointer-events-auto"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-50 dark:bg-[#05070e] overflow-hidden pointer-events-auto"
     >
       {/* Halftone Comic Dot Pattern Overlay */}
       <div 
@@ -218,7 +218,7 @@ function SpiderWebTransitionModal() {
         initial={{ opacity: 0, scale: 0.5, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-20 mx-4 max-w-[420px] bg-white border-4 border-slate-950 p-8 text-center rounded-xl shadow-[8px_8px_0px_#ff0055]"
+        className="relative z-20 mx-4 max-w-[420px] bg-white dark:bg-[#0e111a] border-4 border-slate-950 p-8 text-center rounded-xl shadow-[8px_8px_0px_#ff0055]"
       >
         {/* Top accent hazard stripes inside card */}
         <div 
@@ -237,11 +237,11 @@ function SpiderWebTransitionModal() {
           CONNECTION DEPLOYED
         </span>
 
-        <h3 className="font-display mt-5 text-2xl font-black tracking-tight text-slate-950 uppercase">
+        <h3 className="font-display mt-5 text-2xl font-black tracking-tight text-slate-950 dark:text-white uppercase">
           TELEPORTING TO SYSTEM
         </h3>
 
-        <p className="mt-3 text-xs text-slate-700 leading-relaxed font-mono font-bold">
+        <p className="mt-3 text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-mono font-bold">
           Deploying simulated capital • Live WebSocket feeds live
         </p>
       </motion.div>
@@ -561,8 +561,8 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
           style={{ transformOrigin: 'top center' }}
         >
           <div
-            className="absolute inset-0 blur-2xl sm:blur-3xl opacity-40 z-0"
-            style={{ background: 'radial-gradient(ellipse at 50% 20%, rgba(239,68,68,0.45) 0%, rgba(59,130,246,0.15) 65%, transparent 100%)' }}
+            className="absolute inset-0 blur-2xl sm:blur-3xl opacity-60 z-0 animate-spidey-aura pointer-events-none"
+            style={{ background: 'radial-gradient(ellipse at 50% 25%, rgba(255,0,85,0.55) 0%, rgba(0,243,255,0.25) 55%, transparent 100%)' }}
           />
           <img
             src="/images/spiderman_hanging.png"
@@ -570,13 +570,13 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
             draggable={false}
             className="relative z-10 select-none w-[115px] xs:w-[135px] sm:w-[180px] md:w-[220px] lg:w-[260px] xl:w-[300px]"
             style={{
-              filter: 'drop-shadow(0 4px 20px rgba(15,23,42,0.25)) drop-shadow(0 0 10px rgba(239,68,68,0.2))',
+              filter: 'drop-shadow(0 6px 24px rgba(15,23,42,0.3)) drop-shadow(0 0 14px rgba(239,68,68,0.35))',
             }}
           />
           {/* Comic pop stamp next to Spider-man */}
           <div
             id="gsap-hero-spiderman-stamp"
-            className="absolute left-[38%] -translate-x-full bottom-[12%] opacity-0 scale-0 z-30 bg-[#ffd200] border-2 sm:border-3 border-slate-950 text-slate-950 font-black uppercase px-2 sm:px-3.5 py-1 sm:py-1.5 rounded-lg text-[9px] sm:text-xs rotate-[-8deg] shadow-[2px_2px_0px_#05070e] sm:shadow-[3px_3px_0px_#05070e] font-mono select-none"
+            className="absolute left-[38%] -translate-x-full bottom-[12%] opacity-0 scale-0 z-30 bg-[#ffd200] border-2 sm:border-3 border-slate-950 text-slate-950 font-black uppercase px-2 sm:px-3.5 py-1 sm:py-1.5 rounded-lg text-[9px] sm:text-xs rotate-[-8deg] shadow-[2.5px_2.5px_0px_#05070e] font-mono select-none"
           >
             Hey there!
           </div>
@@ -584,10 +584,21 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
       </div>
 
       {/* Layout grid */}
-      <div className="mx-auto grid max-w-[1280px] items-center gap-8 sm:gap-14 px-4 sm:px-8 pb-16 pt-6 sm:pb-24 sm:pt-14 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pb-12 lg:pt-20">
+      <div className="mx-auto grid max-w-[1280px] items-center gap-8 sm:gap-14 px-4 sm:px-8 pb-16 pt-4 sm:pb-24 sm:pt-14 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pb-12 lg:pt-16">
         {/* ---------- Left column (GSAP Hero Page-Load Entrance) ---------- */}
         <div data-gsap="hero" className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
-          <h1 className="font-display mt-4 sm:mt-7 text-[clamp(2.05rem,6.8vw,4.6rem)] font-black leading-[1.03] tracking-[-0.03em] text-slate-950 dark:text-white">
+          {/* Live Event Telemetry Beacon */}
+          <div className="telemetry-beacon mb-3 sm:mb-4 select-none">
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-live shrink-0" />
+            <span className="text-slate-950 dark:text-white font-black text-[10px] sm:text-[11px] tracking-wider">
+              IGNITE 8.0 <span className="text-red-600">•</span> LIVE TRADING SIMULATION <span className="text-red-600">•</span> SEPT 4
+            </span>
+            <span className="badge-neo !px-1.5 !py-0.2 !text-[8px] bg-[#ffd200] text-slate-950 ml-1 hidden xs:inline-block">
+              20K IC
+            </span>
+          </div>
+
+          <h1 className="font-display mt-2 sm:mt-4 text-[clamp(2.05rem,6.8vw,4.6rem)] font-black leading-[1.03] tracking-[-0.03em] text-slate-950 dark:text-white">
             With great capital
             <br />
             comes <span className="text-gradient-spidey">great responsibility.</span>
@@ -608,7 +619,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
           </div>
 
           {/* Neo-Brutalist Launch Countdown to Sept 4 */}
-          <div className="mt-6 sm:mt-8 border-3 border-slate-950 bg-white dark:bg-[#070b16] p-3.5 sm:p-4.5 rounded-xl shadow-[4px_4px_0px_#05070e,8px_8px_0px_rgba(255,0,85,0.12)] text-left max-w-[420px] w-full relative overflow-hidden group">
+          <div className="mt-6 sm:mt-8 border-3 border-slate-950 bg-white dark:bg-[#070b16] p-3.5 sm:p-4.5 rounded-xl shadow-[4px_4px_0px_#05070e,8px_8px_0px_rgba(255,0,85,0.15)] text-left max-w-[420px] w-full relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-red-600/5 via-transparent to-blue-600/5 pointer-events-none" />
             <div className="flex items-center justify-between mb-2.5 sm:mb-3 border-b border-slate-200 dark:border-slate-800 pb-2 sm:pb-2.5">
               <span className="badge-neo bg-[#ffd200] text-slate-950 px-2 py-0.5 text-[8.5px] sm:text-[9px] font-black uppercase tracking-wider shadow-[1.5px_1.5px_0px_#05070e]">
@@ -618,20 +629,20 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
             </div>
             
             <div className="grid grid-cols-4 gap-2 sm:gap-3 text-center">
-              <div className="bg-slate-100 dark:bg-slate-900 p-2 sm:p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#ff0055] transition-transform group-hover:translate-y-[-1px]">
+              <div className="bg-red-50/70 dark:bg-red-950/30 p-2 sm:p-2.5 rounded-lg border-2 border-slate-950 shadow-[2.5px_2.5px_0px_#ff0055] transition-transform group-hover:translate-y-[-1px]">
                 <span className="block font-display text-xl sm:text-2xl font-black text-[#ff0055] tabular-nums animate-brutalist-glitch">{timeLeft.days}</span>
                 <span className="text-[8px] sm:text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Days</span>
               </div>
-              <div className="bg-slate-100 dark:bg-slate-900 p-2 sm:p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#0284c7] transition-transform group-hover:translate-y-[-1px]">
+              <div className="bg-blue-50/70 dark:bg-blue-950/30 p-2 sm:p-2.5 rounded-lg border-2 border-slate-950 shadow-[2.5px_2.5px_0px_#0284c7] transition-transform group-hover:translate-y-[-1px]">
                 <span className="block font-display text-xl sm:text-2xl font-black text-[#0284c7] tabular-nums animate-brutalist-glitch">{timeLeft.hours}</span>
                 <span className="text-[8px] sm:text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Hours</span>
               </div>
-              <div className="bg-slate-100 dark:bg-slate-900 p-2 sm:p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#d97706] transition-transform group-hover:translate-y-[-1px]">
+              <div className="bg-amber-50/70 dark:bg-amber-950/30 p-2 sm:p-2.5 rounded-lg border-2 border-slate-950 shadow-[2.5px_2.5px_0px_#d97706] transition-transform group-hover:translate-y-[-1px]">
                 <span className="block font-display text-xl sm:text-2xl font-black text-[#d97706] tabular-nums animate-brutalist-glitch">{timeLeft.minutes}</span>
                 <span className="text-[8px] sm:text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Mins</span>
               </div>
-              <div className="bg-slate-100 dark:bg-slate-900 p-2 sm:p-2.5 rounded border-2 border-slate-950 shadow-[2px_2px_0px_#0f172a] dark:shadow-[2px_2px_0px_#ffffff] transition-transform group-hover:translate-y-[-1px]">
-                <span className="block font-display text-xl sm:text-2xl font-black text-slate-950 dark:text-white tabular-nums animate-brutalist-glitch">{timeLeft.seconds}</span>
+              <div className="bg-emerald-50/70 dark:bg-emerald-950/30 p-2 sm:p-2.5 rounded-lg border-2 border-slate-950 shadow-[2.5px_2.5px_0px_#10b981] transition-transform group-hover:translate-y-[-1px]">
+                <span className="block font-display text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums animate-brutalist-glitch">{timeLeft.seconds}</span>
                 <span className="text-[8px] sm:text-[9px] font-mono uppercase text-slate-700 dark:text-slate-300 font-black tracking-wider">Secs</span>
               </div>
             </div>
@@ -639,10 +650,10 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
 
           <div className="mt-8 sm:mt-12 grid grid-cols-3 gap-2 sm:gap-3 border-t border-slate-300 dark:border-slate-800 pt-5 sm:pt-7 w-full">
             {HERO_FEATURES.map(({ icon: Icon, title, sub }) => (
-              <div key={title} className="flex flex-col items-center lg:items-start gap-1">
+              <div key={title} className="flex flex-col items-center lg:items-start gap-1 p-2 rounded-xl border-2 border-slate-950 bg-white dark:bg-[#0c101c] shadow-[2.5px_2.5px_0px_#05070e] transition-transform hover:-translate-y-0.5">
                 <Icon className="h-4 w-4 text-red-600 mx-auto lg:mx-0" />
-                <span className="font-display text-[11px] sm:text-[13px] font-bold text-slate-950 dark:text-white leading-tight">{title}</span>
-                <span className="text-[9.5px] sm:text-[11px] text-slate-600 dark:text-slate-400 font-medium leading-tight">{sub}</span>
+                <span className="font-display text-[10.5px] sm:text-[12px] font-bold text-slate-950 dark:text-white leading-tight">{title}</span>
+                <span className="text-[9px] sm:text-[10.5px] text-slate-600 dark:text-slate-400 font-medium leading-tight">{sub}</span>
               </div>
             ))}
           </div>
@@ -773,55 +784,67 @@ const Features = forwardRef((props, ref) => {
           </div>
         </div>
 
-        <div className="stage-3d mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map(({ icon: Icon, title, body, span }) => (
-            <div
-              key={title}
-              data-gsap="card"
-              className={`card-neo layer-3d group relative overflow-hidden p-6 bg-white dark:bg-[#0e111a] border-3 border-slate-950 ${span}`}
-            >
-              <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-red-500/0 blur-3xl transition-all duration-500 group-hover:bg-red-500/10" />
+        <div className="stage-3d mt-12 sm:mt-14 grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {FEATURES.map(({ icon: Icon, title, body, span }, i) => {
+            const colors = [
+              'bg-red-500/10 text-red-600 ring-red-500/30',
+              'bg-amber-500/10 text-amber-600 ring-amber-500/30',
+              'bg-blue-500/10 text-blue-600 ring-blue-500/30',
+              'bg-emerald-500/10 text-emerald-600 ring-emerald-500/30',
+              'bg-purple-500/10 text-purple-600 ring-purple-500/30',
+              'bg-yellow-500/10 text-yellow-600 ring-yellow-500/30'
+            ];
+            const colorClass = colors[i % colors.length];
 
-              <span className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 ring-1 ring-slate-300 dark:ring-slate-700 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
-                <Icon className="h-5.5 w-5.5 text-red-600" strokeWidth={1.9} />
-              </span>
+            return (
+              <div
+                key={title}
+                data-gsap="card"
+                className={`card-neo layer-3d group relative overflow-hidden p-5 sm:p-6 bg-white dark:bg-[#0e111a] border-3 border-slate-950 ${span}`}
+              >
+                <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-red-500/0 blur-3xl transition-all duration-500 group-hover:bg-red-500/15" />
 
-              <h3 className="font-display relative mt-5 text-[18px] font-bold tracking-tight text-slate-950 dark:text-white">{title}</h3>
-              <p className="relative mt-2.5 text-[14px] leading-relaxed text-slate-700 dark:text-slate-300 font-medium">{body}</p>
-            </div>
-          ))}
+                <span className={`relative flex h-12 w-12 items-center justify-center rounded-xl ring-2 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6 shadow-[2px_2px_0px_#05070e] ${colorClass}`}>
+                  <Icon className="h-5.5 w-5.5" strokeWidth={2} />
+                </span>
+
+                <h3 className="font-display relative mt-4 sm:mt-5 text-[17px] sm:text-[18px] font-bold tracking-tight text-slate-950 dark:text-white">{title}</h3>
+                <p className="relative mt-2 text-[13.5px] sm:text-[14px] leading-relaxed text-slate-700 dark:text-slate-300 font-medium">{body}</p>
+              </div>
+            );
+          })}
         </div>
 
         {/* Two new sections below the feature cards */}
-        <div className="mt-16 grid gap-8 lg:grid-cols-2">
+        <div className="mt-14 sm:mt-16 grid gap-6 sm:gap-8 lg:grid-cols-2">
           {/* What to Expect */}
-          <div data-gsap="card" className="card-neo relative overflow-hidden p-8 bg-white dark:bg-[#070b16] border-3 border-slate-950 border-t-4 border-t-[#0284c7] shadow-[5px_5px_0px_#05070e]">
-            <h3 className="font-display text-slate-950 dark:text-white text-xl font-black tracking-tight mb-6 uppercase flex items-center gap-2">
+          <div data-gsap="card" className="card-neo relative overflow-hidden p-6 sm:p-8 bg-white dark:bg-[#070b16] border-3 border-slate-950 border-t-4 border-t-[#0284c7] shadow-[5px_5px_0px_#05070e,8px_8px_0px_rgba(2,132,199,0.15)]">
+            <h3 className="font-display text-slate-950 dark:text-white text-lg sm:text-xl font-black tracking-tight mb-5 sm:mb-6 uppercase flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-[#0284c7]" />
               What to Expect
             </h3>
-            <ul className="space-y-4 font-mono text-[13px] text-slate-800 dark:text-slate-200 font-bold">
-              <li className="flex items-start gap-3">
+            <ul className="space-y-3 sm:space-y-4 font-mono text-[12.5px] sm:text-[13px] text-slate-800 dark:text-slate-200 font-bold">
+              <li className="flex items-start gap-3 p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                 <Activity className="h-4.5 w-4.5 text-[#0284c7] shrink-0 mt-0.5" />
                 <span>Realistic trading interface inspired by modern investment platforms</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start gap-3 p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                 <TrendingUp className="h-4.5 w-4.5 text-[#0284c7] shrink-0 mt-0.5" />
                 <span>Dynamic market simulation with changing stock prices</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start gap-3 p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                 <Zap className="h-4.5 w-4.5 text-[#0284c7] shrink-0 mt-0.5" />
                 <span>Strategic buying and selling decisions</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start gap-3 p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                 <Trophy className="h-4.5 w-4.5 text-[#0284c7] shrink-0 mt-0.5" />
                 <span>Live leaderboard to track performance</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start gap-3 p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                 <Shield className="h-4.5 w-4.5 text-[#0284c7] shrink-0 mt-0.5" />
                 <span>Fair and transparent evaluation</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start gap-3 p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                 <Sparkles className="h-4.5 w-4.5 text-[#0284c7] shrink-0 mt-0.5" />
                 <span>Exciting prizes and certificates for top performers</span>
               </li>
@@ -829,29 +852,29 @@ const Features = forwardRef((props, ref) => {
           </div>
 
           {/* Rules at a Glance */}
-          <div data-gsap="card" className="card-neo relative overflow-hidden p-8 bg-white dark:bg-[#070b16] border-3 border-slate-950 border-t-4 border-t-[#ff0055] shadow-[5px_5px_0px_#05070e]">
-            <h3 className="font-display text-slate-950 dark:text-white text-xl font-black tracking-tight mb-6 uppercase flex items-center gap-2">
+          <div data-gsap="card" className="card-neo relative overflow-hidden p-6 sm:p-8 bg-white dark:bg-[#070b16] border-3 border-slate-950 border-t-4 border-t-[#ff0055] shadow-[5px_5px_0px_#05070e,8px_8px_0px_rgba(255,0,85,0.15)]">
+            <h3 className="font-display text-slate-950 dark:text-white text-lg sm:text-xl font-black tracking-tight mb-5 sm:mb-6 uppercase flex items-center gap-2">
               <Shield className="h-5 w-5 text-[#ff0055]" />
               Rules at a Glance
             </h3>
-            <ul className="space-y-4 font-mono text-[13px] text-slate-800 dark:text-slate-200 font-bold">
-              <li className="flex items-start gap-3">
+            <ul className="space-y-3 sm:space-y-4 font-mono text-[12.5px] sm:text-[13px] text-slate-800 dark:text-slate-200 font-bold">
+              <li className="flex items-start gap-3 p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                 <Wallet className="h-4.5 w-4.5 text-[#ff0055] shrink-0 mt-0.5" />
                 <span>Each participant starts with the same predefined virtual capital</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start gap-3 p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                 <Activity className="h-4.5 w-4.5 text-[#ff0055] shrink-0 mt-0.5" />
                 <span>Stock prices are simulated and updated throughout the event</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start gap-3 p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                 <Zap className="h-4.5 w-4.5 text-[#ff0055] shrink-0 mt-0.5" />
                 <span>Participants may buy or sell stocks at any time during the competition</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start gap-3 p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                 <Trophy className="h-4.5 w-4.5 text-[#ff0055] shrink-0 mt-0.5" />
                 <span>The participant with the highest final portfolio value will be declared the winner</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start gap-3 p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                 <Lock className="h-4.5 w-4.5 text-[#ff0055] shrink-0 mt-0.5" />
                 <span>No real money or financial transactions are involved</span>
               </li>
@@ -964,10 +987,10 @@ const About = forwardRef((props, ref) => {
  * ------------------------------------------------------------------ */
 function FinalCTA({ onRegisterClick }) {
   return (
-    <section data-gsap="section" className="relative py-24 sm:py-28 bg-slate-100/80 dark:bg-[#05070e]/90 border-t-3 border-slate-950">
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+    <section data-gsap="section" className="relative py-20 sm:py-28 bg-slate-100/80 dark:bg-[#05070e]/90 border-t-3 border-slate-950">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
         <div data-gsap="heading">
-          <div className="card-neo relative overflow-hidden px-6 py-16 text-center sm:px-16 sm:py-20 bg-white dark:bg-[#070b16] border-4 border-slate-950 shadow-[8px_8px_0px_#05070e] dark:shadow-[8px_8px_0px_#ff0055]">
+          <div className="card-neo glow-neon-card relative overflow-hidden px-5 py-14 text-center sm:px-16 sm:py-20 bg-white dark:bg-[#070b16] border-4 border-slate-950 shadow-[6px_6px_0px_#05070e,10px_10px_0px_rgba(255,0,85,0.15)] dark:shadow-[8px_8px_0px_#ff0055]">
             {/* 🕸️ Spiderweb Corner Overlays inside CTA Banner */}
             <SpiderWebCorner className="top-0 left-0" rotate={0} />
             <SpiderWebCorner className="top-0 right-0" rotate={90} />
@@ -982,21 +1005,21 @@ function FinalCTA({ onRegisterClick }) {
                 JOIN THE ARENA TRADING NETWORK TODAY
               </span>
 
-              <h2 className="font-display mt-6 text-[clamp(2.2rem,5vw,3.6rem)] font-black leading-[1.05] tracking-[-0.03em] text-slate-950 dark:text-white">
+              <h2 className="font-display mt-5 sm:mt-6 text-[clamp(2.1rem,5vw,3.6rem)] font-black leading-[1.05] tracking-[-0.03em] text-slate-950 dark:text-white">
                 Ready to execute your first simulated trade?
               </h2>
 
-              <p className="mt-4 text-[16px] leading-relaxed text-slate-700 dark:text-slate-300 font-bold">
+              <p className="mt-4 text-[15px] sm:text-[16px] leading-relaxed text-slate-700 dark:text-slate-300 font-bold">
                 Join thousands of traders building strategies on Equity Arena with 20,000 Ignite Coins. Zero risk, 100% real-time market action.
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              <div className="mt-7 sm:mt-8 flex flex-wrap items-center justify-center gap-4">
                 <a
                   href={REGISTER_URL}
                   onClick={onRegisterClick}
-                  className="btn-neo px-8 py-4 text-[15px] font-black"
+                  className="btn-neo w-full sm:w-auto px-8 py-4 text-[14.5px] sm:text-[15px] font-black justify-center shadow-[4px_4px_0px_#05070e]"
                 >
-                  Register Your Account <ArrowRight className="h-5 w-5" />
+                  Register Your Account <ArrowRight className="h-5 w-5 ml-1" />
                 </a>
               </div>
             </div>

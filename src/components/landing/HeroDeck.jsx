@@ -397,19 +397,20 @@ export function HeroDeck({ stocks, index, isLive }) {
             <svg viewBox="0 0 380 120" preserveAspectRatio="none" className="h-[120px] w-full overflow-visible">
               <defs>
                 <linearGradient id="deck-fill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#ff0055" stopOpacity="0.2" />
+                  <stop offset="0%" stopColor="#ff0055" stopOpacity="0.28" />
+                  <stop offset="60%" stopColor="#0284c7" stopOpacity="0.08" />
                   <stop offset="100%" stopColor="#0284c7" stopOpacity="0" />
                 </linearGradient>
                 <linearGradient id="deck-stroke" x1="0" y1="0" x2="1" y2="0">
                   <stop offset="0%" stopColor="#ff0055" />
-                  <stop offset="50%" stopColor="#d97706" />
-                  <stop offset="100%" stopColor="#0284c7" />
+                  <stop offset="45%" stopColor="#ffd200" />
+                  <stop offset="100%" stopColor="#00c3ff" />
                 </linearGradient>
               </defs>
 
               {/* Horizontal gridlines */}
               {[0, 30, 60, 90, 120].map((y) => (
-                <line key={y} x1="0" y1={y} x2="380" y2={y} stroke="rgba(15,23,42,0.09)" strokeWidth="1" />
+                <line key={y} x1="0" y1={y} x2="380" y2={y} stroke="currentColor" className="text-slate-300/80 dark:text-slate-800/80" strokeWidth="1" strokeDasharray="3 3" />
               ))}
 
               <motion.path
@@ -423,7 +424,7 @@ export function HeroDeck({ stocks, index, isLive }) {
                 d={chart.line}
                 fill="none"
                 stroke="url(#deck-stroke)"
-                strokeWidth="2.5"
+                strokeWidth="3"
                 strokeLinecap="round"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
@@ -433,10 +434,10 @@ export function HeroDeck({ stocks, index, isLive }) {
                 <circle
                   cx={chart.coords[chart.coords.length - 1][0]}
                   cy={chart.coords[chart.coords.length - 1][1]}
-                  r="4.5"
-                  fill="#0284c7"
+                  r="5"
+                  fill="#00c3ff"
                   className="animate-live"
-                  style={{ filter: 'drop-shadow(0 0 6px #0284c7)' }}
+                  style={{ filter: 'drop-shadow(0 0 8px #00c3ff)' }}
                 />
               )}
             </svg>
@@ -444,7 +445,7 @@ export function HeroDeck({ stocks, index, isLive }) {
             {/* Price axis labels */}
             <div className="pointer-events-none absolute left-0 top-0 flex h-[120px] flex-col justify-between text-[9px] font-mono text-slate-600 dark:text-slate-400 font-bold">
               {[1.04, 1.02, 1.0, 0.98, 0.96].map((m) => (
-                <span key={m} className="rounded bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-1">
+                <span key={m} className="rounded bg-slate-100/90 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 px-1 shadow-sm">
                   {(display.value * m).toFixed(display.value < 100 ? 1 : 0)}
                 </span>
               ))}

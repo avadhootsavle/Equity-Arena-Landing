@@ -502,8 +502,60 @@ body::before {
   animation: spidey-sense-vibrate 0.12s infinite linear;
 }
 
+@keyframes spidey-aura-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.75;
+  }
+}
 
+.animate-spidey-aura {
+  animation: spidey-aura-pulse 4s ease-in-out infinite;
+}
 
+@keyframes neon-border-pulse {
+  0%, 100% {
+    box-shadow: 4px 4px 0px #05070e, 0 0 15px rgba(255, 0, 85, 0.3);
+  }
+  50% {
+    box-shadow: 4px 4px 0px #05070e, 0 0 25px rgba(0, 243, 255, 0.4);
+  }
+}
 
+.dark .glow-neon-card {
+  animation: neon-border-pulse 5s ease-in-out infinite;
+}
 
+/* Light mode card comic pop */
+.card-comic-light {
+  background: radial-gradient(circle, rgba(15, 23, 42, 0.04) 1.2px, transparent 1.2px), #ffffff;
+  background-size: 8px 8px;
+}
 
+/* Telemetry Status Badge */
+.telemetry-beacon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 9999px;
+  border: 2px solid #0f172a;
+  background: #ffffff;
+  padding: 4px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  box-shadow: 3px 3px 0px #0f172a;
+}
+.dark .telemetry-beacon {
+  border-color: #05070e;
+  background: #090d1a;
+  color: #ffffff;
+  box-shadow: 3px 3px 0px #ffd200;
+}
