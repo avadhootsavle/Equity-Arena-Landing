@@ -254,18 +254,31 @@ function SpiderWebTransitionModal() {
 function SpideyTrackerModal({ onClose }) {
   const [copied, setCopied] = useState(false);
   const [radarActive, setRadarActive] = useState(true);
+  const [trackingDistance, setTrackingDistance] = useState('0.04');
+  const [signalQuality, setSignalQuality] = useState(99);
+  const [activeTab, setActiveTab] = useState('RADAR'); // 'RADAR' | 'SATELLITE' | 'TELEMETRY'
 
   // SVKM's Shri Bhagubhai Mafatlal Polytechnic & College of Engineering Venue Profile
   const venue = {
-    name: "SVKM's Shri Bhagubhai Mafatlal Polytechnic & Engineering Campus",
-    shortName: "SVKM's SBMP Campus",
+    name: "SVKM's Shri Bhagubhai Mafatlal Polytechnic & College of Engineering",
+    shortName: "SVKM's SBMP & Engg Campus",
     address: "Irla, N. R. G. Marg, Opp. Cooper Hospital, Vile Parle (West)",
     city: "Mumbai, Maharashtra 400056",
     coords: "19.1075° N, 72.8360° E",
     lat: 19.1075,
     lng: 72.8360,
-    mapsUrl: "https://share.google/sDVgFXHCsARDOTaYC"
+    // Direct Google Maps Search / Navigation URL (opens Google Maps directly to SVKM SBMP campus)
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=SVKM%27s+Shri+Bhagubhai+Mafatlal+Polytechnic+Vile+Parle+West+Mumbai"
   };
+
+  // Real-time fluctuating tracking telemetry
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTrackingDistance((0.03 + Math.random() * 0.02).toFixed(2));
+      setSignalQuality(Math.floor(97 + Math.random() * 3));
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleCopyCoords = () => {
     try {
@@ -289,10 +302,10 @@ function SpideyTrackerModal({ onClose }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-950/85 backdrop-blur-md overflow-y-auto pointer-events-auto p-2 sm:p-4 md:p-6"
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-950/90 backdrop-blur-lg overflow-y-auto pointer-events-auto p-2 sm:p-4 md:p-6"
     >
-      {/* Background Stark-tech Glow Field */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-500/20 via-red-500/10 to-transparent blur-3xl pointer-events-none" />
+      {/* Dynamic Cyber Stark Glow Field */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-500/25 via-red-600/15 to-transparent blur-3xl pointer-events-none" />
 
       {/* Main Spidey-Tracker Movie-Styled Bezel Frame */}
       <motion.div
@@ -300,50 +313,53 @@ function SpideyTrackerModal({ onClose }) {
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.88, y: 30 }}
         transition={{ type: 'spring', damping: 24, stiffness: 200 }}
-        className="relative w-full max-w-[960px] bg-[#0284c7] border-4 sm:border-[5px] border-slate-950 rounded-2xl sm:rounded-3xl p-2.5 sm:p-4 md:p-5 shadow-[8px_8px_0px_#05070e,12px_12px_0px_rgba(0,243,255,0.4)] flex flex-col select-none overflow-hidden"
+        className="relative w-full max-w-[980px] bg-[#0284c7] border-4 sm:border-[5px] border-slate-950 rounded-2xl sm:rounded-3xl p-2.5 sm:p-4 md:p-5 shadow-[8px_8px_0px_#05070e,14px_14px_0px_rgba(0,243,255,0.45)] flex flex-col select-none overflow-hidden"
       >
         {/* Bezel Corner Tech Rivet Screws */}
-        <div className="absolute top-2 left-2 w-2.5 h-2.5 rounded-full bg-slate-900 border border-slate-950 flex items-center justify-center pointer-events-none opacity-60">
-          <span className="w-1.5 h-0.5 bg-slate-400 block" />
+        <div className="absolute top-2.5 left-2.5 w-3 h-3 rounded-full bg-slate-950 border border-cyan-400/40 flex items-center justify-center pointer-events-none shadow-sm">
+          <span className="w-1.5 h-0.5 bg-cyan-300 block" />
         </div>
-        <div className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-slate-900 border border-slate-950 flex items-center justify-center pointer-events-none opacity-60">
-          <span className="w-1.5 h-0.5 bg-slate-400 block" />
+        <div className="absolute top-2.5 right-2.5 w-3 h-3 rounded-full bg-slate-950 border border-cyan-400/40 flex items-center justify-center pointer-events-none shadow-sm">
+          <span className="w-1.5 h-0.5 bg-cyan-300 block" />
         </div>
-        <div className="absolute bottom-2 left-2 w-2.5 h-2.5 rounded-full bg-slate-900 border border-slate-950 flex items-center justify-center pointer-events-none opacity-60">
-          <span className="w-1.5 h-0.5 bg-slate-400 block" />
+        <div className="absolute bottom-2.5 left-2.5 w-3 h-3 rounded-full bg-slate-950 border border-cyan-400/40 flex items-center justify-center pointer-events-none shadow-sm">
+          <span className="w-1.5 h-0.5 bg-cyan-300 block" />
         </div>
-        <div className="absolute bottom-2 right-2 w-2.5 h-2.5 rounded-full bg-slate-900 border border-slate-950 flex items-center justify-center pointer-events-none opacity-60">
-          <span className="w-1.5 h-0.5 bg-slate-400 block" />
+        <div className="absolute bottom-2.5 right-2.5 w-3 h-3 rounded-full bg-slate-950 border border-cyan-400/40 flex items-center justify-center pointer-events-none shadow-sm">
+          <span className="w-1.5 h-0.5 bg-cyan-300 block" />
         </div>
 
         {/* ================= TOP BEZEL BAR ================= */}
         <div className="relative flex items-center justify-between gap-2 pb-2 sm:pb-3">
-          {/* Top Left: Orange/Yellow Circle Menu Button */}
+          {/* Top Left: Mode & Diagnostics Switcher */}
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={onClose}
-              title="Close Tracker"
-              className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#f59e0b] border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] transition-transform hover:scale-105 active:scale-95 cursor-pointer shrink-0 group"
+              title="Exit Tracker HUD"
+              className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[2px_2px_0px_#05070e] transition-transform hover:scale-105 active:scale-95 cursor-pointer shrink-0 group"
             >
               <div className="flex flex-col gap-[3px] items-center justify-center">
                 <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full transition-transform group-hover:scale-x-110" />
-                <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full transition-transform group-hover:scale-x-90" />
+                <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full transition-transform group-hover:scale-x-75" />
                 <span className="w-3.5 sm:w-4 h-[2.5px] bg-slate-950 rounded-full transition-transform group-hover:scale-x-110" />
               </div>
             </button>
-            <span className="hidden md:inline-block font-mono text-[9px] font-black text-white/90 uppercase tracking-wider">
-              SYS_NAV // GPS
-            </span>
+            <div className="hidden md:flex flex-col text-left">
+              <span className="font-mono text-[9.5px] font-black text-white leading-none uppercase tracking-wider flex items-center gap-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" /> STARK_OS v4.8
+              </span>
+              <span className="font-mono text-[8px] text-cyan-200 font-bold">RADAR_BEACON_LOCK</span>
+            </div>
           </div>
 
           {/* Top Center: Movie Spidey Tracker Pill Badge */}
-          <div className="flex items-center gap-2 px-3 sm:px-6 py-1 sm:py-1.5 rounded-full bg-[#0a192f] border-2 sm:border-3 border-[#00f3ff] shadow-[3px_3px_0px_#05070e]">
+          <div className="flex items-center gap-2 px-3 sm:px-6 py-1 sm:py-1.5 rounded-full bg-[#071326] border-2 sm:border-3 border-[#00f3ff] shadow-[3px_3px_0px_#05070e]">
             <span className="font-display text-[11px] sm:text-sm md:text-base font-black text-[#00f3ff] tracking-wider uppercase">
               SPIDEY
             </span>
             {/* Spider-Man Mask Eyes SVG Icon with subtle glow */}
-            <div className="relative flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-[#ff0055] border-2 border-slate-950 shrink-0 shadow-[0_0_8px_rgba(255,0,85,0.8)]">
+            <div className="relative flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-[#ff0055] border-2 border-slate-950 shrink-0 shadow-[0_0_10px_#ff0055]">
               <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-white stroke-slate-950 stroke-[1.5]">
                 <ellipse cx="8" cy="11" rx="3.5" ry="5" transform="rotate(-15 8 11)" />
                 <ellipse cx="16" cy="11" rx="3.5" ry="5" transform="rotate(15 16 11)" />
@@ -354,8 +370,13 @@ function SpideyTrackerModal({ onClose }) {
             </span>
           </div>
 
-          {/* Top Right: White Spider Emblem Badge / Close */}
+          {/* Top Right: Signal Telemetry & Close Button */}
           <div className="flex items-center gap-2">
+            <div className="hidden sm:flex flex-col text-right font-mono text-[8.5px] font-bold text-white">
+              <span className="text-emerald-300">STARK-LINK: {signalQuality}%</span>
+              <span className="text-cyan-200">DIST: {trackingDistance} KM</span>
+            </div>
+
             <button
               type="button"
               onClick={onClose}
@@ -374,19 +395,22 @@ function SpideyTrackerModal({ onClose }) {
         </div>
 
         {/* ================= SCREEN / MAP DISPLAY ================= */}
-        <div className="relative w-full h-[320px] xs:h-[380px] sm:h-[440px] md:h-[490px] rounded-xl sm:rounded-2xl border-3 sm:border-4 border-slate-950 overflow-hidden bg-[#0a1224] shadow-inner">
+        <div className="relative w-full h-[340px] xs:h-[390px] sm:h-[450px] md:h-[500px] rounded-xl sm:rounded-2xl border-3 sm:border-4 border-slate-950 overflow-hidden bg-[#070e1c] shadow-inner">
           {/* Top Ruler / Coordinate Scale Ticks inside screen */}
-          <div className="absolute top-0 inset-x-0 z-20 h-5 bg-[#0a1224]/85 backdrop-blur border-b border-cyan-500/30 flex items-center justify-between px-3 pointer-events-none text-[8.5px] sm:text-[9.5px] font-mono text-[#00f3ff] select-none">
-            <span className="tracking-widest truncate hidden xs:inline">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</span>
-            <span className="font-bold text-white shrink-0">SVKM_CAMPUS // GRID_REF: 19.1075_72.8360</span>
+          <div className="absolute top-0 inset-x-0 z-20 h-6 bg-[#070e1c]/90 backdrop-blur border-b border-cyan-500/30 flex items-center justify-between px-3 pointer-events-none text-[8.5px] sm:text-[9.5px] font-mono text-[#00f3ff] select-none">
+            <span className="tracking-widest truncate hidden xs:inline opacity-70">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</span>
+            <span className="font-bold text-white shrink-0 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#ff0055] animate-pulse" />
+              TARGET: SVKM_SBMP_CAMPUS // {venue.coords}
+            </span>
           </div>
 
           {/* Left Vertical Ruler Ticks */}
-          <div className="absolute top-6 bottom-0 left-0 z-20 w-4 bg-[#0a1224]/60 border-r border-cyan-500/20 hidden sm:flex flex-col justify-between py-2 items-center pointer-events-none select-none text-[7px] font-mono text-cyan-400">
+          <div className="absolute top-6 bottom-0 left-0 z-20 w-4 bg-[#070e1c]/70 border-r border-cyan-500/20 hidden sm:flex flex-col justify-between py-2 items-center pointer-events-none select-none text-[7px] font-mono text-cyan-400">
             <span>00</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span><span>80</span><span>90</span>
           </div>
 
-          {/* Left Bezel Side-Tabs (White & Red Spider Pins like movie screen) */}
+          {/* Left Bezel Side-Tabs (Docked Red & White Spider-Tracers) */}
           <div className="absolute top-10 left-1.5 z-30 flex flex-col gap-2 pointer-events-none hidden xs:flex">
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-white border-2 border-slate-950 shadow-[1.5px_1.5px_0px_#05070e]">
               <svg viewBox="0 0 24 24" className="w-3 h-3 fill-slate-950">
@@ -402,47 +426,74 @@ function SpideyTrackerModal({ onClose }) {
             </div>
           </div>
 
-          {/* Interactive Google Map Embed */}
+          {/* Top Right Live Radar Status HUD */}
+          <div className="absolute top-8 right-3 z-30 pointer-events-none flex flex-col items-end gap-1 font-mono text-[9px] font-bold">
+            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-950/80 border border-cyan-400 text-cyan-300 shadow">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+              <span>LIVE_LOCK: ACTIVE</span>
+            </div>
+            <div className="px-2 py-0.5 rounded bg-slate-950/80 border border-slate-700 text-slate-300 text-[8px]">
+              GPS: {trackingDistance} KM • BEARING: 284° NW
+            </div>
+          </div>
+
+          {/* Interactive Google Map Embed centered on SVKM SBMP */}
           <iframe
             title="Spidey Tracker SVKM Campus Map"
             src="https://maps.google.com/maps?q=SVKM's%20Shri%20Bhagubhai%20Mafatlal%20Polytechnic%20Vile%20Parle%20West%20Mumbai&t=&z=17&ie=UTF8&iwloc=&output=embed"
-            className="w-full h-full border-0 filter contrast-[1.08] brightness-[0.92]"
+            className="w-full h-full border-0 filter contrast-[1.12] brightness-[0.90] saturate-[1.1]"
             loading="lazy"
           />
 
+          {/* Tactical Scanline Sweep Overlay */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-20">
+            <div className="w-full h-12 bg-gradient-to-b from-transparent via-cyan-400/50 to-transparent animate-tracker-scanline" />
+          </div>
+
           {/* Tactical Radar Sonar Sweep Overlay */}
           {radarActive && (
-            <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-35">
-              <div className="absolute w-[200px] h-[200px] sm:w-[280px] sm:h-[280px] rounded-full border border-cyan-400/60 animate-sonar-ping" />
-              <div className="absolute w-[200px] h-[200px] sm:w-[280px] sm:h-[280px] rounded-full border border-red-500/60 animate-sonar-ping-delayed" />
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-40">
+              <div className="absolute w-[220px] h-[220px] sm:w-[320px] sm:h-[320px] rounded-full border-2 border-cyan-400/60 animate-sonar-ping" />
+              <div className="absolute w-[220px] h-[220px] sm:w-[320px] sm:h-[320px] rounded-full border-2 border-red-500/60 animate-sonar-ping-delayed" />
               <div 
-                className="absolute w-[320px] h-[320px] sm:w-[460px] sm:h-[460px] rounded-full animate-radar-sweep pointer-events-none"
+                className="absolute w-[340px] h-[340px] sm:w-[480px] sm:h-[480px] rounded-full animate-radar-sweep pointer-events-none"
                 style={{
-                  background: 'conic-gradient(from 0deg, rgba(0, 243, 255, 0.45) 0deg, rgba(0, 243, 255, 0.1) 45deg, transparent 70deg, transparent 360deg)'
+                  background: 'conic-gradient(from 0deg, rgba(0, 243, 255, 0.55) 0deg, rgba(0, 243, 255, 0.12) 45deg, transparent 70deg, transparent 360deg)'
                 }}
               />
             </div>
           )}
 
-          {/* Pulsing Spidey-Tracer Pin on Campus */}
+          {/* Pulsing Spidey-Tracer Pin & Stark Target Crosshair on Campus */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20 flex flex-col items-center">
+            {/* Outer Rotating Tactical Reticle */}
+            <div className="absolute w-24 h-24 sm:w-28 sm:h-28 rounded-full border border-dashed border-cyan-400/50 animate-reticle-reverse" />
+            
             <div className="relative animate-tracker-target">
-              <div className="flex h-11 w-11 sm:h-13 sm:w-13 items-center justify-center rounded-2xl bg-[#ff0055] border-3 border-slate-950 text-white shadow-[4px_4px_0px_#05070e]">
+              <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-[#ff0055] border-3 border-slate-950 text-white shadow-[4px_4px_0px_#05070e]">
                 <MapPin className="h-6 w-6 sm:h-7 sm:w-7 text-white drop-shadow" />
               </div>
-              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-[#ffd200] rotate-45 border-2 border-slate-950" />
+              <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#ffd200] rotate-45 border-2 border-slate-950" />
             </div>
-            <div className="mt-1.5 bg-slate-950/95 text-white border-2 border-[#00f3ff] px-2.5 py-1 rounded-md text-[9px] sm:text-[10.5px] font-mono font-black shadow-[3px_3px_0px_#000] whitespace-nowrap flex items-center gap-1.5">
+
+            {/* Target Label with glowing border */}
+            <div className="mt-2 bg-slate-950/95 text-white border-2 border-[#00f3ff] px-3 py-1 rounded-md text-[9.5px] sm:text-[11px] font-mono font-black shadow-[3px_3px_0px_#000] whitespace-nowrap flex items-center gap-1.5">
               <span className="inline-block w-2 h-2 rounded-full bg-[#ff0055] animate-ping" />
               <span>SVKM'S SBMP &amp; ENGG CAMPUS</span>
             </div>
           </div>
 
-          {/* Bottom Right: Spiderweb Radar Compass Widget with Spinning Needle (Exact like movie interface) */}
-          <div className="absolute bottom-3 right-3 z-30 pointer-events-none hidden xs:flex flex-col items-center">
-            <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0a1224]/90 border-2 border-[#00f3ff] shadow-[2px_2px_0px_#000] flex items-center justify-center backdrop-blur-md">
+          {/* Bottom Right: Full Spider-Man Radar Compass Widget */}
+          <div className="absolute bottom-3 right-3 z-30 pointer-events-none flex flex-col items-center">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#070e1c]/95 border-2 sm:border-3 border-[#00f3ff] shadow-[3px_3px_0px_#000] flex items-center justify-center backdrop-blur-md animate-compass-glow">
+              {/* Compass Cardinal Points */}
+              <span className="absolute top-1 font-mono text-[7px] sm:text-[8px] font-black text-[#ff0055]">N</span>
+              <span className="absolute bottom-1 font-mono text-[7px] sm:text-[8px] font-black text-cyan-300">S</span>
+              <span className="absolute left-1 font-mono text-[7px] sm:text-[8px] font-black text-cyan-300">W</span>
+              <span className="absolute right-1 font-mono text-[7px] sm:text-[8px] font-black text-cyan-300">E</span>
+
               {/* Spiderweb Web Net lines */}
-              <svg viewBox="0 0 100 100" className="w-full h-full stroke-[#00f3ff] stroke-[1] fill-none opacity-80">
+              <svg viewBox="0 0 100 100" className="w-[82%] h-[82%] stroke-[#00f3ff] stroke-[1] fill-none opacity-85">
                 <circle cx="50" cy="50" r="45" strokeDasharray="3 3" />
                 <circle cx="50" cy="50" r="30" />
                 <circle cx="50" cy="50" r="15" strokeDasharray="2 2" />
@@ -450,37 +501,42 @@ function SpideyTrackerModal({ onClose }) {
                 <line x1="5" y1="50" x2="95" y2="50" />
                 <line x1="18" y1="18" x2="82" y2="82" />
                 <line x1="18" y1="82" x2="82" y2="18" />
-                {/* Rotating Radar Needle */}
+
+                {/* Rotating Compass Radar Needle */}
                 <g className="animate-radar-needle">
-                  <line x1="50" y1="50" x2="50" y2="10" stroke="#ff0055" strokeWidth="2" />
-                  <circle cx="50" cy="10" r="2.5" fill="#ff0055" />
+                  <polygon points="50,12 46,50 54,50" fill="#ff0055" stroke="#ff0055" />
+                  <polygon points="50,88 46,50 54,50" fill="#00f3ff" stroke="#00f3ff" opacity="0.6" />
+                  <circle cx="50" cy="50" r="4" fill="#ffd200" stroke="#000" strokeWidth="1" />
                 </g>
-                <circle cx="50" cy="50" r="3.5" fill="#ffd200" />
               </svg>
-              <span className="absolute bottom-1 font-mono text-[6.5px] sm:text-[7.5px] text-[#00f3ff] font-bold">RADAR</span>
+
+              {/* Sub-badge */}
+              <span className="absolute -bottom-2 bg-slate-950 border border-cyan-400 text-cyan-300 text-[6.5px] font-mono px-1.5 py-0.2 rounded-full font-black uppercase shadow">
+                284° COMPASS
+              </span>
             </div>
           </div>
         </div>
 
         {/* ================= BOTTOM BEZEL CONSOLE ================= */}
         <div className="relative flex flex-col sm:flex-row items-center justify-between gap-2.5 pt-2.5 sm:pt-3">
-          {/* Bottom Left: Navigate Button */}
+          {/* Bottom Left: Direct Navigate in Google Maps Button */}
           <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
             <a
               href={venue.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[3px_3px_0px_#05070e] font-mono text-[11px] sm:text-xs font-black text-slate-950 hover:bg-amber-300 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#ffd200] border-2 sm:border-3 border-slate-950 shadow-[3px_3px_0px_#05070e] font-mono text-[11px] sm:text-xs font-black text-slate-950 hover:bg-amber-300 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer group"
             >
-              <Navigation className="h-4 w-4" />
-              <span>NAVIGATE TO CAMPUS</span>
-              <ExternalLink className="h-3.5 w-3.5" />
+              <Navigation className="h-4 w-4 text-slate-950 group-hover:rotate-45 transition-transform" />
+              <span>OPEN GOOGLE MAPS</span>
+              <ExternalLink className="h-3.5 w-3.5 text-slate-950" />
             </a>
 
             <button
               type="button"
               onClick={handleCopyCoords}
-              className="flex items-center gap-1.5 px-2.5 py-2 rounded-lg bg-white border-2 border-slate-950 shadow-[2px_2px_0px_#05070e] font-mono text-[10px] sm:text-[11px] font-bold text-slate-950 hover:bg-slate-100 cursor-pointer sm:hidden"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border-2 border-slate-950 shadow-[2px_2px_0px_#05070e] font-mono text-[10px] sm:text-[11px] font-bold text-slate-950 hover:bg-slate-100 cursor-pointer sm:hidden"
             >
               {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5 text-slate-600" />}
               <span>{copied ? 'COPIED' : 'COORDS'}</span>
@@ -488,7 +544,7 @@ function SpideyTrackerModal({ onClose }) {
           </div>
 
           {/* Bottom Center Console Pill (Movie tracker info bar) */}
-          <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-[#0a192f] border-2 sm:border-3 border-[#00f3ff] shadow-[2px_2px_0px_#05070e] max-w-full overflow-hidden">
+          <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-[#071326] border-2 sm:border-3 border-[#00f3ff] shadow-[2px_2px_0px_#05070e] max-w-full overflow-hidden">
             <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
             <span className="font-mono text-[9px] sm:text-[10.5px] text-white font-bold truncate">
               SVKM'S SBMP CAMPUS • VILE PARLE WEST • {venue.coords}
@@ -496,7 +552,7 @@ function SpideyTrackerModal({ onClose }) {
             <button
               type="button"
               onClick={() => setRadarActive(!radarActive)}
-              title={radarActive ? "Pause Radar" : "Start Radar"}
+              title={radarActive ? "Pause Radar Beam" : "Start Radar Beam"}
               className={`flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-md border border-slate-950 font-mono text-[9px] font-black shrink-0 cursor-pointer transition-colors ${
                 radarActive ? 'bg-emerald-400 text-slate-950' : 'bg-slate-700 text-slate-300'
               }`}
@@ -510,10 +566,10 @@ function SpideyTrackerModal({ onClose }) {
             <button
               type="button"
               onClick={handleCopyCoords}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white border-2 sm:border-3 border-slate-950 shadow-[2.5px_2.5px_0px_#05070e] font-mono text-xs font-bold text-slate-950 hover:bg-slate-100 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer shrink-0"
+              className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white border-2 sm:border-3 border-slate-950 shadow-[2.5px_2.5px_0px_#05070e] font-mono text-xs font-bold text-slate-950 hover:bg-slate-100 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer shrink-0"
             >
               {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5 text-slate-600" />}
-              <span>{copied ? 'COPIED TO CLIPBOARD' : 'COPY COORDS'}</span>
+              <span>{copied ? 'COPIED TO CLIPBOARD' : 'COPY GPS COORDS'}</span>
             </button>
           </div>
         </div>

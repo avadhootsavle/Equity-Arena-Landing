@@ -581,11 +581,11 @@ body::before {
 @keyframes tracker-target-pulse {
   0%, 100% {
     transform: scale(1);
-    filter: drop-shadow(0 0 8px #ff0055);
+    filter: drop-shadow(0 0 10px #ff0055);
   }
   50% {
-    transform: scale(1.18);
-    filter: drop-shadow(0 0 20px #00f3ff);
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 24px #00f3ff) drop-shadow(0 0 8px #ffd200);
   }
 }
 
@@ -606,5 +606,45 @@ body::before {
   transform-origin: center center;
   animation: radar-needle-spin 3s linear infinite;
 }
+
+@keyframes tracker-scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(1000%);
+  }
+}
+
+.animate-tracker-scanline {
+  animation: tracker-scanline 3.5s linear infinite;
+}
+
+@keyframes reticle-spin-reverse {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-reticle-reverse {
+  animation: reticle-spin-reverse 12s linear infinite;
+}
+
+@keyframes compass-dial-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.4), inset 0 0 15px rgba(0, 243, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 0, 85, 0.5), inset 0 0 20px rgba(255, 0, 85, 0.3);
+  }
+}
+
+.animate-compass-glow {
+  animation: compass-dial-glow 3s ease-in-out infinite;
+}
+
 
 
