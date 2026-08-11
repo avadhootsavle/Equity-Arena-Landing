@@ -432,8 +432,9 @@ function SpideyTrackerModal({ onClose }) {
               </div>
               <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-[#ffd200] rotate-45 border-2 border-slate-950" />
             </div>
-            <div className="mt-1.5 bg-slate-950/95 text-white border-2 border-[#00f3ff] px-2.5 py-1 rounded-md text-[9px] sm:text-[10.5px] font-mono font-black shadow-[3px_3px_0px_#000] whitespace-nowrap">
-              🎯 SVKM'S SBMP &amp; ENGG CAMPUS
+            <div className="mt-1.5 bg-slate-950/95 text-white border-2 border-[#00f3ff] px-2.5 py-1 rounded-md text-[9px] sm:text-[10.5px] font-mono font-black shadow-[3px_3px_0px_#000] whitespace-nowrap flex items-center gap-1.5">
+              <span className="inline-block w-2 h-2 rounded-full bg-[#ff0055] animate-ping" />
+              <span>SVKM'S SBMP &amp; ENGG CAMPUS</span>
             </div>
           </div>
 
@@ -500,7 +501,7 @@ function SpideyTrackerModal({ onClose }) {
                 radarActive ? 'bg-emerald-400 text-slate-950' : 'bg-slate-700 text-slate-300'
               }`}
             >
-              {radarActive ? '⚡' : '⏸'}
+              <Zap className="h-3 w-3" />
             </button>
           </div>
 
@@ -743,7 +744,7 @@ function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-[#131c30] px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#ff0055]"
               >
-                <span>🏠 Home Deck</span>
+                <span>Home Deck</span>
                 <ArrowRight className="h-4 w-4 text-slate-400" />
               </a>
               <a
@@ -751,7 +752,7 @@ function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-[#131c30] px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#0284c7]"
               >
-                <span>⚡ Event Highlights</span>
+                <span>Event Highlights</span>
                 <ArrowRight className="h-4 w-4 text-slate-400" />
               </a>
               <a
@@ -759,7 +760,7 @@ function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-[#131c30] px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#ffd200]"
               >
-                <span>📋 Rules & Onboarding</span>
+                <span>Rules & Onboarding</span>
                 <ArrowRight className="h-4 w-4 text-slate-400" />
               </a>
 
@@ -771,7 +772,7 @@ function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
               >
                 <div className="flex items-center gap-2">
                   <Crosshair className="h-4 w-4 text-[#ff0055]" />
-                  <span>🎯 Spidey Tracker // Campus Map</span>
+                  <span>Spidey Tracker // Campus Map</span>
                 </div>
                 <span className="badge-neo !px-1.5 !py-0.5 !text-[8.5px] bg-[#ffd200] text-slate-950">
                   GPS
@@ -1016,7 +1017,7 @@ function TickerTape({ stocks }) {
                 <TrendingUp className={`h-3 w-3 ${positive ? '' : 'rotate-180 text-rose-600'}`} />
                 {positive ? '+' : ''}{(stock.percentChange || 0).toFixed(2)}%
               </span>
-              <span className="text-red-500">🕸️</span>
+              <span className="text-red-500 font-bold">•</span>
             </div>
           );
         })}
@@ -1307,7 +1308,7 @@ function FinalCTA({ onRegisterClick }) {
       <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
         <div data-gsap="heading">
           <div className="card-neo glow-neon-card relative overflow-hidden px-5 py-14 text-center sm:px-16 sm:py-20 bg-white dark:bg-[#10172a] border-4 border-slate-950 shadow-[6px_6px_0px_#05070e,10px_10px_0px_rgba(255,0,85,0.15)] dark:shadow-[8px_8px_0px_#ff0055]">
-            {/* 🕸️ Spiderweb Corner Overlays inside CTA Banner */}
+            {/* Spiderweb Corner Overlays inside CTA Banner */}
             <SpiderWebCorner className="top-0 left-0" rotate={0} />
             <SpiderWebCorner className="top-0 right-0" rotate={90} />
             <SpiderWebCorner className="bottom-0 left-0" rotate={270} />
