@@ -1,8 +1,9 @@
 import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import {
-  Activity, ArrowRight, BarChart3, ChevronDown, Coins, Gauge, LineChart, Lock,
-  Menu, Moon, Newspaper, Play, Radio, Shield, Sparkles, Sun, TrendingUp, Trophy, Users, Wallet, X, Zap
+  Activity, ArrowRight, BarChart3, Check, ChevronDown, Coins, Compass, Copy, Crosshair, ExternalLink,
+  Gauge, LineChart, Lock, MapPin, Menu, Moon, Navigation, Newspaper, Play, Radio,
+  Shield, Sparkles, Sun, TrendingUp, Trophy, Users, Wallet, X, Zap
 } from 'lucide-react';
 import { HeroDeck } from '../components/landing/HeroDeck';
 import { useLiveStocks, useArenaIndex, sectorTheme } from '../hooks/useLiveStocks';
@@ -249,6 +250,233 @@ function SpiderWebTransitionModal() {
   );
 }
 
+/** Spidey-Tracer Tactical Campus Radar & Interactive Map Modal */
+function SpideyTrackerModal({ onClose }) {
+  const [copied, setCopied] = useState(false);
+  const [radarActive, setRadarActive] = useState(true);
+
+  // Default campus venue profile
+  const venue = {
+    name: 'Ignite 8.0 Arena • Central Campus Auditorium',
+    address: 'Campus Tech Complex, Ground Floor Innovation Hall',
+    city: 'College Campus',
+    coords: '19.0760° N, 72.8777° E',
+    lat: 19.0760,
+    lng: 72.8777,
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Central+Campus+Auditorium'
+  };
+
+  const handleCopyCoords = () => {
+    try {
+      navigator.clipboard?.writeText?.(`${venue.coords} - ${venue.name}`);
+    } catch (_) {}
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-950/75 dark:bg-black/85 backdrop-blur-md overflow-y-auto pointer-events-auto p-3 sm:p-5"
+    >
+      {/* Background Stark-tech Glow Effect */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-red-600/15 via-transparent to-cyan-500/15 blur-3xl pointer-events-none" />
+
+      <motion.div
+        initial={{ scale: 0.88, y: 25 }}
+        animate={{ scale: 1, y: 0 }}
+        exit={{ scale: 0.88, y: 25 }}
+        transition={{ type: 'spring', damping: 25, stiffness: 220 }}
+        className="card-neo w-full max-w-[760px] bg-white dark:bg-[#0f172a] border-4 border-slate-950 max-h-[92vh] overflow-y-auto flex flex-col p-4 sm:p-6 relative shadow-[8px_8px_0px_#ff0055] rounded-2xl"
+      >
+        {/* Top Hazard Accent Stripe */}
+        <div 
+          className="absolute top-0 left-0 right-0 h-2 pointer-events-none rounded-t-xl"
+          style={{
+            backgroundImage: 'repeating-linear-gradient(45deg, #ff0055, #ff0055 8px, #ffd200 8px, #ffd200 16px, #00f3ff 16px, #00f3ff 24px)'
+          }}
+        />
+
+        {/* Modal Header */}
+        <div className="flex items-center justify-between gap-3 pt-2 pb-3 border-b-2 border-slate-950 dark:border-slate-800">
+          <div className="flex items-center gap-2.5">
+            {/* Spider-Tracer Device Icon */}
+            <div className="relative flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-[#ff0055] border-2 border-slate-950 shadow-[2px_2px_0px_#05070e] text-white shrink-0">
+              <Crosshair className="h-5 w-5 animate-spin" style={{ animationDuration: '8s' }} />
+              <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-emerald-400 border border-slate-950 animate-ping" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="badge-neo bg-[#ffd200] text-slate-950 !px-1.5 !py-0.5 !text-[8.5px] font-black shadow-[1.5px_1.5px_0px_#05070e]">
+                  SPIDEY-TRACER v4.2
+                </span>
+                <span className="text-[10px] sm:text-[11px] font-mono font-bold text-emerald-600 dark:text-emerald-400 animate-pulse flex items-center gap-1">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> TARGET LOCKED
+                </span>
+              </div>
+              <h3 className="font-display text-slate-950 dark:text-white text-base sm:text-xl font-black tracking-tight leading-tight uppercase">
+                SPIDEY TRACKER // CAMPUS RADAR
+              </h3>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close Spidey Tracker"
+            className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg border-2 border-slate-950 bg-slate-100 dark:bg-slate-800 text-slate-950 dark:text-white shadow-[2px_2px_0px_#05070e] transition-transform hover:scale-105 active:scale-95 shrink-0"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        {/* Telemetry Radar Readout Bar */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 my-3 font-mono text-[10px] sm:text-[11px]">
+          <div className="p-2 rounded-lg border-2 border-slate-950 bg-slate-50 dark:bg-[#131c30] shadow-[2px_2px_0px_#05070e]">
+            <span className="text-slate-500 dark:text-slate-400 block text-[8.5px] font-bold uppercase">Signal Telemetry</span>
+            <span className="font-black text-emerald-600 dark:text-emerald-400 text-xs">100% STARK-LINK</span>
+          </div>
+          <div className="p-2 rounded-lg border-2 border-slate-950 bg-slate-50 dark:bg-[#131c30] shadow-[2px_2px_0px_#05070e]">
+            <span className="text-slate-500 dark:text-slate-400 block text-[8.5px] font-bold uppercase">Direct Distance</span>
+            <span className="font-black text-[#0284c7] text-xs">0.0 KM • DIRECT</span>
+          </div>
+          <div className="p-2 rounded-lg border-2 border-slate-950 bg-slate-50 dark:bg-[#131c30] shadow-[2px_2px_0px_#05070e]">
+            <span className="text-slate-500 dark:text-slate-400 block text-[8.5px] font-bold uppercase">Coordinates</span>
+            <span className="font-black text-[#ff0055] text-[10px] truncate block">{venue.coords}</span>
+          </div>
+          <div className="p-2 rounded-lg border-2 border-slate-950 bg-slate-50 dark:bg-[#131c30] shadow-[2px_2px_0px_#05070e]">
+            <span className="text-slate-500 dark:text-slate-400 block text-[8.5px] font-bold uppercase">Event Timeline</span>
+            <span className="font-black text-[#d97706] text-xs">SEPT 4 • 3-HR</span>
+          </div>
+        </div>
+
+        {/* Tactical Map Container with Spidey Radar Overlay */}
+        <div className="relative w-full h-[270px] sm:h-[340px] rounded-xl border-3 border-slate-950 overflow-hidden shadow-[4px_4px_0px_#05070e] bg-slate-900">
+          {/* Interactive Google Map Embed */}
+          <iframe
+            title="Spidey Tracker College Map"
+            src={`https://maps.google.com/maps?q=${encodeURIComponent(venue.name + ' ' + venue.city)}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
+            className="w-full h-full border-0 filter contrast-[1.05] brightness-[0.95]"
+            loading="lazy"
+          />
+
+          {/* Corner Crosshairs */}
+          <div className="absolute top-2 left-2 pointer-events-none font-mono text-[10px] font-black text-[#ff0055] select-none">
+            + [RADAR_NW]
+          </div>
+          <div className="absolute top-2 right-2 pointer-events-none font-mono text-[10px] font-black text-[#00f3ff] select-none">
+            [RADAR_NE] +
+          </div>
+          <div className="absolute bottom-2 left-2 pointer-events-none font-mono text-[10px] font-black text-[#ffd200] select-none">
+            + [GRID_SW]
+          </div>
+          <div className="absolute bottom-2 right-2 pointer-events-none font-mono text-[10px] font-black text-emerald-400 select-none">
+            [GRID_SE] +
+          </div>
+
+          {/* Radar Sweep Scanner Effect (Overlaid on the map) */}
+          {radarActive && (
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-40">
+              {/* Concentric Radar Sonar Rings */}
+              <div className="absolute w-[180px] h-[180px] sm:w-[240px] sm:h-[240px] rounded-full border border-cyan-400/60 animate-sonar-ping" />
+              <div className="absolute w-[180px] h-[180px] sm:w-[240px] sm:h-[240px] rounded-full border border-red-500/60 animate-sonar-ping-delayed" />
+              
+              {/* Rotating Radar Sweep Cone */}
+              <div 
+                className="absolute w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] rounded-full animate-radar-sweep pointer-events-none"
+                style={{
+                  background: 'conic-gradient(from 0deg, rgba(0, 243, 255, 0.45) 0deg, rgba(0, 243, 255, 0.1) 45deg, transparent 70deg, transparent 360deg)'
+                }}
+              />
+            </div>
+          )}
+
+          {/* Pulsing Spidey-Tracer Pin on Center of Map */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20 flex flex-col items-center">
+            <div className="relative animate-tracker-target">
+              {/* Spidey mask / tracer target badge */}
+              <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-[#ff0055] border-2 sm:border-3 border-slate-950 text-white shadow-[3px_3px_0px_#05070e]">
+                <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-white drop-shadow" />
+              </div>
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#ffd200] rotate-45 border border-slate-950" />
+            </div>
+            {/* Target Label */}
+            <div className="mt-1.5 bg-slate-950/90 text-white border border-[#00f3ff] px-2 py-0.5 rounded text-[9px] font-mono font-black shadow-[2px_2px_0px_#000] whitespace-nowrap">
+              🎯 SPIDEY-TRACER // COLLEGE VENUE
+            </div>
+          </div>
+
+          {/* Interactive Map Overlay Controls */}
+          <div className="absolute bottom-3 right-3 z-30 flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => setRadarActive(!radarActive)}
+              className="badge-neo !px-2 !py-1 !text-[9px] bg-slate-900/90 text-white border-2 border-slate-950 font-mono font-black shadow-[2px_2px_0px_#000] cursor-pointer hover:bg-slate-800"
+            >
+              {radarActive ? '⚡ RADAR: ON' : '⏸ RADAR: PAUSED'}
+            </button>
+          </div>
+        </div>
+
+        {/* Venue Information Dossier */}
+        <div className="mt-3.5 p-3.5 sm:p-4 rounded-xl border-2 border-slate-950 bg-slate-50 dark:bg-[#131c30] shadow-[3px_3px_0px_#05070e] text-left">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="badge-neo bg-[#0284c7] text-white !px-1.5 !py-0.5 !text-[8.5px] font-black">
+                  OFFICIAL VENUE
+                </span>
+                <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 font-bold">IGNITE 8.0 ARENA</span>
+              </div>
+              <h4 className="font-display text-slate-950 dark:text-white font-black text-sm sm:text-base mt-1">
+                {venue.name}
+              </h4>
+              <p className="font-mono text-slate-600 dark:text-slate-300 text-xs mt-0.5 font-medium">
+                {venue.address} • {venue.city}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Action Controls */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mt-3.5 pt-2">
+          <button
+            type="button"
+            onClick={handleCopyCoords}
+            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border-2 border-slate-950 bg-slate-100 dark:bg-slate-800 text-slate-950 dark:text-white font-mono text-xs font-black shadow-[2px_2px_0px_#05070e] hover:bg-slate-200 dark:hover:bg-slate-700 transition-all w-full sm:w-auto active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
+          >
+            {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4 text-slate-600 dark:text-slate-400" />}
+            <span>{copied ? 'COORDINATES COPIED!' : 'COPY VENUE COORDS'}</span>
+          </button>
+
+          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+            <a
+              href={venue.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-neo flex-1 sm:flex-none justify-center px-5 py-3 text-xs font-black shadow-[3px_3px_0px_#05070e] flex items-center gap-1.5"
+            >
+              <Navigation className="h-4 w-4" />
+              NAVIGATE IN GOOGLE MAPS <ExternalLink className="h-3.5 w-3.5 ml-0.5" />
+            </a>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 /** Corner Spiderweb SVG Overlay */
 function SpiderWebCorner({ className = "top-0 left-0", rotate = 0 }) {
   return (
@@ -310,7 +538,7 @@ function SectionTag({ icon: Icon, children }) {
 /* ------------------------------------------------------------------ *
  * Navbar
  * ------------------------------------------------------------------ */
-function Navbar({ onRegisterClick, theme, onToggleTheme }) {
+function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -339,7 +567,7 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-7 lg:gap-8 md:flex">
           <a
             href="#home"
             className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-red-500 after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
@@ -358,6 +586,19 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
           >
             Rules & Onboarding
           </a>
+
+          {/* Spidey Tracker Nav Trigger */}
+          <button
+            type="button"
+            onClick={onTrackerClick}
+            className="relative text-[12px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-red-400 flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-slate-950/20 dark:border-slate-700/60 bg-slate-100/60 dark:bg-slate-800/60 shadow-sm cursor-pointer hover:border-red-500"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ff0055]" />
+            </span>
+            <span>Spidey Tracker</span>
+          </button>
         </nav>
 
         {/* Action Buttons & Theme Toggle */}
@@ -388,6 +629,16 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
 
         {/* Mobile menu controls */}
         <div className="flex items-center gap-2 md:hidden">
+          <button
+            type="button"
+            onClick={onTrackerClick}
+            aria-label="Open Spidey Tracker"
+            title="Spidey Tracker // Campus Radar"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-slate-950 bg-[#ff0055] text-white shadow-[2px_2px_0px_#05070e] transition-transform active:scale-95"
+          >
+            <Crosshair className="h-4 w-4" />
+          </button>
+
           <button
             type="button"
             onClick={onToggleTheme}
@@ -467,6 +718,21 @@ function Navbar({ onRegisterClick, theme, onToggleTheme }) {
                 <span>📋 Rules & Onboarding</span>
                 <ArrowRight className="h-4 w-4 text-slate-400" />
               </a>
+
+              {/* Mobile Spidey Tracker Button */}
+              <button
+                type="button"
+                onClick={() => { setMobileOpen(false); onTrackerClick(); }}
+                className="flex items-center justify-between border-2 border-slate-950 bg-slate-100 dark:bg-[#131c30] px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 dark:text-white transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#ff0055]"
+              >
+                <div className="flex items-center gap-2">
+                  <Crosshair className="h-4 w-4 text-[#ff0055]" />
+                  <span>🎯 Spidey Tracker // Campus Map</span>
+                </div>
+                <span className="badge-neo !px-1.5 !py-0.5 !text-[8.5px] bg-[#ffd200] text-slate-950">
+                  GPS
+                </span>
+              </button>
               
               <button
                 type="button"
@@ -506,7 +772,7 @@ const HERO_FEATURES = [
   { icon: BarChart3, title: 'Market Depth', sub: 'Real-time index matrix' }
 ];
 
-const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
+const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick, onTrackerClick }, ref) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
@@ -600,7 +866,7 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
             Step into the live trading arena. Monitor 15 high-volatility sector stocks, track price swings in real time, and place orders across the market with 20,000 Ignite Coins to start.
           </p>
 
-          <div className="mt-6 sm:mt-8 flex flex-wrap gap-4 sm:gap-5 justify-center lg:justify-start w-full sm:w-auto">
+          <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4 justify-center lg:justify-start w-full sm:w-auto">
             <a
               href={REGISTER_URL}
               onClick={onRegisterClick}
@@ -608,6 +874,20 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick }, ref) => {
             >
               Register Now <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
+
+            <button
+              type="button"
+              onClick={onTrackerClick}
+              className="card-neo flex items-center justify-center gap-2.5 px-4 sm:px-5 py-3.5 sm:py-4 bg-white dark:bg-[#131c30] border-3 border-slate-950 shadow-[4px_4px_0px_#ff0055] hover:shadow-[5px_5px_0px_#00f3ff] transition-all group active:translate-x-[1px] active:translate-y-[1px] rounded-xl cursor-pointer w-full sm:w-auto"
+            >
+              <div className="relative flex h-6 w-6 items-center justify-center rounded-md bg-[#ff0055] text-white border border-slate-950 shadow-[1px_1px_0px_#05070e] shrink-0">
+                <Crosshair className="h-3.5 w-3.5 animate-spin" style={{ animationDuration: '8s' }} />
+                <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-400 border border-slate-950 animate-ping" />
+              </div>
+              <span className="font-display text-[12.5px] sm:text-[13.5px] font-black text-slate-950 dark:text-white uppercase tracking-tight flex items-center gap-1.5">
+                SPIDEY TRACKER <span className="badge-neo !px-1.5 !py-0.2 !text-[8px] bg-[#ffd200] text-slate-950 font-black">GPS MAP</span>
+              </span>
+            </button>
           </div>
 
           {/* Neo-Brutalist Launch Countdown to Sept 4 */}
@@ -1251,6 +1531,7 @@ export function Landing() {
   const { stocks, isLive } = useLiveStocks(3000);
   const index = useArenaIndex(stocks);
   const [isSlingingWeb, setIsSlingingWeb] = useState(false);
+  const [isTrackerOpen, setIsTrackerOpen] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(() => {
     try {
       const stored = localStorage.getItem('ea_disclaimer_accepted');
@@ -1340,6 +1621,11 @@ export function Landing() {
         {isSlingingWeb && <SpiderWebTransitionModal />}
       </AnimatePresence>
 
+      {/* Spidey-Tracer Tactical Campus Radar & Interactive Map Modal */}
+      <AnimatePresence>
+        {isTrackerOpen && <SpideyTrackerModal onClose={() => setIsTrackerOpen(false)} />}
+      </AnimatePresence>
+
       {/* Regulatory Disclaimer Modal Popup */}
       <AnimatePresence>
         {showDisclaimer && <DisclaimerModal onClose={handleAcceptDisclaimer} />}
@@ -1361,9 +1647,21 @@ export function Landing() {
         </div>
       </div>
 
-      <Navbar onRegisterClick={handleRegisterClick} theme={theme} onToggleTheme={toggleTheme} />
+      <Navbar
+        onRegisterClick={handleRegisterClick}
+        onTrackerClick={() => setIsTrackerOpen(true)}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+      />
       <main>
-        <Hero ref={homeRef} stocks={stocks} index={index} isLive={isLive} onRegisterClick={handleRegisterClick} />
+        <Hero
+          ref={homeRef}
+          stocks={stocks}
+          index={index}
+          isLive={isLive}
+          onRegisterClick={handleRegisterClick}
+          onTrackerClick={() => setIsTrackerOpen(true)}
+        />
         <TickerTape stocks={stocks} />
 
         <About ref={aboutRef} />
@@ -1383,6 +1681,14 @@ export function Landing() {
             </div>
           </div>
           <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => setIsTrackerOpen(true)}
+              className="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-slate-950 bg-[#ff0055] text-white shadow-[1.5px_1.5px_0px_#05070e]"
+              title="Spidey Tracker Radar"
+            >
+              <Crosshair className="h-3.5 w-3.5" />
+            </button>
             <button
               type="button"
               onClick={toggleTheme}
