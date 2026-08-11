@@ -250,34 +250,31 @@ function SpiderWebTransitionModal() {
   );
 }
 
-/** Sleek Marvel/Spidey Vector Spider Emblem */
-function SleekSpiderEmblem({ className = "w-5 h-5", color = "#05070e" }) {
+/** Sharp Angular Marvel/Spider-Man Chest Vector Emblem (Unmistakable Arachnid) */
+function SleekSpiderEmblem({ className = "w-5 h-5", color = "currentColor" }) {
   return (
-    <svg viewBox="0 0 100 100" className={className} fill={color}>
+    <svg viewBox="0 0 100 100" className={className} fill="none">
       {/* Spider Head & Fangs */}
-      <circle cx="50" cy="22" r="5.5" />
-      <polygon points="46,26 43,31 48,28" />
-      <polygon points="54,26 57,31 52,28" />
+      <polygon points="50,16 44,26 56,26" fill={color} />
+      <polygon points="46,26 42,32 48,29" fill={color} />
+      <polygon points="54,26 58,32 52,29" fill={color} />
       
-      {/* Spider Thorax & Abdomen */}
-      <ellipse cx="50" cy="36" rx="7.5" ry="10" />
-      <path d="M 43 45 Q 50 48 57 45 Q 59 62 50 78 Q 41 62 43 45 Z" />
+      {/* Spider Thorax & Pointed Abdomen */}
+      <polygon points="50,28 43,40 50,78 57,40" fill={color} />
 
-      {/* Top 2 Legs (Upper Arc) */}
-      <path d="M 45 28 C 30 14, 20 12, 14 10 C 11 9, 10 14, 13 16 C 18 20, 28 26, 42 34" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M 55 28 C 70 14, 80 12, 86 10 C 89 9, 90 14, 87 16 C 82 20, 72 26, 58 34" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+      {/* 4 Upper Spider Legs (Sharp angular upward joints) */}
+      <polyline points="47,30 30,16 16,10 10,15" stroke={color} strokeWidth="3.8" strokeLinecap="round" strokeLinejoin="miter" />
+      <polyline points="53,30 70,16 84,10 90,15" stroke={color} strokeWidth="3.8" strokeLinecap="round" strokeLinejoin="miter" />
+      
+      <polyline points="45,35 26,26 12,22 8,30" stroke={color} strokeWidth="3.8" strokeLinecap="round" strokeLinejoin="miter" />
+      <polyline points="55,35 74,26 88,22 92,30" stroke={color} strokeWidth="3.8" strokeLinecap="round" strokeLinejoin="miter" />
 
-      {/* Second 2 Legs (Horizontal Spread) */}
-      <path d="M 43 36 C 26 26, 14 28, 8 32 C 6 34, 7 38, 11 39 C 20 42, 30 41, 42 41" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M 57 36 C 74 26, 86 28, 92 32 C 94 34, 93 38, 89 39 C 80 42, 70 41, 58 41" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+      {/* 4 Lower Spider Legs (Sharp angular downward joints) */}
+      <polyline points="45,44 26,52 14,66 10,76" stroke={color} strokeWidth="3.8" strokeLinecap="round" strokeLinejoin="miter" />
+      <polyline points="55,44 74,52 86,66 90,76" stroke={color} strokeWidth="3.8" strokeLinecap="round" strokeLinejoin="miter" />
 
-      {/* Third 2 Legs (Lower Arc) */}
-      <path d="M 44 45 C 24 49, 14 60, 10 68 C 8 72, 13 74, 16 71 C 24 64, 34 56, 44 51" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M 56 45 C 76 49, 86 60, 90 68 C 92 72, 87 74, 84 71 C 76 64, 66 56, 56 51" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
-
-      {/* Bottom 2 Legs (Long Stride) */}
-      <path d="M 45 54 C 28 66, 22 78, 18 90 C 16 94, 21 96, 25 93 C 33 86, 41 74, 46 64" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M 55 54 C 72 66, 78 78, 82 90 C 84 94, 79 96, 75 93 C 67 86, 59 74, 54 64" fill="none" stroke={color} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="46,52 30,64 20,84 16,94" stroke={color} strokeWidth="3.8" strokeLinecap="round" strokeLinejoin="miter" />
+      <polyline points="54,52 70,64 80,84 84,94" stroke={color} strokeWidth="3.8" strokeLinecap="round" strokeLinejoin="miter" />
     </svg>
   );
 }
@@ -398,7 +395,7 @@ function SpideyTrackerModal({ onClose }) {
             />
           </div>
 
-          {/* Top Right: Signal Telemetry & Sleek Spider Emblem Close Button */}
+          {/* Top Right: Signal Telemetry & Sharp Spider Emblem Close Button */}
           <div className="flex items-center gap-2">
             <div className="hidden sm:flex flex-col text-right font-mono text-[8.5px] font-bold text-white">
               <span className="text-emerald-300">STARK-LINK: {signalQuality}%</span>
@@ -411,7 +408,7 @@ function SpideyTrackerModal({ onClose }) {
               title="Close Tracker"
               className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-2xl bg-white border-2 sm:border-3 border-slate-950 shadow-[3px_3px_0px_#05070e] hover:bg-red-50 hover:border-red-600 hover:shadow-[0_0_12px_rgba(255,0,85,0.6)] active:scale-95 transition-all cursor-pointer shrink-0 group relative overflow-hidden"
             >
-              {/* Sleek Spider Emblem with hover glow animation */}
+              {/* Sharp Marvel Spider-Man Emblem */}
               <div className="animate-spider-emblem group-hover:rotate-12 transition-transform">
                 <SleekSpiderEmblem className="w-5 h-5 sm:w-6 sm:h-6 text-slate-950 group-hover:text-red-600 transition-colors" color="currentColor" />
               </div>
@@ -469,11 +466,11 @@ function SpideyTrackerModal({ onClose }) {
             </div>
           </div>
 
-          {/* Interactive Google Map Embed centered on SVKM SBMP */}
+          {/* Fixed Google Map Embed (pointer-events-none ensures user cannot drag or move map) */}
           <iframe
             title="Spidey Tracker SVKM Campus Map"
             src="https://maps.google.com/maps?q=SVKM's%20Shri%20Bhagubhai%20Mafatlal%20Polytechnic%20Vile%20Parle%20West%20Mumbai&t=&z=17&ie=UTF8&iwloc=&output=embed"
-            className="w-full h-full border-0 filter contrast-[1.12] brightness-[0.90] saturate-[1.1]"
+            className="w-full h-full border-0 filter contrast-[1.12] brightness-[0.90] saturate-[1.1] pointer-events-none select-none"
             loading="lazy"
           />
 
