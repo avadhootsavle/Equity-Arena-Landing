@@ -3,19 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import {
   Printer, Download, ArrowLeft, Users, Flame, LineChart, Newspaper,
-  TrendingUp, Wallet, Lock, Trophy, Zap, Shield, Sparkles, CheckCircle2, AlertTriangle, HelpCircle
+  TrendingUp, Wallet, Lock, Trophy, Zap, Shield, Sparkles, CheckCircle2,
+  AlertTriangle, HelpCircle, ChevronDown, Award, BarChart3, Layers
 } from 'lucide-react';
 import gsap from 'gsap';
 
 const REGISTER_URL = 'https://ignite-8.vercel.app/register-stock';
 
 /* ------------------------------------------------------------------ *
- * Spidey-Sense Interactive Custom Cursor Trail for Brochure
+ * Spidey-Sense Custom Interactive Cursor Trail (Identical to Main Page)
  * ------------------------------------------------------------------ */
 function SpideyCursor() {
   const dotRef = useRef(null);
   const trailingRef = useRef(null);
-  const [isHovering, setIsHovering] = useState(false);
+  const [isHoveringInteractive, setIsHoveringInteractive] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -26,7 +27,7 @@ function SpideyCursor() {
         gsap.to(trailingRef.current, {
           x: e.clientX,
           y: e.clientY,
-          duration: 0.25,
+          duration: 0.35,
           ease: 'power2.out',
           overwrite: 'auto'
         });
@@ -40,11 +41,12 @@ function SpideyCursor() {
         target.tagName === 'BUTTON' ||
         target.closest('a') ||
         target.closest('button') ||
-        target.classList.contains('neo-card')
+        target.classList.contains('neo-card') ||
+        target.classList.contains('card-neo')
       ) {
-        setIsHovering(true);
+        setIsHoveringInteractive(true);
       } else {
-        setIsHovering(false);
+        setIsHoveringInteractive(false);
       }
     };
 
@@ -60,14 +62,63 @@ function SpideyCursor() {
     <div className="no-print">
       <div
         ref={dotRef}
-        className={`fixed top-0 left-0 w-3 h-3 rounded-full pointer-events-none z-[999999] ml-[-6px] mt-[-6px] transition-transform duration-75 hidden lg:block ${
-          isHovering ? 'bg-[#ffd200] scale-150 shadow-[0_0_12px_#ffd200]' : 'bg-[#ff0055] shadow-[0_0_8px_#ff0055]'
-        }`}
+        className="fixed top-0 left-0 pointer-events-none z-[999999] ml-[-55px] mt-[-55px] hidden lg:block"
         style={{ transform: 'translate3d(-100px, -100px, 0)', willChange: 'transform' }}
-      />
+      >
+        <div className="relative w-[110px] h-[110px] flex items-center justify-center">
+          <svg width="110" height="110" viewBox="0 0 100 100" fill="none" className="overflow-visible select-none">
+            <AnimatePresence>
+              {isHoveringInteractive && (
+                <motion.g
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.15 }}
+                  className="stroke-slate-900 stroke-[2] stroke-linecap-round filter drop-shadow-[0_0_3px_rgba(0,0,0,0.3)] animate-spidey-sense-tingle"
+                >
+                  <path d="M 50 28 Q 47 22 52 16 T 50 8" />
+                  <path d="M 43 29 Q 38 23 41 17 T 36 10" />
+                  <path d="M 57 29 Q 62 23 59 17 T 64 10" />
+                  <path d="M 31 39 Q 22 36 26 30 T 17 23" />
+                  <path d="M 69 39 Q 78 36 74 30 T 83 23" />
+                  <path d="M 28 47 Q 18 46 21 40 T 11 35" />
+                  <path d="M 72 47 Q 82 46 79 40 T 89 35" />
+                </motion.g>
+              )}
+            </AnimatePresence>
+
+            <g transform="translate(33, 33)">
+              <path
+                d="M17 2C24.5 2 29 7.5 29 15C29 22.5 22.5 29.5 17 32C11.5 29.5 5 22.5 5 15C5 7.5 9.5 2 17 2Z"
+                fill="#ff0055"
+                stroke="#05070e"
+                strokeWidth="2.5"
+              />
+              <path d="M17 2V32" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+              <path d="M5 15H29" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+              <path d="M8 8C12 11 22 11 26 8" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+              <path d="M8 22C12 19 22 19 26 22" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+              <path
+                d="M7 14C8.5 10.5 12.5 9.5 14.5 12.5C15 13.5 14 17 11 18.5C8 20 7.5 17.5 7 14Z"
+                fill="white"
+                stroke="#05070e"
+                strokeWidth="2.5"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M27 14C25.5 10.5 21.5 9.5 19.5 12.5C19 13.5 20 17 23 18.5C26 20 26.5 17.5 27 14Z"
+                fill="white"
+                stroke="#05070e"
+                strokeWidth="2.5"
+                strokeLinejoin="round"
+              />
+            </g>
+          </svg>
+        </div>
+      </div>
       <div
         ref={trailingRef}
-        className="fixed top-0 left-0 w-7 h-7 border-2 border-slate-950 rounded-full pointer-events-none z-[999998] ml-[-14px] mt-[-14px] opacity-60 shadow-[0_0_6px_rgba(0,243,255,0.4)] hidden lg:block bg-cyan-400/20"
+        className="fixed top-0 left-0 w-6 h-6 border-2 border-[#0284c7] rounded-full pointer-events-none z-[999998] ml-[-12px] mt-[-12px] opacity-60 shadow-[0_0_6px_rgba(2,132,199,0.4)] hidden lg:block"
         style={{ transform: 'translate3d(-100px, -100px, 0)', willChange: 'transform' }}
       />
     </div>
@@ -76,19 +127,19 @@ function SpideyCursor() {
 
 export function BrochurePage() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState(null);
+  const [openFaq, setOpenFaq] = useState(null);
 
   // Mouse Parallax Motion Values for Spider-Man Character Sway
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const spideyRotate = useTransform(mouseX, [-500, 500], [-8, 8]);
-  const spideyX = useTransform(mouseX, [-500, 500], [-15, 15]);
-  const spideyY = useTransform(mouseY, [-500, 500], [-10, 10]);
+  const spideyRotate = useTransform(mouseX, [-600, 600], [-10, 10]);
+  const spideyX = useTransform(mouseX, [-600, 600], [-20, 20]);
+  const spideyY = useTransform(mouseY, [-600, 600], [-12, 12]);
 
-  const springRotate = useSpring(spideyRotate, { stiffness: 150, damping: 20 });
-  const springX = useSpring(spideyX, { stiffness: 150, damping: 20 });
-  const springY = useSpring(spideyY, { stiffness: 150, damping: 20 });
+  const springRotate = useSpring(spideyRotate, { stiffness: 140, damping: 18 });
+  const springX = useSpring(spideyX, { stiffness: 140, damping: 18 });
+  const springY = useSpring(spideyY, { stiffness: 140, damping: 18 });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -115,7 +166,6 @@ export function BrochurePage() {
       badge: 'WELCOME BONUS',
       badgeBg: '#ffd200',
       badgeText: '#000000',
-      sound: 'THWIP!',
       icon: Users,
       body: 'Create your account on Equity Arena and receive 20,000 free Ignite Points (IC) to start the game. Your IC balance is your trading capital.'
     },
@@ -127,7 +177,6 @@ export function BrochurePage() {
       badge: 'LIVE ARENA',
       badgeBg: '#00f3ff',
       badgeText: '#000000',
-      sound: 'BZZZT!',
       icon: Flame,
       body: 'The game runs for exactly 3 hours live. During the game, the market prices of the 15 available stocks keep changing in real-time based on high-volatility telemetry.'
     },
@@ -139,7 +188,6 @@ export function BrochurePage() {
       badge: 'TELEMETRY & GRAPHS',
       badgeBg: '#ffd200',
       badgeText: '#000000',
-      sound: 'SWING!',
       icon: LineChart,
       body: 'Explore the 15 available stocks and check their live price, trend graph, sector telemetry, and order details before making your move.'
     },
@@ -151,7 +199,6 @@ export function BrochurePage() {
       badge: 'MARKET SHOCKS',
       badgeBg: '#10b981',
       badgeText: '#ffffff',
-      sound: 'NEWS!',
       icon: Newspaper,
       body: 'New breaking market news will appear during the game. The news can affect stock prices, so read the news and make your trading decisions carefully.'
     },
@@ -163,7 +210,6 @@ export function BrochurePage() {
       badge: 'TRADING DESK',
       badgeBg: '#00f3ff',
       badgeText: '#000000',
-      sound: 'TRADE!',
       icon: TrendingUp,
       body: 'Use your Ignite Points to buy and sell shares.',
       subPoints: [
@@ -179,7 +225,6 @@ export function BrochurePage() {
       badge: 'PORTFOLIO CONTROL',
       badgeBg: '#c084fc',
       badgeText: '#000000',
-      sound: 'WALLET!',
       icon: Wallet,
       body: 'Keep track of your Ignite Points, stock holdings, and profit/loss. Use your points wisely and decide strategically when to buy, hold or sell.'
     },
@@ -191,7 +236,6 @@ export function BrochurePage() {
       badge: 'CRITICAL LOCKOUT',
       badgeBg: '#ff0055',
       badgeText: '#ffffff',
-      sound: 'LOCKOUT!',
       icon: Lock,
       body: 'When the game enters its last 5 minutes, no new trades can be placed. All remaining shares you still own will be automatically sold at the current market price.'
     },
@@ -203,9 +247,35 @@ export function BrochurePage() {
       badge: 'VICTORY GOAL',
       badgeBg: '#ffd200',
       badgeText: '#000000',
-      sound: 'VICTORY!',
       icon: Trophy,
       body: 'After the 3-hour game ends, the player with the highest final amount of Ignite Points (IC) wins the championship!'
+    }
+  ];
+
+  const SECTORS = [
+    { name: 'INFRASTRUCTURE & POWER', ticker: 'INFRA-9', vol: 'HIGH' },
+    { name: 'BANKING & FINTECH', ticker: 'FIN-CORP', vol: 'VERY HIGH' },
+    { name: 'TECH & ARTIFICIAL INTEL', ticker: 'CYBER-X', vol: 'MED-HIGH' },
+    { name: 'PHARMA & BIO-GENETICS', ticker: 'BIO-MED', vol: 'HIGH' },
+    { name: 'AUTO & ELECTRIC EV', ticker: 'NEO-DRIVE', vol: 'EXTREME' }
+  ];
+
+  const FAQS = [
+    {
+      q: 'Is there any real money involved in Equity Arena?',
+      a: 'No! Equity Arena is a 100% simulated educational trading game. All 20,000 IC points, stocks, orders, and P&L displayed are virtual. No real money is deposited or lost.'
+    },
+    {
+      q: 'How are the winners decided after 3 hours?',
+      a: 'At the end of the 3-hour arena, all remaining shares auto-liquidate at market price. The trader with the highest overall Ignite Points (IC) wallet balance wins 1st place!'
+    },
+    {
+      q: 'Can I place Limit Orders during the game?',
+      a: 'Yes! You can choose to trade immediately at Market Price or set Limit Orders. Limit orders will execute automatically when the stock hits your target price.'
+    },
+    {
+      q: 'What happens during the Final 5 Minutes?',
+      a: 'During the final 5 minutes, a strict trading lockout occurs. No new buy or sell orders can be placed. All open stock positions are automatically liquidated to compute final standings.'
     }
   ];
 
@@ -382,6 +452,28 @@ export function BrochurePage() {
               );
             })}
           </div>
+
+          {/* New Rich Data Card: Stock Sectors Telemetry Box */}
+          <div className="p-5 bg-slate-50 border-3.5 border-slate-950 rounded-2xl shadow-[5px_5px_0px_#000] space-y-3 text-left">
+            <div className="flex items-center justify-between">
+              <span className="px-3 py-1 bg-slate-950 text-[#ffd200] font-mono text-xs font-black rounded-lg border border-slate-950">
+                📊 ARENA MARKET MATRIX — 15 SECTOR EQUITIES
+              </span>
+              <span className="font-mono text-xs font-bold text-slate-500">LIVE FEED</span>
+            </div>
+
+            <div className="grid gap-2 sm:grid-cols-3">
+              {SECTORS.map((sec, i) => (
+                <div key={i} className="p-2.5 bg-white border-2 border-slate-950 rounded-xl shadow-[2px_2px_0px_#000]">
+                  <span className="block font-mono text-[10px] font-black text-slate-950">{sec.name}</span>
+                  <div className="flex items-center justify-between mt-1 font-mono text-[9.5px]">
+                    <span className="text-[#0284c7] font-bold">{sec.ticker}</span>
+                    <span className="text-[#ff0055] font-black">{sec.vol}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* ================= PAGE 2 ================= */}
@@ -486,6 +578,42 @@ export function BrochurePage() {
                 </motion.div>
               );
             })}
+          </div>
+
+          {/* New Rich Data Card: FAQ Accordion */}
+          <div className="p-5 bg-slate-50 border-3.5 border-slate-950 rounded-2xl shadow-[5px_5px_0px_#000] space-y-3 text-left">
+            <div className="flex items-center gap-2">
+              <span className="px-3 py-1 bg-[#ffd200] text-slate-950 font-mono text-xs font-black rounded-lg border border-slate-950 shadow-[1.5px_1.5px_0px_#000]">
+                ❓ FREQUENTLY ASKED QUESTIONS (FAQ)
+              </span>
+            </div>
+
+            <div className="space-y-2">
+              {FAQS.map((faq, idx) => (
+                <div key={idx} className="border-2 border-slate-950 rounded-xl overflow-hidden bg-white shadow-[2px_2px_0px_#000]">
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                    className="w-full p-3 flex items-center justify-between text-left font-mono text-xs font-black text-slate-950 cursor-pointer hover:bg-slate-100"
+                  >
+                    <span>Q: {faq.q}</span>
+                    <ChevronDown className={`h-4 w-4 transition-transform ${openFaq === idx ? 'rotate-180' : ''}`} />
+                  </button>
+                  <AnimatePresence>
+                    {openFaq === idx && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="p-3 pt-0 font-mono text-xs font-bold text-slate-700 border-t border-slate-200 bg-slate-50"
+                      >
+                        {faq.a}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Call To Action Box */}
