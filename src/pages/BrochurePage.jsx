@@ -549,8 +549,8 @@ export function BrochurePage() {
             })}
           </div>
 
-          {/* FAQ Section — Fully Visible Cards with Extra Spacing for Perfect Printing */}
-          <div className="mt-10 p-5 bg-slate-50 border-3.5 border-slate-950 rounded-2xl shadow-[5px_5px_0px_#000] space-y-3 text-left">
+          {/* FAQ Section — Generous Top Spacing Gap */}
+          <div className="mt-20 sm:mt-28 pt-6 p-5 bg-slate-50 border-3.5 border-slate-950 rounded-2xl shadow-[5px_5px_0px_#000] space-y-3 text-left">
             <div className="flex items-center gap-2">
               <span className="px-3 py-1 bg-[#ffd200] text-slate-950 font-mono text-xs font-black rounded-lg border border-slate-950 shadow-[1.5px_1.5px_0px_#000]">
                 ❓ FREQUENTLY ASKED QUESTIONS (FAQ)

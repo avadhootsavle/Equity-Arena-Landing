@@ -270,8 +270,8 @@ function drawPage2() {
     doc.fillColor('#0f172a').fontSize(8.5).font('Helvetica-Bold').text(step.body, 84, cardY + 36, { width: W - 170, lineGap: 2.5 });
   });
 
-  // FAQ Section Block on Page 2 (With Extra Top Gap)
-  const faqY = startY + 4 * 105 + 18;
+  // FAQ Section Block on Page 2 (With Generous Top Gap)
+  const faqY = startY + 4 * 105 + 32;
   drawNeoCard(30, faqY, W - 60, 160, '#f8fafc', '#000000', 8, 2.5);
   drawNeoBadge(42, faqY + 10, 240, 20, '❓ FREQUENTLY ASKED QUESTIONS (FAQ)', '#ffd200', '#000000', '#000000', 8.5);
 
