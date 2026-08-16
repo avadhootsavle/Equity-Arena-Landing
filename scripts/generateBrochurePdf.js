@@ -188,19 +188,18 @@ function drawPage2() {
   doc.rect(0, 0, W, H).fill('#ffffff');
 
   // Top Light Mini Header Card Box
-  drawNeoCard(30, 16, W - 60, 62, '#f8fafc', '#00f3ff', 8, 3);
+  drawNeoCard(30, 16, W - 60, 54, '#f8fafc', '#00f3ff', 8, 3);
 
   // Embed Spider-Man Side Character Image in Header
   if (fs.existsSync(imgSpidermanSide)) {
-    doc.image(imgSpidermanSide, W - 110, 6, { width: 85 });
+    doc.image(imgSpidermanSide, W - 105, 6, { width: 75 });
   }
 
-  doc.fillColor('#000000').fontSize(17).font('Helvetica-Bold').text('EQUITY', 46, 26, { continued: true });
+  doc.fillColor('#000000').fontSize(16).font('Helvetica-Bold').text('EQUITY', 44, 22, { continued: true });
   doc.fillColor('#ff0055').text(' ARENA');
+  doc.fillColor('#000000').fontSize(8.5).font('Helvetica-Bold').text('OFFICIAL GAMEPLAY RULES, STRATEGY & FAQ • PAGE 2 OF 2', 44, 44);
 
-  doc.fillColor('#000000').fontSize(9).font('Helvetica-Bold').text('OFFICIAL GAMEPLAY RULES & STRATEGY • PAGE 2 OF 2', 46, 50);
-
-  // Steps 5 to 8 on Page 2
+  // Steps 5 to 8 on Page 2 (Compact Vertical Spacing for FAQ)
   const stepsPage2 = [
     {
       num: '05',
@@ -211,7 +210,7 @@ function drawPage2() {
       badge: 'TRADING DESK',
       badgeBg: '#00f3ff',
       badgeText: '#000000',
-      body: 'Use your Ignite Points to buy and sell shares.\nYou can:\n• Buy/Sell at Market Price — trade at the current stock price.\n• Place a Limit Order — set the price at which you want to buy or sell. The order will be completed when the stock reaches your chosen price.'
+      body: 'Use your Ignite Points to buy and sell shares.\n• Market Price — trade at current stock price.\n• Limit Order — set target price; executes when hit.'
     },
     {
       num: '06',
@@ -222,18 +221,18 @@ function drawPage2() {
       badge: 'PORTFOLIO CONTROL',
       badgeBg: '#c084fc',
       badgeText: '#000000',
-      body: 'Keep track of your Ignite Points, shares and profit/loss. Use your points wisely and decide when to buy, hold or sell.'
+      body: 'Keep track of your Ignite Points, shares and P&L. Use your points wisely and decide strategically when to buy, hold or sell.'
     },
     {
       num: '07',
-      title: 'FINAL 5 MINUTES (LOCKOUT WARNING)',
+      title: 'FINAL 5 MINUTES (LOCKOUT)',
       color: '#dc2626',
       bg: '#fff1f2',
       shadow: '#ff0055',
       badge: 'CRITICAL LOCKOUT',
       badgeBg: '#ff0055',
       badgeText: '#ffffff',
-      body: 'When the game enters its last 5 minutes, no new trades can be placed. All the shares you still own will be automatically sold at the current market price.'
+      body: 'In the last 5 minutes, trading stops. All remaining shares auto-liquidate at the current market price.'
     },
     {
       num: '08',
@@ -244,41 +243,64 @@ function drawPage2() {
       badge: 'VICTORY GOAL',
       badgeBg: '#ffd200',
       badgeText: '#000000',
-      body: 'After the 3-hour game ends, the player with the highest amount of Ignite Points (IC) wins!'
+      body: 'After 3 hours, the player with the highest final amount of Ignite Points (IC) wins the championship!'
     }
   ];
 
-  let startY = 90;
+  let startY = 80;
   stepsPage2.forEach((step, idx) => {
-    const cardY = startY + idx * 148;
+    const cardY = startY + idx * 105;
 
     // Neo Card Box
-    drawNeoCard(30, cardY, W - 60, 134, step.bg, step.shadow, 8, 3);
+    drawNeoCard(30, cardY, W - 60, 96, step.bg, step.shadow, 8, 2.5);
 
     // Accent Stripe
-    doc.rect(30, cardY, 8, 134).fill(step.color);
+    doc.rect(30, cardY, 6, 96).fill(step.color);
 
     // Number Badge
-    drawNeoBadge(48, cardY + 14, 38, 28, step.num, step.color, '#ffffff', '#000000', 14);
+    drawNeoBadge(44, cardY + 10, 32, 22, step.num, step.color, '#ffffff', '#000000', 11);
 
     // Step Title
-    doc.fillColor('#000000').fontSize(13.5).font('Helvetica-Bold').text(step.title, 96, cardY + 18);
+    doc.fillColor('#000000').fontSize(12).font('Helvetica-Bold').text(step.title, 84, cardY + 12);
 
     // Badge Right
-    drawNeoBadge(W - 170, cardY + 14, 125, 22, step.badge, step.badgeBg, step.badgeText, '#000000', 8);
+    drawNeoBadge(W - 160, cardY + 10, 115, 18, step.badge, step.badgeBg, step.badgeText, '#000000', 7.5);
 
     // Step Body Text
-    doc.fillColor('#0f172a').fontSize(9.5).font('Helvetica-Bold').text(step.body, 96, cardY + 48, { width: W - 180, lineGap: 3 });
+    doc.fillColor('#0f172a').fontSize(8.5).font('Helvetica-Bold').text(step.body, 84, cardY + 36, { width: W - 170, lineGap: 2.5 });
+  });
+
+  // FAQ Section Block on Page 2
+  const faqY = startY + 4 * 105 + 5;
+  drawNeoCard(30, faqY, W - 60, 160, '#f8fafc', '#000000', 8, 2.5);
+  drawNeoBadge(42, faqY + 10, 240, 20, '❓ FREQUENTLY ASKED QUESTIONS (FAQ)', '#ffd200', '#000000', '#000000', 8.5);
+
+  const faqs = [
+    { q: 'Is real money involved?', a: 'No! 100% simulated educational game. All 20,000 IC points are virtual.' },
+    { q: 'How are winners decided?', a: 'Player with highest final IC wallet balance after 3 hours wins 1st place.' },
+    { q: 'Can I place Limit Orders?', a: 'Yes! Trade instantly at Market Price or set auto-executing Limit Orders.' },
+    { q: 'What happens in Final 5 Min?', a: 'Strict lockout occurs. All open shares auto-liquidate at market price.' }
+  ];
+
+  faqs.forEach((faq, i) => {
+    const col = i % 2;
+    const row = Math.floor(i / 2);
+    const boxX = 42 + col * (W / 2 - 25);
+    const boxY = faqY + 38 + row * 56;
+
+    drawNeoCard(boxX, boxY, W / 2 - 35, 50, '#ffffff', '#000000', 6, 1.5);
+    doc.fillColor('#000000').fontSize(8).font('Helvetica-Bold').text(`Q: ${faq.q}`, boxX + 8, boxY + 6, { width: W / 2 - 50 });
+    doc.fillColor('#334155').fontSize(7.5).font('Helvetica').text(faq.a, boxX + 8, boxY + 22, { width: W / 2 - 50 });
   });
 
   // Neo-Brutalist Call-To-Action Box on Page 2
-  const ctaY = startY + 4 * 148 - 4;
-  drawNeoCard(30, ctaY, W - 60, 84, '#000000', '#ff0055', 10, 3.5);
+  const ctaY = faqY + 172;
+  drawNeoCard(30, ctaY, W - 60, 68, '#000000', '#ff0055', 8, 3);
 
-  doc.fillColor('#ffd200').fontSize(14).font('Helvetica-Bold').text('READY TO DOMINATE THE MARKET?', 50, ctaY + 16);
-  doc.fillColor('#ffffff').fontSize(9).font('Helvetica-Bold').text('Register today for Equity Arena at SVKM\'s Shri Bhagubhai Mafatlal Polytechnic and claim your 20,000 IC.', 50, ctaY + 36, { width: W - 100 });
+  doc.fillColor('#ffd200').fontSize(12).font('Helvetica-Bold').text('READY TO DOMINATE THE MARKET?', 44, ctaY + 12);
+  doc.fillColor('#ffffff').fontSize(8.5).font('Helvetica-Bold').text('Register today for Equity Arena at SVKM\'s Shri Bhagubhai Mafatlal Polytechnic and claim your 20,000 IC.', 44, ctaY + 28, { width: W - 100 });
 
-  drawNeoBadge(50, ctaY + 54, 380, 20, 'REGISTER ONLINE: https://ignite-8.vercel.app/register-stock', '#00f3ff', '#000000', '#000000', 9);
+  drawNeoBadge(44, ctaY + 44, 380, 16, 'REGISTER ONLINE: https://ignite-8.vercel.app/register-stock', '#00f3ff', '#000000', '#000000', 8);
 
   // Footer Page 2
   drawFooter(2);
