@@ -2,7 +2,7 @@ import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } 
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import {
   Activity, ArrowRight, BarChart3, Check, ChevronDown, Coins, Compass, Copy, Crosshair, Download, ExternalLink,
-  Eye, FileText, Flame, Gauge, LineChart, Lock, MapPin, Menu, Moon, Navigation, Newspaper, Play, Printer, Radio,
+  Eye, FileText, Flame, Gauge, LineChart, Lock, MapPin, Menu, Moon, Navigation, Newspaper, Play, Radio,
   Shield, Sparkles, Sun, TrendingUp, Trophy, Users, Wallet, X, Zap
 } from 'lucide-react';
 import { HeroDeck } from '../components/landing/HeroDeck';
@@ -13,269 +13,9 @@ const REGISTER_URL = 'https://ignite-8.vercel.app/register-stock';
 
 
 
-
 /* ------------------------------------------------------------------ *
  * SVG Spiderweb Decorative & Transition Components
  * ------------------------------------------------------------------ */
-
-/** Official Game Brochure & Rulebook Modal (White Mode Theme with Spider-Man Artwork) */
-function BrochureModal({ onClose }) {
-  const BROCHURE_STEPS = [
-    {
-      num: '01',
-      title: 'REGISTER & GET 20,000 IC',
-      icon: Users,
-      color: '#e11d48',
-      badge: 'WELCOME BONUS',
-      description: 'Create your account and receive 20,000 free Ignite Points (IC) to start the game.'
-    },
-    {
-      num: '02',
-      title: 'START THE 3-HOUR GAME',
-      icon: Flame,
-      color: '#0284c7',
-      badge: 'LIVE ARENA',
-      description: 'The game runs for 3 hours. During the game, the prices of the 15 stocks keep changing.'
-    },
-    {
-      num: '03',
-      title: 'CHECK THE STOCKS',
-      icon: LineChart,
-      color: '#d97706',
-      badge: 'MARKET TELEMETRY',
-      description: 'Explore the 15 available stocks and check their price, graph and other details before making your move.'
-    },
-    {
-      num: '04',
-      title: 'FOLLOW THE MARKET NEWS',
-      icon: Newspaper,
-      color: '#059669',
-      badge: 'BREAKING NEWS',
-      description: 'New market news will appear during the game. The news can affect stock prices, so read the news and make your decisions carefully.'
-    },
-    {
-      num: '05',
-      title: 'BUY & SELL SHARES',
-      icon: TrendingUp,
-      color: '#2563eb',
-      badge: 'TRADING DESK',
-      description: 'Use your Ignite Points to buy and sell shares.',
-      subPoints: [
-        { label: 'Buy/Sell at Market Price', desc: 'Trade at the current stock price.' },
-        { label: 'Place a Limit Order', desc: 'Set the price at which you want to buy or sell. The order will be completed when the stock reaches your chosen price.' }
-      ]
-    },
-    {
-      num: '06',
-      title: 'MANAGE YOUR IC',
-      icon: Wallet,
-      color: '#7c3aed',
-      badge: 'PORTFOLIO CONTROL',
-      description: 'Keep track of your Ignite Points, shares and profit/loss. Use your points wisely and decide when to buy, hold or sell.'
-    },
-    {
-      num: '07',
-      title: 'FINAL 5 MINUTES',
-      icon: Lock,
-      color: '#dc2626',
-      badge: 'LOCKOUT WARNING',
-      description: 'When the game enters its last 5 minutes, no new trades can be placed. All the shares you still own will be automatically sold at the current market price.'
-    },
-    {
-      num: '08',
-      title: 'WIN THE GAME',
-      icon: Trophy,
-      color: '#ca8a04',
-      badge: 'VICTORY CHAMPION',
-      description: 'After the 3-hour game ends, the player with the highest amount of Ignite Points (IC) wins.'
-    }
-  ];
-
-  // Close on Escape key
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-950/80 backdrop-blur-md overflow-y-auto pointer-events-auto p-3 sm:p-6"
-    >
-      <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-blue-500/10 to-amber-500/10 blur-3xl pointer-events-none" />
-
-      <motion.div
-        initial={{ scale: 0.9, y: 20 }}
-        animate={{ scale: 1, y: 0 }}
-        exit={{ scale: 0.9, y: 20 }}
-        transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-        className="relative w-full max-w-[1040px] bg-white text-slate-900 border-4 border-slate-950 rounded-2xl sm:rounded-3xl p-4 sm:p-7 shadow-[10px_10px_0px_#e11d48,0_0_40px_rgba(2,132,199,0.2)] flex flex-col my-auto max-h-[92vh] overflow-hidden"
-      >
-        {/* Top Header Bar */}
-        <div className="flex items-center justify-between gap-3 pb-4 border-b-3 border-slate-950 shrink-0">
-          <div className="flex items-center gap-3 text-left">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#e11d48] text-white border-2 border-slate-950 shadow-[3px_3px_0px_#ffd200] shrink-0">
-              <FileText className="h-6 w-6" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="badge-neo bg-[#ffd200] text-slate-950 px-2 py-0.5 text-[9.5px] font-black uppercase shadow-[1.5px_1.5px_0px_#05070e]">
-                  IGNITE 8.0 • OFFICIAL GAME BROCHURE
-                </span>
-              </div>
-              <h2 className="font-display text-slate-950 text-lg sm:text-2xl font-black tracking-tight mt-0.5">
-                HOW TO PLAY <span className="text-[#e11d48]">EQUITY ARENA</span>
-              </h2>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <a
-              href="/Equity_Arena_Official_Brochure.pdf"
-              download="Equity_Arena_Official_Brochure.pdf"
-              className="btn-neo !px-4 !py-2.5 !text-[12px] font-extrabold flex items-center gap-1.5 shadow-[3px_3px_0px_#05070e] bg-[#ffd200] text-slate-950 hover:bg-amber-300"
-            >
-              <Download className="h-4 w-4" />
-              <span className="hidden sm:inline">DOWNLOAD PDF BROCHURE</span>
-              <span className="sm:hidden">PDF</span>
-            </a>
-
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 border-2 border-slate-950 shadow-[2.5px_2.5px_0px_#05070e] hover:bg-red-50 text-slate-950 hover:text-red-600 active:scale-95 transition-all cursor-pointer shrink-0"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
-
-        {/* Scrollable Content Body */}
-        <div className="overflow-y-auto py-5 pr-2 space-y-4 my-2 text-left custom-scrollbar">
-          {/* White Mode Hero Banner with Spider-Man Character Illustration */}
-          <div className="relative rounded-2xl bg-gradient-to-r from-red-50 via-slate-100 to-blue-50 border-3 border-slate-950 p-4 sm:p-6 shadow-[4px_4px_0px_#05070e] overflow-hidden">
-            {/* Hanging Spider-Man Character Illustration */}
-            <div className="absolute right-2 -top-2 w-28 sm:w-36 pointer-events-none opacity-90 hidden xs:block">
-              <img src="/images/spiderman_hanging.png" alt="Spider-Man Character" className="w-full h-auto drop-shadow-md" />
-            </div>
-
-            <div className="relative z-10 max-w-xl">
-              <span className="badge-neo bg-[#0f172a] text-white px-2.5 py-0.5 text-[9.5px] font-black tracking-widest uppercase">
-                SVKM'S SBMP &amp; ENGINEERING CAMPUS • VILE PARLE (WEST)
-              </span>
-              <h3 className="font-display text-slate-950 text-base sm:text-2xl font-black mt-2 leading-tight">
-                Master the 3-Hour Virtual Stock Trading Arena
-              </h3>
-              <p className="text-slate-700 text-xs sm:text-sm mt-1.5 font-medium leading-relaxed">
-                Follow these 8 official rules to trade 15 sector stocks, handle breaking market news shocks, and claim victory with 20,000 IC starting capital.
-              </p>
-              
-              <div className="mt-3 flex items-center gap-2">
-                <span className="badge-neo bg-[#e11d48] text-white px-2 py-0.5 text-[9px] font-black">
-                  ⚡ 20,000 IC FREE CAPITAL
-                </span>
-                <span className="badge-neo bg-[#0284c7] text-white px-2 py-0.5 text-[9px] font-black">
-                  ⏱️ 3-HOUR GAMEPLAY
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* 8-Step Grid Cards (White Mode Styling) */}
-          <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
-            {BROCHURE_STEPS.map((step) => {
-              const Icon = step.icon;
-              const isWarning = step.num === '07';
-              const isVictory = step.num === '08';
-
-              return (
-                <div
-                  key={step.num}
-                  className={`card-neo relative p-4 sm:p-5 border-3 border-slate-950 rounded-2xl flex flex-col justify-between shadow-[4px_4px_0px_#05070e] transition-all hover:-translate-y-0.5 ${
-                    isWarning
-                      ? 'bg-red-50/90 border-red-600'
-                      : isVictory
-                      ? 'bg-amber-50/90 border-amber-600'
-                      : 'bg-slate-50'
-                  }`}
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-3">
-                      <div className="flex items-center gap-2.5">
-                        <span
-                          className="flex h-9 w-9 items-center justify-center rounded-xl font-mono text-xs font-black border-2 border-slate-950 shadow-[2px_2px_0px_#000] text-white"
-                          style={{ backgroundColor: step.color }}
-                        >
-                          {step.num}
-                        </span>
-                        <div className="p-1.5 rounded-lg bg-white border border-slate-950 text-slate-950 shadow-sm">
-                          <Icon className="h-4 w-4" style={{ color: step.color }} />
-                        </div>
-                      </div>
-                      <span
-                        className="badge-neo !px-2 !py-0.5 !text-[8.5px] font-mono border border-slate-950"
-                        style={{
-                          backgroundColor: isWarning ? '#e11d48' : isVictory ? '#ffd200' : '#0f172a',
-                          color: isVictory ? '#0f172a' : '#ffffff'
-                        }}
-                      >
-                        {step.badge}
-                      </span>
-                    </div>
-
-                    <h4 className="font-display text-slate-950 text-sm sm:text-base font-black tracking-tight">
-                      {step.title}
-                    </h4>
-
-                    <p className="mt-2 font-mono text-xs text-slate-700 leading-relaxed font-medium">
-                      {step.description}
-                    </p>
-
-                    {step.subPoints && (
-                      <div className="mt-3 space-y-2 border-t-2 border-slate-200 pt-3">
-                        {step.subPoints.map((sub, i) => (
-                          <div key={i} className="p-2.5 rounded-xl bg-white border border-slate-950 shadow-sm text-left">
-                            <span className="block font-mono text-[11px] font-bold text-[#0284c7]">
-                              • {sub.label}
-                            </span>
-                            <span className="block font-mono text-[10.5px] text-slate-700 mt-0.5 font-medium">
-                              {sub.desc}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Footer Bar */}
-        <div className="pt-4 border-t-3 border-slate-950 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
-          <div className="text-left font-mono text-[10.5px] sm:text-xs text-slate-600 font-bold">
-            <span className="text-[#e11d48]">EQUITY ARENA SIMULATION</span> • 20,000 IC VIRTUAL STARTING CAPITAL
-          </div>
-          <div className="flex items-center gap-3 w-full sm:w-auto">
-            <a
-              href="/Equity_Arena_Official_Brochure.pdf"
-              download="Equity_Arena_Official_Brochure.pdf"
-              className="btn-neo w-full sm:w-auto !px-5 !py-2.5 !text-[12px] font-extrabold bg-[#ffd200] text-slate-950 hover:bg-amber-300 flex items-center justify-center gap-2 shadow-[3px_3px_0px_#05070e]"
-            >
-              <Download className="h-4 w-4" /> DOWNLOAD OFFICIAL PDF BROCHURE
-            </a>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
 
 /** Regulatory Disclaimer Modal Popup on first visit */
 function DisclaimerModal({ onClose }) {
@@ -1042,7 +782,7 @@ function SectionTag({ icon: Icon, children }) {
 /* ------------------------------------------------------------------ *
  * Navbar
  * ------------------------------------------------------------------ */
-function Navbar({ onRegisterClick, onTrackerClick, onBrochureClick, theme, onToggleTheme }) {
+function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -1074,7 +814,7 @@ function Navbar({ onRegisterClick, onTrackerClick, onBrochureClick, theme, onTog
           </span>
         </a>
 
-        <nav className="hidden items-center gap-6 lg:gap-8 md:flex">
+        <nav className="hidden items-center gap-7 lg:gap-8 md:flex">
           <a
             href="#home"
             className="relative text-[12.5px] font-bold uppercase font-mono tracking-wide text-slate-800 dark:text-slate-200 transition-all hover:text-red-600 dark:hover:text-red-500 after:absolute after:bottom-[-6px] after:left-0 after:h-[2.5px] after:w-full after:scale-x-0 after:bg-gradient-to-r after:from-[#ff0055] after:to-[#0284c7] after:transition-transform after:duration-250 hover:after:scale-x-100"
@@ -1093,16 +833,6 @@ function Navbar({ onRegisterClick, onTrackerClick, onBrochureClick, theme, onTog
           >
             Rules & Onboarding
           </a>
-
-          {/* Official Brochure Button */}
-          <button
-            type="button"
-            onClick={onBrochureClick}
-            className="relative text-[12px] font-bold uppercase font-mono tracking-wide text-slate-950 dark:text-white transition-all hover:scale-105 flex items-center gap-1.5 px-2.5 py-1 rounded-md border-2 border-slate-950 bg-[#ffd200] shadow-[2px_2px_0px_#05070e] cursor-pointer"
-          >
-            <FileText className="h-3.5 w-3.5 text-slate-950" />
-            <span>Brochure (PDF)</span>
-          </button>
 
           {/* Spidey Tracker Nav Trigger */}
           <button
@@ -1134,6 +864,16 @@ function Navbar({ onRegisterClick, onTrackerClick, onBrochureClick, theme, onTog
               <Moon className="h-4.5 w-4.5 text-slate-800 transition-transform duration-300 group-hover:-rotate-12" />
             )}
           </button>
+
+          <a
+            href="/Equity_Arena_Official_Brochure.pdf"
+            download="Equity_Arena_Official_Brochure.pdf"
+            className="btn-neo !px-3.5 !py-2.5 !text-[12px] font-mono font-black bg-[#ffd200] text-slate-950 hover:bg-amber-300 flex items-center gap-1.5 shadow-[2px_2px_0px_#05070e]"
+            title="Download Official Equity Arena Game Brochure (PDF)"
+          >
+            <FileText className="h-4 w-4 text-slate-950" />
+            <span>Brochure (PDF)</span>
+          </a>
 
           <a
             href={REGISTER_URL}
@@ -1236,6 +976,19 @@ function Navbar({ onRegisterClick, onTrackerClick, onBrochureClick, theme, onTog
                 <ArrowRight className="h-4 w-4 text-slate-400" />
               </a>
 
+              <a
+                href="/Equity_Arena_Official_Brochure.pdf"
+                download="Equity_Arena_Official_Brochure.pdf"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-between border-2 border-slate-950 bg-[#ffd200] px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#ff0055]"
+              >
+                <div className="flex items-center gap-2">
+                  <FileText className="h-4 w-4 text-slate-950" />
+                  <span>Download Brochure (PDF)</span>
+                </div>
+                <Download className="h-4 w-4 text-slate-950" />
+              </a>
+
               {/* Mobile Spidey Tracker Button */}
               <button
                 type="button"
@@ -1289,7 +1042,7 @@ const HERO_FEATURES = [
   { icon: BarChart3, title: 'Market Depth', sub: 'Real-time index matrix' }
 ];
 
-const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick, onTrackerClick, onBrochureClick }, ref) => {
+const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick, onTrackerClick }, ref) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
@@ -1391,15 +1144,6 @@ const Hero = forwardRef(({ stocks, index, isLive, onRegisterClick, onTrackerClic
             >
               Register Now <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
-
-            <button
-              type="button"
-              onClick={onBrochureClick}
-              className="card-neo flex items-center justify-center gap-2 px-4 sm:px-5 py-3.5 sm:py-4 bg-[#ffd200] text-slate-950 border-3 border-slate-950 shadow-[4px_4px_0px_#05070e] hover:bg-amber-300 transition-all group active:translate-x-[1px] active:translate-y-[1px] rounded-xl cursor-pointer w-full sm:w-auto font-mono text-[12.5px] sm:text-[13.5px] font-black uppercase tracking-tight"
-            >
-              <FileText className="h-4 w-4 text-slate-950" />
-              <span>OFFICIAL BROCHURE (PDF)</span>
-            </button>
 
             <button
               type="button"
@@ -1691,62 +1435,34 @@ const STEPS = [
   {
     n: '01',
     icon: Users,
-    title: 'Register & Get 20,000 IC',
-    body: 'Create your account and receive 20,000 free Ignite Points (IC) to start the game.',
-    badge: 'START'
+    title: 'Register Your Account',
+    body: 'Create your trader profile on Equity Arena in seconds. No KYC or banking details required.',
+    sound: 'THWIP!'
   },
   {
     n: '02',
-    icon: Flame,
-    title: 'Start the 3-Hour Game',
-    body: 'The game runs for 3 hours. During the game, prices of the 15 stocks keep changing in real-time.',
-    badge: 'LIVE'
+    icon: Coins,
+    title: 'Receive 20,000 IC',
+    body: 'Instant credit of 20,000 virtual Ignite Coins directly to your trading wallet.',
+    sound: 'BZZZT!'
   },
   {
     n: '03',
-    icon: LineChart,
-    title: 'Check the Stocks',
-    body: 'Explore 15 dynamic stocks and check their live prices, trend graphs, and sector details.',
-    badge: 'STOCKS'
+    icon: Activity,
+    title: 'Track the Live Market',
+    body: 'Monitor real-time prices across 15 high-volatility sector stocks on the live dashboard.',
+    sound: 'SWING!'
   },
   {
     n: '04',
-    icon: Newspaper,
-    title: 'Follow Market News',
-    body: 'New breaking market news will appear during the game. Read carefully as news impacts prices!',
-    badge: 'NEWS'
-  },
-  {
-    n: '05',
-    icon: TrendingUp,
-    title: 'Buy & Sell Shares',
-    body: 'Trade at Market Price or set Limit Orders. Orders execute automatically when price is reached.',
-    badge: 'TRADING'
-  },
-  {
-    n: '06',
-    icon: Wallet,
-    title: 'Manage Your IC',
-    body: 'Keep track of your Ignite Points, holdings, and P&L. Decide wisely when to buy, hold or sell.',
-    badge: 'WALLET'
-  },
-  {
-    n: '07',
-    icon: Lock,
-    title: 'Final 5 Minutes Lockout',
-    body: 'In the last 5 minutes, trading stops. All remaining shares are automatically sold at market price.',
-    badge: 'LOCKOUT'
-  },
-  {
-    n: '08',
-    icon: Trophy,
-    title: 'Win the Game',
-    body: 'After the 3-hour arena ends, the player with the highest IC balance wins the championship!',
-    badge: 'VICTORY'
+    icon: Zap,
+    title: 'Place Orders & Climb',
+    body: 'Execute market buys and sells instantly. Climb the global trader leaderboard.',
+    sound: 'BOOM!'
   }
 ];
 
-const About = forwardRef(({ onBrochureClick }, ref) => {
+const About = forwardRef((props, ref) => {
   return (
     <section ref={ref} id="about" data-gsap="section" className="relative border-t-3 border-slate-950 py-20 sm:py-28 bg-slate-50 dark:bg-[#0c1222] overflow-hidden">
       {/* Comic Book popups scoped to About section */}
@@ -1756,67 +1472,51 @@ const About = forwardRef(({ onBrochureClick }, ref) => {
       <div id="gsap-comic-boom" className="pointer-events-none absolute left-[82%] top-[32%] opacity-0 scale-0 z-30 bg-red-600 border-4 border-black text-white font-extrabold uppercase px-7 py-2 rounded-lg text-2xl rotate-12 shadow-[6px_6px_0px_#000] font-mono hidden sm:block">BOOM!</div>
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
-        <div data-gsap="heading" className="mx-auto max-w-[680px] text-center">
-          <SectionTag icon={Gauge}>Official Gameplay Guide</SectionTag>
+        <div data-gsap="heading" className="mx-auto max-w-[620px] text-center">
+          <SectionTag icon={Gauge}>Execution Workflow</SectionTag>
           <h2 className="font-display mt-4 sm:mt-5 text-[clamp(1.95rem,5.5vw,3.1rem)] font-black leading-[1.05] tracking-[-0.025em] text-slate-950 dark:text-white">
-            How to play
-            <span className="text-gradient-spidey"> Equity Arena</span> in 8 steps.
+            From setup to
+            <span className="text-gradient-spidey"> first fill</span> in seconds.
           </h2>
-          <p className="mt-3 font-mono text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-bold">
-            Read the rules below or download the official PDF brochure to take it on the go.
-          </p>
         </div>
 
         <div className="stage-3d relative mt-12 sm:mt-16 grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-4">
           <div id="gsap-about-line" className="pointer-events-none absolute left-0 right-0 top-[52px] hidden h-[3px] bg-gradient-to-r from-red-600 via-red-500 to-blue-600 shadow-md lg:block origin-left scale-x-0" />
 
-          {STEPS.map(({ n, icon: Icon, title, body, badge }) => (
+          {STEPS.map(({ n, icon: Icon, title, body, sound }) => (
             <div
               key={n}
               data-gsap="step-card"
-              className="card-neo layer-3d group relative p-5 sm:p-6 text-center bg-white dark:bg-[#131c30] border-3 border-slate-950 flex flex-col justify-between"
+              className="card-neo layer-3d group relative p-5 sm:p-6 text-center bg-white dark:bg-[#131c30] border-3 border-slate-950"
             >
-              <div>
-                {/* Step Badge */}
-                <div className="absolute top-2.5 right-2.5">
-                  <span className="badge-neo !px-1.5 !py-0.5 !text-[8.5px] bg-[#ffd200] text-slate-950 font-black">
-                    {badge}
-                  </span>
-                </div>
-
-                <span className="relative mx-auto flex h-13 w-13 sm:h-14 sm:w-14 items-center justify-center rounded-2xl border-2 border-slate-950 bg-slate-100 dark:bg-slate-800 shadow-[3px_3px_0px_#05070e] transition-transform duration-300 group-hover:scale-110">
-                  <Icon className="h-6 w-6 text-red-600" strokeWidth={1.8} />
-                  <span className="absolute -right-1.5 -top-1.5 flex h-5.5 w-5.5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-slate-950 font-mono text-[9.5px] sm:text-[10px] font-bold text-white shadow-md">
-                    {n}
-                  </span>
+              {/* Mobile Comic Sound badge */}
+              <div className="absolute top-2.5 right-2.5 sm:hidden">
+                <span className="badge-neo !px-1.5 !py-0.5 !text-[8.5px] bg-[#ffd200] text-slate-950 font-black">
+                  {sound}
                 </span>
-
-                <h3 className="font-display mt-4 sm:mt-5 text-[15px] sm:text-[16px] font-bold tracking-tight text-slate-950 dark:text-white">{title}</h3>
-                <p className="mt-2 text-[12.5px] sm:text-[13px] leading-relaxed text-slate-700 dark:text-slate-300 font-medium">{body}</p>
               </div>
+
+              <span className="relative mx-auto flex h-13 w-13 sm:h-14 sm:w-14 items-center justify-center rounded-2xl border-2 border-slate-950 bg-slate-100 dark:bg-slate-800 shadow-[3px_3px_0px_#05070e] transition-transform duration-300 group-hover:scale-110">
+                <Icon className="h-6 w-6 text-red-600" strokeWidth={1.8} />
+                <span className="absolute -right-1.5 -top-1.5 flex h-5.5 w-5.5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-slate-950 font-mono text-[9.5px] sm:text-[10px] font-bold text-white shadow-md">
+                  {n}
+                </span>
+              </span>
+
+              <h3 className="font-display mt-4 sm:mt-5 text-[16px] sm:text-[17px] font-bold tracking-tight text-slate-950 dark:text-white">{title}</h3>
+              <p className="mt-2 text-[13px] sm:text-[13.5px] leading-relaxed text-slate-700 dark:text-slate-300 font-medium">{body}</p>
             </div>
           ))}
         </div>
 
-        {/* Brochure Download Action Box in About Section */}
-        <div className="mt-12 sm:mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 text-center max-w-2xl mx-auto">
-          <button
-            type="button"
-            onClick={onBrochureClick}
-            className="btn-neo w-full sm:w-auto px-6 py-3.5 text-[13px] sm:text-[14px] font-extrabold bg-[#ffd200] text-slate-950 hover:bg-amber-300 flex items-center justify-center gap-2 shadow-[4px_4px_0px_#05070e] cursor-pointer"
-          >
-            <FileText className="h-4.5 w-4.5 text-slate-950" />
-            <span>VIEW OFFICIAL BROCHURE MODAL</span>
-          </button>
-          
-          <a
-            href="/Equity_Arena_Official_Brochure.pdf"
-            download="Equity_Arena_Official_Brochure.pdf"
-            className="card-neo w-full sm:w-auto px-5 py-3 text-[12.5px] font-mono font-black text-slate-950 dark:text-white bg-white dark:bg-[#131c30] border-2 border-slate-950 flex items-center justify-center gap-2 shadow-[3px_3px_0px_#00f3ff] hover:bg-cyan-50 dark:hover:bg-cyan-950/40"
-          >
-            <Download className="h-4 w-4 text-[#00f3ff]" />
-            <span>DOWNLOAD PDF BROCHURE FILE</span>
-          </a>
+        {/* Onboarding Progress Caption */}
+        <div className="mt-12 sm:mt-16 text-center max-w-xl mx-auto">
+          <div className="relative rounded-2xl border-3 border-slate-950 bg-white dark:bg-[#10172a] px-4 sm:px-6 py-3.5 sm:py-4 shadow-[4px_4px_0px_#05070e] overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-red-600/5 via-transparent to-blue-600/5" />
+            <p id="gsap-about-story" className="font-mono text-[12px] sm:text-[13px] font-bold text-red-600 dark:text-red-400 tracking-wide transition-all duration-300">
+              STATUS FEED: Scroll to monitor your onboarding progress...
+            </p>
+          </div>
         </div>
 
       </div>
@@ -1875,7 +1575,7 @@ function FinalCTA({ onRegisterClick }) {
 /* ------------------------------------------------------------------ *
  * Footer — Spider-Man Exchange Footer
  * ------------------------------------------------------------------ */
-function Footer({ stocks, onRegisterClick, onBrochureClick }) {
+function Footer({ stocks, onRegisterClick }) {
   return (
     <footer className="relative border-t-3 border-slate-950 bg-slate-100 dark:bg-[#090e1b] py-14 text-slate-700 dark:text-slate-400">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
@@ -1903,7 +1603,6 @@ function Footer({ stocks, onRegisterClick, onBrochureClick }) {
               <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-950 dark:text-white">Resources</h4>
               <ul className="mt-3 space-y-2 text-[13px] font-semibold">
                 <li><a href="#about" className="hover:text-red-600 dark:hover:text-red-400 transition-colors">Rules & Onboarding</a></li>
-                <li><button type="button" onClick={onBrochureClick} className="hover:text-red-600 dark:hover:text-red-400 transition-colors text-left cursor-pointer">Official Brochure (PDF)</button></li>
                 <li><a href={REGISTER_URL} onClick={onRegisterClick} className="hover:text-red-600 dark:hover:text-red-400 transition-colors">Register Account</a></li>
               </ul>
             </div>
@@ -1982,33 +1681,40 @@ function SpideyCursor() {
         gsap.to(trailingRef.current, {
           x: e.clientX,
           y: e.clientY,
-          duration: 0.35,
-          ease: 'power2.out',
-          overwrite: 'auto'
+          duration: 0.15,
+          ease: 'power2.out'
         });
       }
     };
 
-    const handleMouseOver = (e) => {
-      const target = e.target;
-      if (
-        target.tagName === 'A' ||
-        target.tagName === 'BUTTON' ||
-        target.closest('a') ||
-        target.closest('button') ||
-        target.classList.contains('card-neo')
-      ) {
-        setIsHoveringInteractive(true);
-      } else {
-        setIsHoveringInteractive(false);
-      }
+    const handleMouseEnterInteractive = () => setIsHoveringInteractive(true);
+    const handleMouseLeaveInteractive = () => setIsHoveringInteractive(false);
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    // Attach listeners to all interactive elements in the viewport
+    const attachListeners = () => {
+      const elements = document.querySelectorAll('a, button, [role="button"], .btn-neo, .card-neo');
+      elements.forEach(el => {
+        el.addEventListener('mouseenter', handleMouseEnterInteractive);
+        el.addEventListener('mouseleave', handleMouseLeaveInteractive);
+      });
     };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('mouseover', handleMouseOver, { passive: true });
+    attachListeners();
+
+    // Observe changes to the DOM to cover dynamically loaded elements
+    const observer = new MutationObserver(attachListeners);
+    observer.observe(document.body, { childList: true, subtree: true });
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseover', handleMouseOver);
+      observer.disconnect();
+      const elements = document.querySelectorAll('a, button, [role="button"], .btn-neo, .card-neo');
+      elements.forEach(el => {
+        el.removeEventListener('mouseenter', handleMouseEnterInteractive);
+        el.removeEventListener('mouseleave', handleMouseLeaveInteractive);
+      });
     };
   }, []);
 
@@ -2016,11 +1722,69 @@ function SpideyCursor() {
     <>
       <div
         ref={dotRef}
-        className={`fixed top-0 left-0 w-2.5 h-2.5 rounded-full pointer-events-none z-[999999] ml-[-5px] mt-[-5px] transition-transform duration-75 hidden lg:block ${
-          isHoveringInteractive ? 'bg-[#ffd200] scale-150 shadow-[0_0_12px_#ffd200]' : 'bg-[#ff0055] shadow-[0_0_8px_#ff0055]'
-        }`}
+        className="fixed top-0 left-0 pointer-events-none z-[999999] ml-[-55px] mt-[-55px] hidden lg:block"
         style={{ transform: 'translate3d(-100px, -100px, 0)', willChange: 'transform' }}
-      />
+      >
+        <div className="relative w-[110px] h-[110px] flex items-center justify-center">
+          {/* Spidey mask & radiating squiggles in one single 110x110 canvas */}
+          <svg width="110" height="110" viewBox="0 0 100 100" fill="none" className="overflow-visible select-none">
+            {/* RADIATING SPIDEY-SENSE COMIC SQUIGGLES (Only render when hovering interactive elements) */}
+            <AnimatePresence>
+              {isHoveringInteractive && (
+                <motion.g
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.15 }}
+                  className="stroke-slate-900 dark:stroke-yellow-400 stroke-[2] stroke-linecap-round filter drop-shadow-[0_0_3px_rgba(0,0,0,0.3)] animate-spidey-sense-tingle"
+                >
+                  {/* Fewer Clean Radiating Waves */}
+                  <path d="M 50 28 Q 47 22 52 16 T 50 8" />
+                  <path d="M 43 29 Q 38 23 41 17 T 36 10" />
+                  <path d="M 57 29 Q 62 23 59 17 T 64 10" />
+                  <path d="M 31 39 Q 22 36 26 30 T 17 23" />
+                  <path d="M 69 39 Q 78 36 74 30 T 83 23" />
+                  <path d="M 28 47 Q 18 46 21 40 T 11 35" />
+                  <path d="M 72 47 Q 82 46 79 40 T 89 35" />
+                </motion.g>
+              )}
+            </AnimatePresence>
+
+            {/* Spidey Mask centered at (50, 50) */}
+            <g transform="translate(33, 33)">
+              {/* Spidey Mask Red Outer Base */}
+              <path
+                d="M17 2C24.5 2 29 7.5 29 15C29 22.5 22.5 29.5 17 32C11.5 29.5 5 22.5 5 15C5 7.5 9.5 2 17 2Z"
+                fill="#ff0055"
+                stroke="#05070e"
+                strokeWidth="2.5"
+              />
+              {/* Web Lines on Mask */}
+              <path d="M17 2V32" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+              <path d="M5 15H29" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+              <path d="M8 8C12 11 22 11 26 8" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+              <path d="M8 22C12 19 22 19 26 22" stroke="#05070e" strokeWidth="1" opacity="0.6" />
+
+              {/* Left Spidey Eye */}
+              <path
+                d="M7 14C8.5 10.5 12.5 9.5 14.5 12.5C15 13.5 14 17 11 18.5C8 20 7.5 17.5 7 14Z"
+                fill="white"
+                stroke="#05070e"
+                strokeWidth="2.5"
+                strokeLinejoin="round"
+              />
+              {/* Right Spidey Eye */}
+              <path
+                d="M27 14C25.5 10.5 21.5 9.5 19.5 12.5C19 13.5 20 17 23 18.5C26 20 26.5 17.5 27 14Z"
+                fill="white"
+                stroke="#05070e"
+                strokeWidth="2.5"
+                strokeLinejoin="round"
+              />
+            </g>
+          </svg>
+        </div>
+      </div>
       <div
         ref={trailingRef}
         className="fixed top-0 left-0 w-6 h-6 border-2 border-[#0284c7] rounded-full pointer-events-none z-[999998] ml-[-12px] mt-[-12px] opacity-60 shadow-[0_0_6px_rgba(2,132,199,0.4)] hidden lg:block"
@@ -2038,7 +1802,6 @@ export function Landing() {
   const index = useArenaIndex(stocks);
   const [isSlingingWeb, setIsSlingingWeb] = useState(false);
   const [isTrackerOpen, setIsTrackerOpen] = useState(false);
-  const [isBrochureOpen, setIsBrochureOpen] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(() => {
     try {
       const stored = localStorage.getItem('ea_disclaimer_accepted');
@@ -2133,11 +1896,6 @@ export function Landing() {
         {isTrackerOpen && <SpideyTrackerModal onClose={() => setIsTrackerOpen(false)} />}
       </AnimatePresence>
 
-      {/* Official Game Brochure & Rulebook Modal */}
-      <AnimatePresence>
-        {isBrochureOpen && <BrochureModal onClose={() => setIsBrochureOpen(false)} />}
-      </AnimatePresence>
-
       {/* Regulatory Disclaimer Modal Popup */}
       <AnimatePresence>
         {showDisclaimer && <DisclaimerModal onClose={handleAcceptDisclaimer} />}
@@ -2165,7 +1923,6 @@ export function Landing() {
       <Navbar
         onRegisterClick={handleRegisterClick}
         onTrackerClick={() => setIsTrackerOpen(true)}
-        onBrochureClick={() => setIsBrochureOpen(true)}
         theme={theme}
         onToggleTheme={toggleTheme}
       />
@@ -2177,15 +1934,14 @@ export function Landing() {
           isLive={isLive}
           onRegisterClick={handleRegisterClick}
           onTrackerClick={() => setIsTrackerOpen(true)}
-          onBrochureClick={() => setIsBrochureOpen(true)}
         />
         <TickerTape stocks={stocks} />
 
-        <About ref={aboutRef} onBrochureClick={() => setIsBrochureOpen(true)} />
+        <About ref={aboutRef} />
         <Features ref={featuresRef} />
         <FinalCTA onRegisterClick={handleRegisterClick} />
       </main>
-      <Footer stocks={stocks} onRegisterClick={handleRegisterClick} onBrochureClick={() => setIsBrochureOpen(true)} />
+      <Footer stocks={stocks} onRegisterClick={handleRegisterClick} />
 
       {/* Sticky Mobile Bottom HUD Bar — Ultra-slick Phone Floating Controls */}
       <div className="fixed bottom-3 inset-x-3 z-40 sm:hidden">
@@ -2198,15 +1954,6 @@ export function Landing() {
             </div>
           </div>
           <div className="flex items-center gap-1.5">
-            <button
-              type="button"
-              onClick={() => setIsBrochureOpen(true)}
-              className="flex h-8 items-center gap-1 px-2.5 rounded-lg border-2 border-slate-950 bg-[#ffd200] text-slate-950 font-mono text-[10px] font-black shadow-[1.5px_1.5px_0px_#05070e] cursor-pointer"
-              title="Official Brochure"
-            >
-              <FileText className="h-3.5 w-3.5" />
-              <span>GUIDE</span>
-            </button>
             <button
               type="button"
               onClick={() => setIsTrackerOpen(true)}
