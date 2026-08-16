@@ -866,13 +866,12 @@ function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
           </button>
 
           <a
-            href="/Equity_Arena_Official_Brochure.pdf"
-            download="Equity_Arena_Official_Brochure.pdf"
+            href="/brochure"
             className="btn-neo !px-3.5 !py-2.5 !text-[12px] font-mono font-black bg-[#ffd200] text-slate-950 hover:bg-amber-300 flex items-center gap-1.5 shadow-[2px_2px_0px_#05070e]"
-            title="Download Official Equity Arena Game Brochure (PDF)"
+            title="View & Print Official Equity Arena Brochure Webpage"
           >
             <FileText className="h-4 w-4 text-slate-950" />
-            <span>Brochure (PDF)</span>
+            <span>Brochure (Page / Print)</span>
           </a>
 
           <a
@@ -977,16 +976,15 @@ function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
               </a>
 
               <a
-                href="/Equity_Arena_Official_Brochure.pdf"
-                download="Equity_Arena_Official_Brochure.pdf"
+                href="/brochure"
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center justify-between border-2 border-slate-950 bg-[#ffd200] px-4 py-3 rounded-lg shadow-[2px_2px_0px_#05070e] text-sm font-mono font-black text-slate-950 transition-all active:translate-x-[1px] active:translate-y-[1px] border-l-4 border-l-[#ff0055]"
               >
                 <div className="flex items-center gap-2">
                   <FileText className="h-4 w-4 text-slate-950" />
-                  <span>Download Brochure (PDF)</span>
+                  <span>Brochure Page & Print</span>
                 </div>
-                <Download className="h-4 w-4 text-slate-950" />
+                <Printer className="h-4 w-4 text-slate-950" />
               </a>
 
               {/* Mobile Spidey Tracker Button */}
