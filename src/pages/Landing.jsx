@@ -18,14 +18,14 @@ const REGISTER_URL = 'https://ignite-8.vercel.app/register-stock';
  * SVG Spiderweb Decorative & Transition Components
  * ------------------------------------------------------------------ */
 
-/** Official Game Brochure & Rulebook Modal */
+/** Official Game Brochure & Rulebook Modal (White Mode Theme with Spider-Man Artwork) */
 function BrochureModal({ onClose }) {
   const BROCHURE_STEPS = [
     {
       num: '01',
       title: 'REGISTER & GET 20,000 IC',
       icon: Users,
-      color: '#ff0055',
+      color: '#e11d48',
       badge: 'WELCOME BONUS',
       description: 'Create your account and receive 20,000 free Ignite Points (IC) to start the game.'
     },
@@ -33,7 +33,7 @@ function BrochureModal({ onClose }) {
       num: '02',
       title: 'START THE 3-HOUR GAME',
       icon: Flame,
-      color: '#00f3ff',
+      color: '#0284c7',
       badge: 'LIVE ARENA',
       description: 'The game runs for 3 hours. During the game, the prices of the 15 stocks keep changing.'
     },
@@ -41,7 +41,7 @@ function BrochureModal({ onClose }) {
       num: '03',
       title: 'CHECK THE STOCKS',
       icon: LineChart,
-      color: '#ffd200',
+      color: '#d97706',
       badge: 'MARKET TELEMETRY',
       description: 'Explore the 15 available stocks and check their price, graph and other details before making your move.'
     },
@@ -49,7 +49,7 @@ function BrochureModal({ onClose }) {
       num: '04',
       title: 'FOLLOW THE MARKET NEWS',
       icon: Newspaper,
-      color: '#10b981',
+      color: '#059669',
       badge: 'BREAKING NEWS',
       description: 'New market news will appear during the game. The news can affect stock prices, so read the news and make your decisions carefully.'
     },
@@ -57,7 +57,7 @@ function BrochureModal({ onClose }) {
       num: '05',
       title: 'BUY & SELL SHARES',
       icon: TrendingUp,
-      color: '#3b82f6',
+      color: '#2563eb',
       badge: 'TRADING DESK',
       description: 'Use your Ignite Points to buy and sell shares.',
       subPoints: [
@@ -69,7 +69,7 @@ function BrochureModal({ onClose }) {
       num: '06',
       title: 'MANAGE YOUR IC',
       icon: Wallet,
-      color: '#8b5cf6',
+      color: '#7c3aed',
       badge: 'PORTFOLIO CONTROL',
       description: 'Keep track of your Ignite Points, shares and profit/loss. Use your points wisely and decide when to buy, hold or sell.'
     },
@@ -77,7 +77,7 @@ function BrochureModal({ onClose }) {
       num: '07',
       title: 'FINAL 5 MINUTES',
       icon: Lock,
-      color: '#ff0055',
+      color: '#dc2626',
       badge: 'LOCKOUT WARNING',
       description: 'When the game enters its last 5 minutes, no new trades can be placed. All the shares you still own will be automatically sold at the current market price.'
     },
@@ -85,7 +85,7 @@ function BrochureModal({ onClose }) {
       num: '08',
       title: 'WIN THE GAME',
       icon: Trophy,
-      color: '#ffd200',
+      color: '#ca8a04',
       badge: 'VICTORY CHAMPION',
       description: 'After the 3-hour game ends, the player with the highest amount of Ignite Points (IC) wins.'
     }
@@ -105,21 +105,21 @@ function BrochureModal({ onClose }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-950/90 backdrop-blur-xl overflow-y-auto pointer-events-auto p-3 sm:p-6"
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-950/80 backdrop-blur-md overflow-y-auto pointer-events-auto p-3 sm:p-6"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-600/20 via-blue-600/10 to-transparent blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-blue-500/10 to-amber-500/10 blur-3xl pointer-events-none" />
 
       <motion.div
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20 }}
         transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-        className="relative w-full max-w-[1040px] bg-slate-900 dark:bg-[#0c1222] border-4 border-slate-950 rounded-2xl sm:rounded-3xl p-4 sm:p-7 shadow-[10px_10px_0px_#ff0055,0_0_40px_rgba(0,243,255,0.3)] flex flex-col my-auto max-h-[92vh] overflow-hidden"
+        className="relative w-full max-w-[1040px] bg-white text-slate-900 border-4 border-slate-950 rounded-2xl sm:rounded-3xl p-4 sm:p-7 shadow-[10px_10px_0px_#e11d48,0_0_40px_rgba(2,132,199,0.2)] flex flex-col my-auto max-h-[92vh] overflow-hidden"
       >
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between gap-3 pb-4 border-b-2 border-slate-800 shrink-0">
+        <div className="flex items-center justify-between gap-3 pb-4 border-b-3 border-slate-950 shrink-0">
           <div className="flex items-center gap-3 text-left">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#ff0055] text-white border-2 border-slate-950 shadow-[3px_3px_0px_#ffd200] shrink-0">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#e11d48] text-white border-2 border-slate-950 shadow-[3px_3px_0px_#ffd200] shrink-0">
               <FileText className="h-6 w-6" />
             </div>
             <div>
@@ -128,8 +128,8 @@ function BrochureModal({ onClose }) {
                   IGNITE 8.0 • OFFICIAL GAME BROCHURE
                 </span>
               </div>
-              <h2 className="font-display text-white text-lg sm:text-2xl font-black tracking-tight mt-0.5">
-                HOW TO PLAY <span className="text-[#00f3ff]">EQUITY ARENA</span>
+              <h2 className="font-display text-slate-950 text-lg sm:text-2xl font-black tracking-tight mt-0.5">
+                HOW TO PLAY <span className="text-[#e11d48]">EQUITY ARENA</span>
               </h2>
             </div>
           </div>
@@ -138,7 +138,7 @@ function BrochureModal({ onClose }) {
             <a
               href="/Equity_Arena_Official_Brochure.pdf"
               download="Equity_Arena_Official_Brochure.pdf"
-              className="btn-neo !px-4 !py-2.5 !text-[12px] font-extrabold flex items-center gap-1.5 shadow-[3px_3px_0px_#00f3ff] bg-[#ffd200] text-slate-950 hover:bg-amber-300"
+              className="btn-neo !px-4 !py-2.5 !text-[12px] font-extrabold flex items-center gap-1.5 shadow-[3px_3px_0px_#05070e] bg-[#ffd200] text-slate-950 hover:bg-amber-300"
             >
               <Download className="h-4 w-4" />
               <span className="hidden sm:inline">DOWNLOAD PDF BROCHURE</span>
@@ -148,7 +148,7 @@ function BrochureModal({ onClose }) {
             <button
               type="button"
               onClick={onClose}
-              className="flex h-10 w-10 items-center justify-center rounded-xl bg-white border-2 border-slate-950 shadow-[2.5px_2.5px_0px_#05070e] hover:bg-red-50 text-slate-950 hover:text-red-600 active:scale-95 transition-all cursor-pointer shrink-0"
+              className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 border-2 border-slate-950 shadow-[2.5px_2.5px_0px_#05070e] hover:bg-red-50 text-slate-950 hover:text-red-600 active:scale-95 transition-all cursor-pointer shrink-0"
             >
               <X className="h-5 w-5" />
             </button>
@@ -157,76 +157,93 @@ function BrochureModal({ onClose }) {
 
         {/* Scrollable Content Body */}
         <div className="overflow-y-auto py-5 pr-2 space-y-4 my-2 text-left custom-scrollbar">
-          {/* Header Banner Inside Modal */}
-          <div className="relative rounded-2xl bg-gradient-to-r from-[#071326] via-[#101c36] to-[#071326] border-3 border-slate-950 p-4 sm:p-5 shadow-[4px_4px_0px_#05070e] overflow-hidden">
-            <div className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none">
-              <FileText className="w-48 h-48 text-[#00f3ff]" />
+          {/* White Mode Hero Banner with Spider-Man Character Illustration */}
+          <div className="relative rounded-2xl bg-gradient-to-r from-red-50 via-slate-100 to-blue-50 border-3 border-slate-950 p-4 sm:p-6 shadow-[4px_4px_0px_#05070e] overflow-hidden">
+            {/* Hanging Spider-Man Character Illustration */}
+            <div className="absolute right-2 -top-2 w-28 sm:w-36 pointer-events-none opacity-90 hidden xs:block">
+              <img src="/images/spiderman_hanging.png" alt="Spider-Man Character" className="w-full h-auto drop-shadow-md" />
             </div>
-            <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <span className="text-cyan-400 font-mono text-[11px] font-bold tracking-widest uppercase">
-                  SVKM'S SBMP &amp; ENGINEERING CAMPUS • VILE PARLE (WEST)
+
+            <div className="relative z-10 max-w-xl">
+              <span className="badge-neo bg-[#0f172a] text-white px-2.5 py-0.5 text-[9.5px] font-black tracking-widest uppercase">
+                SVKM'S SBMP &amp; ENGINEERING CAMPUS • VILE PARLE (WEST)
+              </span>
+              <h3 className="font-display text-slate-950 text-base sm:text-2xl font-black mt-2 leading-tight">
+                Master the 3-Hour Virtual Stock Trading Arena
+              </h3>
+              <p className="text-slate-700 text-xs sm:text-sm mt-1.5 font-medium leading-relaxed">
+                Follow these 8 official rules to trade 15 sector stocks, handle breaking market news shocks, and claim victory with 20,000 IC starting capital.
+              </p>
+              
+              <div className="mt-3 flex items-center gap-2">
+                <span className="badge-neo bg-[#e11d48] text-white px-2 py-0.5 text-[9px] font-black">
+                  ⚡ 20,000 IC FREE CAPITAL
                 </span>
-                <h3 className="font-display text-white text-base sm:text-xl font-black mt-1">
-                  Master the 3-Hour Virtual Stock Trading Arena
-                </h3>
-                <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-2xl font-medium">
-                  Follow these 8 official rules to trade 15 sector stocks, handle market news shocks, and claim the championship with 20,000 IC starting capital.
-                </p>
+                <span className="badge-neo bg-[#0284c7] text-white px-2 py-0.5 text-[9px] font-black">
+                  ⏱️ 3-HOUR GAMEPLAY
+                </span>
               </div>
-              <a
-                href="/Equity_Arena_Official_Brochure.pdf"
-                download="Equity_Arena_Official_Brochure.pdf"
-                className="px-4 py-2 rounded-xl bg-[#00f3ff] text-slate-950 font-mono text-xs font-black border-2 border-slate-950 shadow-[2.5px_2.5px_0px_#000] hover:bg-cyan-300 shrink-0 whitespace-nowrap"
-              >
-                ⬇️ SAVE PDF FILE
-              </a>
             </div>
           </div>
 
-          {/* 8-Step Grid */}
+          {/* 8-Step Grid Cards (White Mode Styling) */}
           <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
             {BROCHURE_STEPS.map((step) => {
               const Icon = step.icon;
+              const isWarning = step.num === '07';
+              const isVictory = step.num === '08';
+
               return (
                 <div
                   key={step.num}
-                  className="card-neo relative p-4 sm:p-5 bg-[#131c30] border-3 border-slate-950 rounded-2xl flex flex-col justify-between shadow-[4px_4px_0px_#05070e] hover:border-cyan-400 transition-colors"
+                  className={`card-neo relative p-4 sm:p-5 border-3 border-slate-950 rounded-2xl flex flex-col justify-between shadow-[4px_4px_0px_#05070e] transition-all hover:-translate-y-0.5 ${
+                    isWarning
+                      ? 'bg-red-50/90 border-red-600'
+                      : isVictory
+                      ? 'bg-amber-50/90 border-amber-600'
+                      : 'bg-slate-50'
+                  }`}
                 >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-3">
                       <div className="flex items-center gap-2.5">
                         <span
-                          className="flex h-9 w-9 items-center justify-center rounded-xl font-mono text-xs font-black border-2 border-slate-950 shadow-[2px_2px_0px_#000]"
-                          style={{ backgroundColor: step.color, color: step.num === '08' || step.num === '03' || step.num === '01' ? '#05070e' : '#ffffff' }}
+                          className="flex h-9 w-9 items-center justify-center rounded-xl font-mono text-xs font-black border-2 border-slate-950 shadow-[2px_2px_0px_#000] text-white"
+                          style={{ backgroundColor: step.color }}
                         >
                           {step.num}
                         </span>
-                        <div className="p-1.5 rounded-lg bg-slate-950/80 border border-slate-700 text-cyan-300">
-                          <Icon className="h-4 w-4" />
+                        <div className="p-1.5 rounded-lg bg-white border border-slate-950 text-slate-950 shadow-sm">
+                          <Icon className="h-4 w-4" style={{ color: step.color }} />
                         </div>
                       </div>
-                      <span className="badge-neo !px-2 !py-0.5 !text-[8.5px] bg-slate-950 text-cyan-300 border border-slate-700 font-mono">
+                      <span
+                        className="badge-neo !px-2 !py-0.5 !text-[8.5px] font-mono border border-slate-950"
+                        style={{
+                          backgroundColor: isWarning ? '#e11d48' : isVictory ? '#ffd200' : '#0f172a',
+                          color: isVictory ? '#0f172a' : '#ffffff'
+                        }}
+                      >
                         {step.badge}
                       </span>
                     </div>
 
-                    <h4 className="font-display text-white text-sm sm:text-base font-black tracking-tight">
+                    <h4 className="font-display text-slate-950 text-sm sm:text-base font-black tracking-tight">
                       {step.title}
                     </h4>
 
-                    <p className="mt-2 font-mono text-xs text-slate-300 leading-relaxed font-medium">
+                    <p className="mt-2 font-mono text-xs text-slate-700 leading-relaxed font-medium">
                       {step.description}
                     </p>
 
                     {step.subPoints && (
-                      <div className="mt-3 space-y-2 border-t border-slate-800 pt-3">
+                      <div className="mt-3 space-y-2 border-t-2 border-slate-200 pt-3">
                         {step.subPoints.map((sub, i) => (
-                          <div key={i} className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
-                            <span className="block font-mono text-[11px] font-bold text-[#ffd200]">
+                          <div key={i} className="p-2.5 rounded-xl bg-white border border-slate-950 shadow-sm text-left">
+                            <span className="block font-mono text-[11px] font-bold text-[#0284c7]">
                               • {sub.label}
                             </span>
-                            <span className="block font-mono text-[10.5px] text-slate-300 mt-0.5">
+                            <span className="block font-mono text-[10.5px] text-slate-700 mt-0.5 font-medium">
                               {sub.desc}
                             </span>
                           </div>
@@ -241,9 +258,9 @@ function BrochureModal({ onClose }) {
         </div>
 
         {/* Footer Bar */}
-        <div className="pt-4 border-t-2 border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
-          <div className="text-left font-mono text-[10px] sm:text-xs text-slate-400">
-            <span className="text-emerald-400 font-bold">EQUITY ARENA SIMULATION</span> • 20,000 IC VIRTUAL STARTING CAPITAL
+        <div className="pt-4 border-t-3 border-slate-950 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+          <div className="text-left font-mono text-[10.5px] sm:text-xs text-slate-600 font-bold">
+            <span className="text-[#e11d48]">EQUITY ARENA SIMULATION</span> • 20,000 IC VIRTUAL STARTING CAPITAL
           </div>
           <div className="flex items-center gap-3 w-full sm:w-auto">
             <a
@@ -251,7 +268,7 @@ function BrochureModal({ onClose }) {
               download="Equity_Arena_Official_Brochure.pdf"
               className="btn-neo w-full sm:w-auto !px-5 !py-2.5 !text-[12px] font-extrabold bg-[#ffd200] text-slate-950 hover:bg-amber-300 flex items-center justify-center gap-2 shadow-[3px_3px_0px_#05070e]"
             >
-              <Download className="h-4 w-4" /> DOWNLOAD PDF BROCHURE
+              <Download className="h-4 w-4" /> DOWNLOAD OFFICIAL PDF BROCHURE
             </a>
           </div>
         </div>

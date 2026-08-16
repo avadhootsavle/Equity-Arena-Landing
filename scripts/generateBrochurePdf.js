@@ -7,8 +7,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const outputPath = path.join(__dirname, '../public/Equity_Arena_Official_Brochure.pdf');
+const publicDir = path.join(__dirname, '../public');
 
-// Create public folder if it doesn't exist
+// Image paths
+const imgSpidermanHanging = path.join(publicDir, 'images/spiderman_hanging.png');
+const imgSpidermanSide = path.join(publicDir, 'images/spiderman_side.png');
+const imgPixelHead = path.join(publicDir, 'images/spidey_pixel_head_icon.png');
+const imgPixelSpider = path.join(publicDir, 'images/spidey_pixel_spider_icon.png');
+const imgBanner = path.join(publicDir, 'images/spidey_tracker_banner.png');
+
 if (!fs.existsSync(path.dirname(outputPath))) {
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 }
@@ -18,7 +25,7 @@ const doc = new PDFDocument({
   size: 'A4',
   margin: 0,
   info: {
-    Title: 'Equity Arena — Official Game Brochure & How To Play',
+    Title: 'Equity Arena — Official Game Brochure & Rulebook',
     Author: 'IGNITE 8.0 Team',
     Subject: 'How to Play Equity Arena Stock Market Simulation',
     Keywords: 'Equity Arena, Ignite 8.0, Stock Market, Rules, Brochure'
@@ -31,100 +38,124 @@ doc.pipe(stream);
 const W = 595.28;
 const H = 841.89;
 
-// Page 1
+// Page 1 — White Mode Theme with Spider-Man Character Artwork
 drawPage1();
 
-// Page 2
+// Page 2 — White Mode Theme
 doc.addPage({ size: 'A4', margin: 0 });
 drawPage2();
 
 doc.end();
 
 stream.on('finish', () => {
-  console.log(`Brochure PDF generated successfully at ${outputPath}`);
+  console.log(`White Mode Brochure PDF generated successfully at ${outputPath}`);
 });
 
 function drawPage1() {
-  // Dark Background
-  doc.rect(0, 0, W, H).fill('#0c1222');
+  // Page Background: Crisp Clean White Mode
+  doc.rect(0, 0, W, H).fill('#ffffff');
 
-  // Top Neon Cyber Header Banner
-  doc.rect(0, 0, W, 140).fill('#070e1c');
-  doc.rect(0, 136, W, 4).fill('#ff0055');
+  // Top Light Gray Accent Header Block
+  doc.rect(0, 0, W, 145).fill('#f8fafc');
+  doc.rect(0, 142, W, 3).fill('#e11d48'); // Crimson red bottom stripe
 
-  // Top Decorative Corner Lines
-  doc.rect(20, 20, 12, 12).fill('#ffd200');
-  doc.rect(W - 32, 20, 12, 12).fill('#00f3ff');
+  // Decorative Top Hazard Line
+  doc.rect(0, 0, W, 6).fill('#0f172a');
+  doc.rect(0, 6, W / 3, 4).fill('#e11d48');
+  doc.rect(W / 3, 6, W / 3, 4).fill('#0284c7');
+  doc.rect((2 * W) / 3, 6, W / 3, 4).fill('#eab308');
+
+  // Embed Spider-Man Character Hanging Artwork in Top Right Header
+  if (fs.existsSync(imgSpidermanHanging)) {
+    doc.image(imgSpidermanHanging, W - 145, 10, { width: 130 });
+  }
 
   // Header Badge
-  doc.roundedRect(30, 24, 140, 20, 4).fill('#ffd200');
-  doc.fillColor('#05070e').fontSize(9).font('Helvetica-Bold').text('IGNITE 8.0 • OFFICIAL GUIDE', 35, 29);
+  doc.roundedRect(30, 22, 175, 22, 5).fill('#0f172a');
+  doc.fillColor('#ffd200').fontSize(9.5).font('Helvetica-Bold').text('IGNITE 8.0 • OFFICIAL GAME GUIDE', 38, 28);
 
-  // Header Title
-  doc.fillColor('#ffffff').fontSize(26).font('Helvetica-Bold').text('EQUITY', 30, 52, { continued: true });
-  doc.fillColor('#ff0055').text(' ARENA');
+  // Main Title
+  doc.fillColor('#0f172a').fontSize(26).font('Helvetica-Bold').text('EQUITY', 30, 52, { continued: true });
+  doc.fillColor('#e11d48').text(' ARENA');
 
-  doc.fillColor('#00f3ff').fontSize(12).font('Helvetica-Bold').text('HOW TO PLAY & OFFICIAL RULEBOOK', 30, 85);
-  doc.fillColor('#94a3b8').fontSize(9.5).font('Helvetica').text('SVKM\'s Shri Bhagubhai Mafatlal Polytechnic • Vile Parle (West), Mumbai', 30, 103);
+  doc.fillColor('#0284c7').fontSize(12).font('Helvetica-Bold').text('HOW TO PLAY & OFFICIAL RULEBOOK', 30, 85);
+  doc.fillColor('#475569').fontSize(9).font('Helvetica-Bold').text('SVKM\'s Shri Bhagubhai Mafatlal Polytechnic • Vile Parle (West), Mumbai', 30, 103);
 
-  // Decorative Top Right Badge
-  doc.roundedRect(W - 160, 45, 130, 45, 8).fill('#131c30');
-  doc.rect(W - 160, 45, 4, 45).fill('#00f3ff');
-  doc.fillColor('#ffd200').fontSize(12).font('Helvetica-Bold').text('20,000 IC', W - 145, 53);
-  doc.fillColor('#ffffff').fontSize(8.5).font('Helvetica').text('STARTING CAPITAL', W - 145, 70);
+  // Capital Badge Box
+  doc.roundedRect(30, 116, 210, 20, 4).fill('#f1f5f9');
+  doc.rect(30, 116, 210, 20).lineWidth(1.5).stroke('#0f172a');
+  doc.fillColor('#e11d48').fontSize(9).font('Helvetica-Bold').text('STARTING CAPITAL:', 38, 122, { continued: true });
+  doc.fillColor('#0f172a').text(' 20,000 IC (VIRTUAL COINS)');
 
-  // Section Title
-  doc.fillColor('#ffffff').fontSize(16).font('Helvetica-Bold').text('8 STEPS TO DOMINATE THE ARENA', 30, 158);
-  doc.rect(30, 180, 260, 2).fill('#ff0055');
+  // Section Header
+  doc.fillColor('#0f172a').fontSize(15).font('Helvetica-Bold').text('8 STEPS TO MASTER THE ARENA', 30, 160);
+  doc.rect(30, 178, 250, 2.5).fill('#e11d48');
 
   // Steps 1 to 4 on Page 1
   const stepsPage1 = [
     {
       num: '01',
       title: 'REGISTER & GET 20,000 IC',
-      color: '#ff0055',
-      body: 'Create your account and receive 20,000 free Ignite Points (IC) to start the game. Your IC is your trading capital.'
+      color: '#e11d48',
+      badge: 'STARTING BONUS',
+      body: 'Create your account and receive 20,000 free Ignite Points (IC) to start the game. Your IC balance is your trading capital.'
     },
     {
       num: '02',
       title: 'START THE 3-HOUR GAME',
-      color: '#00f3ff',
-      body: 'The game runs for exactly 3 hours live. During the game, the market prices of 15 dynamic stocks keep changing in real-time.'
+      color: '#0284c7',
+      badge: 'LIVE ARENA',
+      body: 'The game runs for exactly 3 hours live. During the game, the market prices of the 15 available stocks keep changing in real-time.'
     },
     {
       num: '03',
       title: 'CHECK THE STOCKS',
-      color: '#ffd200',
-      body: 'Explore the 15 available stocks and check their live price, trend graph, sector telemetry, and order books before making your move.'
+      color: '#d97706',
+      badge: 'TELEMETRY & GRAPHS',
+      body: 'Explore the 15 available stocks and check their live price, trend graph, sector telemetry, and order details before making your move.'
     },
     {
       num: '04',
       title: 'FOLLOW THE MARKET NEWS',
-      color: '#10b981',
-      body: 'New breaking market news will appear during the game. News events directly impact stock volatility, so read carefully and act fast!'
+      color: '#059669',
+      badge: 'MARKET EVENTS',
+      body: 'New breaking market news will appear during the game. The news can affect stock prices, so read the news and make your decisions carefully.'
     }
   ];
 
-  let startY = 195;
+  let startY = 192;
   stepsPage1.forEach((step, idx) => {
-    const cardY = startY + idx * 140;
+    const cardY = startY + idx * 142;
 
-    // Card Container
-    doc.roundedRect(30, cardY, W - 60, 125, 8).fill('#131c30');
-    doc.rect(30, cardY, 6, 125).fill(step.color);
+    // Card Shadow
+    doc.roundedRect(33, cardY + 3, W - 60, 128, 8).fill('#e2e8f0');
 
-    // Step Number Badge
-    doc.roundedRect(48, cardY + 14, 38, 26, 4).fill(step.color);
-    doc.fillColor('#05070e').fontSize(13).font('Helvetica-Bold').text(step.num, 48, cardY + 20, { width: 38, align: 'center' });
+    // Card Main Background (Clean White Mode)
+    doc.roundedRect(30, cardY, W - 60, 128, 8).fill('#ffffff');
+    doc.roundedRect(30, cardY, W - 60, 128, 8).lineWidth(2).stroke('#0f172a');
+    doc.rect(30, cardY, 8, 128).fill(step.color);
+
+    // Number Badge
+    doc.roundedRect(48, cardY + 14, 38, 26, 5).fill(step.color);
+    doc.fillColor('#ffffff').fontSize(13).font('Helvetica-Bold').text(step.num, 48, cardY + 20, { width: 38, align: 'center' });
 
     // Step Title
-    doc.fillColor('#ffffff').fontSize(14).font('Helvetica-Bold').text(step.title, 96, cardY + 18);
+    doc.fillColor('#0f172a').fontSize(13.5).font('Helvetica-Bold').text(step.title, 96, cardY + 18);
 
-    // Step Body
-    doc.fillColor('#cbd5e1').fontSize(10.5).font('Helvetica').text(step.body, 96, cardY + 44, { width: W - 170, lineGap: 4 });
+    // Badge Right
+    doc.roundedRect(W - 170, cardY + 14, 125, 20, 4).fill('#f1f5f9');
+    doc.rect(W - 170, cardY + 14, 125, 20).lineWidth(1).stroke('#cbd5e1');
+    doc.fillColor(step.color).fontSize(7.5).font('Helvetica-Bold').text(step.badge, W - 170, cardY + 20, { width: 125, align: 'center' });
 
-    // Bottom Decorative Bar
-    doc.rect(48, cardY + 110, W - 110, 1).fill('#1e293b');
+    // Step Description Body
+    doc.fillColor('#334155').fontSize(10).font('Helvetica').text(step.body, 96, cardY + 46, { width: W - 170, lineGap: 3.5 });
+
+    // Optional Character Icon overlay on card
+    if (idx === 0 && fs.existsSync(imgPixelHead)) {
+      doc.image(imgPixelHead, W - 75, cardY + 75, { width: 32 });
+    } else if (idx === 2 && fs.existsSync(imgPixelSpider)) {
+      doc.image(imgPixelSpider, W - 75, cardY + 75, { width: 32 });
+    }
   });
 
   // Footer Page 1
@@ -132,98 +163,114 @@ function drawPage1() {
 }
 
 function drawPage2() {
-  // Dark Background
-  doc.rect(0, 0, W, H).fill('#0c1222');
+  // Page Background: Crisp Clean White Mode
+  doc.rect(0, 0, W, H).fill('#ffffff');
 
-  // Top Mini Header
-  doc.rect(0, 0, W, 70).fill('#070e1c');
-  doc.rect(0, 66, W, 4).fill('#00f3ff');
+  // Top Light Gray Mini Header
+  doc.rect(0, 0, W, 75).fill('#f8fafc');
+  doc.rect(0, 72, W, 3).fill('#0284c7');
 
-  doc.fillColor('#ffffff').fontSize(18).font('Helvetica-Bold').text('EQUITY ARENA', 30, 22, { continued: true });
-  doc.fillColor('#ffd200').text(' • GAMEPLAY RULES & STRATEGY');
-  doc.fillColor('#94a3b8').fontSize(9).font('Helvetica').text('PAGE 2 OF 2 • IGNITE 8.0 OFFICIAL HANDBOOK', 30, 46);
+  // Embed Spider-Man Side Character in Page 2 Header
+  if (fs.existsSync(imgSpidermanSide)) {
+    doc.image(imgSpidermanSide, W - 110, 8, { width: 85 });
+  }
+
+  doc.fillColor('#0f172a').fontSize(18).font('Helvetica-Bold').text('EQUITY ARENA', 30, 20, { continued: true });
+  doc.fillColor('#e11d48').text(' • GAMEPLAY RULES & STRATEGY');
+  doc.fillColor('#475569').fontSize(9).font('Helvetica-Bold').text('PAGE 2 OF 2 • IGNITE 8.0 OFFICIAL HANDBOOK', 30, 44);
 
   // Steps 5 to 8 on Page 2
   const stepsPage2 = [
     {
       num: '05',
       title: 'BUY & SELL SHARES',
-      color: '#3b82f6',
-      body: 'Use your Ignite Points to buy and sell shares.\n• Buy/Sell at Market Price — trade instantly at the current stock price.\n• Place a Limit Order — set your target price. The order fills automatically when market reaches it.'
+      color: '#0284c7',
+      bg: '#ffffff',
+      border: '#0f172a',
+      badge: 'TRADING DESK',
+      body: 'Use your Ignite Points to buy and sell shares.\nYou can:\n• Buy/Sell at Market Price — trade at the current stock price.\n• Place a Limit Order — set the price at which you want to buy or sell. The order will be completed when the stock reaches your chosen price.'
     },
     {
       num: '06',
       title: 'MANAGE YOUR IC',
-      color: '#8b5cf6',
-      body: 'Keep track of your Ignite Points, holdings, and live profit/loss. Use your points wisely and execute strategic buy, hold, or sell maneuvers.'
+      color: '#7c3aed',
+      bg: '#ffffff',
+      border: '#0f172a',
+      badge: 'PORTFOLIO CONTROL',
+      body: 'Keep track of your Ignite Points, shares and profit/loss. Use your points wisely and decide when to buy, hold or sell.'
     },
     {
       num: '07',
-      title: 'FINAL 5 MINUTES (CRITICAL LOCKOUT)',
-      color: '#ff0055',
-      body: 'When the game enters its last 5 minutes, no new trades can be placed. All shares you still own will be automatically liquidated at current market price.'
+      title: 'FINAL 5 MINUTES (LOCKOUT WARNING)',
+      color: '#e11d48',
+      bg: '#fff1f2',
+      border: '#e11d48',
+      badge: 'CRITICAL LOCKOUT',
+      body: 'When the game enters its last 5 minutes, no new trades can be placed. All the shares you still own will be automatically sold at the current market price.'
     },
     {
       num: '08',
       title: 'WIN THE GAME (CHAMPIONSHIP)',
-      color: '#ffd200',
-      body: 'After the 3-hour game ends, the player with the highest total Ignite Points (IC) claims victory and wins Equity Arena!'
+      color: '#d97706',
+      bg: '#fefce8',
+      border: '#d97706',
+      badge: 'VICTORY GOAL',
+      body: 'After the 3-hour game ends, the player with the highest amount of Ignite Points (IC) wins!'
     }
   ];
 
-  let startY = 90;
+  let startY = 88;
   stepsPage2.forEach((step, idx) => {
     const cardY = startY + idx * 148;
 
-    // Card Container
-    doc.roundedRect(30, cardY, W - 60, 134, 8).fill('#131c30');
-    doc.rect(30, cardY, 6, 134).fill(step.color);
+    // Card Shadow
+    doc.roundedRect(33, cardY + 3, W - 60, 134, 8).fill('#e2e8f0');
 
-    // Step Number Badge
-    doc.roundedRect(48, cardY + 14, 38, 26, 4).fill(step.color);
-    doc.fillColor('#05070e').fontSize(13).font('Helvetica-Bold').text(step.num, 48, cardY + 20, { width: 38, align: 'center' });
+    // Card Background
+    doc.roundedRect(30, cardY, W - 60, 134, 8).fill(step.bg);
+    doc.roundedRect(30, cardY, W - 60, 134, 8).lineWidth(2).stroke(step.border);
+    doc.rect(30, cardY, 8, 134).fill(step.color);
+
+    // Number Badge
+    doc.roundedRect(48, cardY + 14, 38, 26, 5).fill(step.color);
+    doc.fillColor('#ffffff').fontSize(13).font('Helvetica-Bold').text(step.num, 48, cardY + 20, { width: 38, align: 'center' });
 
     // Step Title
-    doc.fillColor('#ffffff').fontSize(14).font('Helvetica-Bold').text(step.title, 96, cardY + 18);
+    doc.fillColor('#0f172a').fontSize(13.5).font('Helvetica-Bold').text(step.title, 96, cardY + 18);
+
+    // Badge Right
+    doc.roundedRect(W - 170, cardY + 14, 125, 20, 4).fill(step.num === '07' ? '#e11d48' : step.num === '08' ? '#d97706' : '#f1f5f9');
+    doc.fillColor(step.num === '07' || step.num === '08' ? '#ffffff' : step.color).fontSize(7.5).font('Helvetica-Bold').text(step.badge, W - 170, cardY + 20, { width: 125, align: 'center' });
 
     // Step Body
-    doc.fillColor('#cbd5e1').fontSize(10).font('Helvetica').text(step.body, 96, cardY + 44, { width: W - 170, lineGap: 3 });
-
-    // Special Highlight Badges for 07 and 08
-    if (step.num === '07') {
-      doc.roundedRect(W - 145, cardY + 14, 100, 20, 4).fill('#ff0055');
-      doc.fillColor('#ffffff').fontSize(8).font('Helvetica-Bold').text('LOCKOUT WARNING', W - 145, cardY + 20, { width: 100, align: 'center' });
-    } else if (step.num === '08') {
-      doc.roundedRect(W - 145, cardY + 14, 100, 20, 4).fill('#ffd200');
-      doc.fillColor('#05070e').fontSize(8).font('Helvetica-Bold').text('VICTORY GOAL', W - 145, cardY + 20, { width: 100, align: 'center' });
-    }
+    doc.fillColor('#334155').fontSize(9.5).font('Helvetica').text(step.body, 96, cardY + 46, { width: W - 170, lineGap: 3 });
   });
 
   // Call-To-Action Box on Page 2
   const ctaY = startY + 4 * 148 - 5;
-  doc.roundedRect(30, ctaY, W - 60, 85, 10).fill('#071326');
-  doc.rect(30, ctaY, W - 60, 85).lineWidth(2).stroke('#00f3ff');
+  doc.roundedRect(33, ctaY + 3, W - 60, 85, 10).fill('#e2e8f0');
+  doc.roundedRect(30, ctaY, W - 60, 85, 10).fill('#0f172a');
 
   doc.fillColor('#ffd200').fontSize(14).font('Helvetica-Bold').text('READY TO DOMINATE THE MARKET?', 50, ctaY + 16);
-  doc.fillColor('#ffffff').fontSize(10).font('Helvetica').text('Register today at SVKM\'s Shri Bhagubhai Mafatlal Polytechnic and claim your 20,000 IC.', 50, ctaY + 36);
-  doc.fillColor('#00f3ff').fontSize(11).font('Helvetica-Bold').text('REGISTER ONLINE: https://ignite-8.vercel.app/register-stock', 50, ctaY + 56);
+  doc.fillColor('#ffffff').fontSize(9.5).font('Helvetica').text('Register today for Equity Arena at SVKM\'s Shri Bhagubhai Mafatlal Polytechnic and claim your 20,000 IC.', 50, ctaY + 36);
+  doc.fillColor('#00f3ff').fontSize(10.5).font('Helvetica-Bold').text('REGISTER ONLINE: https://ignite-8.vercel.app/register-stock', 50, ctaY + 56);
 
   // Footer Page 2
   drawFooter(2);
 }
 
 function drawFooter(pageNum) {
-  const footerY = H - 45;
-  doc.rect(0, footerY, W, 45).fill('#05070e');
-  doc.rect(0, footerY, W, 2).fill('#1e293b');
+  const footerY = H - 42;
+  doc.rect(0, footerY, W, 42).fill('#f8fafc');
+  doc.rect(0, footerY, W, 1.5).fill('#e2e8f0');
 
   doc.fillColor('#64748b').fontSize(8).font('Helvetica').text(
     'Equity Arena is an educational stock market simulation. Virtual currency (IC) only. No real money involved.',
-    30, footerY + 12
+    30, footerY + 14
   );
 
-  doc.fillColor('#94a3b8').fontSize(8).font('Helvetica-Bold').text(
+  doc.fillColor('#0f172a').fontSize(8).font('Helvetica-Bold').text(
     `IGNITE 8.0 • PAGE ${pageNum} OF 2`,
-    W - 150, footerY + 12, { width: 120, align: 'right' }
+    W - 150, footerY + 14, { width: 120, align: 'right' }
   );
 }
