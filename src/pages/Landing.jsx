@@ -868,10 +868,10 @@ function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
           <a
             href="/brochure"
             className="btn-neo !px-3.5 !py-2.5 !text-[12px] font-mono font-black bg-[#ffd200] text-slate-950 hover:bg-amber-300 flex items-center gap-1.5 shadow-[2px_2px_0px_#05070e]"
-            title="View & Print Official Equity Arena Brochure Webpage"
+            title="View Official Equity Arena Brochure"
           >
             <FileText className="h-4 w-4 text-slate-950" />
-            <span>Brochure (Page / Print)</span>
+            <span>Brochure</span>
           </a>
 
           <a
@@ -982,9 +982,9 @@ function Navbar({ onRegisterClick, onTrackerClick, theme, onToggleTheme }) {
               >
                 <div className="flex items-center gap-2">
                   <FileText className="h-4 w-4 text-slate-950" />
-                  <span>Brochure Page & Print</span>
+                  <span>Brochure</span>
                 </div>
-                <Printer className="h-4 w-4 text-slate-950" />
+                <ArrowRight className="h-4 w-4 text-slate-950" />
               </a>
 
               {/* Mobile Spidey Tracker Button */}
