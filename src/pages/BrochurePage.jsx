@@ -127,7 +127,6 @@ function SpideyCursor() {
 
 export function BrochurePage() {
   const navigate = useNavigate();
-  const [openFaq, setOpenFaq] = useState(null);
 
   // Mouse Parallax Motion Values for Spider-Man Character Sway
   const mouseX = useMotionValue(0);
@@ -550,7 +549,7 @@ export function BrochurePage() {
             })}
           </div>
 
-          {/* New Rich Data Card: FAQ Accordion */}
+          {/* FAQ Section — Fully Visible Cards for Perfect Printing */}
           <div className="p-5 bg-slate-50 border-3.5 border-slate-950 rounded-2xl shadow-[5px_5px_0px_#000] space-y-3 text-left">
             <div className="flex items-center gap-2">
               <span className="px-3 py-1 bg-[#ffd200] text-slate-950 font-mono text-xs font-black rounded-lg border border-slate-950 shadow-[1.5px_1.5px_0px_#000]">
@@ -558,29 +557,15 @@ export function BrochurePage() {
               </span>
             </div>
 
-            <div className="space-y-2">
+            <div className="grid gap-3 sm:grid-cols-2">
               {FAQS.map((faq, idx) => (
-                <div key={idx} className="border-2 border-slate-950 rounded-xl overflow-hidden bg-white shadow-[2px_2px_0px_#000]">
-                  <button
-                    type="button"
-                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                    className="w-full p-3 flex items-center justify-between text-left font-mono text-xs font-black text-slate-950 cursor-pointer hover:bg-slate-100"
-                  >
-                    <span>Q: {faq.q}</span>
-                    <ChevronDown className={`h-4 w-4 transition-transform ${openFaq === idx ? 'rotate-180' : ''}`} />
-                  </button>
-                  <AnimatePresence>
-                    {openFaq === idx && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="p-3 pt-0 font-mono text-xs font-bold text-slate-700 border-t border-slate-200 bg-slate-50"
-                      >
-                        {faq.a}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                <div key={idx} className="p-3 bg-white border-2 border-slate-950 rounded-xl shadow-[3px_3px_0px_#000] space-y-1.5">
+                  <span className="block font-mono text-xs font-black text-slate-950">
+                    Q: {faq.q}
+                  </span>
+                  <p className="font-mono text-[11px] font-bold text-slate-700 leading-relaxed border-t border-slate-200 pt-1.5">
+                    {faq.a}
+                  </p>
                 </div>
               ))}
             </div>
