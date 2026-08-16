@@ -252,14 +252,6 @@ export function BrochurePage() {
     }
   ];
 
-  const SECTORS = [
-    { name: 'INFRASTRUCTURE & POWER', ticker: 'INFRA-9', vol: 'HIGH' },
-    { name: 'BANKING & FINTECH', ticker: 'FIN-CORP', vol: 'VERY HIGH' },
-    { name: 'TECH & ARTIFICIAL INTEL', ticker: 'CYBER-X', vol: 'MED-HIGH' },
-    { name: 'PHARMA & BIO-GENETICS', ticker: 'BIO-MED', vol: 'HIGH' },
-    { name: 'AUTO & ELECTRIC EV', ticker: 'NEO-DRIVE', vol: 'EXTREME' }
-  ];
-
   const FAQS = [
     {
       q: 'Is there any real money involved in Equity Arena?',
@@ -451,28 +443,6 @@ export function BrochurePage() {
                 </motion.div>
               );
             })}
-          </div>
-
-          {/* New Rich Data Card: Stock Sectors Telemetry Box */}
-          <div className="p-5 bg-slate-50 border-3.5 border-slate-950 rounded-2xl shadow-[5px_5px_0px_#000] space-y-3 text-left">
-            <div className="flex items-center justify-between">
-              <span className="px-3 py-1 bg-slate-950 text-[#ffd200] font-mono text-xs font-black rounded-lg border border-slate-950">
-                📊 ARENA MARKET MATRIX — 15 SECTOR EQUITIES
-              </span>
-              <span className="font-mono text-xs font-bold text-slate-500">LIVE FEED</span>
-            </div>
-
-            <div className="grid gap-2 sm:grid-cols-3">
-              {SECTORS.map((sec, i) => (
-                <div key={i} className="p-2.5 bg-white border-2 border-slate-950 rounded-xl shadow-[2px_2px_0px_#000]">
-                  <span className="block font-mono text-[10px] font-black text-slate-950">{sec.name}</span>
-                  <div className="flex items-center justify-between mt-1 font-mono text-[9.5px]">
-                    <span className="text-[#0284c7] font-bold">{sec.ticker}</span>
-                    <span className="text-[#ff0055] font-black">{sec.vol}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
