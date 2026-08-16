@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import {
@@ -16,7 +16,7 @@ const REGISTER_URL = 'https://ignite-8.vercel.app/register-stock';
 function SpideyCursor() {
   const dotRef = useRef(null);
   const trailingRef = useRef(null);
-  const [isHoveringInteractive, setIsHoveringInteractive] = useState(false);
+  const [isHoveringInteractive, setIsHoveringInteractive] = React.useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -132,9 +132,9 @@ export function BrochurePage() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const spideyRotate = useTransform(mouseX, [-600, 600], [-10, 10]);
-  const spideyX = useTransform(mouseX, [-600, 600], [-20, 20]);
-  const spideyY = useTransform(mouseY, [-600, 600], [-12, 12]);
+  const spideyRotate = useTransform(mouseX, [-600, 600], [-12, 12]);
+  const spideyX = useTransform(mouseX, [-600, 600], [-24, 24]);
+  const spideyY = useTransform(mouseY, [-600, 600], [-15, 15]);
 
   const springRotate = useSpring(spideyRotate, { stiffness: 140, damping: 18 });
   const springX = useSpring(spideyX, { stiffness: 140, damping: 18 });
@@ -270,43 +270,23 @@ export function BrochurePage() {
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-[#ffd200] selection:text-slate-950 overflow-x-hidden">
       <SpideyCursor />
 
-      {/* Print CSS Custom Rules */}
-      <style>{`
-        @media print {
-          .no-print { display: none !important; }
-          body { background: white !important; color: black !important; }
-          .page-break { page-break-after: always; }
-          .neo-card { transform: none !important; box-shadow: 4px 4px 0px #000 !important; }
-          * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-        }
-      `}</style>
-
       {/* Floating Action Bar */}
-      <div className="no-print fixed top-4 right-4 z-50 flex items-center gap-2.5 bg-slate-950 p-2.5 px-4 rounded-2xl border-3 border-slate-950 shadow-[4px_4px_0px_#ff0055]">
+      <div className="no-print fixed top-4 right-4 z-50 flex items-center gap-2.5 bg-slate-950/90 backdrop-blur-md p-2 px-3 rounded-2xl border-3 border-slate-950 shadow-[4px_4px_0px_#ff0055]">
         <button
           type="button"
           onClick={() => navigate('/')}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 text-white font-mono text-xs font-bold hover:bg-slate-700 transition-all cursor-pointer border border-slate-700 active:scale-95"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#ffd200] text-slate-950 font-mono text-xs font-black hover:bg-amber-300 transition-all cursor-pointer border-2 border-slate-950 shadow-[2.5px_2.5px_0px_#000] active:scale-95"
         >
-          <ArrowLeft className="h-4 w-4" />
-          <span>Home</span>
+          <ArrowLeft className="h-4 w-4 text-slate-950" />
+          <span>BACK TO MAIN ARENA</span>
         </button>
-
-        <a
-          href="/Equity_Arena_Official_Brochure.pdf"
-          download="Equity_Arena_Official_Brochure.pdf"
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#ffd200] text-slate-950 font-mono text-xs font-black hover:bg-amber-300 transition-all border-2 border-slate-950 shadow-[3px_3px_0px_#000] active:scale-95 cursor-pointer"
-        >
-          <Download className="h-4 w-4 text-slate-950" />
-          <span>DOWNLOAD OFFICIAL BROCHURE (PDF)</span>
-        </a>
       </div>
 
       {/* Main Neo-Brutalist Interactive Container */}
-      <div className="mx-auto max-w-[920px] p-4 sm:p-8 space-y-8">
+      <div className="mx-auto max-w-[920px] p-4 sm:p-8 space-y-12">
         
-        {/* ================= PAGE 1 ================= */}
-        <div className="page-break relative space-y-6 pt-2">
+        {/* ================= SECTION 1: HEADER & STEPS 01 TO 04 ================= */}
+        <div className="relative space-y-6 pt-2">
           {/* Top Animated Hazard Bar */}
           <div className="h-3.5 w-full border-2 border-slate-950 rounded-full flex overflow-hidden shadow-[2.5px_2.5px_0px_#000]">
             <div className="h-full w-1/5 bg-[#ff0055]" />
@@ -318,7 +298,7 @@ export function BrochurePage() {
 
           {/* Header Neo Banner Box with Movable Spider-Man Character */}
           <motion.div
-            whileHover={{ y: -2 }}
+            whileHover={{ y: -3 }}
             className="neo-card relative rounded-2xl bg-slate-50 border-3.5 border-slate-950 p-6 sm:p-8 shadow-[6px_6px_0px_#ff0055] overflow-hidden group"
           >
             {/* Movable Spider-Man Character Artwork — Responds to Cursor Motion! */}
@@ -327,7 +307,6 @@ export function BrochurePage() {
               className="absolute right-2 -top-2 w-32 sm:w-44 pointer-events-none drop-shadow-xl z-20"
             >
               <img src="/images/spiderman_hanging.png" alt="Spider-Man Character" className="w-full h-auto" />
-              {/* Comic Pop Stamp next to Spider-Man */}
               <div className="absolute -left-10 bottom-4 bg-[#ffd200] border-2 border-slate-950 text-slate-950 font-mono text-[9px] font-black px-2 py-0.5 rounded-md -rotate-12 shadow-[2px_2px_0px_#000] uppercase">
                 THWIP!
               </div>
@@ -373,7 +352,7 @@ export function BrochurePage() {
             </span>
           </div>
 
-          {/* Steps 01 to 04 Grid with 3D Motion Tilt & Hover Animations */}
+          {/* Steps 01 to 04 Grid */}
           <div className="grid gap-5 sm:grid-cols-2 text-left">
             {STEPS.slice(0, 4).map((step, idx) => {
               const Icon = step.icon;
@@ -432,7 +411,7 @@ export function BrochurePage() {
           </div>
         </div>
 
-        {/* ================= PAGE 2 ================= */}
+        {/* ================= SECTION 2: STEPS 05 TO 08 ================= */}
         <div className="space-y-6 pt-4">
           {/* Header Mini Banner */}
           <motion.div
@@ -442,10 +421,10 @@ export function BrochurePage() {
             <div className="space-y-1 text-left">
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-0.5 bg-slate-950 text-white rounded font-mono text-[10px] font-bold">
-                  PAGE 2 OF 2
+                  TRADING STRATEGY
                 </span>
                 <span className="px-2.5 py-0.5 bg-[#00f3ff] text-slate-950 rounded border border-slate-950 font-mono text-[10px] font-black">
-                  TRADING STRATEGY
+                  LIVE DESK
                 </span>
               </div>
               <h2 className="font-display text-xl sm:text-2xl font-black text-slate-950">
@@ -535,25 +514,32 @@ export function BrochurePage() {
               );
             })}
           </div>
-          <br></br><br></br><br></br><br></br>
-          {/* FAQ Section — Generous Top Spacing Gap */}
-          <div className="mt-20 sm:mt-28 pt-6 p-5 bg-slate-50 border-3.5 border-slate-950 rounded-2xl shadow-[5px_5px_0px_#000] space-y-3 text-left">
+        </div>
+
+        {/* ================= SECTION 3: FAQ & CTA ================= */}
+        <div className="space-y-8 pt-4">
+          {/* FAQ Section — Fully Visible Cards with Generous Spacing */}
+          <div className="p-6 bg-slate-50 border-3.5 border-slate-950 rounded-2xl shadow-[6px_6px_0px_#000] space-y-4 text-left">
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 bg-[#ffd200] text-slate-950 font-mono text-xs font-black rounded-lg border border-slate-950 shadow-[1.5px_1.5px_0px_#000]">
+              <span className="px-3.5 py-1.5 bg-[#ffd200] text-slate-950 font-mono text-xs font-black rounded-lg border-2 border-slate-950 shadow-[2px_2px_0px_#000]">
                 ❓ FREQUENTLY ASKED QUESTIONS (FAQ)
               </span>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2">
               {FAQS.map((faq, idx) => (
-                <div key={idx} className="p-3 bg-white border-2 border-slate-950 rounded-xl shadow-[3px_3px_0px_#000] space-y-1.5">
+                <motion.div
+                  key={idx}
+                  whileHover={{ y: -3, scale: 1.01 }}
+                  className="p-4 bg-white border-2.5 border-slate-950 rounded-xl shadow-[3px_3px_0px_#000] space-y-2"
+                >
                   <span className="block font-mono text-xs font-black text-slate-950">
                     Q: {faq.q}
                   </span>
-                  <p className="font-mono text-[11px] font-bold text-slate-700 leading-relaxed border-t border-slate-200 pt-1.5">
+                  <p className="font-mono text-[11px] font-bold text-slate-700 leading-relaxed border-t-2 border-slate-100 pt-2">
                     {faq.a}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -561,7 +547,7 @@ export function BrochurePage() {
           {/* Call To Action Box */}
           <motion.div
             whileHover={{ scale: 1.01 }}
-            className="neo-card relative rounded-2xl bg-slate-950 border-3.5 border-slate-950 p-6 shadow-[6px_6px_0px_#ff0055] text-left text-white space-y-3"
+            className="neo-card relative rounded-2xl bg-slate-950 border-3.5 border-slate-950 p-6 sm:p-8 shadow-[6px_6px_0px_#ff0055] text-left text-white space-y-4 overflow-hidden"
           >
             <div className="flex items-center gap-2">
               <span className="px-2.5 py-0.5 bg-[#ffd200] text-slate-950 rounded font-mono text-xs font-black border border-slate-950">
@@ -570,11 +556,11 @@ export function BrochurePage() {
               <span className="font-mono text-xs text-slate-400 font-bold">IGNITE 8.0</span>
             </div>
 
-            <h3 className="font-display text-xl sm:text-2xl font-black text-[#ffd200]">
+            <h3 className="font-display text-2xl sm:text-3xl font-black text-[#ffd200]">
               READY TO DOMINATE THE STOCK MARKET?
             </h3>
 
-            <p className="font-mono text-xs text-slate-300 font-bold">
+            <p className="font-mono text-xs sm:text-sm text-slate-300 font-bold max-w-xl">
               Register today for Equity Arena at SVKM's Shri Bhagubhai Mafatlal Polytechnic and claim your 20,000 IC virtual trading capital.
             </p>
 
@@ -582,17 +568,16 @@ export function BrochurePage() {
               href={REGISTER_URL}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#00f3ff] text-slate-950 rounded-xl font-mono text-xs font-black border-2 border-slate-950 shadow-[3px_3px_0px_#fff] hover:bg-cyan-300 transition-all active:scale-95"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#00f3ff] text-slate-950 rounded-xl font-mono text-xs font-black border-2 border-slate-950 shadow-[3.5px_3.5px_0px_#fff] hover:bg-cyan-300 transition-all active:scale-95 cursor-pointer"
             >
               <span>REGISTER ONLINE: https://ignite-8.vercel.app/register-stock</span>
             </a>
           </motion.div>
 
           {/* Footer */}
-           <br></br><br></br><br></br><br></br> <br></br><br></br><br></br><br></br> <br></br><br></br>
           <div className="pt-4 border-t-2 border-slate-950 flex flex-col sm:flex-row items-center justify-between text-xs font-mono font-bold text-slate-600 gap-2">
             <p>© {new Date().getFullYear()} Equity Arena • Virtual Trading Simulator • No Real Money Involved</p>
-            <p className="text-slate-950">SVKM'S SBMP • VILE PARLE (WEST)</p>
+            <p className="text-slate-950 font-black">SVKM'S SBMP • VILE PARLE (WEST)</p>
           </div>
         </div>
 
