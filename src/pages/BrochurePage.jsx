@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import {
-  Printer, Download, ArrowLeft, Users, Flame, LineChart, Newspaper,
+  Download, ArrowLeft, Users, Flame, LineChart, Newspaper,
   TrendingUp, Wallet, Lock, Trophy, Zap, Shield, Sparkles, CheckCircle2,
   AlertTriangle, HelpCircle, ChevronDown, Award, BarChart3, Layers
 } from 'lucide-react';
@@ -152,10 +152,6 @@ export function BrochurePage() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [mouseX, mouseY]);
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   const STEPS = [
     {
       num: '01',
@@ -285,33 +281,24 @@ export function BrochurePage() {
         }
       `}</style>
 
-      {/* Floating Action Bar (Hidden when Printing) */}
+      {/* Floating Action Bar */}
       <div className="no-print fixed top-4 right-4 z-50 flex items-center gap-2.5 bg-slate-950 p-2.5 px-4 rounded-2xl border-3 border-slate-950 shadow-[4px_4px_0px_#ff0055]">
         <button
           type="button"
           onClick={() => navigate('/')}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 text-white font-mono text-xs font-bold hover:bg-slate-700 transition-all cursor-pointer border border-slate-700 active:scale-95"
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 text-white font-mono text-xs font-bold hover:bg-slate-700 transition-all cursor-pointer border border-slate-700 active:scale-95"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>Home</span>
         </button>
 
-        <button
-          type="button"
-          onClick={handlePrint}
-          className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#ffd200] text-slate-950 font-mono text-xs font-black hover:bg-amber-300 transition-all cursor-pointer border-2 border-slate-950 shadow-[2.5px_2.5px_0px_#000] active:scale-95"
-        >
-          <Printer className="h-4 w-4 text-slate-950" />
-          <span>PRINT / SAVE AS PDF</span>
-        </button>
-
         <a
           href="/Equity_Arena_Official_Brochure.pdf"
           download="Equity_Arena_Official_Brochure.pdf"
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#00f3ff] text-slate-950 font-mono text-xs font-black hover:bg-cyan-300 transition-all border-2 border-slate-950 shadow-[2.5px_2.5px_0px_#000] active:scale-95"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#ffd200] text-slate-950 font-mono text-xs font-black hover:bg-amber-300 transition-all border-2 border-slate-950 shadow-[3px_3px_0px_#000] active:scale-95 cursor-pointer"
         >
           <Download className="h-4 w-4 text-slate-950" />
-          <span className="hidden sm:inline">DOWNLOAD PDF</span>
+          <span>DOWNLOAD OFFICIAL BROCHURE (PDF)</span>
         </a>
       </div>
 
@@ -548,7 +535,7 @@ export function BrochurePage() {
               );
             })}
           </div>
-
+          <br></br><br></br><br></br><br></br>
           {/* FAQ Section — Generous Top Spacing Gap */}
           <div className="mt-20 sm:mt-28 pt-6 p-5 bg-slate-50 border-3.5 border-slate-950 rounded-2xl shadow-[5px_5px_0px_#000] space-y-3 text-left">
             <div className="flex items-center gap-2">
@@ -602,6 +589,7 @@ export function BrochurePage() {
           </motion.div>
 
           {/* Footer */}
+           <br></br><br></br><br></br><br></br> <br></br><br></br><br></br><br></br> <br></br><br></br>
           <div className="pt-4 border-t-2 border-slate-950 flex flex-col sm:flex-row items-center justify-between text-xs font-mono font-bold text-slate-600 gap-2">
             <p>© {new Date().getFullYear()} Equity Arena • Virtual Trading Simulator • No Real Money Involved</p>
             <p className="text-slate-950">SVKM'S SBMP • VILE PARLE (WEST)</p>
